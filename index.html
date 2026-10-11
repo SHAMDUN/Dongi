@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
 
 <style>
 :root {
@@ -53,12 +54,11 @@
 
 body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-height: 1.6; overflow-x: hidden; }
 
-/* ==================== APP LAYOUT (SIDEBAR + MAIN) ==================== */
 .app-layout { display: flex; min-height: 100vh; }
 
-/* ==================== SIDEBAR (منوی عمودی راست) ==================== */
+/* ==================== SIDEBAR ==================== */
 .sidebar {
-    width: 260px;
+    width: 270px;
     background: var(--white);
     border-left: 1px solid var(--gray-200);
     display: flex;
@@ -78,69 +78,43 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     color: white;
 }
 
-.sidebar-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 16px;
-}
+.sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 
 .sidebar-logo {
-    width: 48px;
-    height: 48px;
+    width: 48px; height: 48px;
     background: rgba(255,255,255,0.2);
     border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 22px;
     border: 1.5px solid rgba(255,255,255,0.25);
 }
 
-.sidebar-brand-text h2 {
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: -0.3px;
-}
-
-.sidebar-brand-text p {
-    font-size: 11px;
-    opacity: 0.9;
-    margin-top: 2px;
-}
+.sidebar-brand-text h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
+.sidebar-brand-text p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 
 .sidebar-info {
     background: rgba(255,255,255,0.15);
     border-radius: 12px;
     padding: 10px 12px;
     font-size: 11px;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 .sidebar-info .row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: flex; align-items: center; gap: 6px;
     margin-bottom: 4px;
 }
 
 .sidebar-info .row:last-child { margin-bottom: 0; }
 
-.sidebar-nav {
-    flex: 1;
-    padding: 16px 12px;
-    overflow-y: auto;
-}
+.sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
 
 .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
     padding: 12px 14px;
     border-radius: 12px;
     color: var(--gray-700);
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 14px; font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     margin-bottom: 4px;
@@ -160,12 +134,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 }
 
 .nav-link:hover { background: var(--gray-100); }
-
-.nav-link.active {
-    background: var(--primary-light);
-    color: var(--primary);
-}
-
+.nav-link.active { background: var(--primary-light); color: var(--primary); }
 .nav-link.active i { color: var(--primary); }
 
 .sidebar-footer {
@@ -177,11 +146,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 }
 
 /* ==================== MAIN AREA ==================== */
-.main-area {
-    flex: 1;
-    margin-right: 260px;
-    min-width: 0;
-}
+.main-area { flex: 1; margin-right: 270px; min-width: 0; }
 
 /* ==================== MOBILE HEADER ==================== */
 .mobile-header {
@@ -196,70 +161,49 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 }
 
 .mobile-header-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     gap: 12px;
 }
 
-.mobile-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-    min-width: 0;
-}
+.mobile-brand { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
 
 .mobile-logo {
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     background: rgba(255,255,255,0.2);
     border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 18px;
     flex-shrink: 0;
 }
 
 .mobile-brand-text h1 {
-    font-size: 15px;
-    font-weight: 800;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 15px; font-weight: 800;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 .mobile-brand-text p {
-    font-size: 10px;
-    opacity: 0.85;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 10px; opacity: 0.85;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 .mobile-menu-btn {
-    width: 42px;
-    height: 42px;
+    width: 42px; height: 42px;
     border-radius: 12px;
     background: rgba(255,255,255,0.15);
     border: 1.5px solid rgba(255,255,255,0.2);
     color: white;
     font-size: 17px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
 }
 
 .mobile-menu-btn:active { transform: scale(0.94); }
 
-/* ==================== SIDEBAR OVERLAY (موبایل) ==================== */
+/* ==================== SIDEBAR OVERLAY ==================== */
 .sidebar-overlay {
     display: none;
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: rgba(15,23,42,0.5);
     backdrop-filter: blur(4px);
     z-index: 199;
@@ -286,24 +230,18 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 }
 
 .page-title {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
     margin-bottom: 20px;
-    font-size: 22px;
-    font-weight: 800;
+    font-size: 22px; font-weight: 800;
     color: var(--dark);
 }
 
 .page-title i {
-    width: 44px;
-    height: 44px;
+    width: 44px; height: 44px;
     background: var(--primary-light);
     color: var(--primary);
     border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 20px;
 }
 
@@ -318,9 +256,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 }
 
 .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 16px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--gray-100);
@@ -329,21 +265,15 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 }
 
 .card-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    font-weight: 700;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 15px; font-weight: 700;
     color: var(--dark);
 }
 
 .card-title i {
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 15px;
 }
 
@@ -373,11 +303,8 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 .summary-card::before {
     content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60px;
-    height: 60px;
+    position: absolute; top: 0; right: 0;
+    width: 60px; height: 60px;
     border-radius: 0 0 0 60px;
     opacity: 0.08;
 }
@@ -388,12 +315,9 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .summary-card.warning::before { background: var(--warning); }
 
 .summary-card .icon-wrap {
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 16px;
     margin-bottom: 10px;
 }
@@ -411,8 +335,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 .form-group label {
     display: block;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--gray-700);
     margin-bottom: 6px;
 }
@@ -445,8 +368,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     border-radius: var(--radius-sm);
     border: none;
     font-family: inherit;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 14px; font-weight: 700;
     cursor: pointer;
     transition: all 0.2s;
     display: inline-flex;
@@ -463,39 +385,27 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .btn-danger { background: var(--gradient-danger); color: white; box-shadow: 0 4px 14px rgba(239,68,68,0.3); }
 .btn-warning { background: var(--gradient-warning); color: white; box-shadow: 0 4px 14px rgba(245,158,11,0.3); }
 
-.btn-outline {
-    background: transparent;
-    border: 1.5px solid var(--primary);
-    color: var(--primary);
-}
-
+.btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
 .btn-ghost { background: var(--gray-100); color: var(--gray-700); }
 .btn-sm { padding: 8px 14px; font-size: 12px; border-radius: 10px; }
 .btn-icon { padding: 8px; width: 36px; height: 36px; }
-
 .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* ==================== LIST ==================== */
 .list-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 14px 0;
     border-bottom: 1px solid var(--gray-100);
     gap: 12px;
 }
 
 .list-item:last-child { border-bottom: none; }
-
 .list-item-info { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
 
 .list-item-icon {
-    width: 42px;
-    height: 42px;
+    width: 42px; height: 42px;
     border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 16px;
     flex-shrink: 0;
 }
@@ -509,13 +419,10 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 /* ==================== BADGE ==================== */
 .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+    display: inline-flex; align-items: center; gap: 4px;
     padding: 4px 10px;
     border-radius: 20px;
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 10px; font-weight: 700;
 }
 
 .badge-success { background: var(--success-light); color: var(--success); }
@@ -537,8 +444,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 /* ==================== MODAL ==================== */
 .modal-overlay {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: rgba(15,23,42,0.6);
     backdrop-filter: blur(4px);
     display: none;
@@ -566,53 +472,43 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 }
 
 .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 20px 20px 16px;
     border-bottom: 1px solid var(--gray-100);
-    position: sticky;
-    top: 0;
+    position: sticky; top: 0;
     background: var(--white);
     border-radius: var(--radius) var(--radius) 0 0;
     z-index: 2;
 }
 
 .modal-title {
-    font-size: 16px;
-    font-weight: 800;
+    font-size: 16px; font-weight: 800;
     color: var(--dark);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 10px;
 }
 
 .modal-title i { color: var(--primary); }
 
 .modal-close {
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border-radius: 50%;
     background: var(--gray-100);
     border: none;
     font-size: 16px;
     color: var(--gray-700);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.2s;
 }
 
-.modal-close:active { transform: scale(0.9); background: var(--gray-200); }
+.modal-close:active { transform: scale(0.9); }
 
 .modal-body { padding: 20px; }
 
 .modal-footer {
     padding: 16px 20px 20px;
     border-top: 1px solid var(--gray-100);
-    display: flex;
-    gap: 10px;
+    display: flex; gap: 10px;
 }
 
 /* ==================== UPLOAD ==================== */
@@ -633,9 +529,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .upload-zone input { display: none; }
 
 .file-preview {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex; align-items: center; gap: 10px;
     padding: 10px 12px;
     background: var(--primary-light);
     border-radius: 10px;
@@ -647,7 +541,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .file-preview .name { flex: 1; color: var(--gray-700); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .file-preview .remove { color: var(--danger); cursor: pointer; padding: 4px; }
 
-/* ==================== SUB LIST (پرداخت‌ها) ==================== */
+/* ==================== SUB LIST ==================== */
 .sub-list {
     background: var(--gray-50);
     border-radius: var(--radius-sm);
@@ -655,17 +549,10 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     margin-top: 10px;
 }
 
-.sub-list-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--gray-500);
-    margin-bottom: 8px;
-}
+.sub-list-title { font-size: 11px; font-weight: 700; color: var(--gray-500); margin-bottom: 8px; }
 
 .sub-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 8px 10px;
     background: var(--white);
     border-radius: 8px;
@@ -689,13 +576,10 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 }
 
 .law-box h4 {
-    font-size: 13px;
-    font-weight: 800;
+    font-size: 13px; font-weight: 800;
     color: #92400e;
     margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: flex; align-items: center; gap: 6px;
 }
 
 .law-box p { font-size: 11px; color: #78350f; line-height: 1.8; margin-bottom: 6px; }
@@ -704,23 +588,19 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 /* ==================== TOAST ==================== */
 .toast {
     position: fixed;
-    bottom: 24px;
-    left: 50%;
+    bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(20px);
     background: var(--dark);
     color: white;
     padding: 12px 22px;
     border-radius: 30px;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 13px; font-weight: 600;
     opacity: 0;
     transition: all 0.3s;
     pointer-events: none;
     z-index: 2000;
     box-shadow: var(--shadow-lg);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; align-items: center; gap: 8px;
     max-width: calc(100% - 32px);
 }
 
@@ -729,12 +609,79 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .toast.error { background: var(--danger); }
 .toast.warning { background: var(--warning); }
 
+/* ==================== JOURNAL TABS ==================== */
+.journal-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    background: var(--white);
+    padding: 6px;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+
+.journal-tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    color: var(--gray-500);
+    border-radius: 10px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.25s;
+}
+
+.journal-tab.active-building {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+}
+
+.journal-tab.active-travel {
+    background: var(--gradient-warning);
+    color: white;
+    box-shadow: 0 4px 14px rgba(245,158,11,0.3);
+}
+
+/* ==================== PERSIAN DATEPICKER OVERRIDE ==================== */
+.datepicker-plot-area {
+    font-family: 'Vazirmatn', sans-serif !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(15,23,42,0.15) !important;
+    border: 1px solid var(--gray-200) !important;
+    z-index: 3000 !important;
+}
+
+.datepicker-day-view .table-days td span {
+    font-family: 'Vazirmatn', sans-serif !important;
+    border-radius: 8px !important;
+}
+
+.datepicker-day-view .table-days td.selected span {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+.datepicker-day-view .table-days td:hover span {
+    background: var(--primary-light) !important;
+}
+
+.datepicker-header .header-month,
+.datepicker-header .header-year {
+    color: var(--primary) !important;
+    font-weight: 700 !important;
+}
+
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 900px) {
-    .sidebar {
-        transform: translateX(100%);
-        box-shadow: -10px 0 40px rgba(0,0,0,0.15);
-    }
+    .sidebar { transform: translateX(100%); box-shadow: -10px 0 40px rgba(0,0,0,0.15); }
     .sidebar.active { transform: translateX(0); }
     .sidebar-overlay { display: block; }
     .main-area { margin-right: 0; }
@@ -800,9 +747,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             <i class="fas fa-cog"></i> تنظیمات
         </button>
     </nav>
-    <div class="sidebar-footer">
-        حساب‌یار — نسخه ۲.۰.۰
-    </div>
+    <div class="sidebar-footer">حساب‌یار — نسخه ۲.۱.۰</div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -810,7 +755,6 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 <!-- ==================== MAIN AREA ==================== -->
 <div class="main-area">
 
-<!-- Mobile Header -->
 <header class="mobile-header">
     <div class="mobile-header-content">
         <div class="mobile-brand">
@@ -830,10 +774,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <!-- ==================== DASHBOARD ==================== -->
 <section class="page active" id="page-dashboard">
-    <div class="page-title">
-        <i class="fas fa-chart-pie"></i>
-        داشبورد
-    </div>
+    <div class="page-title"><i class="fas fa-chart-pie"></i> داشبورد</div>
 
     <div class="summary-grid">
         <div class="summary-card primary">
@@ -877,17 +818,11 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <!-- ==================== UNITS ==================== -->
 <section class="page" id="page-units">
-    <div class="page-title">
-        <i class="fas fa-building"></i>
-        واحدها
-    </div>
+    <div class="page-title"><i class="fas fa-building"></i> واحدها</div>
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-plus-circle icon-primary"></i>
-                افزودن واحد جدید
-            </div>
+            <div class="card-title"><i class="fas fa-plus-circle icon-primary"></i> افزودن واحد جدید</div>
         </div>
         <div class="form-group">
             <label>نام / شماره واحد <span class="required">*</span></label>
@@ -910,10 +845,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-list icon-info"></i>
-                لیست واحدها
-            </div>
+            <div class="card-title"><i class="fas fa-list icon-info"></i> لیست واحدها</div>
             <span class="badge badge-info" id="unitsCount">۰ واحد</span>
         </div>
         <div id="unitsList"></div>
@@ -922,17 +854,11 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <!-- ==================== EXPENSES ==================== -->
 <section class="page" id="page-expenses">
-    <div class="page-title">
-        <i class="fas fa-receipt"></i>
-        هزینه‌های ساختمان
-    </div>
+    <div class="page-title"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</div>
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-plus-circle icon-danger"></i>
-                ثبت هزینه جدید
-            </div>
+            <div class="card-title"><i class="fas fa-plus-circle icon-danger"></i> ثبت هزینه جدید</div>
         </div>
 
         <div class="form-group">
@@ -962,11 +888,11 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         <div class="form-row">
             <div class="form-group">
                 <label>تاریخ هزینه (قبض/خدمت)</label>
-                <input type="text" class="form-control" id="expenseDate" placeholder="۱۴۰۵/۰۳/۱۵">
+                <input type="text" class="form-control datepicker" id="expenseDate" placeholder="انتخاب تاریخ" readonly>
             </div>
             <div class="form-group">
                 <label>تاریخ پرداخت</label>
-                <input type="text" class="form-control" id="expensePayDate" placeholder="۱۴۰۵/۰۳/۲۰">
+                <input type="text" class="form-control datepicker" id="expensePayDate" placeholder="انتخاب تاریخ" readonly>
             </div>
         </div>
 
@@ -993,17 +919,10 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-list icon-warning"></i>
-                هزینه‌های ثبت شده
-            </div>
+            <div class="card-title"><i class="fas fa-list icon-warning"></i> هزینه‌های ثبت شده</div>
             <div class="btn-group">
-                <button class="btn btn-success btn-sm" onclick="exportExpensesExcel()" title="Excel">
-                    <i class="fas fa-file-excel"></i> اکسل
-                </button>
-                <button class="btn btn-danger btn-sm" onclick="exportExpensesPDF()" title="PDF">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
+                <button class="btn btn-success btn-sm" onclick="exportExpensesExcel()"><i class="fas fa-file-excel"></i> اکسل</button>
+                <button class="btn btn-danger btn-sm" onclick="exportExpensesPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
             </div>
         </div>
         <div id="expensesList"></div>
@@ -1012,17 +931,11 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <!-- ==================== CHARGES ==================== -->
 <section class="page" id="page-charges">
-    <div class="page-title">
-        <i class="fas fa-coins"></i>
-        شارژها
-    </div>
+    <div class="page-title"><i class="fas fa-coins"></i> شارژها</div>
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-calculator icon-primary"></i>
-                محاسبه شارژ
-            </div>
+            <div class="card-title"><i class="fas fa-calculator icon-primary"></i> محاسبه شارژ</div>
         </div>
         <div class="form-group">
             <label>دوره محاسبه</label>
@@ -1049,10 +962,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-chart-bar icon-success"></i>
-                وضعیت پرداخت
-            </div>
+            <div class="card-title"><i class="fas fa-chart-bar icon-success"></i> وضعیت پرداخت</div>
         </div>
         <div id="chargesList"></div>
     </div>
@@ -1065,17 +975,11 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <!-- ==================== TRAVEL ==================== -->
 <section class="page" id="page-travel">
-    <div class="page-title">
-        <i class="fas fa-plane-departure"></i>
-        مدیریت سفر
-    </div>
+    <div class="page-title"><i class="fas fa-plane-departure"></i> مدیریت سفر</div>
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-users icon-info"></i>
-                همسفران
-            </div>
+            <div class="card-title"><i class="fas fa-users icon-info"></i> همسفران</div>
             <button class="btn btn-primary btn-sm" onclick="openCompanionModal()">
                 <i class="fas fa-plus"></i> افزودن
             </button>
@@ -1085,10 +989,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-plus-circle icon-warning"></i>
-                ثبت هزینه سفر
-            </div>
+            <div class="card-title"><i class="fas fa-plus-circle icon-warning"></i> ثبت هزینه سفر</div>
         </div>
         <div class="form-group">
             <label>عنوان سفر</label>
@@ -1116,7 +1017,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             </div>
             <div class="form-group">
                 <label>تاریخ</label>
-                <input type="text" class="form-control" id="travelDate" placeholder="۱۴۰۵/۰۳/۱۵">
+                <input type="text" class="form-control datepicker" id="travelDate" placeholder="انتخاب تاریخ" readonly>
             </div>
         </div>
         <div class="form-group">
@@ -1130,17 +1031,10 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-list icon-info"></i>
-                هزینه‌های سفر
-            </div>
+            <div class="card-title"><i class="fas fa-list icon-info"></i> هزینه‌های سفر</div>
             <div class="btn-group">
-                <button class="btn btn-success btn-sm" onclick="exportTravelExcel()">
-                    <i class="fas fa-file-excel"></i> اکسل
-                </button>
-                <button class="btn btn-danger btn-sm" onclick="exportTravelPDF()">
-                    <i class="fas fa-file-pdf"></i> PDF
-                </button>
+                <button class="btn btn-success btn-sm" onclick="exportTravelExcel()"><i class="fas fa-file-excel"></i> اکسل</button>
+                <button class="btn btn-danger btn-sm" onclick="exportTravelPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
             </div>
         </div>
         <div id="travelList"></div>
@@ -1148,10 +1042,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-handshake icon-success"></i>
-                تسویه حساب سفر
-            </div>
+            <div class="card-title"><i class="fas fa-handshake icon-success"></i> تسویه حساب سفر</div>
         </div>
         <div id="travelSettle"></div>
     </div>
@@ -1159,51 +1050,81 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <!-- ==================== ACCOUNTING ==================== -->
 <section class="page" id="page-accounting">
-    <div class="page-title">
-        <i class="fas fa-book"></i>
-        دفتر حسابداری
+    <div class="page-title"><i class="fas fa-book"></i> دفتر حسابداری</div>
+
+    <div class="journal-tabs">
+        <button class="journal-tab active-building" id="tabBuilding" onclick="switchJournalTab('building')">
+            <i class="fas fa-building"></i> دفتر ساختمان
+        </button>
+        <button class="journal-tab" id="tabTravel" onclick="switchJournalTab('travel')">
+            <i class="fas fa-plane-departure"></i> دفتر سفر
+        </button>
     </div>
 
-    <div class="summary-grid">
-        <div class="summary-card danger">
-            <div class="icon-wrap"><i class="fas fa-arrow-up"></i></div>
-            <div class="value" id="totalDebit">۰</div>
-            <div class="label">جمع بدهکار</div>
-        </div>
-        <div class="summary-card success">
-            <div class="icon-wrap"><i class="fas fa-arrow-down"></i></div>
-            <div class="value" id="totalCredit">۰</div>
-            <div class="label">جمع بستانکار</div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-list icon-primary"></i>
-                دفتر روزنامه
+    <!-- دفتر ساختمان -->
+    <div id="journalBuildingView">
+        <div class="summary-grid">
+            <div class="summary-card danger">
+                <div class="icon-wrap"><i class="fas fa-arrow-up"></i></div>
+                <div class="value" id="totalDebitBuilding">۰</div>
+                <div class="label">جمع بدهکار</div>
             </div>
-            <button class="btn btn-danger btn-sm" onclick="clearJournal()">
-                <i class="fas fa-trash"></i> پاک کردن
-            </button>
+            <div class="summary-card success">
+                <div class="icon-wrap"><i class="fas fa-arrow-down"></i></div>
+                <div class="value" id="totalCreditBuilding">۰</div>
+                <div class="label">جمع بستانکار</div>
+            </div>
         </div>
-        <div id="journalList"></div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-list icon-primary"></i> دفتر روزنامه ساختمان</div>
+                <div class="btn-group">
+                    <button class="btn btn-success btn-sm" onclick="exportJournalExcel('building')"><i class="fas fa-file-excel"></i> اکسل</button>
+                    <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('building')"><i class="fas fa-file-pdf"></i> PDF</button>
+                    <button class="btn btn-ghost btn-sm" onclick="clearJournal('building')"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div id="journalListBuilding"></div>
+        </div>
+    </div>
+
+    <!-- دفتر سفر -->
+    <div id="journalTravelView" style="display:none;">
+        <div class="summary-grid">
+            <div class="summary-card danger">
+                <div class="icon-wrap"><i class="fas fa-arrow-up"></i></div>
+                <div class="value" id="totalDebitTravel">۰</div>
+                <div class="label">جمع بدهکار</div>
+            </div>
+            <div class="summary-card success">
+                <div class="icon-wrap"><i class="fas fa-arrow-down"></i></div>
+                <div class="value" id="totalCreditTravel">۰</div>
+                <div class="label">جمع بستانکار</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-list icon-warning"></i> دفتر روزنامه سفر</div>
+                <div class="btn-group">
+                    <button class="btn btn-success btn-sm" onclick="exportJournalExcel('travel')"><i class="fas fa-file-excel"></i> اکسل</button>
+                    <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('travel')"><i class="fas fa-file-pdf"></i> PDF</button>
+                    <button class="btn btn-ghost btn-sm" onclick="clearJournal('travel')"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div id="journalListTravel"></div>
+        </div>
     </div>
 </section>
 
 <!-- ==================== SETTINGS ==================== -->
 <section class="page" id="page-settings">
-    <div class="page-title">
-        <i class="fas fa-cog"></i>
-        تنظیمات
-    </div>
+    <div class="page-title"><i class="fas fa-cog"></i> تنظیمات</div>
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-building icon-primary"></i>
-                اطلاعات ساختمان
-            </div>
+            <div class="card-title"><i class="fas fa-building icon-primary"></i> اطلاعات ساختمان</div>
         </div>
         <div class="form-group">
             <label>نام ساختمان</label>
@@ -1215,7 +1136,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         </div>
         <div class="form-group">
             <label>تاریخ شروع مدیریت</label>
-            <input type="text" class="form-control" id="settingsStartDate" placeholder="۱۴۰۵/۰۱/۰۱">
+            <input type="text" class="form-control datepicker" id="settingsStartDate" placeholder="انتخاب تاریخ" readonly>
         </div>
         <button class="btn btn-primary btn-block" onclick="saveSettings()">
             <i class="fas fa-save"></i> ذخیره تنظیمات
@@ -1224,10 +1145,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
     <div class="card">
         <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-database icon-warning"></i>
-                داده‌ها
-            </div>
+            <div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div>
         </div>
         <p style="font-size:12px; color:var(--gray-500); margin-bottom:12px;">
             داده‌ها در مرورگر همین دستگاه ذخیره می‌شوند.
@@ -1247,14 +1165,10 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <!-- ==================== MODALS ==================== -->
 
-<!-- پرداخت جدید -->
 <div class="modal-overlay" id="paymentModal">
     <div class="modal">
         <div class="modal-header">
-            <div class="modal-title">
-                <i class="fas fa-money-bill-wave"></i>
-                ثبت پرداخت جدید
-            </div>
+            <div class="modal-title"><i class="fas fa-money-bill-wave"></i> ثبت پرداخت جدید</div>
             <button class="modal-close" onclick="closeModal('paymentModal')"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
@@ -1264,7 +1178,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             </div>
             <div class="form-group">
                 <label>تاریخ پرداخت</label>
-                <input type="text" class="form-control" id="paymentDate" placeholder="۱۴۰۵/۰۳/۱۵">
+                <input type="text" class="form-control datepicker" id="paymentDate" placeholder="انتخاب تاریخ" readonly>
             </div>
             <div class="form-group">
                 <label>توضیحات (اختیاری)</label>
@@ -1280,14 +1194,10 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     </div>
 </div>
 
-<!-- همسفر جدید -->
 <div class="modal-overlay" id="companionModal">
     <div class="modal">
         <div class="modal-header">
-            <div class="modal-title">
-                <i class="fas fa-user-plus"></i>
-                افزودن همسفر
-            </div>
+            <div class="modal-title"><i class="fas fa-user-plus"></i> افزودن همسفر</div>
             <button class="modal-close" onclick="closeModal('companionModal')"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
@@ -1311,1029 +1221,14 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <div class="toast" id="toast"></div>
 
+<!-- ==================== EXTERNAL LIBS ==================== -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-<script>
-// ==================== STATE ====================
-const STORAGE_KEY = 'hesabyar_v2';
-let state = {
-    units: [],
-    expenses: [],
-    travelExpenses: [],
-    companions: [],
-    charges: {},
-    journal: [],
-    settings: {
-        buildingName: 'حساب‌یار',
-        managerName: 'مدیریت هوشمند هزینه‌ها',
-        startDate: ''
-    }
-};
-
-let currentPaymentUnitId = null;
-let tempExpenseFile = null;
-
-// ==================== STORAGE ====================
-function saveState() {
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch(e) {
-        console.error('خطا در ذخیره:', e);
-        showToast('خطا در ذخیره‌سازی — ممکنه حجم داده زیاد باشه', 'error');
-    }
-}
-
-function loadState() {
-    try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            state = { ...state, ...parsed };
-            state.settings = { ...state.settings, ...(parsed.settings || {}) };
-        }
-    } catch(e) {
-        console.error('خطا در بارگذاری:', e);
-    }
-}
-
-// ==================== NAVIGATION ====================
-function navigateTo(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + page);
-    if (target) target.classList.add('active');
-
-    document.querySelectorAll('.nav-link').forEach(n => {
-        n.classList.toggle('active', n.dataset.page === page);
-    });
-
-    closeSidebar();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    if (page === 'accounting') renderJournal();
-    if (page === 'charges') renderCharges();
-    if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
-}
-
-function openSidebar() {
-    document.getElementById('sidebar').classList.add('active');
-    document.getElementById('sidebarOverlay').classList.add('active');
-}
-
-function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('active');
-    document.getElementById('sidebarOverlay').classList.remove('active');
-}
-
-// ==================== MODAL ====================
-function openModal(id) { document.getElementById(id).classList.add('active'); }
-function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-document.querySelectorAll('.modal-overlay').forEach(m => {
-    m.addEventListener('click', e => {
-        if (e.target === e.currentTarget) m.classList.remove('active');
-    });
-});
-
-// ==================== UTILS ====================
-function formatNumber(num) {
-    if (!num && num !== 0) return '۰';
-    return Number(num).toLocaleString('fa-IR');
-}
-
-function toPersianNum(num) {
-    return String(num).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
-}
-
-function showToast(msg, type = 'default') {
-    const toast = document.getElementById('toast');
-    toast.textContent = msg;
-    toast.className = 'toast show ' + (type !== 'default' ? type : '');
-    clearTimeout(window._toastTimer);
-    window._toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-    }, 2800);
-}
-
-function uid() { return Date.now() + Math.random().toString(36).substr(2, 9); }
-
-// ==================== SETTINGS ====================
-function saveSettings() {
-    state.settings.buildingName = document.getElementById('settingsBuildingName').value.trim() || 'حساب‌یار';
-    state.settings.managerName = document.getElementById('settingsManagerName').value.trim() || 'مدیریت هوشمند هزینه‌ها';
-    state.settings.startDate = document.getElementById('settingsStartDate').value.trim();
-    saveState();
-    updateHeader();
-    showToast('✅ تنظیمات ذخیره شد', 'success');
-}
-
-function updateHeader() {
-    const bn = state.settings.buildingName;
-    const mn = state.settings.managerName;
-    const sd = state.settings.startDate || '—';
-
-    document.getElementById('sidebarBuildingName').textContent = bn;
-    document.getElementById('sidebarManagerName').textContent = mn;
-    document.getElementById('sidebarManagerInfo').textContent = state.settings.managerName || '—';
-    document.getElementById('sidebarStartDate').textContent = sd;
-    document.getElementById('mobileBuildingName').textContent = bn;
-    document.getElementById('mobileManagerName').textContent = mn;
-    document.title = bn + ' | حساب‌یار';
-}
-
-function loadSettings() {
-    document.getElementById('settingsBuildingName').value = state.settings.buildingName || '';
-    document.getElementById('settingsManagerName').value = state.settings.managerName || '';
-    document.getElementById('settingsStartDate').value = state.settings.startDate || '';
-    updateHeader();
-}
-
-// ==================== UNITS ====================
-function addUnit() {
-    const name = document.getElementById('unitName').value.trim();
-    const area = parseFloat(document.getElementById('unitArea').value);
-    const residents = parseInt(document.getElementById('unitResidents').value) || 1;
-
-    if (!name) return showToast('نام واحد را وارد کنید', 'error');
-    if (!area || area <= 0) return showToast('متراژ معتبر وارد کنید', 'error');
-
-    state.units.push({
-        id: uid(),
-        name, area, residents,
-        payments: [],
-        createdAt: new Date().toISOString()
-    });
-
-    saveState();
-    document.getElementById('unitName').value = '';
-    document.getElementById('unitArea').value = '';
-    document.getElementById('unitResidents').value = '1';
-
-    addJournalEntry('ثبت واحد جدید', name, 0, 0);
-    renderUnits();
-    renderDashboard();
-    showToast('✅ واحد اضافه شد', 'success');
-}
-
-function deleteUnit(id) {
-    const unit = state.units.find(u => u.id === id);
-    if (!unit) return;
-    if (!confirm(`حذف «${unit.name}»؟`)) return;
-    state.units = state.units.filter(u => u.id !== id);
-    saveState();
-    renderUnits();
-    renderDashboard();
-    showToast('🗑️ واحد حذف شد', 'warning');
-}
-
-function openPaymentModal(unitId) {
-    currentPaymentUnitId = unitId;
-    document.getElementById('paymentAmount').value = '';
-    document.getElementById('paymentDate').value = '';
-    document.getElementById('paymentNote').value = '';
-    openModal('paymentModal');
-}
-
-function savePayment() {
-    const amount = parseFloat(document.getElementById('paymentAmount').value);
-    const date = document.getElementById('paymentDate').value.trim() || new Date().toLocaleDateString('fa-IR');
-    const note = document.getElementById('paymentNote').value.trim();
-
-    if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
-
-    const unit = state.units.find(u => u.id === currentPaymentUnitId);
-    if (!unit) return;
-
-    unit.payments = unit.payments || [];
-    unit.payments.push({ id: uid(), amount, date, note, createdAt: new Date().toISOString() });
-
-    saveState();
-    closeModal('paymentModal');
-    addJournalEntry('دریافت شارژ از ' + unit.name, note || 'پرداخت شارژ', 0, amount);
-    renderUnits();
-    renderDashboard();
-    renderCharges();
-    showToast('✅ پرداخت ثبت شد', 'success');
-}
-
-function deletePayment(unitId, paymentId) {
-    const unit = state.units.find(u => u.id === unitId);
-    if (!unit) return;
-    if (!confirm('حذف این پرداخت؟')) return;
-    unit.payments = unit.payments.filter(p => p.id !== paymentId);
-    saveState();
-    renderUnits();
-    renderDashboard();
-    renderCharges();
-    showToast('🗑️ پرداخت حذف شد', 'warning');
-}
-
-function getUnitTotalPaid(unit) {
-    return (unit.payments || []).reduce((s, p) => s + (p.amount || 0), 0);
-}
-
-function getUnitTotalCharge(unit) {
-    let total = 0;
-    Object.values(state.charges).forEach(charge => {
-        const r = charge.results.find(x => x.unitId === unit.id);
-        if (r) total += r.share;
-    });
-    return total;
-}
-
-function getUnitDebt(unit) {
-    return getUnitTotalCharge(unit) - getUnitTotalPaid(unit);
-}
-
-function renderUnits() {
-    const container = document.getElementById('unitsList');
-    const countBadge = document.getElementById('unitsCount');
-    countBadge.textContent = toPersianNum(state.units.length) + ' واحد';
-
-    if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🏘️</div><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد را از فرم بالا اضافه کنید</p></div>`;
-        return;
-    }
-
-    let html = '';
-    state.units.forEach((unit, idx) => {
-        const totalPaid = getUnitTotalPaid(unit);
-        const totalCharge = getUnitTotalCharge(unit);
-        const debt = totalCharge - totalPaid;
-        const payments = unit.payments || [];
-
-        let statusBadge = '';
-        if (totalCharge === 0) {
-            statusBadge = `<span class="badge badge-gray">شارژ تعیین نشده</span>`;
-        } else if (debt <= 0) {
-            statusBadge = `<span class="badge badge-success"><i class="fas fa-check-circle"></i> تسویه</span>`;
-        } else if (totalPaid > 0) {
-            statusBadge = `<span class="badge badge-warning">پرداخت جزئی — بدهی ${formatNumber(debt)}</span>`;
-        } else {
-            statusBadge = `<span class="badge badge-danger"><i class="fas fa-exclamation-circle"></i> بدهکار ${formatNumber(debt)}</span>`;
-        }
-
-        let paymentsHtml = '';
-        if (payments.length > 0) {
-            paymentsHtml = `
-                <div class="sub-list">
-                    <div class="sub-list-title">💳 تاریخچه پرداخت‌ها (${toPersianNum(payments.length)} مورد)</div>
-                    ${payments.map(p => `
-                        <div class="sub-item">
-                            <span class="date"><i class="far fa-calendar"></i> ${p.date}</span>
-                            <span class="amount">${formatNumber(p.amount)} ت</span>
-                            <span class="del" onclick="deletePayment('${unit.id}', '${p.id}')"><i class="fas fa-times"></i></span>
-                        </div>
-                    `).join('')}
-                    <div class="sub-item" style="background: var(--primary-light); font-weight: 700;">
-                        <span>جمع پرداختی</span>
-                        <span style="color: var(--primary);">${formatNumber(totalPaid)} تومان</span>
-                    </div>
-                </div>
-            `;
-        } else {
-            paymentsHtml = `<div style="font-size:11px; color:var(--gray-500); margin-top:8px; text-align:center; padding:8px;">هنوز پرداختی ثبت نشده</div>`;
-        }
-
-        html += `
-            <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;">
-                <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">
-                    <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
-                        <div class="list-item-icon icon-primary">${toPersianNum(idx + 1)}</div>
-                        <div style="min-width:0;">
-                            <div class="list-item-title">${unit.name}</div>
-                            <div class="list-item-subtitle">${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')" title="حذف"><i class="fas fa-trash"></i></button>
-                </div>
-                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
-                    ${statusBadge}
-                </div>
-                <button class="btn btn-success btn-sm" style="width:100%;" onclick="openPaymentModal('${unit.id}')">
-                    <i class="fas fa-plus"></i> افزودن پرداخت
-                </button>
-                ${paymentsHtml}
-            </div>
-        `;
-    });
-
-    container.innerHTML = html;
-}
-
-// ==================== EXPENSES ====================
-function toggleExpenseCustomTitle() {
-    const type = document.getElementById('expenseType').value;
-    document.getElementById('customTitleGroup').style.display = type === 'other' ? 'block' : 'none';
-}
-
-function handleExpenseFile(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-        showToast('حجم فایل باید کمتر از ۲ مگابایت باشد', 'error');
-        event.target.value = '';
-        return;
-    }
-    const reader = new FileReader();
-    reader.onload = e => {
-        tempExpenseFile = { name: file.name, type: file.type, size: file.size, data: e.target.result };
-        document.getElementById('expenseFilePreview').innerHTML = `
-            <div class="file-preview">
-                <i class="fas fa-file"></i>
-                <span class="name">${file.name}</span>
-                <span class="remove" onclick="removeExpenseFile()"><i class="fas fa-times"></i></span>
-            </div>
-        `;
-    };
-    reader.readAsDataURL(file);
-}
-
-function removeExpenseFile() {
-    tempExpenseFile = null;
-    document.getElementById('expenseFile').value = '';
-    document.getElementById('expenseFilePreview').innerHTML = '';
-}
-
-function addExpense() {
-    const type = document.getElementById('expenseType').value;
-    const customTitle = document.getElementById('expenseCustomTitle').value.trim();
-    const amount = parseFloat(document.getElementById('expenseAmount').value);
-    const date = document.getElementById('expenseDate').value.trim();
-    const payDate = document.getElementById('expensePayDate').value.trim();
-    const payer = document.getElementById('expensePayer').value.trim() || state.settings.managerName;
-
-    if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
-    if (type === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
-
-    const typeNames = {
-        electricity: '⚡ برق ساختمان',
-        gas: '🔥 گاز ساختمان',
-        water: '💧 آب ساختمان',
-        elevator: '🛗 آسانسور',
-        cleaning: '🧹 نظافت',
-        repair: '🔧 تعمیرات',
-        maintenance: '🛠️ سرویس و نگهداری',
-        other: '📦 ' + customTitle
-    };
-
-    state.expenses.push({
-        id: uid(),
-        type,
-        typeName: typeNames[type],
-        customTitle: type === 'other' ? customTitle : '',
-        amount,
-        date: date || '—',
-        payDate: payDate || '—',
-        payer,
-        file: tempExpenseFile,
-        createdAt: new Date().toISOString()
-    });
-
-    saveState();
-    addJournalEntry('هزینه ' + typeNames[type], 'پرداخت توسط ' + payer, amount, 0);
-
-    document.getElementById('expenseAmount').value = '';
-    document.getElementById('expenseDate').value = '';
-    document.getElementById('expensePayDate').value = '';
-    document.getElementById('expenseCustomTitle').value = '';
-    document.getElementById('expenseType').value = 'electricity';
-    toggleExpenseCustomTitle();
-    removeExpenseFile();
-
-    renderExpenses();
-    renderDashboard();
-    renderJournal();
-    showToast('✅ هزینه ثبت شد', 'success');
-}
-
-function deleteExpense(id) {
-    if (!confirm('حذف این هزینه؟')) return;
-    state.expenses = state.expenses.filter(e => e.id !== id);
-    saveState();
-    renderExpenses();
-    renderDashboard();
-    renderJournal();
-    showToast('🗑️ هزینه حذف شد', 'warning');
-}
-
-function downloadFile(expenseId) {
-    const exp = state.expenses.find(e => e.id === expenseId);
-    if (!exp || !exp.file) return;
-    const a = document.createElement('a');
-    a.href = exp.file.data;
-    a.download = exp.file.name;
-    a.click();
-}
-
-function renderExpenses() {
-    const container = document.getElementById('expensesList');
-    const countBadge = document.getElementById('expensesCount');
-
-    if (state.expenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">📝</div><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمان را از فرم بالا اضافه کنید</p></div>`;
-        return;
-    }
-
-    const icons = { electricity: '⚡', gas: '🔥', water: '💧', elevator: '🛗', cleaning: '🧹', repair: '🔧', maintenance: '🛠️', other: '📦' };
-
-    let html = '';
-    state.expenses.slice().reverse().forEach(exp => {
-        html += `
-            <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 10px;">
-                <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px;">
-                    <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
-                        <div class="list-item-icon icon-danger">${icons[exp.type] || '📦'}</div>
-                        <div style="min-width:0;">
-                            <div class="list-item-title">${exp.typeName}</div>
-                            <div class="list-item-subtitle" style="margin-top:4px;">
-                                <i class="far fa-calendar-alt"></i> ${exp.date}
-                                ${exp.payDate !== '—' ? ` • <i class="fas fa-check"></i> ${exp.payDate}` : ''}
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-danger btn-icon btn-sm" onclick="deleteExpense('${exp.id}')"><i class="fas fa-trash"></i></button>
-                </div>
-                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-                    <div style="font-size:11px; color:var(--gray-500);">👤 ${exp.payer || '—'}</div>
-                    <div style="font-size:15px; font-weight:800; color:var(--danger);">${formatNumber(exp.amount)} تومان</div>
-                </div>
-                ${exp.file ? `
-                    <div class="file-preview" style="margin-top:10px;">
-                        <i class="fas fa-paperclip"></i>
-                        <span class="name">${exp.file.name}</span>
-                        <span onclick="downloadFile('${exp.id}')" style="color:var(--primary); cursor:pointer; padding:4px;" title="دانلود"><i class="fas fa-download"></i></span>
-                    </div>
-                ` : ''}
-            </div>
-        `;
-    });
-    container.innerHTML = html;
-}
-
-// ==================== CHARGES ====================
-function handleChargePeriodChange() {
-    const period = document.getElementById('chargePeriod').value;
-    const sub = document.getElementById('chargeSubPeriod');
-    const group = document.getElementById('chargeSubPeriodGroup');
-    const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
-    let options = [];
-    if (period === 'monthly') options = months;
-    else if (period === 'quarterly') options = ['سه ماهه اول','سه ماهه دوم','سه ماهه سوم','سه ماهه چهارم'];
-    else if (period === 'seasonal') options = ['بهار','تابستان','پاییز','زمستان'];
-    else if (period === 'halfyear') options = ['شش ماهه اول','شش ماهه دوم'];
-    else if (period === 'yearly') { group.style.display = 'none'; return; }
-    group.style.display = 'block';
-    sub.innerHTML = options.map(o => `<option value="${o}">${o}</option>`).join('');
-}
-
-function calculateCharges() {
-    const totalAmount = parseFloat(document.getElementById('chargeTotal').value);
-    const period = document.getElementById('chargePeriod').value;
-    let subPeriod;
-    if (period === 'yearly') subPeriod = 'سالیانه';
-    else subPeriod = document.getElementById('chargeSubPeriod').value;
-
-    if (!totalAmount || totalAmount <= 0) return showToast('مبلغ شارژ را وارد کنید', 'error');
-    if (state.units.length === 0) return showToast('اول واحد اضافه کنید', 'error');
-
-    const totalArea = state.units.reduce((s, u) => s + u.area, 0);
-    if (totalArea === 0) return showToast('متراژ واحدها نامعتبر است', 'error');
-
-    const results = state.units.map(unit => ({
-        unitId: unit.id,
-        unitName: unit.name,
-        area: unit.area,
-        share: Math.round((unit.area / totalArea) * totalAmount)
-    }));
-
-    const key = period + '_' + subPeriod;
-    state.charges[key] = {
-        totalAmount,
-        period,
-        subPeriod,
-        results,
-        createdAt: new Date().toISOString()
-    };
-
-    saveState();
-    addJournalEntry('محاسبه شارژ ' + subPeriod, 'مبلغ کل: ' + formatNumber(totalAmount), 0, 0);
-    renderCharges();
-    renderDashboard();
-    renderJournal();
-    renderUnits();
-    document.getElementById('chargeTotal').value = '';
-    showToast('✅ شارژ محاسبه شد', 'success');
-}
-
-function renderCharges() {
-    const container = document.getElementById('chargesList');
-    const keys = Object.keys(state.charges);
-
-    if (keys.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">💰</div><h3>هنوز شارژی محاسبه نشده</h3><p>از فرم بالا شارژ را محاسبه کنید</p></div>`;
-        return;
-    }
-
-    let html = '';
-    keys.slice().reverse().forEach(key => {
-        const charge = state.charges[key];
-        html += `
-            <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;">
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--gray-100);">
-                    <div>
-                        <div style="font-weight:800; color:var(--dark); font-size:14px;">${charge.subPeriod}</div>
-                        <div style="font-size:11px; color:var(--gray-500);">کل: ${formatNumber(charge.totalAmount)} تومان</div>
-                    </div>
-                    <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')"><i class="fas fa-trash"></i></button>
-                </div>
-                ${charge.results.map(r => {
-                    const unit = state.units.find(u => u.id === r.unitId);
-                    if (!unit) return '';
-                    const paid = getUnitTotalPaid(unit);
-                    const remaining = r.share - paid;
-                    let statusBadge = '';
-                    if (paid >= r.share) {
-                        statusBadge = '<span class="badge badge-success">✓ تسویه</span>';
-                    } else if (paid > 0) {
-                        statusBadge = `<span class="badge badge-warning">باقی‌مانده: ${formatNumber(remaining)}</span>`;
-                    } else {
-                        statusBadge = `<span class="badge badge-danger">بدهکار: ${formatNumber(r.share)}</span>`;
-                    }
-
-                    return `
-                        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--gray-100); gap:8px;">
-                            <div style="flex:1; min-width:0;">
-                                <div style="font-size:13px; font-weight:600;">${r.unitName}</div>
-                                <div style="font-size:10px; color:var(--gray-500);">${toPersianNum(r.area)} متر</div>
-                            </div>
-                            <div style="text-align:left;">
-                                <div style="font-size:13px; font-weight:800; color:var(--primary);">${formatNumber(r.share)}</div>
-                                <div style="margin-top:2px;">${statusBadge}</div>
-                            </div>
-                        </div>
-                    `;
-                }).join('')}
-            </div>
-        `;
-    });
-    container.innerHTML = html;
-}
-
-function deleteCharge(key) {
-    if (!confirm('حذف این شارژ؟')) return;
-    delete state.charges[key];
-    saveState();
-    renderCharges();
-    renderDashboard();
-    renderUnits();
-    showToast('🗑️ شارژ حذف شد', 'warning');
-}
-
-// ==================== TRAVEL ====================
-function openCompanionModal() {
-    document.getElementById('companionName').value = '';
-    document.getElementById('companionCount').value = '1';
-    openModal('companionModal');
-}
-
-function saveCompanion() {
-    const name = document.getElementById('companionName').value.trim();
-    const count = parseInt(document.getElementById('companionCount').value) || 1;
-    if (!name) return showToast('نام را وارد کنید', 'error');
-
-    state.companions.push({ id: uid(), name, count });
-    saveState();
-    closeModal('companionModal');
-    renderCompanions();
-    updateTravelPayerOptions();
-    showToast('✅ همسفر اضافه شد', 'success');
-}
-
-function deleteCompanion(id) {
-    if (!confirm('حذف این همسفر؟')) return;
-    state.companions = state.companions.filter(c => c.id !== id);
-    saveState();
-    renderCompanions();
-    updateTravelPayerOptions();
-    showToast('🗑️ همسفر حذف شد', 'warning');
-}
-
-function renderCompanions() {
-    const container = document.getElementById('companionsList');
-    if (state.companions.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">👥</div><p style="font-size:12px;">هنوز همسفری اضافه نشده</p></div>`;
-        return;
-    }
-    container.innerHTML = state.companions.map(c => `
-        <div class="list-item">
-            <div class="list-item-info">
-                <div class="list-item-icon icon-info"><i class="fas fa-user"></i></div>
-                <div>
-                    <div class="list-item-title">${c.name}</div>
-                    <div class="list-item-subtitle">${toPersianNum(c.count)} نفر</div>
-                </div>
-            </div>
-            <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCompanion('${c.id}')"><i class="fas fa-times"></i></button>
-        </div>
-    `).join('');
-}
-
-function updateTravelPayerOptions() {
-    const sel = document.getElementById('travelPayer');
-    if (!sel) return;
-    const current = sel.value;
-    if (state.companions.length === 0) {
-        sel.innerHTML = '<option value="">— ابتدا همسفر اضافه کنید —</option>';
-        return;
-    }
-    sel.innerHTML = state.companions.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
-    if (current) sel.value = current;
-}
-
-function toggleTravelCustomTitle() {
-    const cat = document.getElementById('travelCategory').value;
-    document.getElementById('travelCustomTitleGroup').style.display = cat === 'other' ? 'block' : 'none';
-}
-
-function addTravelExpense() {
-    const title = document.getElementById('travelTitle').value.trim();
-    const category = document.getElementById('travelCategory').value;
-    const customTitle = document.getElementById('travelCustomTitle').value.trim();
-    const amount = parseFloat(document.getElementById('travelAmount').value);
-    const date = document.getElementById('travelDate').value.trim() || '—';
-    const payer = document.getElementById('travelPayer').value;
-
-    if (!title) return showToast('عنوان سفر را وارد کنید', 'error');
-    if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
-    if (category === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
-    if (!payer) return showToast('پرداخت‌کننده را انتخاب کنید', 'error');
-
-    const catNames = {
-        transport: '🚗 حمل و نقل',
-        food: '🍽️ خورد و خوراک',
-        accommodation: '🏨 اقامت',
-        tickets: '🎫 بلیط و ورودی',
-        shopping: '🛍️ خرید',
-        other: '📦 ' + customTitle
-    };
-
-    state.travelExpenses.push({
-        id: uid(),
-        title,
-        category,
-        categoryName: catNames[category],
-        amount,
-        date,
-        payer
-    });
-
-    saveState();
-    addJournalEntry('هزینه سفر - ' + title, catNames[category] + ' توسط ' + payer, amount, 0);
-
-    document.getElementById('travelTitle').value = '';
-    document.getElementById('travelAmount').value = '';
-    document.getElementById('travelDate').value = '';
-    document.getElementById('travelCustomTitle').value = '';
-    document.getElementById('travelCategory').value = 'transport';
-    toggleTravelCustomTitle();
-
-    renderTravelExpenses();
-    renderTravelSettlement();
-    showToast('✅ هزینه سفر ثبت شد', 'success');
-}
-
-function deleteTravelExpense(id) {
-    if (!confirm('حذف شود؟')) return;
-    state.travelExpenses = state.travelExpenses.filter(e => e.id !== id);
-    saveState();
-    renderTravelExpenses();
-    renderTravelSettlement();
-    showToast('🗑️ حذف شد', 'warning');
-}
-
-function renderTravelExpenses() {
-    const container = document.getElementById('travelList');
-    if (state.travelExpenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🧳</div><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر را اضافه کنید</p></div>`;
-        return;
-    }
-    const icons = { transport: '🚗', food: '🍽️', accommodation: '🏨', tickets: '🎫', shopping: '🛍️', other: '📦' };
-    container.innerHTML = state.travelExpenses.slice().reverse().map(exp => `
-        <div class="list-item">
-            <div class="list-item-info">
-                <div class="list-item-icon icon-warning">${icons[exp.category] || '📦'}</div>
-                <div>
-                    <div class="list-item-title">${exp.title}</div>
-                    <div class="list-item-subtitle">${exp.categoryName} • ${exp.date} • ${exp.payer}</div>
-                </div>
-            </div>
-            <div style="display:flex; align-items:center; gap:6px;">
-                <div class="list-item-amount amount-negative">${formatNumber(exp.amount)}</div>
-                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteTravelExpense('${exp.id}')"><i class="fas fa-times"></i></button>
-            </div>
-        </div>
-    `).join('');
-}
-
-function renderTravelSettlement() {
-    const container = document.getElementById('travelSettle');
-    if (!container) return;
-
-    if (state.travelExpenses.length === 0 || state.companions.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">💱</div><p style="font-size:12px;">برای تسویه، همسفر و هزینه اضافه کنید</p></div>`;
-        return;
-    }
-
-    const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
-    const totalPeople = state.companions.reduce((s, c) => s + c.count, 0);
-    const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
-
-    const payerTotals = {};
-    state.travelExpenses.forEach(e => {
-        payerTotals[e.payer] = (payerTotals[e.payer] || 0) + e.amount;
-    });
-
-    let html = `
-        <div style="background: var(--primary-light); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px;">
-            <div style="font-size: 12px; color: var(--gray-500);">مجموع هزینه سفر</div>
-            <div style="font-size: 20px; font-weight: 800; color: var(--primary);">${formatNumber(total)} تومان</div>
-            <div style="font-size: 11px; color: var(--gray-500); margin-top: 6px;">
-                ${toPersianNum(totalPeople)} نفر • سهم هر نفر: ${formatNumber(sharePerPerson)} تومان
-            </div>
-        </div>
-    `;
-
-    state.companions.forEach(c => {
-        const paid = payerTotals[c.name] || 0;
-        const shouldPay = sharePerPerson * c.count;
-        const diff = paid - shouldPay;
-        let status, color;
-        if (diff > 0) {
-            status = `طلبکار: ${formatNumber(diff)}`;
-            color = 'var(--success)';
-        } else if (diff < 0) {
-            status = `بدهکار: ${formatNumber(Math.abs(diff))}`;
-            color = 'var(--danger)';
-        } else {
-            status = 'تسویه';
-            color = 'var(--gray-500)';
-        }
-
-        html += `
-            <div class="list-item">
-                <div class="list-item-info">
-                    <div class="list-item-icon icon-info">${toPersianNum(c.count)}</div>
-                    <div>
-                        <div class="list-item-title">${c.name}</div>
-                        <div class="list-item-subtitle">پرداختی: ${formatNumber(paid)} • سهم: ${formatNumber(shouldPay)}</div>
-                    </div>
-                </div>
-                <div style="color: ${color}; font-weight: 700; font-size:13px;">${status}</div>
-            </div>
-        `;
-    });
-
-    container.innerHTML = html;
-}
-
-// ==================== JOURNAL ====================
-function addJournalEntry(title, description, debit, credit) {
-    state.journal.push({
-        id: uid(),
-        date: new Date().toLocaleDateString('fa-IR'),
-        title,
-        description,
-        debit,
-        credit
-    });
-    saveState();
-    renderJournal();
-}
-
-function renderJournal() {
-    const container = document.getElementById('journalList');
-    if (!container) return;
-    const debitTotal = state.journal.reduce((s, j) => s + (j.debit || 0), 0);
-    const creditTotal = state.journal.reduce((s, j) => s + (j.credit || 0), 0);
-    document.getElementById('totalDebit').textContent = formatNumber(debitTotal);
-    document.getElementById('totalCredit').textContent = formatNumber(creditTotal);
-
-    if (state.journal.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">📒</div><h3>دفتر خالی است</h3><p>با ثبت هزینه یا پرداخت، تراکنش‌ها اینجا نمایش داده می‌شوند</p></div>`;
-        return;
-    }
-
-    container.innerHTML = state.journal.slice().reverse().map(j => `
-        <div style="padding:12px 0; border-bottom:1px solid var(--gray-100);">
-            <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:4px;">
-                <div style="font-weight:700; font-size:13px; flex:1;">${j.title}</div>
-                <div style="font-size:11px; color:var(--gray-500);">${j.date}</div>
-            </div>
-            <div style="font-size:11px; color:var(--gray-500); margin-bottom:6px;">${j.description || ''}</div>
-            <div style="display:flex; gap:12px; font-size:11px;">
-                ${j.debit ? `<span style="color:var(--danger);"><i class="fas fa-arrow-up"></i> بدهکار: ${formatNumber(j.debit)}</span>` : ''}
-                ${j.credit ? `<span style="color:var(--success);"><i class="fas fa-arrow-down"></i> بستانکار: ${formatNumber(j.credit)}</span>` : ''}
-            </div>
-        </div>
-    `).join('');
-}
-
-function clearJournal() {
-    if (!confirm('کل دفتر روزنامه پاک شود؟')) return;
-    state.journal = [];
-    saveState();
-    renderJournal();
-    showToast('🗑️ دفتر پاک شد', 'warning');
-}
-
-// ==================== DASHBOARD ====================
-function renderDashboard() {
-    document.getElementById('statUnits').textContent = toPersianNum(state.units.length);
-    document.getElementById('statResidents').textContent = toPersianNum(state.units.reduce((s, u) => s + (u.residents || 0), 0));
-
-    const totalExp = state.expenses.reduce((s, e) => s + e.amount, 0);
-    document.getElementById('statExpenses').textContent = formatNumber(totalExp);
-
-    let totalDebt = 0;
-    state.units.forEach(u => { const d = getUnitDebt(u); if (d > 0) totalDebt += d; });
-    document.getElementById('statDebt').textContent = formatNumber(totalDebt);
-
-    const container = document.getElementById('dashboardUnitsList');
-    if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🏠</div><h3>هنوز واحدی ثبت نشده</h3><p>برای شروع، واحدها را اضافه کنید</p></div>`;
-        return;
-    }
-
-    container.innerHTML = state.units.map((u, i) => {
-        const paid = getUnitTotalPaid(u);
-        const charge = getUnitTotalCharge(u);
-        const debt = charge - paid;
-        let badge = '';
-        if (charge === 0) badge = `<span class="badge badge-gray">بدون شارژ</span>`;
-        else if (debt <= 0) badge = `<span class="badge badge-success">✓ تسویه</span>`;
-        else if (paid > 0) badge = `<span class="badge badge-warning">جزئی</span>`;
-        else badge = `<span class="badge badge-danger">بدهکار</span>`;
-
-        return `
-            <div class="list-item">
-                <div class="list-item-info">
-                    <div class="list-item-icon icon-primary">${toPersianNum(i + 1)}</div>
-                    <div>
-                        <div class="list-item-title">${u.name}</div>
-                        <div class="list-item-subtitle">${toPersianNum(u.area)} متر • ${toPersianNum(u.residents)} نفر</div>
-                    </div>
-                </div>
-                ${badge}
-            </div>
-        `;
-    }).join('');
-}
-
-// ==================== EXPORT EXCEL ====================
-function exportExpensesExcel() {
-    if (state.expenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
-    const data = state.expenses.map((e, i) => ({
-        'ردیف': i + 1,
-        'نوع هزینه': e.typeName,
-        'مبلغ (تومان)': e.amount,
-        'تاریخ هزینه': e.date,
-        'تاریخ پرداخت': e.payDate,
-        'پرداخت‌کننده': e.payer
-    }));
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'هزینه‌ها');
-    XLSX.writeFile(wb, 'هزینه‌های-ساختمان.xlsx');
-    showToast('✅ فایل اکسل دانلود شد', 'success');
-}
-
-function exportTravelExcel() {
-    if (state.travelExpenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
-    const data = state.travelExpenses.map((e, i) => ({
-        'ردیف': i + 1,
-        'عنوان': e.title,
-        'دسته': e.categoryName,
-        'مبلغ (تومان)': e.amount,
-        'تاریخ': e.date,
-        'پرداخت‌کننده': e.payer
-    }));
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'سفر');
-    XLSX.writeFile(wb, 'هزینه‌های-سفر.xlsx');
-    showToast('✅ فایل اکسل دانلود شد', 'success');
-}
-
-// ==================== EXPORT PDF ====================
-function exportExpensesPDF() {
-    if (state.expenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-    doc.setFontSize(16);
-    doc.text('Report: Building Expenses', 105, 15, { align: 'center' });
-    doc.setFontSize(10);
-    doc.text('Building: ' + state.settings.buildingName, 105, 22, { align: 'center' });
-
-    let y = 35;
-    doc.setFontSize(11);
-    doc.text('Row | Type | Amount | Date | Payer', 10, y);
-    y += 8;
-
-    state.expenses.forEach((e, i) => {
-        if (y > 280) { doc.addPage(); y = 20; }
-        doc.setFontSize(9);
-        doc.text(`${i + 1}. ${e.typeName}`, 10, y);
-        doc.text(`${e.amount.toLocaleString()}`, 100, y);
-        doc.text(`${e.date}`, 140, y);
-        doc.text(`${e.payer || '-'}`, 175, y);
-        y += 7;
-    });
-
-    const total = state.expenses.reduce((s, e) => s + e.amount, 0);
-    y += 5;
-    doc.setFontSize(12);
-    doc.text(`Total: ${total.toLocaleString()} Toman`, 10, y);
-
-    doc.save('building-expenses.pdf');
-    showToast('✅ فایل PDF دانلود شد', 'success');
-}
-
-function exportTravelPDF() {
-    if (state.travelExpenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-    doc.setFontSize(16);
-    doc.text('Travel Expenses Report', 105, 15, { align: 'center' });
-
-    let y = 30;
-    doc.setFontSize(10);
-    doc.text('Row | Title | Category | Amount | Payer', 10, y);
-    y += 8;
-
-    state.travelExpenses.forEach((e, i) => {
-        if (y > 280) { doc.addPage(); y = 20; }
-        doc.setFontSize(9);
-        doc.text(`${i + 1}. ${e.title}`, 10, y);
-        doc.text(`${e.categoryName}`, 70, y);
-        doc.text(`${e.amount.toLocaleString()}`, 130, y);
-        doc.text(`${e.payer}`, 175, y);
-        y += 7;
-    });
-
-    const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
-    y += 5;
-    doc.setFontSize(12);
-    doc.text(`Total: ${total.toLocaleString()} Toman`, 10, y);
-
-    doc.save('travel-expenses.pdf');
-    showToast('✅ فایل PDF دانلود شد', 'success');
-}
-
-// ==================== BACKUP ====================
-function exportData() {
-    const dataStr = JSON.stringify(state, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'hesabyar-backup-' + new Date().toISOString().slice(0, 10) + '.json';
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast('✅ فایل پشتیبان دانلود شد', 'success');
-}
-
-function clearAllData() {
-    if (!confirm('همه داده‌ها پاک شود؟ این عمل برگشت‌پذیر نیست!')) return;
-    if (!confirm('مطمئنی؟ داده‌ها برای همیشه حذف می‌شوند.')) return;
-    localStorage.removeItem(STORAGE_KEY);
-    location.reload();
-}
-
-// ==================== INIT ====================
-function init() {
-    loadState();
-    loadSettings();
-    handleChargePeriodChange();
-    renderUnits();
-    renderExpenses();
-    renderCharges();
-    renderCompanions();
-    renderTravelExpenses();
-    renderTravelSettlement();
-    updateTravelPayerOptions();
-    renderJournal();
-    renderDashboard();
-}
-
-init();
-
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(e => console.log('SW:', e));
-}
-</script>
+<!-- ⚠️ بخش JavaScript در پیام بعدی میاد — هنوز Commit نکن! -->
 </body>
 </html>
