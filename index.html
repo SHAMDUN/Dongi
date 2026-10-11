@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>حساب‌یار | مدیریت هزینه‌های ساختمان و سفر</title>
+    <meta name="description" content="مدیریت هوشمند شارژ ساختمان و هزینه‌های سفر طبق قانون تملک آپارتمان‌ها">
+    <meta name="theme-color" content="#1a73e8">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- فونت وزیرمتن -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --primary-light: #e8f0fe;
+            --secondary: #34a853;
+            --danger: #ea4335;
+            --warning: #fbbc04;
+            --dark: #202124;
+            --gray: #5f6368;
+            --light-gray: #f1f3f4;
+            --white: #ffffff;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--light-gray);
+            color: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 80px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* هدر */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 16px 24px;
+            border-radius: 0 0 24px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(26,115,232,0.3);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .app-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .app-subtitle {
+            font-size: 12px;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        /* انتخاب سال */
+        .year-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .year-selector select {
+            background: transparent;
+            border: none;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .year-selector select option {
+            color: var(--dark);
+            background: white;
+        }
+
+        /* تب‌ها */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab {
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: var(--white);
+            border: 2px solid transparent;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            box-shadow: var(--shadow);
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* محتوا */
+        .content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.3s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* کارت‌ها */
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .icon-blue { background: var(--primary-light); color: var(--primary); }
+        .icon-green { background: #e6f4ea; color: var(--secondary); }
+        .icon-red { background: #fce8e6; color: var(--danger); }
+        .icon-yellow { background: #fef7e0; color: #e37400; }
+
+        /* فرم‌ها */
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 15px;
+            transition: border-color 0.2s;
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* دکمه‌ها */
+        .btn {
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
+            border: none;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn:active { transform: scale(0.97); }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-success { background: var(--secondary); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-outline { 
+            background: transparent; 
+            border: 2px solid var(--primary); 
+            color: var(--primary); 
+        }
+
+        .btn-sm {
+            padding: 8px 14px;
+            font-size: 13px;
+            width: auto;
+        }
+
+        /* لیست‌ها */
+        .list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .list-item:last-child { border-bottom: none; }
+
+        .list-item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .list-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .list-item-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .list-item-subtitle {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .list-item-amount {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .amount-positive { color: var(--secondary); }
+        .amount-negative { color: var(--danger); }
+
+        /* بج */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge-success { background: #e6f4ea; color: var(--secondary); }
+        .badge-danger { background: #fce8e6; color: var(--danger); }
+        .badge-warning { background: #fef7e0; color: #e37400; }
+        .badge-info { background: var(--primary-light); color: var(--primary); }
+
+        /* بخش قانون */
+        .law-section {
+            background: linear-gradient(135deg, #fff8e1 0%, #fffde7 100%);
+            border-right: 4px solid var(--warning);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .law-section h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #e37400;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .law-section p {
+            font-size: 12px;
+            color: #5d4037;
+            line-height: 1.7;
+        }
+
+        .law-section .formula {
+            background: rgba(255,255,255,0.7);
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--dark);
+            direction: ltr;
+        }
+
+        /* مودال */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 1000;
+            padding: 0;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal {
+            background: var(--white);
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 24px 20px 32px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* خالی */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state .emoji {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* خلاصه */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .summary-card {
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .summary-card .value {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .summary-card .label {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        /* نوار پایین */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 6px 16px;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active { color: var(--primary); }
+        .nav-item .nav-icon { font-size: 22px; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+            z-index: 2000;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* تنظیمات */
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+        }
+
+        .settings-item:last-child { border-bottom: none; }
+
+        .settings-item-label {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .settings-item-value {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* اطلاعات آپارتمان */
+        .unit-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .unit-info-card {
+            background: var(--light-gray);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+        }
+
+        .unit-info-card .unit-name {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .unit-info-card .unit-detail {
+            font-size: 11px;
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .header { border-radius: 0 0 32px 32px; padding: 28px 24px 32px; }
+            .content { padding: 0 24px; }
+            .tabs { padding: 20px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- هدر -->
+<header class="header">
+    <div class="header-content">
+        <div class="logo-area">
+            <div class="logo-icon">🏢</div>
+            <div>
+                <div class="app-title">حساب‌یار</div>
+                <div class="app-subtitle">مدیریت هوشمند هزینه‌ها</div>
+            </div>
+        </div>
+        <div class="year-selector">
+            <span>📅</span>
+            <select id="yearSelect">
+                <option value="1403">۱۴۰۳</option>
+                <option value="1404">۱۴۰۴</option>
+                <option value="1405" selected>۱۴۰۵</option>
+                <option value="1406">۱۴۰۶</option>
+                <option value="1407">۱۴۰۷</option>
+            </select>
+        </div>
+    </div>
+</header>
+
+<!-- تب‌ها -->
+<div class="tabs">
+    <button class="tab active" data-page="dashboard">داشبورد</button>
+    <button class="tab" data-page="units">واحدها</button>
+    <button class="tab" data-page="expenses">هزینه‌ها</button>
+    <button class="tab" data-page="charges">شارژها</button>
+    <button class="tab" data-page="travel">سفر</button>
+</div>
+
+<!-- محتوا -->
+<main class="content">
+
+    <!-- داشبورد -->
+    <section class="page active" id="page-dashboard">
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="value" id="totalUnits">۰</div>
+                <div class="label">تعداد واحدها</div>
+            </div>
+            <div class="summary-card">
+                <div class="value" id="totalResidents">۰</div>
+                <div class="label">کل ساکنان</div>
+            </div>
+            <div class="summary-card">
+                <div class="value" id="totalExpenses" style="color: var(--danger);">۰</div>
+                <div class="label">کل هزینه‌ها (تومان)</div>
+            </div>
+            <div class="summary-card">
+                <div class="value" id="totalDebt" style="color: var(--warning);">۰</div>
+                <div class="label">کل بدهی (تومان)</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-blue">📊</span>
+                وضعیت شارژ واحدها
+            </div>
+            <div id="dashboardUnitsList">
+                <div class="empty-state">
+                    <div class="emoji">🏠</div>
+                    <p>هنوز واحدی ثبت نشده است</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- بخش قانون -->
+        <div class="law-section">
+            <h4>⚖️ نحوه محاسبه هزینه‌ها طبق قانون تملک آپارتمان‌ها</h4>
+            <p>
+                <strong>ماده ۴ قانون تملک آپارتمان‌ها (اصلاحی ۱۳۷۶/۳/۱۱):</strong>
+                حقوق و تعهدات و همچنین سهم هر یک از مالکان قسمت‌های اختصاصی از مخارج قسمت‌های مشترک متناسب است با نسبت مساحت قسمت اختصاصی به مجموع مساحت قسمت‌های اختصاصی تمام ساختمان، به جز هزینه‌هایی که به دلیل عدم ارتباط با مساحت زیربنا به نحو مساوی تقسیم خواهد شد.
+            </p>
+            <p style="margin-top: 8px;">
+                <strong>ماده ۲۳ آیین‌نامه اجرایی:</strong>
+                هزینه‌های مرتبط با مساحت زیربنا (مانند آب، گازوئیل، آسفالت پشت‌بام) بر اساس متراژ و هزینه‌های غیرمرتبط (مانند سرایدار، نگهبان، متصدی آسانسور، نظافت) به‌طور مساوی تقسیم می‌شود.
+            </p>
+            <div class="formula">
+                سهم هر واحد = (متراژ واحد ÷ مجموع متراژ) × هزینه مرتبط با زیربنا<br>
+                + (هزینه غیرمرتبط ÷ تعداد واحدها)
+            </div>
+        </div>
+    </section>
+
+    <!-- واحدها -->
+    <section class="page" id="page-units">
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-green">🏠</span>
+                مدیریت واحدها
+                <button class="btn btn-primary btn-sm" style="margin-right: auto; width: auto;" onclick="openUnitModal()">+ افزودن</button>
+            </div>
+            <div id="unitsList">
+                <div class="empty-state">
+                    <div class="emoji">🏘️</div>
+                    <p>هنوز واحدی ثبت نشده است</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-blue">⚙️</span>
+                تنظیمات محاسبه
+            </div>
+            <div class="form-group">
+                <label>روش محاسبه هزینه‌ها</label>
+                <select id="calcMethod">
+                    <option value="metre">بر اساس متراژ (ماده ۴ قانون)</option>
+                    <option value="equal">تقسیم مساوی بین واحدها</option>
+                    <option value="combined">ترکیبی (متراژ + نفری)</option>
+                </select>
+            </div>
+            <div class="law-section">
+                <p>طبق قانون تملک آپارتمان‌ها، روش پیش‌فرض تقسیم بر اساس متراژ است. اما مالکان می‌توانند با توافق روش دیگری را انتخاب کنند [citation:7][citation:8].</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- هزینه‌ها -->
+    <section class="page" id="page-expenses">
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-red">💸</span>
+                ثبت هزینه جدید
+            </div>
+            <div class="form-group">
+                <label>نوع هزینه</label>
+                <select id="expenseType">
+                    <option value="electricity">⚡ برق ساختمان</option>
+                    <option value="gas">🔥 گاز ساختمان</option>
+                    <option value="water">💧 آب ساختمان</option>
+                    <option value="elevator">🛗 آسانسور</option>
+                    <option value="cleaning">🧹 نظافت</option>
+                    <option value="repair">🔧 تعمیرات</option>
+                    <option value="other">📦 سایر</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>مبلغ (تومان)</label>
+                    <input type="number" id="expenseAmount" placeholder="مثال: ۲۵۰۰۰۰۰">
+                </div>
+                <div class="form-group">
+                    <label>تاریخ پرداخت</label>
+                    <input type="text" id="expenseDate" placeholder="۱۴۰۵/۰۳/۱۵">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>توضیحات</label>
+                <input type="text" id="expenseNote" placeholder="اختیاری">
+            </div>
+            <button class="btn btn-primary" onclick="addExpense()">➕ ثبت هزینه</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-yellow">📋</span>
+                هزینه‌های ثبت شده
+            </div>
+            <div id="expensesList">
+                <div class="empty-state">
+                    <div class="emoji">📝</div>
+                    <p>هنوز هزینه‌ای ثبت نشده است</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- توضیحات قانونی هزینه‌ها -->
+        <div class="law-section">
+            <h4>⚖️ مبنای قانونی هزینه‌ها</h4>
+            <p><strong>هزینه برق ساختمان:</strong> طبق ماده ۲۳ آیین‌نامه اجرایی قانون تملک آپارتمان‌ها، هزینه برق مشاعات جزء هزینه‌های مرتبط با مساحت زیربنا محسوب می‌شود و بر اساس متراژ تقسیم می‌شود [citation:17].</p>
+            <p style="margin-top: 8px;"><strong>هزینه گاز ساختمان:</strong> طبق ماده ۲۳ آیین‌نامه، هزینه گازوئیل و گاز مشاعات از هزینه‌های مرتبط با زیربناست و بر اساس متراژ تقسیم می‌گردد [citation:17].</p>
+            <p style="margin-top: 8px;"><strong>هزینه آب ساختمان:</strong> طبق ماده ۲۳ آیین‌نامه، هزینه آب مشاعات جزء هزینه‌های مرتبط با زیربنا محسوب می‌شود [citation:17].</p>
+            <p style="margin-top: 8px;"><strong>هزینه آسانسور:</strong> طبق ماده ۲۳ آیین‌نامه، هزینه متصدی و نگهداری آسانسور از هزینه‌های غیرمرتبط با زیربناست و به‌طور مساوی بین واحدها تقسیم می‌شود [citation:17].</p>
+            <p style="margin-top: 8px;"><strong>هزینه نظافت:</strong> طبق ماده ۲۳ آیین‌نامه، هزینه نظافت و سرایدار جزء هزینه‌های غیرمرتبط با زیربناست و مساوی تقسیم می‌شود [citation:17].</p>
+            <p style="margin-top: 8px;"><strong>هزینه تعمیرات:</strong> تعمیرات اساسی معمولاً بر اساس توافق ساکنان یا طبق ماده ۴ قانون تملک آپارتمان‌ها بر اساس متراژ تقسیم می‌شود [citation:14].</p>
+        </div>
+    </section>
+
+    <!-- شارژها -->
+    <section class="page" id="page-charges">
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-blue">💰</span>
+                محاسبه شارژ ماهانه
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ماه</label>
+                    <select id="chargeMonth">
+                        <option value="1">فروردین</option>
+                        <option value="2">اردیبهشت</option>
+                        <option value="3">خرداد</option>
+                        <option value="4">تیر</option>
+                        <option value="5">مرداد</option>
+                        <option value="6">شهریور</option>
+                        <option value="7">مهر</option>
+                        <option value="8">آبان</option>
+                        <option value="9">آذر</option>
+                        <option value="10">دی</option>
+                        <option value="11">بهمن</option>
+                        <option value="12">اسفند</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>سال</label>
+                    <input type="text" id="chargeYear" value="۱۴۰۵" readonly style="background: var(--light-gray);">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>مبلغ کل شارژ ماهانه (تومان)</label>
+                <input type="number" id="chargeTotal" placeholder="مثال: ۱۵۰۰۰۰۰۰">
+            </div>
+            <button class="btn btn-success" onclick="calculateCharges()">📊 محاسبه و تقسیم شارژ</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-green">📈</span>
+                وضعیت پرداخت شارژ
+            </div>
+            <div id="chargesList">
+                <div class="empty-state">
+                    <div class="emoji">💳</div>
+                    <p>ابتدا شارژ ماهانه را محاسبه کنید</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- قانون شارژ -->
+        <div class="law-section">
+            <h4>⚖️ مبنای قانونی محاسبه شارژ</h4>
+            <p><strong>ماده ۴ قانون تملک آپارتمان‌ها (اصلاحی ۱۳۷۶):</strong> سهم هر یک از مالکان از مخارج قسمت‌های مشترک متناسب است با نسبت مساحت قسمت اختصاصی به مجموع مساحت قسمت‌های اختصاصی تمام ساختمان [citation:7].</p>
+            <p style="margin-top: 8px;"><strong>ماده ۲۳ آیین‌نامه اجرایی:</strong> هزینه‌های مشترک به دو دسته تقسیم می‌شوند: هزینه‌های مرتبط با زیربنا (بر اساس متراژ) و هزینه‌های غیرمرتبط (به‌طور مساوی) [citation:17].</p>
+            <p style="margin-top: 8px;"><strong>نکته مهم:</strong> پرداخت هزینه‌های مشترک اعم از اینکه ملک مورد استفاده قرار گیرد یا نگیرد الزامی است [citation:7].</p>
+        </div>
+    </section>
+
+    <!-- سفر -->
+    <section class="page" id="page-travel">
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-yellow">✈️</span>
+                ثبت هزینه سفر
+            </div>
+            <div class="form-group">
+                <label>عنوان سفر</label>
+                <input type="text" id="travelTitle" placeholder="مثال: سفر به شمال">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>مبلغ (تومان)</label>
+                    <input type="number" id="travelAmount" placeholder="مثال: ۵۰۰۰۰۰">
+                </div>
+                <div class="form-group">
+                    <label>دسته‌بندی</label>
+                    <select id="travelCategory">
+                        <option value="transport">🚗 حمل و نقل</option>
+                        <option value="food">🍽️ خورد و خوراک</option>
+                        <option value="accommodation">🏨 اقامت</option>
+                        <option value="tickets">🎫 بلیط و ورودی</option>
+                        <option value="shopping">🛍️ خرید</option>
+                        <option value="other">📦 سایر</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>تاریخ</label>
+                    <input type="text" id="travelDate" placeholder="۱۴۰۵/۰۳/۱۵">
+                </div>
+                <div class="form-group">
+                    <label>پرداخت‌کننده</label>
+                    <input type="text" id="travelPayer" placeholder="نام شما">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="addTravelExpense()">➕ ثبت هزینه سفر</button>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-blue">📋</span>
+                هزینه‌های سفر
+            </div>
+            <div id="travelList">
+                <div class="empty-state">
+                    <div class="emoji">🧳</div>
+                    <p>هنوز هزینه سفری ثبت نشده است</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <span class="icon icon-green">🤝</span>
+                تسویه حساب سفر
+            </div>
+            <div id="travelSettle">
+                <div class="empty-state">
+                    <div class="emoji">💱</div>
+                    <p>هزینه‌ای برای تسویه وجود ندارد</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- نوار پایین -->
+<nav class="bottom-nav">
+    <button class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">📊</span>
+        داشبورد
+    </button>
+    <button class="nav-item" data-page="units">
+        <span class="nav-icon">🏠</span>
+        واحدها
+    </button>
+    <button class="nav-item" data-page="expenses">
+        <span class="nav-icon">💸</span>
+        هزینه‌ها
+    </button>
+    <button class="nav-item" data-page="charges">
+        <span class="nav-icon">💰</span>
+        شارژها
+    </button>
+    <button class="nav-item" data-page="travel">
+        <span class="nav-icon">✈️</span>
+        سفر
+    </button>
+</nav>
+
+<!-- مودال واحد -->
+<div class="modal-overlay" id="unitModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">افزودن واحد جدید</div>
+            <button class="modal-close" onclick="closeUnitModal()">✕</button>
+        </div>
+        <div class="form-group">
+            <label>نام / شماره واحد</label>
+            <input type="text" id="unitName" placeholder="مثال: واحد ۱">
+        </div>
+        <div class="form-group">
+            <label>متراژ (متر مربع)</label>
+            <input type="number" id="unitArea" placeholder="مثال: ۱۰۰">
+        </div>
+        <div class="form-group">
+            <label>تعداد نفرات</label>
+            <input type="number" id="unitResidents" placeholder="مثال: ۳" value="1">
+        </div>
+        <div class="form-group">
+            <label>وضعیت شارژ</label>
+            <select id="unitStatus">
+                <option value="paid">پرداخت شده</option>
+                <option value="pending">در انتظار</option>
+                <option value="debtor">بدهکار</option>
+            </select>
+        </div>
+        <button class="btn btn-primary" onclick="addUnit()">ثبت واحد</button>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== داده‌ها ==========
+let units = [];
+let expenses = [];
+let travelExpenses = [];
+let charges = {};
+let currentYear = 1405;
+let currentMonth = 1;
+
+// بارگذاری از localStorage
+function loadData() {
+    try {
+        const saved = localStorage.getItem('hesabyar_data');
+        if (saved) {
+            const data = JSON.parse(saved);
+            units = data.units || [];
+            expenses = data.expenses || [];
+            travelExpenses = data.travelExpenses || [];
+            charges = data.charges || {};
+        }
+    } catch (e) {
+        console.error('خطا در بارگذاری:', e);
+    }
+}
+
+function saveData() {
+    try {
+        localStorage.setItem('hesabyar_data', JSON.stringify({
+            units, expenses, travelExpenses, charges
+        }));
+    } catch (e) {
+        console.error('خطا در ذخیره:', e);
+    }
+}
+
+// ========== ناوبری ==========
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        const page = tab.dataset.page;
+        switchPage(page);
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+    });
+});
+
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const page = item.dataset.page;
+        switchPage(page);
+        document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
+        item.classList.add('active');
+        document.querySelectorAll('.tab').forEach(t => {
+            t.classList.toggle('active', t.dataset.page === page);
+        });
+    });
+});
+
+function switchPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+}
+
+// ========== واحدها ==========
+function openUnitModal() {
+    document.getElementById('unitModal').classList.add('active');
+}
+
+function closeUnitModal() {
+    document.getElementById('unitModal').classList.remove('active');
+    document.getElementById('unitName').value = '';
+    document.getElementById('unitArea').value = '';
+    document.getElementById('unitResidents').value = '1';
+}
+
+function addUnit() {
+    const name = document.getElementById('unitName').value.trim();
+    const area = parseFloat(document.getElementById('unitArea').value);
+    const residents = parseInt(document.getElementById('unitResidents').value) || 1;
+    const status = document.getElementById('unitStatus').value;
+
+    if (!name || !area) {
+        showToast('لطفاً نام و متراژ را وارد کنید');
+        return;
+    }
+
+    units.push({
+        id: Date.now(),
+        name,
+        area,
+        residents,
+        status
+    });
+
+    saveData();
+    closeUnitModal();
+    renderUnits();
+    renderDashboard();
+    showToast('✅ واحد با موفقیت اضافه شد');
+}
+
+function deleteUnit(id) {
+    if (!confirm('آیا از حذف این واحد مطمئن هستید؟')) return;
+    units = units.filter(u => u.id !== id);
+    saveData();
+    renderUnits();
+    renderDashboard();
+    showToast('🗑️ واحد حذف شد');
+}
+
+function renderUnits() {
+    const container = document.getElementById('unitsList');
+    if (units.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">🏘️</div><p>هنوز واحدی ثبت نشده است</p></div>`;
+        return;
+    }
+
+    let html = '';
+    units.forEach((unit, index) => {
+        const statusBadge = unit.status === 'paid' ? 
+            '<span class="badge badge-success">پرداخت شده</span>' :
+            unit.status === 'pending' ?
+            '<span class="badge badge-warning">در انتظار</span>' :
+            '<span class="badge badge-danger">بدهکار</span>';
+
+        html += `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon" style="background: var(--primary-light); color: var(--primary);">
+                        ${index + 1}
+                    </div>
+                    <div>
+                        <div class="list-item-title">${unit.name}</div>
+                        <div class="list-item-subtitle">${unit.area} متر • ${unit.residents} نفر</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    ${statusBadge}
+                    <button class="btn btn-danger btn-sm" onclick="deleteUnit(${unit.id})" style="width: auto; padding: 6px 10px;">🗑️</button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// ========== هزینه‌ها ==========
+function addExpense() {
+    const type = document.getElementById('expenseType').value;
+    const amount = parseFloat(document.getElementById('expenseAmount').value);
+    const date = document.getElementById('expenseDate').value.trim();
+    const note = document.getElementById('expenseNote').value.trim();
+
+    if (!amount) {
+        showToast('لطفاً مبلغ هزینه را وارد کنید');
+        return;
+    }
+
+    const typeNames = {
+        electricity: '⚡ برق ساختمان',
+        gas: '🔥 گاز ساختمان',
+        water: '💧 آب ساختمان',
+        elevator: '🛗 آسانسور',
+        cleaning: '🧹 نظافت',
+        repair: '🔧 تعمیرات',
+        other: '📦 سایر'
+    };
+
+    expenses.push({
+        id: Date.now(),
+        type,
+        typeName: typeNames[type],
+        amount,
+        date: date || 'بدون تاریخ',
+        note,
+        year: currentYear
+    });
+
+    saveData();
+    document.getElementById('expenseAmount').value = '';
+    document.getElementById('expenseDate').value = '';
+    document.getElementById('expenseNote').value = '';
+    renderExpenses();
+    renderDashboard();
+    showToast('✅ هزینه ثبت شد');
+}
+
+function deleteExpense(id) {
+    if (!confirm('حذف شود؟')) return;
+    expenses = expenses.filter(e => e.id !== id);
+    saveData();
+    renderExpenses();
+    renderDashboard();
+    showToast('🗑️ هزینه حذف شد');
+}
+
+function renderExpenses() {
+    const container = document.getElementById('expensesList');
+    const yearExpenses = expenses.filter(e => e.year === currentYear);
+    
+    if (yearExpenses.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">📝</div><p>هنوز هزینه‌ای برای سال ${currentYear} ثبت نشده است</p></div>`;
+        return;
+    }
+
+    let html = '';
+    yearExpenses.slice().reverse().forEach(exp => {
+        const icons = {
+            electricity: '⚡', gas: '🔥', water: '💧',
+            elevator: '🛗', cleaning: '🧹', repair: '🔧', other: '📦'
+        };
+        html += `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon icon-red">${icons[exp.type] || '📦'}</div>
+                    <div>
+                        <div class="list-item-title">${exp.typeName}</div>
+                        <div class="list-item-subtitle">${exp.date} ${exp.note ? '• ' + exp.note : ''}</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="list-item-amount amount-negative">${formatNumber(exp.amount)}</div>
+                    <button class="btn btn-danger btn-sm" onclick="deleteExpense(${exp.id})" style="width: auto; padding: 6px 10px;">🗑️</button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// ========== شارژ ==========
+function calculateCharges() {
+    const totalAmount = parseFloat(document.getElementById('chargeTotal').value);
+    const month = parseInt(document.getElementById('chargeMonth').value);
+
+    if (!totalAmount || units.length === 0) {
+        showToast('مبلغ شارژ را وارد کنید و حداقل یک واحد ثبت نمایید');
+        return;
+    }
+
+    const totalArea = units.reduce((sum, u) => sum + u.area, 0);
+    const totalResidents = units.reduce((sum, u) => sum + u.residents, 0);
+
+    // محاسبه سهم هر واحد
+    const results = units.map(unit => {
+        const shareByArea = (unit.area / totalArea) * totalAmount;
+        const shareEqual = totalAmount / units.length;
+        const shareByResidents = totalResidents > 0 ? (unit.residents / totalResidents) * totalAmount : 0;
+
+        return {
+            unitId: unit.id,
+            unitName: unit.name,
+            area: unit.area,
+            residents: unit.residents,
+            shareByArea: Math.round(shareByArea),
+            shareEqual: Math.round(shareEqual),
+            shareByResidents: Math.round(shareByResidents)
+        };
+    });
+
+    const key = `${currentYear}_${month}`;
+    charges[key] = {
+        totalAmount,
+        month,
+        year: currentYear,
+        results,
+        date: new Date().toLocaleDateString('fa-IR')
+    };
+
+    saveData();
+    renderCharges(month);
+    renderDashboard();
+    showToast('✅ شارژ محاسبه و ذخیره شد');
+}
+
+function renderCharges(month) {
+    const container = document.getElementById('chargesList');
+    const key = `${currentYear}_${month}`;
+    const charge = charges[key];
+
+    if (!charge) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">💳</div><p>برای این ماه شارژی محاسبه نشده است</p></div>`;
+        return;
+    }
+
+    const method = document.getElementById('calcMethod').value;
+    
+    let html = `
+        <div style="background: var(--primary-light); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 12px;">
+            <div style="font-size: 13px; color: var(--gray);">مبلغ کل شارژ ماهانه</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--primary);">${formatNumber(charge.totalAmount)} تومان</div>
+        </div>
+    `;
+
+    charge.results.forEach(r => {
+        let share;
+        let methodLabel;
+        if (method === 'metre') {
+            share = r.shareByArea;
+            methodLabel = 'متراژ';
+        } else if (method === 'equal') {
+            share = r.shareEqual;
+            methodLabel = 'مساوی';
+        } else {
+            share = Math.round((r.shareByArea + r.shareByResidents) / 2);
+            methodLabel = 'ترکیبی';
+        }
+
+        // پیدا کردن واحد برای وضعیت
+        const unit = units.find(u => u.id === r.unitId);
+        const statusBadge = unit && unit.status === 'paid' ? 
+            '<span class="badge badge-success">✓ پرداخت</span>' :
+            unit && unit.status === 'debtor' ?
+            '<span class="badge badge-danger">بدهکار</span>' :
+            '<span class="badge badge-warning">در انتظار</span>';
+
+        html += `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon icon-green">${r.unitName}</div>
+                    <div>
+                        <div class="list-item-title">${r.unitName}</div>
+                        <div class="list-item-subtitle">${r.area} متر • ${r.residents} نفر • روش: ${methodLabel}</div>
+                    </div>
+                </div>
+                <div style="text-align: left;">
+                    <div class="list-item-amount amount-positive">${formatNumber(share)} تومان</div>
+                    ${statusBadge}
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+// ========== سفر ==========
+function addTravelExpense() {
+    const title = document.getElementById('travelTitle').value.trim();
+    const amount = parseFloat(document.getElementById('travelAmount').value);
+    const category = document.getElementById('travelCategory').value;
+    const date = document.getElementById('travelDate').value.trim();
+    const payer = document.getElementById('travelPayer').value.trim() || 'من';
+
+    if (!title || !amount) {
+        showToast('لطفاً عنوان و مبلغ را وارد کنید');
+        return;
+    }
+
+    const catNames = {
+        transport: '🚗 حمل و نقل',
+        food: '🍽️ خورد و خوراک',
+        accommodation: '🏨 اقامت',
+        tickets: '🎫 بلیط و ورودی',
+        shopping: '🛍️ خرید',
+        other: '📦 سایر'
+    };
+
+    travelExpenses.push({
+        id: Date.now(),
+        title,
+        amount,
+        category,
+        categoryName: catNames[category],
+        date: date || 'بدون تاریخ',
+        payer
+    });
+
+    saveData();
+    document.getElementById('travelTitle').value = '';
+    document.getElementById('travelAmount').value = '';
+    document.getElementById('travelDate').value = '';
+    renderTravelExpenses();
+    showToast('✅ هزینه سفر ثبت شد');
+}
+
+function deleteTravelExpense(id) {
+    if (!confirm('حذف شود؟')) return;
+    travelExpenses = travelExpenses.filter(e => e.id !== id);
+    saveData();
+    renderTravelExpenses();
+    showToast('🗑️ هزینه سفر حذف شد');
+}
+
+function renderTravelExpenses() {
+    const container = document.getElementById('travelList');
+    if (travelExpenses.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">🧳</div><p>هنوز هزینه سفری ثبت نشده است</p></div>`;
+        return;
+    }
+
+    const icons = {
+        transport: '🚗', food: '🍽️', accommodation: '🏨',
+        tickets: '🎫', shopping: '🛍️', other: '📦'
+    };
+
+    let html = '';
+    travelExpenses.slice().reverse().forEach(exp => {
+        html += `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon icon-yellow">${icons[exp.category] || '📦'}</div>
+                    <div>
+                        <div class="list-item-title">${exp.title}</div>
+                        <div class="list-item-subtitle">${exp.date} • ${exp.payer}</div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="list-item-amount amount-negative">${formatNumber(exp.amount)}</div>
+                    <button class="btn btn-danger btn-sm" onclick="deleteTravelExpense(${exp.id})" style="width: auto; padding: 6px 10px;">🗑️</button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+
+    // تسویه حساب
+    renderTravelSettlement();
+}
+
+function renderTravelSettlement() {
+    const container = document.getElementById('travelSettle');
+    if (travelExpenses.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">💱</div><p>هزینه‌ای برای تسویه وجود ندارد</p></div>`;
+        return;
+    }
+
+    // محاسبه مجموع
+    const total = travelExpenses.reduce((sum, e) => sum + e.amount, 0);
+    const payers = {};
+    travelExpenses.forEach(e => {
+        if (!payers[e.payer]) payers[e.payer] = 0;
+        payers[e.payer] += e.amount;
+    });
+
+    const payerCount = Object.keys(payers).length;
+    const sharePerPerson = Math.round(total / payerCount);
+
+    let html = `
+        <div style="background: var(--primary-light); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 12px;">
+            <div style="font-size: 13px; color: var(--gray);">مجموع هزینه سفر</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--primary);">${formatNumber(total)} تومان</div>
+            <div style="font-size: 12px; color: var(--gray); margin-top: 4px;">سهم هر نفر: ${formatNumber(sharePerPerson)} تومان</div>
+        </div>
+    `;
+
+    Object.entries(payers).forEach(([name, paid]) => {
+        const diff = paid - sharePerPerson;
+        const status = diff > 0 ? `طلبکار: ${formatNumber(diff)}` : diff < 0 ? `بدهکار: ${formatNumber(Math.abs(diff))}` : 'تسویه';
+        const color = diff > 0 ? 'var(--secondary)' : diff < 0 ? 'var(--danger)' : 'var(--gray)';
+        
+        html += `
+            <div class="list-item">
+                <div class="list-item-title">${name}</div>
+                <div style="color: ${color}; font-weight: 700;">${status} تومان</div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+// ========== داشبورد ==========
+function renderDashboard() {
+    document.getElementById('totalUnits').textContent = toPersianNum(units.length);
+    document.getElementById('totalResidents').textContent = toPersianNum(units.reduce((s, u) => s + u.residents, 0));
+    
+    const yearExpenses = expenses.filter(e => e.year === currentYear);
+    const totalExp = yearExpenses.reduce((s, e) => s + e.amount, 0);
+    document.getElementById('totalExpenses').textContent = formatNumber(totalExp);
+    
+    const debtorUnits = units.filter(u => u.status === 'debtor');
+    document.getElementById('totalDebt').textContent = toPersianNum(debtorUnits.length);
+
+    // لیست وضعیت واحدها
+    const container = document.getElementById('dashboardUnitsList');
+    if (units.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">🏠</div><p>هنوز واحدی ثبت نشده است</p></div>`;
+        return;
+    }
+
+    let html = '';
+    units.forEach((unit, index) => {
+        const statusBadge = unit.status === 'paid' ? 
+            '<span class="badge badge-success">✓ پرداخت شده</span>' :
+            unit.status === 'debtor' ?
+            '<span class="badge badge-danger">بدهکار</span>' :
+            '<span class="badge badge-warning">در انتظار</span>';
+
+        html += `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon" style="background: var(--primary-light); color: var(--primary);">${index + 1}</div>
+                    <div>
+                        <div class="list-item-title">${unit.name}</div>
+                        <div class="list-item-subtitle">${unit.area} متر • ${unit.residents} نفر</div>
+                    </div>
+                </div>
+                ${statusBadge}
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// ========== ابزارها ==========
+function formatNumber(num) {
+    return toPersianNum(num.toLocaleString('fa-IR'));
+}
+
+function toPersianNum(num) {
+    return num.toString().replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+}
+
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ========== رویدادها ==========
+document.getElementById('yearSelect').addEventListener('change', (e) => {
+    currentYear = parseInt(e.target.value);
+    document.getElementById('chargeYear').value = toPersianNum(currentYear);
+    renderExpenses();
+    renderDashboard();
+});
+
+document.getElementById('chargeMonth').addEventListener('change', (e) => {
+    currentMonth = parseInt(e.target.value);
+    renderCharges(currentMonth);
+});
+
+// بستن مودال با کلیک بیرون
+document.getElementById('unitModal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeUnitModal();
+});
+
+// ========== راه‌اندازی ==========
+loadData();
+renderUnits();
+renderExpenses();
+renderDashboard();
+renderTravelExpenses();
+
+// ثبت Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(() => {
+        console.log('Service Worker ثبت شد');
+    }).catch(err => {
+        console.log('خطا در ثبت Service Worker:', err);
+    });
+}
+</script>
+</body>
+</html>
