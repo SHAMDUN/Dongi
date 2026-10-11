@@ -30,16 +30,13 @@
     --warning-light: #fef3c7;
     --info: #06b6d4;
     --dark: #0f172a;
-    --gray-900: #0f172a;
     --gray-700: #334155;
     --gray-500: #64748b;
-    --gray-400: #94a3b8;
     --gray-300: #cbd5e1;
     --gray-200: #e2e8f0;
     --gray-100: #f1f5f9;
     --gray-50: #f8fafc;
     --white: #ffffff;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
     --shadow: 0 4px 20px rgba(15,23,42,0.08);
     --shadow-lg: 0 10px 40px rgba(15,23,42,0.12);
     --radius: 16px;
@@ -56,630 +53,196 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 .app-layout { display: flex; min-height: 100vh; }
 
-/* ==================== SIDEBAR ==================== */
+/* SIDEBAR */
 .sidebar {
-    width: 270px;
-    background: var(--white);
+    width: 270px; background: var(--white);
     border-left: 1px solid var(--gray-200);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
+    display: flex; flex-direction: column;
+    position: fixed; top: 0; right: 0; height: 100vh;
     z-index: 200;
     transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
     box-shadow: -4px 0 24px rgba(15,23,42,0.04);
 }
-
-.sidebar-header {
-    padding: 24px 20px;
-    background: var(--gradient-primary);
-    color: white;
-}
-
+.sidebar-header { padding: 24px 20px; background: var(--gradient-primary); color: white; }
 .sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-
-.sidebar-logo {
-    width: 48px; height: 48px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    border: 1.5px solid rgba(255,255,255,0.25);
-}
-
+.sidebar-logo { width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1.5px solid rgba(255,255,255,0.25); }
 .sidebar-brand-text h2 { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
 .sidebar-brand-text p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
-
-.sidebar-info {
-    background: rgba(255,255,255,0.15);
-    border-radius: 12px;
-    padding: 10px 12px;
-    font-size: 11px;
-    line-height: 1.8;
-}
-
-.sidebar-info .row {
-    display: flex; align-items: center; gap: 6px;
-    margin-bottom: 4px;
-}
-
+.sidebar-info { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 10px 12px; font-size: 11px; line-height: 1.8; }
+.sidebar-info .row { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
 .sidebar-info .row:last-child { margin-bottom: 0; }
-
 .sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
-
-.nav-link {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 14px;
-    border-radius: 12px;
-    color: var(--gray-700);
-    font-size: 14px; font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 4px;
-    border: none;
-    background: none;
-    width: 100%;
-    font-family: inherit;
-    text-align: right;
-}
-
-.nav-link i {
-    width: 20px;
-    font-size: 16px;
-    color: var(--gray-500);
-    transition: color 0.2s;
-    text-align: center;
-}
-
+.nav-link { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; color: var(--gray-700); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 4px; border: none; background: none; width: 100%; font-family: inherit; text-align: right; }
+.nav-link i { width: 20px; font-size: 16px; color: var(--gray-500); transition: color 0.2s; text-align: center; }
 .nav-link:hover { background: var(--gray-100); }
 .nav-link.active { background: var(--primary-light); color: var(--primary); }
 .nav-link.active i { color: var(--primary); }
+.sidebar-footer { padding: 16px; border-top: 1px solid var(--gray-200); font-size: 11px; color: var(--gray-500); text-align: center; }
 
-.sidebar-footer {
-    padding: 16px;
-    border-top: 1px solid var(--gray-200);
-    font-size: 11px;
-    color: var(--gray-500);
-    text-align: center;
-}
-
-/* ==================== MAIN AREA ==================== */
+/* MAIN */
 .main-area { flex: 1; margin-right: 270px; min-width: 0; }
-
-/* ==================== MOBILE HEADER ==================== */
-.mobile-header {
-    display: none;
-    background: var(--gradient-primary);
-    color: white;
-    padding: 14px 16px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(99,102,241,0.25);
-}
-
-.mobile-header-content {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px;
-}
-
+.mobile-header { display: none; background: var(--gradient-primary); color: white; padding: 14px 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(99,102,241,0.25); }
+.mobile-header-content { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .mobile-brand { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
-
-.mobile-logo {
-    width: 40px; height: 40px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-}
-
-.mobile-brand-text h1 {
-    font-size: 15px; font-weight: 800;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-
-.mobile-brand-text p {
-    font-size: 10px; opacity: 0.85;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-
-.mobile-menu-btn {
-    width: 42px; height: 42px;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.15);
-    border: 1.5px solid rgba(255,255,255,0.2);
-    color: white;
-    font-size: 17px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-}
-
-.mobile-menu-btn:active { transform: scale(0.94); }
-
-/* ==================== SIDEBAR OVERLAY ==================== */
-.sidebar-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(15,23,42,0.5);
-    backdrop-filter: blur(4px);
-    z-index: 199;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s;
-}
-
+.mobile-logo { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.mobile-brand-text h1 { font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mobile-brand-text p { font-size: 10px; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mobile-menu-btn { width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.2); color: white; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.5); backdrop-filter: blur(4px); z-index: 199; opacity: 0; visibility: hidden; transition: all 0.3s; }
 .sidebar-overlay.active { opacity: 1; visibility: visible; }
 
-/* ==================== CONTENT ==================== */
-.main-content {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 24px 20px 40px;
-}
-
+/* CONTENT */
+.main-content { max-width: 900px; margin: 0 auto; padding: 24px 20px 40px; }
 .page { display: none; animation: fadeIn 0.35s ease; }
 .page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.page-title { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-size: 22px; font-weight: 800; color: var(--dark); }
+.page-title i { width: 44px; height: 44px; background: var(--primary-light); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.page-title {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 20px;
-    font-size: 22px; font-weight: 800;
-    color: var(--dark);
-}
-
-.page-title i {
-    width: 44px; height: 44px;
-    background: var(--primary-light);
-    color: var(--primary);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-}
-
-/* ==================== CARDS ==================== */
-.card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--gray-100);
-}
-
-.card-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--gray-100);
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.card-title {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 15px; font-weight: 700;
-    color: var(--dark);
-}
-
-.card-title i {
-    width: 32px; height: 32px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 15px;
-}
-
+/* CARDS */
+.card { background: var(--white); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); gap: 10px; flex-wrap: wrap; }
+.card-title { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--dark); }
+.card-title i { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
 .icon-primary { background: var(--primary-light); color: var(--primary); }
 .icon-success { background: var(--success-light); color: var(--success); }
 .icon-danger { background: var(--danger-light); color: var(--danger); }
 .icon-warning { background: var(--warning-light); color: var(--warning); }
 .icon-info { background: #cffafe; color: var(--info); }
 
-/* ==================== SUMMARY ==================== */
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.summary-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--gray-100);
-    position: relative;
-    overflow: hidden;
-}
-
-.summary-card::before {
-    content: '';
-    position: absolute; top: 0; right: 0;
-    width: 60px; height: 60px;
-    border-radius: 0 0 0 60px;
-    opacity: 0.08;
-}
-
+/* SUMMARY */
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.summary-card { background: var(--white); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); position: relative; overflow: hidden; }
+.summary-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; border-radius: 0 0 0 60px; opacity: 0.08; }
 .summary-card.primary::before { background: var(--primary); }
 .summary-card.success::before { background: var(--success); }
 .summary-card.danger::before { background: var(--danger); }
 .summary-card.warning::before { background: var(--warning); }
-
-.summary-card .icon-wrap {
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
+.summary-card .icon-wrap { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 10px; }
 .summary-card.primary .icon-wrap { background: var(--primary-light); color: var(--primary); }
 .summary-card.success .icon-wrap { background: var(--success-light); color: var(--success); }
 .summary-card.danger .icon-wrap { background: var(--danger-light); color: var(--danger); }
 .summary-card.warning .icon-wrap { background: var(--warning-light); color: var(--warning); }
-
 .summary-card .value { font-size: 18px; font-weight: 800; color: var(--dark); margin-bottom: 2px; }
 .summary-card .label { font-size: 11px; color: var(--gray-500); font-weight: 500; }
 
-/* ==================== FORM ==================== */
+/* FORM */
 .form-group { margin-bottom: 14px; }
-
-.form-group label {
-    display: block;
-    font-size: 12px; font-weight: 600;
-    color: var(--gray-700);
-    margin-bottom: 6px;
-}
-
+.form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
 .form-group label .required { color: var(--danger); }
-
-.form-control, .form-select {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid var(--gray-200);
-    border-radius: var(--radius-sm);
-    font-family: inherit;
-    font-size: 14px;
-    transition: all 0.2s;
-    background: var(--white);
-    color: var(--dark);
-}
-
-.form-control:focus, .form-select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
-}
-
+.form-control, .form-select { width: 100%; padding: 12px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; transition: all 0.2s; background: var(--white); color: var(--dark); }
+.form-control:focus, .form-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-/* ==================== BUTTONS ==================== */
-.btn {
-    padding: 12px 20px;
-    border-radius: var(--radius-sm);
-    border: none;
-    font-family: inherit;
-    font-size: 14px; font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
+/* BUTTONS */
+.btn { padding: 12px 20px; border-radius: var(--radius-sm); border: none; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
 .btn:active { transform: scale(0.97); }
 .btn-block { width: 100%; }
-
 .btn-primary { background: var(--gradient-primary); color: white; box-shadow: 0 4px 14px rgba(99,102,241,0.3); }
 .btn-success { background: var(--gradient-success); color: white; box-shadow: 0 4px 14px rgba(16,185,129,0.3); }
 .btn-danger { background: var(--gradient-danger); color: white; box-shadow: 0 4px 14px rgba(239,68,68,0.3); }
 .btn-warning { background: var(--gradient-warning); color: white; box-shadow: 0 4px 14px rgba(245,158,11,0.3); }
-
 .btn-outline { background: transparent; border: 1.5px solid var(--primary); color: var(--primary); }
 .btn-ghost { background: var(--gray-100); color: var(--gray-700); }
 .btn-sm { padding: 8px 14px; font-size: 12px; border-radius: 10px; }
 .btn-icon { padding: 8px; width: 36px; height: 36px; }
 .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
 
-/* ==================== LIST ==================== */
-.list-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--gray-100);
-    gap: 12px;
-}
-
+/* LIST */
+.list-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--gray-100); gap: 12px; }
 .list-item:last-child { border-bottom: none; }
 .list-item-info { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
-
-.list-item-icon {
-    width: 42px; height: 42px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-}
-
+.list-item-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
 .list-item-title { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
 .list-item-subtitle { font-size: 11px; color: var(--gray-500); }
 .list-item-amount { font-size: 14px; font-weight: 800; white-space: nowrap; }
-
 .amount-positive { color: var(--success); }
 .amount-negative { color: var(--danger); }
 
-/* ==================== BADGE ==================== */
-.badge {
-    display: inline-flex; align-items: center; gap: 4px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 10px; font-weight: 700;
-}
-
+/* BADGE */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; }
 .badge-success { background: var(--success-light); color: var(--success); }
 .badge-danger { background: var(--danger-light); color: var(--danger); }
 .badge-warning { background: var(--warning-light); color: var(--warning); }
 .badge-info { background: var(--primary-light); color: var(--primary); }
 .badge-gray { background: var(--gray-100); color: var(--gray-500); }
 
-/* ==================== EMPTY ==================== */
-.empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--gray-500);
-}
-
+/* EMPTY */
+.empty-state { text-align: center; padding: 40px 20px; color: var(--gray-500); }
 .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
 .empty-state h3 { font-size: 15px; font-weight: 700; color: var(--gray-700); margin-bottom: 4px; }
 .empty-state p { font-size: 12px; }
 
-/* ==================== MODAL ==================== */
-.modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(15,23,42,0.6);
-    backdrop-filter: blur(4px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 16px;
-}
-
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
 .modal-overlay.active { display: flex; }
-
-.modal {
-    background: var(--white);
-    border-radius: var(--radius);
-    width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
-    overflow-y: auto;
-    animation: zoomIn 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-
-@keyframes zoomIn {
-    from { opacity: 0; transform: scale(0.95) translateY(10px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.modal-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 20px 16px;
-    border-bottom: 1px solid var(--gray-100);
-    position: sticky; top: 0;
-    background: var(--white);
-    border-radius: var(--radius) var(--radius) 0 0;
-    z-index: 2;
-}
-
-.modal-title {
-    font-size: 16px; font-weight: 800;
-    color: var(--dark);
-    display: flex; align-items: center; gap: 10px;
-}
-
+.modal { background: var(--white); border-radius: var(--radius); width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; animation: zoomIn 0.3s cubic-bezier(0.4,0,0.2,1); }
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.modal-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 16px; border-bottom: 1px solid var(--gray-100); position: sticky; top: 0; background: var(--white); border-radius: var(--radius) var(--radius) 0 0; z-index: 2; }
+.modal-title { font-size: 16px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 10px; }
 .modal-title i { color: var(--primary); }
-
-.modal-close {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: var(--gray-100);
-    border: none;
-    font-size: 16px;
-    color: var(--gray-700);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-}
-
-.modal-close:active { transform: scale(0.9); }
-
+.modal-close { width: 36px; height: 36px; border-radius: 50%; background: var(--gray-100); border: none; font-size: 16px; color: var(--gray-700); cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .modal-body { padding: 20px; }
+.modal-footer { padding: 16px 20px 20px; border-top: 1px solid var(--gray-100); display: flex; gap: 10px; }
 
-.modal-footer {
-    padding: 16px 20px 20px;
-    border-top: 1px solid var(--gray-100);
-    display: flex; gap: 10px;
-}
-
-/* ==================== UPLOAD ==================== */
-.upload-zone {
-    border: 2px dashed var(--gray-300);
-    border-radius: var(--radius-sm);
-    padding: 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: var(--gray-50);
-}
-
+/* UPLOAD */
+.upload-zone { border: 2px dashed var(--gray-300); border-radius: var(--radius-sm); padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--gray-50); }
 .upload-zone:hover { border-color: var(--primary); background: var(--primary-light); }
 .upload-zone i { font-size: 32px; color: var(--primary); margin-bottom: 8px; display: block; }
 .upload-zone p { font-size: 13px; color: var(--gray-700); font-weight: 600; margin-bottom: 4px; }
 .upload-zone span { font-size: 11px; color: var(--gray-500); }
 .upload-zone input { display: none; }
-
-.file-preview {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 12px;
-    background: var(--primary-light);
-    border-radius: 10px;
-    margin-top: 10px;
-    font-size: 12px;
-}
-
+.file-preview { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--primary-light); border-radius: 10px; margin-top: 10px; font-size: 12px; }
 .file-preview i { color: var(--primary); }
 .file-preview .name { flex: 1; color: var(--gray-700); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .file-preview .remove { color: var(--danger); cursor: pointer; padding: 4px; }
 
-/* ==================== SUB LIST ==================== */
-.sub-list {
-    background: var(--gray-50);
-    border-radius: var(--radius-sm);
-    padding: 12px;
-    margin-top: 10px;
-}
-
+/* SUB LIST */
+.sub-list { background: var(--gray-50); border-radius: var(--radius-sm); padding: 12px; margin-top: 10px; }
 .sub-list-title { font-size: 11px; font-weight: 700; color: var(--gray-500); margin-bottom: 8px; }
-
-.sub-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 8px 10px;
-    background: var(--white);
-    border-radius: 8px;
-    margin-bottom: 6px;
-    font-size: 12px;
-    gap: 8px;
-}
-
+.sub-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--white); border-radius: 8px; margin-bottom: 6px; font-size: 12px; gap: 8px; }
 .sub-item:last-child { margin-bottom: 0; }
 .sub-item .date { color: var(--gray-500); font-size: 11px; }
 .sub-item .amount { color: var(--success); font-weight: 700; }
 .sub-item .del { color: var(--danger); cursor: pointer; }
 
-/* ==================== LAW BOX ==================== */
-.law-box {
-    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-    border-right: 4px solid var(--warning);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    margin-top: 16px;
-}
-
-.law-box h4 {
-    font-size: 13px; font-weight: 800;
-    color: #92400e;
-    margin-bottom: 8px;
-    display: flex; align-items: center; gap: 6px;
-}
-
+/* LAW BOX */
+.law-box { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-right: 4px solid var(--warning); border-radius: var(--radius-sm); padding: 14px 16px; margin-top: 16px; }
+.law-box h4 { font-size: 13px; font-weight: 800; color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
 .law-box p { font-size: 11px; color: #78350f; line-height: 1.8; margin-bottom: 6px; }
 .law-box p:last-child { margin-bottom: 0; }
 
-/* ==================== TOAST ==================== */
-.toast {
-    position: fixed;
-    bottom: 24px; left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--dark);
-    color: white;
-    padding: 12px 22px;
-    border-radius: 30px;
-    font-size: 13px; font-weight: 600;
-    opacity: 0;
-    transition: all 0.3s;
-    pointer-events: none;
-    z-index: 2000;
-    box-shadow: var(--shadow-lg);
-    display: flex; align-items: center; gap: 8px;
-    max-width: calc(100% - 32px);
-}
-
+/* TOAST */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--dark); color: white; padding: 12px 22px; border-radius: 30px; font-size: 13px; font-weight: 600; opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 2000; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px; max-width: calc(100% - 32px); }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.success { background: var(--success); }
 .toast.error { background: var(--danger); }
 .toast.warning { background: var(--warning); }
 
-/* ==================== JOURNAL TABS ==================== */
-.journal-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
-    background: var(--white);
-    padding: 6px;
-    border-radius: 14px;
-    box-shadow: var(--shadow);
-}
+/* JOURNAL TABS */
+.journal-tabs { display: flex; gap: 8px; margin-bottom: 16px; background: var(--white); padding: 6px; border-radius: 14px; box-shadow: var(--shadow); }
+.journal-tab { flex: 1; padding: 12px; border: none; background: transparent; color: var(--gray-500); border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.25s; }
+.journal-tab.active-building { background: var(--gradient-primary); color: white; box-shadow: 0 4px 14px rgba(99,102,241,0.3); }
+.journal-tab.active-travel { background: var(--gradient-warning); color: white; box-shadow: 0 4px 14px rgba(245,158,11,0.3); }
 
-.journal-tab {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    background: transparent;
-    color: var(--gray-500);
-    border-radius: 10px;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 13px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: all 0.25s;
-}
+/* SETTLEMENT */
+.settlement-box { background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; border: 1px solid #c7d2fe; }
+.settlement-box h3 { font-size: 15px; font-weight: 800; color: var(--primary-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.settlement-result { background: var(--white); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+.settlement-result .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-100); }
+.settlement-result .name { font-weight: 800; font-size: 14px; }
+.settlement-result .amount { font-weight: 800; font-size: 14px; }
+.settlement-result .detail { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-500); margin-bottom: 4px; }
+.settlement-result .final { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; padding-top: 8px; margin-top: 8px; border-top: 1px dashed var(--gray-200); }
 
-.journal-tab.active-building {
-    background: var(--gradient-primary);
-    color: white;
-    box-shadow: 0 4px 14px rgba(99,102,241,0.3);
-}
+/* PERSIAN DATEPICKER OVERRIDE */
+.datepicker-plot-area { font-family: 'Vazirmatn', sans-serif !important; border-radius: 12px !important; box-shadow: 0 10px 40px rgba(15,23,42,0.15) !important; border: 1px solid var(--gray-200) !important; z-index: 3000 !important; }
+.datepicker-day-view .table-days td span { font-family: 'Vazirmatn', sans-serif !important; border-radius: 8px !important; }
+.datepicker-day-view .table-days td.selected span { background: var(--primary) !important; color: white !important; }
+.datepicker-day-view .table-days td:hover span { background: var(--primary-light) !important; }
+.datepicker-header .header-month, .datepicker-header .header-year { color: var(--primary) !important; font-weight: 700 !important; }
 
-.journal-tab.active-travel {
-    background: var(--gradient-warning);
-    color: white;
-    box-shadow: 0 4px 14px rgba(245,158,11,0.3);
-}
-
-/* ==================== PERSIAN DATEPICKER OVERRIDE ==================== */
-.datepicker-plot-area {
-    font-family: 'Vazirmatn', sans-serif !important;
-    border-radius: 12px !important;
-    box-shadow: 0 10px 40px rgba(15,23,42,0.15) !important;
-    border: 1px solid var(--gray-200) !important;
-    z-index: 3000 !important;
-}
-
-.datepicker-day-view .table-days td span {
-    font-family: 'Vazirmatn', sans-serif !important;
-    border-radius: 8px !important;
-}
-
-.datepicker-day-view .table-days td.selected span {
-    background: var(--primary) !important;
-    color: white !important;
-}
-
-.datepicker-day-view .table-days td:hover span {
-    background: var(--primary-light) !important;
-}
-
-.datepicker-header .header-month,
-.datepicker-header .header-year {
-    color: var(--primary) !important;
-    font-weight: 700 !important;
-}
-
-/* ==================== RESPONSIVE ==================== */
+/* RESPONSIVE */
 @media (max-width: 900px) {
     .sidebar { transform: translateX(100%); box-shadow: -10px 0 40px rgba(0,0,0,0.15); }
     .sidebar.active { transform: translateX(0); }
@@ -689,7 +252,6 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     .main-content { padding: 20px 16px 32px; }
     .summary-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
 @media (max-width: 400px) {
     .form-row { grid-template-columns: 1fr; }
     .summary-card { padding: 14px; }
@@ -703,7 +265,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <div class="app-layout">
 
-<!-- ==================== SIDEBAR ==================== -->
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <div class="sidebar-brand">
@@ -714,45 +276,24 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             </div>
         </div>
         <div class="sidebar-info">
-            <div class="row">
-                <i class="fas fa-user-tie"></i>
-                <span>مدیر: <strong id="sidebarManagerInfo">—</strong></span>
-            </div>
-            <div class="row">
-                <i class="far fa-calendar-check"></i>
-                <span>شروع: <strong id="sidebarStartDate">—</strong></span>
-            </div>
+            <div class="row"><i class="fas fa-user-tie"></i><span>مدیر: <strong id="sidebarManagerInfo">—</strong></span></div>
+            <div class="row"><i class="far fa-calendar-check"></i><span>شروع: <strong id="sidebarStartDate">—</strong></span></div>
         </div>
     </div>
     <nav class="sidebar-nav">
-        <button class="nav-link active" data-page="dashboard" onclick="navigateTo('dashboard')">
-            <i class="fas fa-chart-pie"></i> داشبورد
-        </button>
-        <button class="nav-link" data-page="units" onclick="navigateTo('units')">
-            <i class="fas fa-building"></i> واحدها
-        </button>
-        <button class="nav-link" data-page="expenses" onclick="navigateTo('expenses')">
-            <i class="fas fa-receipt"></i> هزینه‌های ساختمان
-        </button>
-        <button class="nav-link" data-page="charges" onclick="navigateTo('charges')">
-            <i class="fas fa-coins"></i> شارژها
-        </button>
-        <button class="nav-link" data-page="travel" onclick="navigateTo('travel')">
-            <i class="fas fa-plane-departure"></i> سفر
-        </button>
-        <button class="nav-link" data-page="accounting" onclick="navigateTo('accounting')">
-            <i class="fas fa-book"></i> دفتر حسابداری
-        </button>
-        <button class="nav-link" data-page="settings" onclick="navigateTo('settings')">
-            <i class="fas fa-cog"></i> تنظیمات
-        </button>
+        <button class="nav-link active" data-page="dashboard" onclick="navigateTo('dashboard')"><i class="fas fa-chart-pie"></i> داشبورد</button>
+        <button class="nav-link" data-page="units" onclick="navigateTo('units')"><i class="fas fa-building"></i> واحدها</button>
+        <button class="nav-link" data-page="expenses" onclick="navigateTo('expenses')"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</button>
+        <button class="nav-link" data-page="charges" onclick="navigateTo('charges')"><i class="fas fa-coins"></i> شارژها</button>
+        <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
+        <button class="nav-link" data-page="accounting" onclick="navigateTo('accounting')"><i class="fas fa-book"></i> دفتر حسابداری</button>
+        <button class="nav-link" data-page="settings" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> تنظیمات</button>
     </nav>
-    <div class="sidebar-footer">حساب‌یار — نسخه ۲.۱.۰</div>
+    <div class="sidebar-footer">حساب‌یار — نسخه ۳.۰.۰</div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-<!-- ==================== MAIN AREA ==================== -->
 <div class="main-area">
 
 <header class="mobile-header">
@@ -764,85 +305,43 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
                 <p id="mobileManagerName">مدیریت هوشمند هزینه‌ها</p>
             </div>
         </div>
-        <button class="mobile-menu-btn" onclick="openSidebar()">
-            <i class="fas fa-bars"></i>
-        </button>
+        <button class="mobile-menu-btn" onclick="openSidebar()"><i class="fas fa-bars"></i></button>
     </div>
 </header>
 
 <main class="main-content">
 
-<!-- ==================== DASHBOARD ==================== -->
+<!-- DASHBOARD -->
 <section class="page active" id="page-dashboard">
     <div class="page-title"><i class="fas fa-chart-pie"></i> داشبورد</div>
-
     <div class="summary-grid">
-        <div class="summary-card primary">
-            <div class="icon-wrap"><i class="fas fa-building"></i></div>
-            <div class="value" id="statUnits">۰</div>
-            <div class="label">تعداد واحدها</div>
-        </div>
-        <div class="summary-card success">
-            <div class="icon-wrap"><i class="fas fa-users"></i></div>
-            <div class="value" id="statResidents">۰</div>
-            <div class="label">کل ساکنان</div>
-        </div>
-        <div class="summary-card danger">
-            <div class="icon-wrap"><i class="fas fa-money-bill-wave"></i></div>
-            <div class="value" id="statExpenses">۰</div>
-            <div class="label">کل هزینه‌ها</div>
-        </div>
-        <div class="summary-card warning">
-            <div class="icon-wrap"><i class="fas fa-hand-holding-usd"></i></div>
-            <div class="value" id="statDebt">۰</div>
-            <div class="label">کل بدهی</div>
-        </div>
+        <div class="summary-card primary"><div class="icon-wrap"><i class="fas fa-building"></i></div><div class="value" id="statUnits">۰</div><div class="label">تعداد واحدها</div></div>
+        <div class="summary-card success"><div class="icon-wrap"><i class="fas fa-users"></i></div><div class="value" id="statResidents">۰</div><div class="label">کل ساکنان</div></div>
+        <div class="summary-card danger"><div class="icon-wrap"><i class="fas fa-money-bill-wave"></i></div><div class="value" id="statExpenses">۰</div><div class="label">کل هزینه‌ها</div></div>
+        <div class="summary-card warning"><div class="icon-wrap"><i class="fas fa-hand-holding-usd"></i></div><div class="value" id="statDebt">۰</div><div class="label">کل بدهی شارژ</div></div>
     </div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title">
-                <i class="fas fa-list-check icon-primary"></i>
-                وضعیت واحدها
-            </div>
-        </div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-list-check icon-primary"></i> وضعیت واحدها</div></div>
         <div id="dashboardUnitsList"></div>
     </div>
-
     <div class="law-box">
         <h4><i class="fas fa-gavel"></i> ماده ۴ قانون تملک آپارتمان‌ها</h4>
         <p>سهم هر یک از مالکان از مخارج قسمت‌های مشترک متناسب است با نسبت مساحت قسمت اختصاصی به مجموع مساحت قسمت‌های اختصاصی تمام ساختمان.</p>
-        <p>هزینه‌های مرتبط با زیربنا (برق، گاز، آب) بر اساس متراژ و هزینه‌های غیرمرتبط (نظافت، نگهبانی) به‌طور مساوی تقسیم می‌شود.</p>
     </div>
 </section>
 
-<!-- ==================== UNITS ==================== -->
+<!-- UNITS -->
 <section class="page" id="page-units">
     <div class="page-title"><i class="fas fa-building"></i> واحدها</div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-plus-circle icon-primary"></i> افزودن واحد جدید</div>
-        </div>
-        <div class="form-group">
-            <label>نام / شماره واحد <span class="required">*</span></label>
-            <input type="text" class="form-control" id="unitName" placeholder="مثال: واحد ۱">
-        </div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-plus-circle icon-primary"></i> افزودن واحد جدید</div></div>
+        <div class="form-group"><label>نام / شماره واحد <span class="required">*</span></label><input type="text" class="form-control" id="unitName" placeholder="مثال: واحد ۱"></div>
         <div class="form-row">
-            <div class="form-group">
-                <label>متراژ (متر مربع) <span class="required">*</span></label>
-                <input type="number" class="form-control" id="unitArea" placeholder="۱۰۰">
-            </div>
-            <div class="form-group">
-                <label>تعداد نفرات</label>
-                <input type="number" class="form-control" id="unitResidents" value="1" min="1">
-            </div>
+            <div class="form-group"><label>متراژ (متر مربع) <span class="required">*</span></label><input type="number" class="form-control" id="unitArea" placeholder="۱۰۰"></div>
+            <div class="form-group"><label>تعداد نفرات</label><input type="number" class="form-control" id="unitResidents" value="1" min="1"></div>
         </div>
-        <button class="btn btn-primary btn-block" onclick="addUnit()">
-            <i class="fas fa-plus"></i> افزودن واحد
-        </button>
+        <button class="btn btn-primary btn-block" onclick="addUnit()"><i class="fas fa-plus"></i> افزودن واحد</button>
     </div>
-
     <div class="card">
         <div class="card-header">
             <div class="card-title"><i class="fas fa-list icon-info"></i> لیست واحدها</div>
@@ -852,15 +351,11 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     </div>
 </section>
 
-<!-- ==================== EXPENSES ==================== -->
+<!-- EXPENSES -->
 <section class="page" id="page-expenses">
     <div class="page-title"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-plus-circle icon-danger"></i> ثبت هزینه جدید</div>
-        </div>
-
+        <div class="card-header"><div class="card-title"><i class="fas fa-plus-circle icon-danger"></i> ثبت هزینه جدید</div></div>
         <div class="form-group">
             <label>نوع هزینه <span class="required">*</span></label>
             <select class="form-select" id="expenseType" onchange="toggleExpenseCustomTitle()">
@@ -874,35 +369,18 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
                 <option value="other">📦 سایر</option>
             </select>
         </div>
-
         <div class="form-group" id="customTitleGroup" style="display:none;">
             <label>عنوان هزینه (سایر) <span class="required">*</span></label>
             <input type="text" class="form-control" id="expenseCustomTitle" placeholder="مثال: تعمیر پمپ آب">
         </div>
-
-        <div class="form-group">
-            <label>مبلغ (تومان) <span class="required">*</span></label>
-            <input type="number" class="form-control" id="expenseAmount" placeholder="۲۵۰۰۰۰۰">
-        </div>
-
+        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label><input type="number" class="form-control" id="expenseAmount" placeholder="۲۵۰۰۰۰۰"></div>
         <div class="form-row">
-            <div class="form-group">
-                <label>تاریخ هزینه (قبض/خدمت)</label>
-                <input type="text" class="form-control datepicker" id="expenseDate" placeholder="انتخاب تاریخ" readonly>
-            </div>
-            <div class="form-group">
-                <label>تاریخ پرداخت</label>
-                <input type="text" class="form-control datepicker" id="expensePayDate" placeholder="انتخاب تاریخ" readonly>
-            </div>
+            <div class="form-group"><label>تاریخ هزینه (قبض/خدمت)</label><input type="text" class="form-control datepicker" id="expenseDate" placeholder="انتخاب تاریخ" readonly></div>
+            <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="expensePayDate" placeholder="انتخاب تاریخ" readonly></div>
         </div>
-
+        <div class="form-group"><label>پرداخت‌کننده</label><input type="text" class="form-control" id="expensePayer" placeholder="نام مدیر ساختمان"></div>
         <div class="form-group">
-            <label>پرداخت‌کننده</label>
-            <input type="text" class="form-control" id="expensePayer" placeholder="نام مدیر ساختمان">
-        </div>
-
-        <div class="form-group">
-            <label>آپلود سند (فاکتور، قبض، رسید)</label>
+            <label>آپلود سند</label>
             <div class="upload-zone" onclick="document.getElementById('expenseFile').click()">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>برای انتخاب فایل کلیک کنید</p>
@@ -911,12 +389,8 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             </div>
             <div id="expenseFilePreview"></div>
         </div>
-
-        <button class="btn btn-danger btn-block" onclick="addExpense()">
-            <i class="fas fa-plus"></i> ثبت هزینه
-        </button>
+        <button class="btn btn-danger btn-block" onclick="addExpense()"><i class="fas fa-plus"></i> ثبت هزینه</button>
     </div>
-
     <div class="card">
         <div class="card-header">
             <div class="card-title"><i class="fas fa-list icon-warning"></i> هزینه‌های ثبت شده</div>
@@ -929,72 +403,57 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     </div>
 </section>
 
-<!-- ==================== CHARGES ==================== -->
+<!-- CHARGES -->
 <section class="page" id="page-charges">
     <div class="page-title"><i class="fas fa-coins"></i> شارژها</div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-calculator icon-primary"></i> محاسبه شارژ</div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-calculator icon-primary"></i> تعیین شارژ</div></div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>دوره</label>
+                <select class="form-select" id="chargePeriod" onchange="handleChargePeriodChange()">
+                    <option value="monthly">ماهیانه</option>
+                    <option value="quarterly">سه ماهه</option>
+                    <option value="seasonal">فصلی</option>
+                    <option value="halfyear">شش ماهه</option>
+                    <option value="yearly">سالیانه</option>
+                </select>
+            </div>
+            <div class="form-group" id="chargeSubPeriodGroup">
+                <label>انتخاب</label>
+                <select class="form-select" id="chargeSubPeriod"></select>
+            </div>
         </div>
         <div class="form-group">
-            <label>دوره محاسبه</label>
-            <select class="form-select" id="chargePeriod" onchange="handleChargePeriodChange()">
-                <option value="monthly">ماهیانه</option>
-                <option value="quarterly">سه ماهه</option>
-                <option value="seasonal">فصلی</option>
-                <option value="halfyear">شش ماهه</option>
-                <option value="yearly">سالیانه</option>
-            </select>
+            <label>مبلغ شارژ هر واحد (تومان)</label>
+            <input type="number" class="form-control" id="chargeTotal" placeholder="۴۰۰۰۰۰۰">
+            <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">این مبلغ برای هر واحد به‌صورت مساوی تعیین می‌شود.</div>
         </div>
-        <div class="form-group" id="chargeSubPeriodGroup">
-            <label>انتخاب دوره</label>
-            <select class="form-select" id="chargeSubPeriod"></select>
-        </div>
-        <div class="form-group">
-            <label>مبلغ کل شارژ (تومان)</label>
-            <input type="number" class="form-control" id="chargeTotal" placeholder="۱۵۰۰۰۰۰۰">
-        </div>
-        <button class="btn btn-primary btn-block" onclick="calculateCharges()">
-            <i class="fas fa-calculator"></i> محاسبه و ذخیره
-        </button>
+        <button class="btn btn-primary btn-block" onclick="calculateCharges()"><i class="fas fa-calculator"></i> تعیین شارژ</button>
     </div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-chart-bar icon-success"></i> وضعیت پرداخت</div>
-        </div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-chart-bar icon-success"></i> وضعیت پرداخت شارژ</div></div>
         <div id="chargesList"></div>
     </div>
-
     <div class="law-box">
-        <h4><i class="fas fa-gavel"></i> مبنای قانونی محاسبه شارژ</h4>
-        <p>طبق ماده ۴ قانون تملک آپارتمان‌ها، سهم هر واحد از هزینه‌های مشترک بر اساس نسبت متراژ محاسبه می‌شود.</p>
+        <h4><i class="fas fa-info-circle"></i> نکته</h4>
+        <p>در این صفحه فقط <strong>پرداخت شارژ</strong> بررسی می‌شود. محاسبه نهایی هزینه‌ها در <strong>دفتر حسابداری → تسویه نهایی</strong> انجام می‌شود.</p>
     </div>
 </section>
 
-<!-- ==================== TRAVEL ==================== -->
+<!-- TRAVEL -->
 <section class="page" id="page-travel">
     <div class="page-title"><i class="fas fa-plane-departure"></i> مدیریت سفر</div>
-
     <div class="card">
         <div class="card-header">
             <div class="card-title"><i class="fas fa-users icon-info"></i> همسفران</div>
-            <button class="btn btn-primary btn-sm" onclick="openCompanionModal()">
-                <i class="fas fa-plus"></i> افزودن
-            </button>
+            <button class="btn btn-primary btn-sm" onclick="openCompanionModal()"><i class="fas fa-plus"></i> افزودن</button>
         </div>
         <div id="companionsList"></div>
     </div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-plus-circle icon-warning"></i> ثبت هزینه سفر</div>
-        </div>
-        <div class="form-group">
-            <label>عنوان سفر</label>
-            <input type="text" class="form-control" id="travelTitle" placeholder="مثال: سفر شمال">
-        </div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-plus-circle icon-warning"></i> ثبت هزینه سفر</div></div>
+        <div class="form-group"><label>عنوان سفر</label><input type="text" class="form-control" id="travelTitle" placeholder="مثال: سفر شمال"></div>
         <div class="form-group">
             <label>دسته‌بندی</label>
             <select class="form-select" id="travelCategory" onchange="toggleTravelCustomTitle()">
@@ -1011,24 +470,12 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             <input type="text" class="form-control" id="travelCustomTitle" placeholder="مثال: بنزین">
         </div>
         <div class="form-row">
-            <div class="form-group">
-                <label>مبلغ (تومان)</label>
-                <input type="number" class="form-control" id="travelAmount" placeholder="۵۰۰۰۰۰">
-            </div>
-            <div class="form-group">
-                <label>تاریخ</label>
-                <input type="text" class="form-control datepicker" id="travelDate" placeholder="انتخاب تاریخ" readonly>
-            </div>
+            <div class="form-group"><label>مبلغ (تومان)</label><input type="number" class="form-control" id="travelAmount" placeholder="۵۰۰۰۰۰"></div>
+            <div class="form-group"><label>تاریخ</label><input type="text" class="form-control datepicker" id="travelDate" placeholder="انتخاب تاریخ" readonly></div>
         </div>
-        <div class="form-group">
-            <label>پرداخت‌کننده</label>
-            <select class="form-select" id="travelPayer"></select>
-        </div>
-        <button class="btn btn-warning btn-block" onclick="addTravelExpense()">
-            <i class="fas fa-plus"></i> ثبت هزینه سفر
-        </button>
+        <div class="form-group"><label>پرداخت‌کننده</label><select class="form-select" id="travelPayer"></select></div>
+        <button class="btn btn-warning btn-block" onclick="addTravelExpense()"><i class="fas fa-plus"></i> ثبت هزینه سفر</button>
     </div>
-
     <div class="card">
         <div class="card-header">
             <div class="card-title"><i class="fas fa-list icon-info"></i> هزینه‌های سفر</div>
@@ -1039,16 +486,13 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         </div>
         <div id="travelList"></div>
     </div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-handshake icon-success"></i> تسویه حساب سفر</div>
-        </div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-handshake icon-success"></i> تسویه حساب سفر</div></div>
         <div id="travelSettle"></div>
     </div>
 </section>
 
-<!-- ==================== ACCOUNTING ==================== -->
+<!-- ACCOUNTING -->
 <section class="page" id="page-accounting">
     <div class="page-title"><i class="fas fa-book"></i> دفتر حسابداری</div>
 
@@ -1056,24 +500,43 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         <button class="journal-tab active-building" id="tabBuilding" onclick="switchJournalTab('building')">
             <i class="fas fa-building"></i> دفتر ساختمان
         </button>
-        <button class="journal-tab" id="tabTravel" onclick="switchJournalTab('travel')">
+        <button class="journal-tab" id="tabTravel" onclick="switchTabWait('travel')">
             <i class="fas fa-plane-departure"></i> دفتر سفر
         </button>
     </div>
 
     <!-- دفتر ساختمان -->
     <div id="journalBuildingView">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title"><i class="fas fa-calculator icon-primary"></i> تسویه نهایی</div>
+                <button class="btn btn-primary btn-sm" onclick="calculateSettlement()"><i class="fas fa-calculator"></i> محاسبه</button>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>دوره</label>
+                    <select class="form-select" id="settlementPeriod">
+                        <option value="quarterly">سه ماهه</option>
+                        <option value="seasonal">فصلی</option>
+                        <option value="halfyear" selected>شش ماهه</option>
+                        <option value="yearly">سالیانه</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>روش تقسیم</label>
+                    <select class="form-select" id="settlementMethod">
+                        <option value="area">بر اساس متراژ (ماده ۴ قانون)</option>
+                        <option value="residents">بر اساس تعداد نفرات</option>
+                        <option value="equal">مساوی</option>
+                    </select>
+                </div>
+            </div>
+            <div id="settlementResult"></div>
+        </div>
+
         <div class="summary-grid">
-            <div class="summary-card danger">
-                <div class="icon-wrap"><i class="fas fa-arrow-up"></i></div>
-                <div class="value" id="totalDebitBuilding">۰</div>
-                <div class="label">جمع بدهکار</div>
-            </div>
-            <div class="summary-card success">
-                <div class="icon-wrap"><i class="fas fa-arrow-down"></i></div>
-                <div class="value" id="totalCreditBuilding">۰</div>
-                <div class="label">جمع بستانکار</div>
-            </div>
+            <div class="summary-card danger"><div class="icon-wrap"><i class="fas fa-arrow-up"></i></div><div class="value" id="totalDebitBuilding">۰</div><div class="label">جمع بدهکار</div></div>
+            <div class="summary-card success"><div class="icon-wrap"><i class="fas fa-arrow-down"></i></div><div class="value" id="totalCreditBuilding">۰</div><div class="label">جمع بستانکار</div></div>
         </div>
 
         <div class="card">
@@ -1092,16 +555,8 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     <!-- دفتر سفر -->
     <div id="journalTravelView" style="display:none;">
         <div class="summary-grid">
-            <div class="summary-card danger">
-                <div class="icon-wrap"><i class="fas fa-arrow-up"></i></div>
-                <div class="value" id="totalDebitTravel">۰</div>
-                <div class="label">جمع بدهکار</div>
-            </div>
-            <div class="summary-card success">
-                <div class="icon-wrap"><i class="fas fa-arrow-down"></i></div>
-                <div class="value" id="totalCreditTravel">۰</div>
-                <div class="label">جمع بستانکار</div>
-            </div>
+            <div class="summary-card danger"><div class="icon-wrap"><i class="fas fa-arrow-up"></i></div><div class="value" id="totalDebitTravel">۰</div><div class="label">جمع بدهکار</div></div>
+            <div class="summary-card success"><div class="icon-wrap"><i class="fas fa-arrow-down"></i></div><div class="value" id="totalCreditTravel">۰</div><div class="label">جمع بستانکار</div></div>
         </div>
 
         <div class="card">
@@ -1118,44 +573,20 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     </div>
 </section>
 
-<!-- ==================== SETTINGS ==================== -->
+<!-- SETTINGS -->
 <section class="page" id="page-settings">
     <div class="page-title"><i class="fas fa-cog"></i> تنظیمات</div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-building icon-primary"></i> اطلاعات ساختمان</div>
-        </div>
-        <div class="form-group">
-            <label>نام ساختمان</label>
-            <input type="text" class="form-control" id="settingsBuildingName" placeholder="مثال: مجتمع مسکونی نور">
-        </div>
-        <div class="form-group">
-            <label>نام مدیر ساختمان</label>
-            <input type="text" class="form-control" id="settingsManagerName" placeholder="مثال: علی احمدی">
-        </div>
-        <div class="form-group">
-            <label>تاریخ شروع مدیریت</label>
-            <input type="text" class="form-control datepicker" id="settingsStartDate" placeholder="انتخاب تاریخ" readonly>
-        </div>
-        <button class="btn btn-primary btn-block" onclick="saveSettings()">
-            <i class="fas fa-save"></i> ذخیره تنظیمات
-        </button>
+        <div class="card-header"><div class="card-title"><i class="fas fa-building icon-primary"></i> اطلاعات ساختمان</div></div>
+        <div class="form-group"><label>نام ساختمان</label><input type="text" class="form-control" id="settingsBuildingName" placeholder="مثال: مجتمع مسکونی نور"></div>
+        <div class="form-group"><label>نام مدیر ساختمان</label><input type="text" class="form-control" id="settingsManagerName" placeholder="مثال: علی احمدی"></div>
+        <div class="form-group"><label>تاریخ شروع مدیریت</label><input type="text" class="form-control datepicker" id="settingsStartDate" placeholder="انتخاب تاریخ" readonly></div>
+        <button class="btn btn-primary btn-block" onclick="saveSettings()"><i class="fas fa-save"></i> ذخیره تنظیمات</button>
     </div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div>
-        </div>
-        <p style="font-size:12px; color:var(--gray-500); margin-bottom:12px;">
-            داده‌ها در مرورگر همین دستگاه ذخیره می‌شوند.
-        </p>
-        <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;">
-            <i class="fas fa-download"></i> پشتیبان‌گیری (JSON)
-        </button>
-        <button class="btn btn-danger btn-block" onclick="clearAllData()">
-            <i class="fas fa-trash"></i> پاک کردن همه داده‌ها
-        </button>
+        <div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div>
+        <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
+        <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
     </div>
 </section>
 
@@ -1163,33 +594,21 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 </div>
 </div>
 
-<!-- ==================== MODALS ==================== -->
-
+<!-- MODALS -->
 <div class="modal-overlay" id="paymentModal">
     <div class="modal">
         <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-money-bill-wave"></i> ثبت پرداخت جدید</div>
+            <div class="modal-title"><i class="fas fa-money-bill-wave"></i> ثبت پرداخت</div>
             <button class="modal-close" onclick="closeModal('paymentModal')"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
-            <div class="form-group">
-                <label>مبلغ پرداخت (تومان)</label>
-                <input type="number" class="form-control" id="paymentAmount" placeholder="مثال: ۲۰۰۰۰۰۰">
-            </div>
-            <div class="form-group">
-                <label>تاریخ پرداخت</label>
-                <input type="text" class="form-control datepicker" id="paymentDate" placeholder="انتخاب تاریخ" readonly>
-            </div>
-            <div class="form-group">
-                <label>توضیحات (اختیاری)</label>
-                <input type="text" class="form-control" id="paymentNote" placeholder="مثال: پرداخت نقدی">
-            </div>
+            <div class="form-group"><label>مبلغ پرداخت (تومان)</label><input type="number" class="form-control" id="paymentAmount" placeholder="۲۰۰۰۰۰۰"></div>
+            <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="paymentDate" placeholder="انتخاب تاریخ" readonly></div>
+            <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="paymentNote" placeholder="پرداخت نقدی"></div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-ghost" onclick="closeModal('paymentModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-success" onclick="savePayment()" style="flex:2;">
-                <i class="fas fa-check"></i> ثبت پرداخت
-            </button>
+            <button class="btn btn-success" onclick="savePayment()" style="flex:2;"><i class="fas fa-check"></i> ثبت پرداخت</button>
         </div>
     </div>
 </div>
@@ -1201,27 +620,18 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             <button class="modal-close" onclick="closeModal('companionModal')"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
-            <div class="form-group">
-                <label>نام همسفر</label>
-                <input type="text" class="form-control" id="companionName" placeholder="نام و نام خانوادگی">
-            </div>
-            <div class="form-group">
-                <label>تعداد نفرات</label>
-                <input type="number" class="form-control" id="companionCount" value="1" min="1">
-            </div>
+            <div class="form-group"><label>نام همسفر</label><input type="text" class="form-control" id="companionName" placeholder="نام و نام خانوادگی"></div>
+            <div class="form-group"><label>تعداد نفرات</label><input type="number" class="form-control" id="companionCount" value="1" min="1"></div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-ghost" onclick="closeModal('companionModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-primary" onclick="saveCompanion()" style="flex:2;">
-                <i class="fas fa-check"></i> افزودن
-            </button>
+            <button class="btn btn-primary" onclick="saveCompanion()" style="flex:2;"><i class="fas fa-check"></i> افزودن</button>
         </div>
     </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- ==================== EXTERNAL LIBS ==================== -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
@@ -1258,8 +668,8 @@ function saveState() {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch(e) {
-        console.error('خطا در ذخیره:', e);
-        showToast('خطا در ذخیره‌سازی — ممکنه حجم داده زیاد باشه', 'error');
+        console.error('خطا:', e);
+        showToast('خطا در ذخیره‌سازی', 'error');
     }
 }
 
@@ -1276,9 +686,7 @@ function loadState() {
             if (!state.journal.building) state.journal.building = [];
             if (!state.journal.travel) state.journal.travel = [];
         }
-    } catch(e) {
-        console.error('خطا در بارگذاری:', e);
-    }
+    } catch(e) { console.error('خطا:', e); }
 }
 
 // ==================== NAVIGATION ====================
@@ -1286,14 +694,11 @@ function navigateTo(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const target = document.getElementById('page-' + page);
     if (target) target.classList.add('active');
-
     document.querySelectorAll('.nav-link').forEach(n => {
         n.classList.toggle('active', n.dataset.page === page);
     });
-
     closeSidebar();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
     if (page === 'accounting') renderJournal();
     if (page === 'charges') renderCharges();
     if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
@@ -1303,7 +708,6 @@ function openSidebar() {
     document.getElementById('sidebar').classList.add('active');
     document.getElementById('sidebarOverlay').classList.add('active');
 }
-
 function closeSidebar() {
     document.getElementById('sidebar').classList.remove('active');
     document.getElementById('sidebarOverlay').classList.remove('active');
@@ -1334,9 +738,7 @@ function showToast(msg, type = 'default') {
     toast.textContent = msg;
     toast.className = 'toast show ' + (type !== 'default' ? type : '');
     clearTimeout(window._toastTimer);
-    window._toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-    }, 2800);
+    window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
 }
 
 function uid() { return Date.now() + Math.random().toString(36).substr(2, 9); }
@@ -1347,34 +749,19 @@ function initDatePickers() {
         console.warn('Persian Datepicker لود نشد');
         return;
     }
-
     const options = {
         format: 'YYYY/MM/DD',
         initialValue: false,
         autoClose: true,
         persianDigit: true,
         observer: true,
-        calendar: {
-            persian: {
-                locale: 'fa',
-                leapYearMode: 'algorithmic'
-            }
-        },
-        toolbox: {
-            calendarSwitch: { enabled: false }
-        },
-        navigator: {
-            scroll: { enabled: false }
-        },
+        calendar: { persian: { locale: 'fa', leapYearMode: 'algorithmic' } },
+        toolbox: { calendarSwitch: { enabled: false } },
+        navigator: { scroll: { enabled: false } },
         timePicker: { enabled: false },
-        dayPicker: {
-            titleFormat: 'YYYY MMMM'
-        }
+        dayPicker: { titleFormat: 'YYYY MMMM' }
     };
-
-    if (jQuery.fn.pDatepicker) {
-        jQuery('.datepicker').pDatepicker(options);
-    }
+    jQuery('.datepicker').pDatepicker(options);
 }
 
 function toPersianDateString() {
@@ -1400,10 +787,9 @@ function updateHeader() {
     const bn = state.settings.buildingName;
     const mn = state.settings.managerName;
     const sd = state.settings.startDate || '—';
-
     document.getElementById('sidebarBuildingName').textContent = bn;
     document.getElementById('sidebarManagerName').textContent = mn;
-    document.getElementById('sidebarManagerInfo').textContent = state.settings.managerName || '—';
+    document.getElementById('sidebarManagerInfo').textContent = mn || '—';
     document.getElementById('sidebarStartDate').textContent = sd;
     document.getElementById('mobileBuildingName').textContent = bn;
     document.getElementById('mobileManagerName').textContent = mn;
@@ -1427,8 +813,7 @@ function addUnit() {
     if (!area || area <= 0) return showToast('متراژ معتبر وارد کنید', 'error');
 
     state.units.push({
-        id: uid(),
-        name, area, residents,
+        id: uid(), name, area, residents,
         payments: [],
         createdAt: toPersianDateString()
     });
@@ -1437,8 +822,7 @@ function addUnit() {
     document.getElementById('unitName').value = '';
     document.getElementById('unitArea').value = '';
     document.getElementById('unitResidents').value = '1';
-
-    addJournalEntry('ثبت واحد جدید', name, 0, 0, 'building');
+    addJournalEntry('ثبت واحد جدید: ' + name, 'متراژ: ' + area + ' متر', 0, 0, 'building');
     renderUnits();
     renderDashboard();
     showToast('✅ واحد اضافه شد', 'success');
@@ -1469,7 +853,6 @@ function savePayment() {
     const note = document.getElementById('paymentNote').value.trim();
 
     if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
-
     const unit = state.units.find(u => u.id === currentPaymentUnitId);
     if (!unit) return;
 
@@ -1510,17 +893,13 @@ function getUnitTotalCharge(unit) {
     return total;
 }
 
-function getUnitDebt(unit) {
-    return getUnitTotalCharge(unit) - getUnitTotalPaid(unit);
-}
-
 function renderUnits() {
     const container = document.getElementById('unitsList');
     const countBadge = document.getElementById('unitsCount');
     countBadge.textContent = toPersianNum(state.units.length) + ' واحد';
 
     if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🏘️</div><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد را از فرم بالا اضافه کنید</p></div>`;
+        container.innerHTML = `<div class="empty-state"><div class="emoji">🏘️</div><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد را اضافه کنید</p></div>`;
         return;
     }
 
@@ -1528,18 +907,18 @@ function renderUnits() {
     state.units.forEach((unit, idx) => {
         const totalPaid = getUnitTotalPaid(unit);
         const totalCharge = getUnitTotalCharge(unit);
-        const debt = totalCharge - totalPaid;
+        const balance = totalPaid - totalCharge;
         const payments = unit.payments || [];
 
         let statusBadge = '';
         if (totalCharge === 0) {
             statusBadge = `<span class="badge badge-gray">شارژ تعیین نشده</span>`;
-        } else if (debt <= 0) {
-            statusBadge = `<span class="badge badge-success"><i class="fas fa-check-circle"></i> تسویه</span>`;
-        } else if (totalPaid > 0) {
-            statusBadge = `<span class="badge badge-warning">پرداخت جزئی — بدهی ${formatNumber(debt)}</span>`;
+        } else if (balance === 0) {
+            statusBadge = `<span class="badge badge-success">✓ شارژ پرداخت شده</span>`;
+        } else if (balance > 0) {
+            statusBadge = `<span class="badge badge-info">اضافه پرداخت: ${formatNumber(balance)}</span>`;
         } else {
-            statusBadge = `<span class="badge badge-danger"><i class="fas fa-exclamation-circle"></i> بدهکار ${formatNumber(debt)}</span>`;
+            statusBadge = `<span class="badge badge-danger">بدهی شارژ: ${formatNumber(Math.abs(balance))}</span>`;
         }
 
         let paymentsHtml = '';
@@ -1574,11 +953,9 @@ function renderUnits() {
                             <div class="list-item-subtitle">${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div>
                         </div>
                     </div>
-                    <button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                    <button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')"><i class="fas fa-trash"></i></button>
                 </div>
-                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
-                    ${statusBadge}
-                </div>
+                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">${statusBadge}</div>
                 <button class="btn btn-success btn-sm" style="width:100%;" onclick="openPaymentModal('${unit.id}')">
                     <i class="fas fa-plus"></i> افزودن پرداخت
                 </button>
@@ -1586,7 +963,6 @@ function renderUnits() {
             </div>
         `;
     });
-
     container.innerHTML = html;
 }
 
@@ -1636,20 +1012,14 @@ function addExpense() {
     if (type === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
 
     const typeNames = {
-        electricity: '⚡ برق ساختمان',
-        gas: '🔥 گاز ساختمان',
-        water: '💧 آب ساختمان',
-        elevator: '🛗 آسانسور',
-        cleaning: '🧹 نظافت',
-        repair: '🔧 تعمیرات',
-        maintenance: '🛠️ سرویس و نگهداری',
-        other: '📦 ' + customTitle
+        electricity: '⚡ برق ساختمان', gas: '🔥 گاز ساختمان',
+        water: '💧 آب ساختمان', elevator: '🛗 آسانسور',
+        cleaning: '🧹 نظافت', repair: '🔧 تعمیرات',
+        maintenance: '🛠️ سرویس و نگهداری', other: '📦 ' + customTitle
     };
 
     state.expenses.push({
-        id: uid(),
-        type,
-        typeName: typeNames[type],
+        id: uid(), type, typeName: typeNames[type],
         customTitle: type === 'other' ? customTitle : '',
         amount,
         date: date || '—',
@@ -1660,7 +1030,7 @@ function addExpense() {
     });
 
     saveState();
-    addJournalEntry('هزینه ' + typeNames[type], 'پرداخت توسط ' + payer, amount, 0, 'building');
+    addJournalEntry('هزینه: ' + typeNames[type], 'پرداخت توسط ' + payer + (payDate ? ' در تاریخ ' + payDate : ''), amount, 0, 'building');
 
     document.getElementById('expenseAmount').value = '';
     document.getElementById('expenseDate').value = '';
@@ -1697,14 +1067,11 @@ function downloadFile(expenseId) {
 
 function renderExpenses() {
     const container = document.getElementById('expensesList');
-
     if (state.expenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">📝</div><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمان را از فرم بالا اضافه کنید</p></div>`;
+        container.innerHTML = `<div class="empty-state"><div class="emoji">📝</div><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمان را اضافه کنید</p></div>`;
         return;
     }
-
     const icons = { electricity: '⚡', gas: '🔥', water: '💧', elevator: '🛗', cleaning: '🧹', repair: '🔧', maintenance: '🛠️', other: '📦' };
-
     let html = '';
     state.expenses.slice().reverse().forEach(exp => {
         html += `
@@ -1730,7 +1097,7 @@ function renderExpenses() {
                     <div class="file-preview" style="margin-top:10px;">
                         <i class="fas fa-paperclip"></i>
                         <span class="name">${exp.file.name}</span>
-                        <span onclick="downloadFile('${exp.id}')" style="color:var(--primary); cursor:pointer; padding:4px;" title="دانلود"><i class="fas fa-download"></i></span>
+                        <span onclick="downloadFile('${exp.id}')" style="color:var(--primary); cursor:pointer; padding:4px;"><i class="fas fa-download"></i></span>
                     </div>
                 ` : ''}
             </div>
@@ -1756,27 +1123,28 @@ function handleChargePeriodChange() {
 }
 
 function calculateCharges() {
-    const totalAmount = parseFloat(document.getElementById('chargeTotal').value);
+    const perUnitAmount = parseFloat(document.getElementById('chargeTotal').value);
     const period = document.getElementById('chargePeriod').value;
     let subPeriod;
     if (period === 'yearly') subPeriod = 'سالیانه';
     else subPeriod = document.getElementById('chargeSubPeriod').value;
 
-    if (!totalAmount || totalAmount <= 0) return showToast('مبلغ شارژ را وارد کنید', 'error');
+    if (!perUnitAmount || perUnitAmount <= 0) return showToast('مبلغ شارژ هر واحد را وارد کنید', 'error');
     if (state.units.length === 0) return showToast('اول واحد اضافه کنید', 'error');
 
-    const totalArea = state.units.reduce((s, u) => s + u.area, 0);
-    if (totalArea === 0) return showToast('متراژ واحدها نامعتبر است', 'error');
-
+    // مبلغ برای هر واحد مساوی
     const results = state.units.map(unit => ({
         unitId: unit.id,
         unitName: unit.name,
         area: unit.area,
-        share: Math.round((unit.area / totalArea) * totalAmount)
+        share: perUnitAmount
     }));
 
+    const totalAmount = perUnitAmount * state.units.length;
     const key = period + '_' + subPeriod;
+
     state.charges[key] = {
+        perUnitAmount,
         totalAmount,
         period,
         subPeriod,
@@ -1785,13 +1153,13 @@ function calculateCharges() {
     };
 
     saveState();
-    addJournalEntry('محاسبه شارژ ' + subPeriod, 'مبلغ کل: ' + formatNumber(totalAmount) + ' — مبنا: نسبت متراژ', 0, 0, 'building');
+    addJournalEntry('تعیین شارژ ' + subPeriod, 'مبلغ هر واحد: ' + formatNumber(perUnitAmount) + ' تومان × ' + state.units.length + ' واحد = ' + formatNumber(totalAmount), 0, 0, 'building');
     renderCharges();
     renderDashboard();
     renderJournal();
     renderUnits();
     document.getElementById('chargeTotal').value = '';
-    showToast('✅ شارژ محاسبه شد', 'success');
+    showToast('✅ شارژ تعیین شد', 'success');
 }
 
 function renderCharges() {
@@ -1799,7 +1167,7 @@ function renderCharges() {
     const keys = Object.keys(state.charges);
 
     if (keys.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">💰</div><h3>هنوز شارژی محاسبه نشده</h3><p>از فرم بالا شارژ را محاسبه کنید</p></div>`;
+        container.innerHTML = `<div class="empty-state"><div class="emoji">💰</div><h3>هنوز شارژی تعیین نشده</h3><p>از فرم بالا شارژ را تعیین کنید</p></div>`;
         return;
     }
 
@@ -1811,7 +1179,7 @@ function renderCharges() {
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--gray-100);">
                     <div>
                         <div style="font-weight:800; color:var(--dark); font-size:14px;">${charge.subPeriod}</div>
-                        <div style="font-size:11px; color:var(--gray-500);">کل: ${formatNumber(charge.totalAmount)} تومان</div>
+                        <div style="font-size:11px; color:var(--gray-500);">هر واحد: ${formatNumber(charge.perUnitAmount)} — کل: ${formatNumber(charge.totalAmount)}</div>
                     </div>
                     <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')"><i class="fas fa-trash"></i></button>
                 </div>
@@ -1819,21 +1187,20 @@ function renderCharges() {
                     const unit = state.units.find(u => u.id === r.unitId);
                     if (!unit) return '';
                     const paid = getUnitTotalPaid(unit);
-                    const remaining = r.share - paid;
+                    const balance = paid - r.share;
                     let statusBadge = '';
-                    if (paid >= r.share) {
-                        statusBadge = '<span class="badge badge-success">✓ تسویه</span>';
+                    if (balance >= 0) {
+                        statusBadge = '<span class="badge badge-success">✓ شارژ پرداخت شده</span>';
                     } else if (paid > 0) {
-                        statusBadge = `<span class="badge badge-warning">باقی‌مانده: ${formatNumber(remaining)}</span>`;
+                        statusBadge = `<span class="badge badge-warning">پرداخت جزئی — بدهی ${formatNumber(Math.abs(balance))}</span>`;
                     } else {
-                        statusBadge = `<span class="badge badge-danger">بدهکار: ${formatNumber(r.share)}</span>`;
+                        statusBadge = `<span class="badge badge-danger">شارژ پرداخت نشده — ${formatNumber(r.share)}</span>`;
                     }
-
                     return `
                         <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--gray-100); gap:8px;">
                             <div style="flex:1; min-width:0;">
                                 <div style="font-size:13px; font-weight:600;">${r.unitName}</div>
-                                <div style="font-size:10px; color:var(--gray-500);">${toPersianNum(r.area)} متر</div>
+                                <div style="font-size:10px; color:var(--gray-500);">پرداختی: ${formatNumber(paid)}</div>
                             </div>
                             <div style="text-align:left;">
                                 <div style="font-size:13px; font-weight:800; color:var(--primary);">${formatNumber(r.share)}</div>
@@ -1869,7 +1236,6 @@ function saveCompanion() {
     const name = document.getElementById('companionName').value.trim();
     const count = parseInt(document.getElementById('companionCount').value) || 1;
     if (!name) return showToast('نام را وارد کنید', 'error');
-
     state.companions.push({ id: uid(), name, count });
     saveState();
     closeModal('companionModal');
@@ -1938,27 +1304,20 @@ function addTravelExpense() {
     if (!payer) return showToast('پرداخت‌کننده را انتخاب کنید', 'error');
 
     const catNames = {
-        transport: '🚗 حمل و نقل',
-        food: '🍽️ خورد و خوراک',
-        accommodation: '🏨 اقامت',
-        tickets: '🎫 بلیط و ورودی',
-        shopping: '🛍️ خرید',
-        other: '📦 ' + customTitle
+        transport: '🚗 حمل و نقل', food: '🍽️ خورد و خوراک',
+        accommodation: '🏨 اقامت', tickets: '🎫 بلیط و ورودی',
+        shopping: '🛍️ خرید', other: '📦 ' + customTitle
     };
 
     state.travelExpenses.push({
-        id: uid(),
-        title,
-        category,
+        id: uid(), title, category,
         categoryName: catNames[category],
-        amount,
-        date,
-        payer,
+        amount, date, payer,
         createdAt: toPersianDateString()
     });
 
     saveState();
-    addJournalEntry('هزینه سفر - ' + title, catNames[category] + ' توسط ' + payer, amount, 0, 'travel');
+    addJournalEntry('هزینه سفر: ' + title, catNames[category] + ' توسط ' + payer, amount, 0, 'travel');
 
     document.getElementById('travelTitle').value = '';
     document.getElementById('travelAmount').value = '';
@@ -2039,17 +1398,9 @@ function renderTravelSettlement() {
         const shouldPay = sharePerPerson * c.count;
         const diff = paid - shouldPay;
         let status, color;
-        if (diff > 0) {
-            status = `طلبکار: ${formatNumber(diff)}`;
-            color = 'var(--success)';
-        } else if (diff < 0) {
-            status = `بدهکار: ${formatNumber(Math.abs(diff))}`;
-            color = 'var(--danger)';
-        } else {
-            status = 'تسویه';
-            color = 'var(--gray-500)';
-        }
-
+        if (diff > 0) { status = `طلبکار: ${formatNumber(diff)}`; color = 'var(--success)'; }
+        else if (diff < 0) { status = `بدهکار: ${formatNumber(Math.abs(diff))}`; color = 'var(--danger)'; }
+        else { status = 'تسویه'; color = 'var(--gray-500)'; }
         html += `
             <div class="list-item">
                 <div class="list-item-info">
@@ -2067,16 +1418,14 @@ function renderTravelSettlement() {
     container.innerHTML = html;
 }
 
-// ==================== JOURNAL (دو دفتر جدا) ====================
+// ==================== JOURNAL ====================
 function addJournalEntry(title, description, debit, credit, type = 'building') {
     if (!state.journal) state.journal = { building: [], travel: [] };
     if (!state.journal[type]) state.journal[type] = [];
-
     state.journal[type].push({
         id: uid(),
         date: toPersianDateString(),
-        title,
-        description,
+        title, description,
         debit: debit || 0,
         credit: credit || 0
     });
@@ -2102,6 +1451,10 @@ function switchJournalTab(tab) {
         viewBuilding.style.display = 'none';
         viewTravel.style.display = 'block';
     }
+}
+
+function switchTabWait(tab) {
+    switchJournalTab(tab);
 }
 
 function renderJournal() {
@@ -2176,6 +1529,152 @@ function clearJournal(type) {
     showToast(`🗑️ دفتر ${label} پاک شد`, 'warning');
 }
 
+// ==================== SETTLEMENT (تسویه نهایی) ====================
+function calculateSettlement() {
+    const period = document.getElementById('settlementPeriod').value;
+    const method = document.getElementById('settlementMethod').value;
+    const resultDiv = document.getElementById('settlementResult');
+
+    if (state.units.length === 0) {
+        resultDiv.innerHTML = '<div class="empty-state" style="padding:20px;"><p>اول واحد اضافه کنید</p></div>';
+        return;
+    }
+
+    if (state.expenses.length === 0) {
+        resultDiv.innerHTML = '<div class="empty-state" style="padding:20px;"><p>هنوز هزینه‌ای ثبت نشده است</p></div>';
+        return;
+    }
+
+    // فیلتر هزینه‌ها بر اساس بازه
+    const now = new persianDate();
+    const currentMonth = now.month();
+    let expensesInPeriod = state.expenses;
+
+    if (period === 'quarterly') {
+        const quarterStart = Math.floor((currentMonth - 1) / 3) * 3 + 1;
+        expensesInPeriod = state.expenses.filter(e => {
+            const m = extractMonth(e.date);
+            return m >= quarterStart && m < quarterStart + 3;
+        });
+    } else if (period === 'seasonal') {
+        const seasonStart = Math.floor((currentMonth - 1) / 3) * 3 + 1;
+        expensesInPeriod = state.expenses.filter(e => {
+            const m = extractMonth(e.date);
+            return m >= seasonStart && m < seasonStart + 3;
+        });
+    } else if (period === 'halfyear') {
+        const halfStart = currentMonth <= 6 ? 1 : 7;
+        expensesInPeriod = state.expenses.filter(e => {
+            const m = extractMonth(e.date);
+            return m >= halfStart && m < halfStart + 6;
+        });
+    }
+    // yearly: همه
+
+    const totalExpenses = expensesInPeriod.reduce((s, e) => s + e.amount, 0);
+    if (totalExpenses === 0) {
+        resultDiv.innerHTML = '<div class="empty-state" style="padding:20px;"><p>در این بازه هزینه‌ای ثبت نشده است</p></div>';
+        return;
+    }
+
+    // محاسبه سهم هر واحد
+    const totalArea = state.units.reduce((s, u) => s + u.area, 0);
+    const totalResidents = state.units.reduce((s, u) => s + u.residents, 0);
+
+    const results = state.units.map(unit => {
+        let share = 0;
+        if (method === 'area') {
+            share = totalArea > 0 ? (unit.area / totalArea) * totalExpenses : 0;
+        } else if (method === 'residents') {
+            share = totalResidents > 0 ? (unit.residents / totalResidents) * totalExpenses : 0;
+        } else {
+            share = totalExpenses / state.units.length;
+        }
+        const paid = getUnitTotalPaid(unit);
+        const balance = paid - share;
+        return { unit, share: Math.round(share), paid, balance: Math.round(balance) };
+    });
+
+    // نمایش نتیجه
+    const methodLabel = method === 'area' ? 'نسبت متراژ (طبق ماده ۴ قانون تملک آپارتمان‌ها)' : method === 'residents' ? 'تعداد نفرات' : 'مساوی بین واحدها';
+    const periodLabel = { quarterly: 'سه ماهه', seasonal: 'فصلی', halfyear: 'شش ماهه', yearly: 'سالیانه' }[period];
+
+    let html = `
+        <div class="settlement-box">
+            <h3><i class="fas fa-info-circle"></i> نحوه محاسبه</h3>
+            <p style="font-size:12px; color:var(--primary-dark); line-height:1.9;">
+                جمع هزینه‌های <strong>${periodLabel}</strong> اخیر: <strong>${formatNumber(totalExpenses)} تومان</strong><br>
+                روش تقسیم: <strong>${methodLabel}</strong>
+            </p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+    `;
+
+    results.forEach(r => {
+        let statusText, statusColor, statusIcon;
+        if (r.balance > 0) {
+            statusText = `طلبکار: ${formatNumber(r.balance)} تومان`;
+            statusColor = 'var(--success)';
+            statusIcon = '✓';
+        } else if (r.balance < 0) {
+            statusText = `بدهکار: ${formatNumber(Math.abs(r.balance))} تومان`;
+            statusColor = 'var(--danger)';
+            statusIcon = '!';
+        } else {
+            statusText = 'تسویه کامل';
+            statusColor = 'var(--gray-500)';
+            statusIcon = '✓';
+        }
+
+        html += `
+            <div class="settlement-result">
+                <div class="header">
+                    <div class="name">${r.unit.name}</div>
+                    <div class="amount" style="color:${statusColor};">${statusText}</div>
+                </div>
+                <div class="detail"><span>متراژ:</span><span>${toPersianNum(r.unit.area)} متر</span></div>
+                <div class="detail"><span>تعداد نفرات:</span><span>${toPersianNum(r.unit.residents)} نفر</span></div>
+                <div class="detail"><span>سهم از هزینه‌ها:</span><span>${formatNumber(r.share)} تومان</span></div>
+                <div class="detail"><span>جمع پرداختی:</span><span>${formatNumber(r.paid)} تومان</span></div>
+                <div class="final" style="color:${statusColor};">
+                    <span>مانده نهایی:</span>
+                    <span>${r.balance >= 0 ? '+' : ''}${formatNumber(r.balance)} تومان</span>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `</div>
+        <div class="law-box" style="margin-top:16px;">
+            <h4><i class="fas fa-gavel"></i> مبنای قانونی</h4>
+            <p>${method === 'area' 
+                ? 'طبق ماده ۴ قانون تملک آپارتمان‌ها، سهم هر واحد از هزینه‌های مشترک بر اساس نسبت متراژ محاسبه شده است.' 
+                : method === 'residents'
+                ? 'سهم هر واحد بر اساس تعداد نفرات ساکن محاسبه شده است.'
+                : 'هزینه‌ها به‌طور مساوی بین تمام واحدها تقسیم شده است.'}</p>
+        </div>
+    `;
+
+    resultDiv.innerHTML = html;
+
+    // ذخیره در state
+    state.settlement = {
+        period, method, totalExpenses,
+        results: results.map(r => ({ unitId: r.unit.id, share: r.share, paid: r.paid, balance: r.balance })),
+        calculatedAt: toPersianDateString()
+    };
+    saveState();
+}
+
+function extractMonth(dateStr) {
+    if (!dateStr || dateStr === '—') return 0;
+    const parts = dateStr.split('/');
+    if (parts.length >= 2) {
+        return parseInt(parts[1].replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))) || 0;
+    }
+    return 0;
+}
+
 // ==================== DASHBOARD ====================
 function renderDashboard() {
     document.getElementById('statUnits').textContent = toPersianNum(state.units.length);
@@ -2185,7 +1684,10 @@ function renderDashboard() {
     document.getElementById('statExpenses').textContent = formatNumber(totalExp);
 
     let totalDebt = 0;
-    state.units.forEach(u => { const d = getUnitDebt(u); if (d > 0) totalDebt += d; });
+    state.units.forEach(u => {
+        const balance = getUnitTotalPaid(u) - getUnitTotalCharge(u);
+        if (balance < 0) totalDebt += Math.abs(balance);
+    });
     document.getElementById('statDebt').textContent = formatNumber(totalDebt);
 
     const container = document.getElementById('dashboardUnitsList');
@@ -2197,12 +1699,12 @@ function renderDashboard() {
     container.innerHTML = state.units.map((u, i) => {
         const paid = getUnitTotalPaid(u);
         const charge = getUnitTotalCharge(u);
-        const debt = charge - paid;
+        const balance = paid - charge;
         let badge = '';
         if (charge === 0) badge = `<span class="badge badge-gray">بدون شارژ</span>`;
-        else if (debt <= 0) badge = `<span class="badge badge-success">✓ تسویه</span>`;
-        else if (paid > 0) badge = `<span class="badge badge-warning">جزئی</span>`;
-        else badge = `<span class="badge badge-danger">بدهکار</span>`;
+        else if (balance === 0) badge = `<span class="badge badge-success">✓ شارژ پرداخت شده</span>`;
+        else if (balance > 0) badge = `<span class="badge badge-info">اضافه پرداخت</span>`;
+        else badge = `<span class="badge badge-danger">بدهی شارژ</span>`;
 
         return `
             <div class="list-item">
@@ -2230,6 +1732,9 @@ function exportExpensesExcel() {
         'تاریخ پرداخت': e.payDate,
         'پرداخت‌کننده': e.payer
     }));
+    data.push({});
+    data.push({ 'ردیف': 'جمع کل', 'مبلغ (تومان)': state.expenses.reduce((s, e) => s + e.amount, 0) });
+
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'هزینه‌ها');
@@ -2247,6 +1752,9 @@ function exportTravelExcel() {
         'تاریخ': e.date,
         'پرداخت‌کننده': e.payer
     }));
+    data.push({});
+    data.push({ 'ردیف': 'جمع کل', 'مبلغ (تومان)': state.travelExpenses.reduce((s, e) => s + e.amount, 0) });
+
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'سفر');
@@ -2263,7 +1771,8 @@ function exportJournalExcel(type) {
     const totalDebit = entries.reduce((s, j) => s + (j.debit || 0), 0);
     const totalCredit = entries.reduce((s, j) => s + (j.credit || 0), 0);
 
-    const data = entries.map((j, i) => ({
+    // شیت ۱: کل حساب‌ها
+    const allData = entries.map((j, i) => ({
         'ردیف': i + 1,
         'تاریخ': j.date,
         'شرح': j.title,
@@ -2272,14 +1781,81 @@ function exportJournalExcel(type) {
         'بستانکار (تومان)': j.credit || 0
     }));
 
-    // اضافه کردن ردیف توضیحات
-    data.push({});
-    data.push({ 'ردیف': 'مبنای محاسبه', 'تاریخ': '—', 'شرح': type === 'travel' ? 'تقسیم مساوی بین همسفران بر اساس تعداد نفرات' : 'تقسیم بر اساس ماده ۴ قانون تملک آپارتمان‌ها (نسبت متراژ)', 'توضیحات': '', 'بدهکار (تومان)': '', 'بستانکار (تومان)': '' });
-    data.push({ 'ردیف': 'جمع کل', 'تاریخ': '—', 'شرح': '', 'توضیحات': '', 'بدهکار (تومان)': totalDebit, 'بستانکار (تومان)': totalCredit });
+    allData.push({});
+    allData.push({ 'ردیف': 'مبنای محاسبه', 'شرح': type === 'travel' ? 'تقسیم مساوی بین همسفران بر اساس تعداد نفرات' : 'تقسیم بر اساس ماده ۴ قانون تملک آپارتمان‌ها (نسبت متراژ)' });
+    allData.push({ 'ردیف': 'جمع کل', 'بدهکار (تومان)': totalDebit, 'بستانکار (تومان)': totalCredit });
 
-    const ws = XLSX.utils.json_to_sheet(data);
+    const ws = XLSX.utils.json_to_sheet(allData);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'دفتر ' + label);
+    XLSX.utils.book_append_sheet(wb, ws, 'کل حساب‌ها');
+
+    // شیت‌های جداگانه برای هر واحد/همسفر
+    if (type === 'building') {
+        // برای هر واحد یک شیت
+        state.units.forEach(unit => {
+            const unitEntries = entries.filter(j => 
+                j.title.includes(unit.name) || 
+                j.description.includes(unit.name)
+            );
+            const unitData = unitEntries.map((j, i) => ({
+                'ردیف': i + 1,
+                'تاریخ': j.date,
+                'شرح': j.title,
+                'توضیحات': j.description,
+                'بدهکار (تومان)': j.debit || 0,
+                'بستانکار (تومان)': j.credit || 0
+            }));
+
+            const totalPaid = getUnitTotalPaid(unit);
+            const totalCharge = getUnitTotalCharge(unit);
+            const balance = totalPaid - totalCharge;
+
+            unitData.push({});
+            unitData.push({ 'ردیف': 'اطلاعات واحد', 'شرح': `متراژ: ${unit.area} متر — نفرات: ${unit.residents}` });
+            unitData.push({ 'ردیف': 'جمع پرداختی', 'بستانکار (تومان)': totalPaid });
+            unitData.push({ 'ردیف': 'جمع شارژ تعیین‌شده', 'بدهکار (تومان)': totalCharge });
+            unitData.push({ 'ردیف': 'مانده نهایی', 'بدهکار (تومان)': balance < 0 ? Math.abs(balance) : 0, 'بستانکار (تومان)': balance > 0 ? balance : 0 });
+
+            const wsUnit = XLSX.utils.json_to_sheet(unitData);
+            // اسم شیت (حداکثر ۳۱ کاراکتر)
+            const sheetName = unit.name.substring(0, 31);
+            XLSX.utils.book_append_sheet(wb, wsUnit, sheetName);
+        });
+    } else {
+        // برای هر همسفر یک شیت
+        state.companions.forEach(companion => {
+            const compEntries = entries.filter(j => 
+                j.title.includes(companion.name) || 
+                j.description.includes(companion.name)
+            );
+            const compData = compEntries.map((j, i) => ({
+                'ردیف': i + 1,
+                'تاریخ': j.date,
+                'شرح': j.title,
+                'توضیحات': j.description,
+                'بدهکار (تومان)': j.debit || 0,
+                'بستانکار (تومان)': j.credit || 0
+            }));
+
+            const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
+            const totalPeople = state.companions.reduce((s, c) => s + c.count, 0);
+            const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
+            const shouldPay = sharePerPerson * companion.count;
+            const paid = state.travelExpenses.filter(e => e.payer === companion.name).reduce((s, e) => s + e.amount, 0);
+            const balance = paid - shouldPay;
+
+            compData.push({});
+            compData.push({ 'ردیف': 'اطلاعات همسفر', 'شرح': `${companion.count} نفر` });
+            compData.push({ 'ردیف': 'جمع پرداختی', 'بستانکار (تومان)': paid });
+            compData.push({ 'ردیف': 'سهم از هزینه‌ها', 'بدهکار (تومان)': shouldPay });
+            compData.push({ 'ردیف': 'مانده نهایی', 'بدهکار (تومان)': balance < 0 ? Math.abs(balance) : 0, 'بستانکار (تومان)': balance > 0 ? balance : 0 });
+
+            const wsComp = XLSX.utils.json_to_sheet(compData);
+            const sheetName = companion.name.substring(0, 31);
+            XLSX.utils.book_append_sheet(wb, wsComp, sheetName);
+        });
+    }
+
     XLSX.writeFile(wb, 'دفتر-روزنامه-' + label + '.xlsx');
     showToast('✅ فایل اکسل دانلود شد', 'success');
 }
@@ -2294,9 +1870,10 @@ function exportExpensesPDF() {
     doc.text('Building Expenses Report', 105, 15, { align: 'center' });
     doc.setFontSize(10);
     doc.text('Building: ' + state.settings.buildingName, 105, 22, { align: 'center' });
-    doc.text('Date: ' + toPersianDateString(), 105, 28, { align: 'center' });
+    doc.text('Manager: ' + state.settings.managerName, 105, 28, { align: 'center' });
+    doc.text('Date: ' + toPersianDateString(), 105, 34, { align: 'center' });
 
-    let y = 40;
+    let y = 45;
     doc.setFontSize(11);
     doc.text('Row | Type | Amount | Date | Payer', 10, y);
     y += 8;
@@ -2375,15 +1952,15 @@ function exportJournalPDF(type) {
     const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
     const label = type === 'travel' ? 'Travel Journal' : 'Building Journal';
-    const labelFa = type === 'travel' ? 'دفتر سفر' : 'دفتر ساختمان';
 
     doc.setFontSize(16);
     doc.text(label, 105, 15, { align: 'center' });
     doc.setFontSize(10);
     doc.text('Building: ' + state.settings.buildingName, 105, 22, { align: 'center' });
-    doc.text('Date: ' + toPersianDateString(), 105, 28, { align: 'center' });
+    doc.text('Manager: ' + state.settings.managerName, 105, 28, { align: 'center' });
+    doc.text('Date: ' + toPersianDateString(), 105, 34, { align: 'center' });
 
-    let y = 40;
+    let y = 45;
     doc.setFontSize(10);
     doc.text('Row | Date | Title | Debit | Credit', 10, y);
     y += 8;
@@ -2408,7 +1985,6 @@ function exportJournalPDF(type) {
     y += 6;
     doc.text(`Total Credit: ${totalCredit.toLocaleString()}`, 10, y);
 
-    // جمله توضیحی
     y += 15;
     doc.setFontSize(9);
     if (type === 'travel') {
@@ -2439,7 +2015,7 @@ function exportData() {
 }
 
 function clearAllData() {
-    if (!confirm('همه داده‌ها پاک شود؟ این عمل برگشت‌پذیر نیست!')) return;
+    if (!confirm('همه داده‌ها پاک شود؟')) return;
     if (!confirm('مطمئنی؟ داده‌ها برای همیشه حذف می‌شوند.')) return;
     localStorage.removeItem(STORAGE_KEY);
     location.reload();
@@ -2450,10 +2026,7 @@ function init() {
     loadState();
     loadSettings();
     handleChargePeriodChange();
-
-    // تاریخ‌پیکرها بعد از لود jQuery
     setTimeout(initDatePickers, 500);
-
     renderUnits();
     renderExpenses();
     renderCharges();
@@ -2465,7 +2038,6 @@ function init() {
     renderDashboard();
 }
 
-// اجرا بعد از لود کامل
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
