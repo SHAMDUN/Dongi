@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hesabyar-v1';
+const CACHE_NAME = 'hesabyar-v1.2';
 const urlsToCache = [
     '/Dongi/',
     '/Dongi/index.html',
