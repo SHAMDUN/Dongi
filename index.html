@@ -1229,6 +1229,1252 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-<!-- ⚠️ بخش JavaScript در پیام بعدی میاد — هنوز Commit نکن! -->
+<script>
+// ==================== STATE ====================
+const STORAGE_KEY = 'hesabyar_v3';
+let state = {
+    units: [],
+    expenses: [],
+    travelExpenses: [],
+    companions: [],
+    charges: {},
+    journal: {
+        building: [],
+        travel: []
+    },
+    settings: {
+        buildingName: 'حساب‌یار',
+        managerName: 'مدیریت هوشمند هزینه‌ها',
+        startDate: ''
+    }
+};
+
+let currentPaymentUnitId = null;
+let tempExpenseFile = null;
+let currentJournalTab = 'building';
+
+// ==================== STORAGE ====================
+function saveState() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch(e) {
+        console.error('خطا در ذخیره:', e);
+        showToast('خطا در ذخیره‌سازی — ممکنه حجم داده زیاد باشه', 'error');
+    }
+}
+
+function loadState() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            state = { ...state, ...parsed };
+            state.settings = { ...state.settings, ...(parsed.settings || {}) };
+            if (!state.journal || Array.isArray(state.journal)) {
+                state.journal = { building: [], travel: [] };
+            }
+            if (!state.journal.building) state.journal.building = [];
+            if (!state.journal.travel) state.journal.travel = [];
+        }
+    } catch(e) {
+        console.error('خطا در بارگذاری:', e);
+    }
+}
+
+// ==================== NAVIGATION ====================
+function navigateTo(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + page);
+    if (target) target.classList.add('active');
+
+    document.querySelectorAll('.nav-link').forEach(n => {
+        n.classList.toggle('active', n.dataset.page === page);
+    });
+
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (page === 'accounting') renderJournal();
+    if (page === 'charges') renderCharges();
+    if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
+}
+
+function openSidebar() {
+    document.getElementById('sidebar').classList.add('active');
+    document.getElementById('sidebarOverlay').classList.add('active');
+}
+
+function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('active');
+    document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+// ==================== MODAL ====================
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', e => {
+        if (e.target === e.currentTarget) m.classList.remove('active');
+    });
+});
+
+// ==================== UTILS ====================
+function formatNumber(num) {
+    if (!num && num !== 0) return '۰';
+    return Number(num).toLocaleString('fa-IR');
+}
+
+function toPersianNum(num) {
+    return String(num).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+}
+
+function showToast(msg, type = 'default') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.className = 'toast show ' + (type !== 'default' ? type : '');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2800);
+}
+
+function uid() { return Date.now() + Math.random().toString(36).substr(2, 9); }
+
+// ==================== DATE PICKER ====================
+function initDatePickers() {
+    if (typeof jQuery === 'undefined' || !jQuery.fn.pDatepicker) {
+        console.warn('Persian Datepicker لود نشد');
+        return;
+    }
+
+    const options = {
+        format: 'YYYY/MM/DD',
+        initialValue: false,
+        autoClose: true,
+        persianDigit: true,
+        observer: true,
+        calendar: {
+            persian: {
+                locale: 'fa',
+                leapYearMode: 'algorithmic'
+            }
+        },
+        toolbox: {
+            calendarSwitch: { enabled: false }
+        },
+        navigator: {
+            scroll: { enabled: false }
+        },
+        timePicker: { enabled: false },
+        dayPicker: {
+            titleFormat: 'YYYY MMMM'
+        }
+    };
+
+    if (jQuery.fn.pDatepicker) {
+        jQuery('.datepicker').pDatepicker(options);
+    }
+}
+
+function toPersianDateString() {
+    try {
+        const pd = new persianDate();
+        return pd.year() + '/' + String(pd.month()).padStart(2, '0') + '/' + String(pd.date()).padStart(2, '0');
+    } catch(e) {
+        return new Date().toLocaleDateString('fa-IR');
+    }
+}
+
+// ==================== SETTINGS ====================
+function saveSettings() {
+    state.settings.buildingName = document.getElementById('settingsBuildingName').value.trim() || 'حساب‌یار';
+    state.settings.managerName = document.getElementById('settingsManagerName').value.trim() || 'مدیریت هوشمند هزینه‌ها';
+    state.settings.startDate = document.getElementById('settingsStartDate').value.trim();
+    saveState();
+    updateHeader();
+    showToast('✅ تنظیمات ذخیره شد', 'success');
+}
+
+function updateHeader() {
+    const bn = state.settings.buildingName;
+    const mn = state.settings.managerName;
+    const sd = state.settings.startDate || '—';
+
+    document.getElementById('sidebarBuildingName').textContent = bn;
+    document.getElementById('sidebarManagerName').textContent = mn;
+    document.getElementById('sidebarManagerInfo').textContent = state.settings.managerName || '—';
+    document.getElementById('sidebarStartDate').textContent = sd;
+    document.getElementById('mobileBuildingName').textContent = bn;
+    document.getElementById('mobileManagerName').textContent = mn;
+    document.title = bn + ' | حساب‌یار';
+}
+
+function loadSettings() {
+    document.getElementById('settingsBuildingName').value = state.settings.buildingName || '';
+    document.getElementById('settingsManagerName').value = state.settings.managerName || '';
+    document.getElementById('settingsStartDate').value = state.settings.startDate || '';
+    updateHeader();
+}
+
+// ==================== UNITS ====================
+function addUnit() {
+    const name = document.getElementById('unitName').value.trim();
+    const area = parseFloat(document.getElementById('unitArea').value);
+    const residents = parseInt(document.getElementById('unitResidents').value) || 1;
+
+    if (!name) return showToast('نام واحد را وارد کنید', 'error');
+    if (!area || area <= 0) return showToast('متراژ معتبر وارد کنید', 'error');
+
+    state.units.push({
+        id: uid(),
+        name, area, residents,
+        payments: [],
+        createdAt: toPersianDateString()
+    });
+
+    saveState();
+    document.getElementById('unitName').value = '';
+    document.getElementById('unitArea').value = '';
+    document.getElementById('unitResidents').value = '1';
+
+    addJournalEntry('ثبت واحد جدید', name, 0, 0, 'building');
+    renderUnits();
+    renderDashboard();
+    showToast('✅ واحد اضافه شد', 'success');
+}
+
+function deleteUnit(id) {
+    const unit = state.units.find(u => u.id === id);
+    if (!unit) return;
+    if (!confirm(`حذف «${unit.name}»؟`)) return;
+    state.units = state.units.filter(u => u.id !== id);
+    saveState();
+    renderUnits();
+    renderDashboard();
+    showToast('🗑️ واحد حذف شد', 'warning');
+}
+
+function openPaymentModal(unitId) {
+    currentPaymentUnitId = unitId;
+    document.getElementById('paymentAmount').value = '';
+    document.getElementById('paymentDate').value = '';
+    document.getElementById('paymentNote').value = '';
+    openModal('paymentModal');
+}
+
+function savePayment() {
+    const amount = parseFloat(document.getElementById('paymentAmount').value);
+    const date = document.getElementById('paymentDate').value.trim() || toPersianDateString();
+    const note = document.getElementById('paymentNote').value.trim();
+
+    if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
+
+    const unit = state.units.find(u => u.id === currentPaymentUnitId);
+    if (!unit) return;
+
+    unit.payments = unit.payments || [];
+    unit.payments.push({ id: uid(), amount, date, note, createdAt: toPersianDateString() });
+
+    saveState();
+    closeModal('paymentModal');
+    addJournalEntry('دریافت شارژ از ' + unit.name, note || 'پرداخت شارژ', 0, amount, 'building');
+    renderUnits();
+    renderDashboard();
+    renderCharges();
+    showToast('✅ پرداخت ثبت شد', 'success');
+}
+
+function deletePayment(unitId, paymentId) {
+    const unit = state.units.find(u => u.id === unitId);
+    if (!unit) return;
+    if (!confirm('حذف این پرداخت؟')) return;
+    unit.payments = unit.payments.filter(p => p.id !== paymentId);
+    saveState();
+    renderUnits();
+    renderDashboard();
+    renderCharges();
+    showToast('🗑️ پرداخت حذف شد', 'warning');
+}
+
+function getUnitTotalPaid(unit) {
+    return (unit.payments || []).reduce((s, p) => s + (p.amount || 0), 0);
+}
+
+function getUnitTotalCharge(unit) {
+    let total = 0;
+    Object.values(state.charges).forEach(charge => {
+        const r = charge.results.find(x => x.unitId === unit.id);
+        if (r) total += r.share;
+    });
+    return total;
+}
+
+function getUnitDebt(unit) {
+    return getUnitTotalCharge(unit) - getUnitTotalPaid(unit);
+}
+
+function renderUnits() {
+    const container = document.getElementById('unitsList');
+    const countBadge = document.getElementById('unitsCount');
+    countBadge.textContent = toPersianNum(state.units.length) + ' واحد';
+
+    if (state.units.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">🏘️</div><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد را از فرم بالا اضافه کنید</p></div>`;
+        return;
+    }
+
+    let html = '';
+    state.units.forEach((unit, idx) => {
+        const totalPaid = getUnitTotalPaid(unit);
+        const totalCharge = getUnitTotalCharge(unit);
+        const debt = totalCharge - totalPaid;
+        const payments = unit.payments || [];
+
+        let statusBadge = '';
+        if (totalCharge === 0) {
+            statusBadge = `<span class="badge badge-gray">شارژ تعیین نشده</span>`;
+        } else if (debt <= 0) {
+            statusBadge = `<span class="badge badge-success"><i class="fas fa-check-circle"></i> تسویه</span>`;
+        } else if (totalPaid > 0) {
+            statusBadge = `<span class="badge badge-warning">پرداخت جزئی — بدهی ${formatNumber(debt)}</span>`;
+        } else {
+            statusBadge = `<span class="badge badge-danger"><i class="fas fa-exclamation-circle"></i> بدهکار ${formatNumber(debt)}</span>`;
+        }
+
+        let paymentsHtml = '';
+        if (payments.length > 0) {
+            paymentsHtml = `
+                <div class="sub-list">
+                    <div class="sub-list-title">💳 تاریخچه پرداخت‌ها (${toPersianNum(payments.length)} مورد)</div>
+                    ${payments.map(p => `
+                        <div class="sub-item">
+                            <span class="date"><i class="far fa-calendar"></i> ${p.date}</span>
+                            <span class="amount">${formatNumber(p.amount)} ت</span>
+                            <span class="del" onclick="deletePayment('${unit.id}', '${p.id}')"><i class="fas fa-times"></i></span>
+                        </div>
+                    `).join('')}
+                    <div class="sub-item" style="background: var(--primary-light); font-weight: 700;">
+                        <span>جمع پرداختی</span>
+                        <span style="color: var(--primary);">${formatNumber(totalPaid)} تومان</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            paymentsHtml = `<div style="font-size:11px; color:var(--gray-500); margin-top:8px; text-align:center; padding:8px;">هنوز پرداختی ثبت نشده</div>`;
+        }
+
+        html += `
+            <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">
+                    <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
+                        <div class="list-item-icon icon-primary">${toPersianNum(idx + 1)}</div>
+                        <div style="min-width:0;">
+                            <div class="list-item-title">${unit.name}</div>
+                            <div class="list-item-subtitle">${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                </div>
+                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
+                    ${statusBadge}
+                </div>
+                <button class="btn btn-success btn-sm" style="width:100%;" onclick="openPaymentModal('${unit.id}')">
+                    <i class="fas fa-plus"></i> افزودن پرداخت
+                </button>
+                ${paymentsHtml}
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+// ==================== EXPENSES ====================
+function toggleExpenseCustomTitle() {
+    const type = document.getElementById('expenseType').value;
+    document.getElementById('customTitleGroup').style.display = type === 'other' ? 'block' : 'none';
+}
+
+function handleExpenseFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+        showToast('حجم فایل باید کمتر از ۲ مگابایت باشد', 'error');
+        event.target.value = '';
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => {
+        tempExpenseFile = { name: file.name, type: file.type, size: file.size, data: e.target.result };
+        document.getElementById('expenseFilePreview').innerHTML = `
+            <div class="file-preview">
+                <i class="fas fa-file"></i>
+                <span class="name">${file.name}</span>
+                <span class="remove" onclick="removeExpenseFile()"><i class="fas fa-times"></i></span>
+            </div>
+        `;
+    };
+    reader.readAsDataURL(file);
+}
+
+function removeExpenseFile() {
+    tempExpenseFile = null;
+    document.getElementById('expenseFile').value = '';
+    document.getElementById('expenseFilePreview').innerHTML = '';
+}
+
+function addExpense() {
+    const type = document.getElementById('expenseType').value;
+    const customTitle = document.getElementById('expenseCustomTitle').value.trim();
+    const amount = parseFloat(document.getElementById('expenseAmount').value);
+    const date = document.getElementById('expenseDate').value.trim();
+    const payDate = document.getElementById('expensePayDate').value.trim();
+    const payer = document.getElementById('expensePayer').value.trim() || state.settings.managerName;
+
+    if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
+    if (type === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
+
+    const typeNames = {
+        electricity: '⚡ برق ساختمان',
+        gas: '🔥 گاز ساختمان',
+        water: '💧 آب ساختمان',
+        elevator: '🛗 آسانسور',
+        cleaning: '🧹 نظافت',
+        repair: '🔧 تعمیرات',
+        maintenance: '🛠️ سرویس و نگهداری',
+        other: '📦 ' + customTitle
+    };
+
+    state.expenses.push({
+        id: uid(),
+        type,
+        typeName: typeNames[type],
+        customTitle: type === 'other' ? customTitle : '',
+        amount,
+        date: date || '—',
+        payDate: payDate || '—',
+        payer,
+        file: tempExpenseFile,
+        createdAt: toPersianDateString()
+    });
+
+    saveState();
+    addJournalEntry('هزینه ' + typeNames[type], 'پرداخت توسط ' + payer, amount, 0, 'building');
+
+    document.getElementById('expenseAmount').value = '';
+    document.getElementById('expenseDate').value = '';
+    document.getElementById('expensePayDate').value = '';
+    document.getElementById('expenseCustomTitle').value = '';
+    document.getElementById('expenseType').value = 'electricity';
+    toggleExpenseCustomTitle();
+    removeExpenseFile();
+
+    renderExpenses();
+    renderDashboard();
+    renderJournal();
+    showToast('✅ هزینه ثبت شد', 'success');
+}
+
+function deleteExpense(id) {
+    if (!confirm('حذف این هزینه؟')) return;
+    state.expenses = state.expenses.filter(e => e.id !== id);
+    saveState();
+    renderExpenses();
+    renderDashboard();
+    renderJournal();
+    showToast('🗑️ هزینه حذف شد', 'warning');
+}
+
+function downloadFile(expenseId) {
+    const exp = state.expenses.find(e => e.id === expenseId);
+    if (!exp || !exp.file) return;
+    const a = document.createElement('a');
+    a.href = exp.file.data;
+    a.download = exp.file.name;
+    a.click();
+}
+
+function renderExpenses() {
+    const container = document.getElementById('expensesList');
+
+    if (state.expenses.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">📝</div><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمان را از فرم بالا اضافه کنید</p></div>`;
+        return;
+    }
+
+    const icons = { electricity: '⚡', gas: '🔥', water: '💧', elevator: '🛗', cleaning: '🧹', repair: '🔧', maintenance: '🛠️', other: '📦' };
+
+    let html = '';
+    state.expenses.slice().reverse().forEach(exp => {
+        html += `
+            <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 10px;">
+                <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px;">
+                    <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
+                        <div class="list-item-icon icon-danger">${icons[exp.type] || '📦'}</div>
+                        <div style="min-width:0;">
+                            <div class="list-item-title">${exp.typeName}</div>
+                            <div class="list-item-subtitle" style="margin-top:4px;">
+                                <i class="far fa-calendar-alt"></i> ${exp.date}
+                                ${exp.payDate !== '—' ? ` • <i class="fas fa-check"></i> ${exp.payDate}` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-icon btn-sm" onclick="deleteExpense('${exp.id}')"><i class="fas fa-trash"></i></button>
+                </div>
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+                    <div style="font-size:11px; color:var(--gray-500);">👤 ${exp.payer || '—'}</div>
+                    <div style="font-size:15px; font-weight:800; color:var(--danger);">${formatNumber(exp.amount)} تومان</div>
+                </div>
+                ${exp.file ? `
+                    <div class="file-preview" style="margin-top:10px;">
+                        <i class="fas fa-paperclip"></i>
+                        <span class="name">${exp.file.name}</span>
+                        <span onclick="downloadFile('${exp.id}')" style="color:var(--primary); cursor:pointer; padding:4px;" title="دانلود"><i class="fas fa-download"></i></span>
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// ==================== CHARGES ====================
+function handleChargePeriodChange() {
+    const period = document.getElementById('chargePeriod').value;
+    const sub = document.getElementById('chargeSubPeriod');
+    const group = document.getElementById('chargeSubPeriodGroup');
+    const months = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+    let options = [];
+    if (period === 'monthly') options = months;
+    else if (period === 'quarterly') options = ['سه ماهه اول','سه ماهه دوم','سه ماهه سوم','سه ماهه چهارم'];
+    else if (period === 'seasonal') options = ['بهار','تابستان','پاییز','زمستان'];
+    else if (period === 'halfyear') options = ['شش ماهه اول','شش ماهه دوم'];
+    else if (period === 'yearly') { group.style.display = 'none'; return; }
+    group.style.display = 'block';
+    sub.innerHTML = options.map(o => `<option value="${o}">${o}</option>`).join('');
+}
+
+function calculateCharges() {
+    const totalAmount = parseFloat(document.getElementById('chargeTotal').value);
+    const period = document.getElementById('chargePeriod').value;
+    let subPeriod;
+    if (period === 'yearly') subPeriod = 'سالیانه';
+    else subPeriod = document.getElementById('chargeSubPeriod').value;
+
+    if (!totalAmount || totalAmount <= 0) return showToast('مبلغ شارژ را وارد کنید', 'error');
+    if (state.units.length === 0) return showToast('اول واحد اضافه کنید', 'error');
+
+    const totalArea = state.units.reduce((s, u) => s + u.area, 0);
+    if (totalArea === 0) return showToast('متراژ واحدها نامعتبر است', 'error');
+
+    const results = state.units.map(unit => ({
+        unitId: unit.id,
+        unitName: unit.name,
+        area: unit.area,
+        share: Math.round((unit.area / totalArea) * totalAmount)
+    }));
+
+    const key = period + '_' + subPeriod;
+    state.charges[key] = {
+        totalAmount,
+        period,
+        subPeriod,
+        results,
+        createdAt: toPersianDateString()
+    };
+
+    saveState();
+    addJournalEntry('محاسبه شارژ ' + subPeriod, 'مبلغ کل: ' + formatNumber(totalAmount) + ' — مبنا: نسبت متراژ', 0, 0, 'building');
+    renderCharges();
+    renderDashboard();
+    renderJournal();
+    renderUnits();
+    document.getElementById('chargeTotal').value = '';
+    showToast('✅ شارژ محاسبه شد', 'success');
+}
+
+function renderCharges() {
+    const container = document.getElementById('chargesList');
+    const keys = Object.keys(state.charges);
+
+    if (keys.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">💰</div><h3>هنوز شارژی محاسبه نشده</h3><p>از فرم بالا شارژ را محاسبه کنید</p></div>`;
+        return;
+    }
+
+    let html = '';
+    keys.slice().reverse().forEach(key => {
+        const charge = state.charges[key];
+        html += `
+            <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--gray-100);">
+                    <div>
+                        <div style="font-weight:800; color:var(--dark); font-size:14px;">${charge.subPeriod}</div>
+                        <div style="font-size:11px; color:var(--gray-500);">کل: ${formatNumber(charge.totalAmount)} تومان</div>
+                    </div>
+                    <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')"><i class="fas fa-trash"></i></button>
+                </div>
+                ${charge.results.map(r => {
+                    const unit = state.units.find(u => u.id === r.unitId);
+                    if (!unit) return '';
+                    const paid = getUnitTotalPaid(unit);
+                    const remaining = r.share - paid;
+                    let statusBadge = '';
+                    if (paid >= r.share) {
+                        statusBadge = '<span class="badge badge-success">✓ تسویه</span>';
+                    } else if (paid > 0) {
+                        statusBadge = `<span class="badge badge-warning">باقی‌مانده: ${formatNumber(remaining)}</span>`;
+                    } else {
+                        statusBadge = `<span class="badge badge-danger">بدهکار: ${formatNumber(r.share)}</span>`;
+                    }
+
+                    return `
+                        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--gray-100); gap:8px;">
+                            <div style="flex:1; min-width:0;">
+                                <div style="font-size:13px; font-weight:600;">${r.unitName}</div>
+                                <div style="font-size:10px; color:var(--gray-500);">${toPersianNum(r.area)} متر</div>
+                            </div>
+                            <div style="text-align:left;">
+                                <div style="font-size:13px; font-weight:800; color:var(--primary);">${formatNumber(r.share)}</div>
+                                <div style="margin-top:2px;">${statusBadge}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+function deleteCharge(key) {
+    if (!confirm('حذف این شارژ؟')) return;
+    delete state.charges[key];
+    saveState();
+    renderCharges();
+    renderDashboard();
+    renderUnits();
+    showToast('🗑️ شارژ حذف شد', 'warning');
+}
+
+// ==================== TRAVEL ====================
+function openCompanionModal() {
+    document.getElementById('companionName').value = '';
+    document.getElementById('companionCount').value = '1';
+    openModal('companionModal');
+}
+
+function saveCompanion() {
+    const name = document.getElementById('companionName').value.trim();
+    const count = parseInt(document.getElementById('companionCount').value) || 1;
+    if (!name) return showToast('نام را وارد کنید', 'error');
+
+    state.companions.push({ id: uid(), name, count });
+    saveState();
+    closeModal('companionModal');
+    renderCompanions();
+    updateTravelPayerOptions();
+    showToast('✅ همسفر اضافه شد', 'success');
+}
+
+function deleteCompanion(id) {
+    if (!confirm('حذف این همسفر؟')) return;
+    state.companions = state.companions.filter(c => c.id !== id);
+    saveState();
+    renderCompanions();
+    updateTravelPayerOptions();
+    showToast('🗑️ همسفر حذف شد', 'warning');
+}
+
+function renderCompanions() {
+    const container = document.getElementById('companionsList');
+    if (state.companions.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">👥</div><p style="font-size:12px;">هنوز همسفری اضافه نشده</p></div>`;
+        return;
+    }
+    container.innerHTML = state.companions.map(c => `
+        <div class="list-item">
+            <div class="list-item-info">
+                <div class="list-item-icon icon-info"><i class="fas fa-user"></i></div>
+                <div>
+                    <div class="list-item-title">${c.name}</div>
+                    <div class="list-item-subtitle">${toPersianNum(c.count)} نفر</div>
+                </div>
+            </div>
+            <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCompanion('${c.id}')"><i class="fas fa-times"></i></button>
+        </div>
+    `).join('');
+}
+
+function updateTravelPayerOptions() {
+    const sel = document.getElementById('travelPayer');
+    if (!sel) return;
+    const current = sel.value;
+    if (state.companions.length === 0) {
+        sel.innerHTML = '<option value="">— ابتدا همسفر اضافه کنید —</option>';
+        return;
+    }
+    sel.innerHTML = state.companions.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+    if (current) sel.value = current;
+}
+
+function toggleTravelCustomTitle() {
+    const cat = document.getElementById('travelCategory').value;
+    document.getElementById('travelCustomTitleGroup').style.display = cat === 'other' ? 'block' : 'none';
+}
+
+function addTravelExpense() {
+    const title = document.getElementById('travelTitle').value.trim();
+    const category = document.getElementById('travelCategory').value;
+    const customTitle = document.getElementById('travelCustomTitle').value.trim();
+    const amount = parseFloat(document.getElementById('travelAmount').value);
+    const date = document.getElementById('travelDate').value.trim() || '—';
+    const payer = document.getElementById('travelPayer').value;
+
+    if (!title) return showToast('عنوان سفر را وارد کنید', 'error');
+    if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
+    if (category === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
+    if (!payer) return showToast('پرداخت‌کننده را انتخاب کنید', 'error');
+
+    const catNames = {
+        transport: '🚗 حمل و نقل',
+        food: '🍽️ خورد و خوراک',
+        accommodation: '🏨 اقامت',
+        tickets: '🎫 بلیط و ورودی',
+        shopping: '🛍️ خرید',
+        other: '📦 ' + customTitle
+    };
+
+    state.travelExpenses.push({
+        id: uid(),
+        title,
+        category,
+        categoryName: catNames[category],
+        amount,
+        date,
+        payer,
+        createdAt: toPersianDateString()
+    });
+
+    saveState();
+    addJournalEntry('هزینه سفر - ' + title, catNames[category] + ' توسط ' + payer, amount, 0, 'travel');
+
+    document.getElementById('travelTitle').value = '';
+    document.getElementById('travelAmount').value = '';
+    document.getElementById('travelDate').value = '';
+    document.getElementById('travelCustomTitle').value = '';
+    document.getElementById('travelCategory').value = 'transport';
+    toggleTravelCustomTitle();
+
+    renderTravelExpenses();
+    renderTravelSettlement();
+    renderJournal();
+    showToast('✅ هزینه سفر ثبت شد', 'success');
+}
+
+function deleteTravelExpense(id) {
+    if (!confirm('حذف شود؟')) return;
+    state.travelExpenses = state.travelExpenses.filter(e => e.id !== id);
+    saveState();
+    renderTravelExpenses();
+    renderTravelSettlement();
+    showToast('🗑️ حذف شد', 'warning');
+}
+
+function renderTravelExpenses() {
+    const container = document.getElementById('travelList');
+    if (state.travelExpenses.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">🧳</div><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر را اضافه کنید</p></div>`;
+        return;
+    }
+    const icons = { transport: '🚗', food: '🍽️', accommodation: '🏨', tickets: '🎫', shopping: '🛍️', other: '📦' };
+    container.innerHTML = state.travelExpenses.slice().reverse().map(exp => `
+        <div class="list-item">
+            <div class="list-item-info">
+                <div class="list-item-icon icon-warning">${icons[exp.category] || '📦'}</div>
+                <div>
+                    <div class="list-item-title">${exp.title}</div>
+                    <div class="list-item-subtitle">${exp.categoryName} • ${exp.date} • ${exp.payer}</div>
+                </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <div class="list-item-amount amount-negative">${formatNumber(exp.amount)}</div>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteTravelExpense('${exp.id}')"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderTravelSettlement() {
+    const container = document.getElementById('travelSettle');
+    if (!container) return;
+
+    if (state.travelExpenses.length === 0 || state.companions.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">💱</div><p style="font-size:12px;">برای تسویه، همسفر و هزینه اضافه کنید</p></div>`;
+        return;
+    }
+
+    const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
+    const totalPeople = state.companions.reduce((s, c) => s + c.count, 0);
+    const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
+
+    const payerTotals = {};
+    state.travelExpenses.forEach(e => {
+        payerTotals[e.payer] = (payerTotals[e.payer] || 0) + e.amount;
+    });
+
+    let html = `
+        <div style="background: var(--primary-light); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px;">
+            <div style="font-size: 12px; color: var(--gray-500);">مجموع هزینه سفر</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--primary);">${formatNumber(total)} تومان</div>
+            <div style="font-size: 11px; color: var(--gray-500); margin-top: 6px;">
+                ${toPersianNum(totalPeople)} نفر • سهم هر نفر: ${formatNumber(sharePerPerson)} تومان
+            </div>
+        </div>
+    `;
+
+    state.companions.forEach(c => {
+        const paid = payerTotals[c.name] || 0;
+        const shouldPay = sharePerPerson * c.count;
+        const diff = paid - shouldPay;
+        let status, color;
+        if (diff > 0) {
+            status = `طلبکار: ${formatNumber(diff)}`;
+            color = 'var(--success)';
+        } else if (diff < 0) {
+            status = `بدهکار: ${formatNumber(Math.abs(diff))}`;
+            color = 'var(--danger)';
+        } else {
+            status = 'تسویه';
+            color = 'var(--gray-500)';
+        }
+
+        html += `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon icon-info">${toPersianNum(c.count)}</div>
+                    <div>
+                        <div class="list-item-title">${c.name}</div>
+                        <div class="list-item-subtitle">پرداختی: ${formatNumber(paid)} • سهم: ${formatNumber(shouldPay)}</div>
+                    </div>
+                </div>
+                <div style="color: ${color}; font-weight: 700; font-size:13px;">${status}</div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+// ==================== JOURNAL (دو دفتر جدا) ====================
+function addJournalEntry(title, description, debit, credit, type = 'building') {
+    if (!state.journal) state.journal = { building: [], travel: [] };
+    if (!state.journal[type]) state.journal[type] = [];
+
+    state.journal[type].push({
+        id: uid(),
+        date: toPersianDateString(),
+        title,
+        description,
+        debit: debit || 0,
+        credit: credit || 0
+    });
+    saveState();
+    renderJournal();
+}
+
+function switchJournalTab(tab) {
+    currentJournalTab = tab;
+    const tabBuilding = document.getElementById('tabBuilding');
+    const tabTravel = document.getElementById('tabTravel');
+    const viewBuilding = document.getElementById('journalBuildingView');
+    const viewTravel = document.getElementById('journalTravelView');
+
+    if (tab === 'building') {
+        tabBuilding.className = 'journal-tab active-building';
+        tabTravel.className = 'journal-tab';
+        viewBuilding.style.display = 'block';
+        viewTravel.style.display = 'none';
+    } else {
+        tabTravel.className = 'journal-tab active-travel';
+        tabBuilding.className = 'journal-tab';
+        viewBuilding.style.display = 'none';
+        viewTravel.style.display = 'block';
+    }
+}
+
+function renderJournal() {
+    if (!state.journal || Array.isArray(state.journal)) {
+        state.journal = { building: [], travel: [] };
+    }
+
+    // دفتر ساختمان
+    const listBuilding = document.getElementById('journalListBuilding');
+    if (listBuilding) {
+        const entries = state.journal.building || [];
+        const debit = entries.reduce((s, j) => s + (j.debit || 0), 0);
+        const credit = entries.reduce((s, j) => s + (j.credit || 0), 0);
+        document.getElementById('totalDebitBuilding').textContent = formatNumber(debit);
+        document.getElementById('totalCreditBuilding').textContent = formatNumber(credit);
+
+        if (entries.length === 0) {
+            listBuilding.innerHTML = `<div class="empty-state"><div class="emoji">📒</div><h3>دفتر ساختمان خالی است</h3><p>با ثبت هزینه یا پرداخت، تراکنش‌ها اینجا نمایش داده می‌شوند</p></div>`;
+        } else {
+            listBuilding.innerHTML = entries.slice().reverse().map(j => `
+                <div style="padding:12px 0; border-bottom:1px solid var(--gray-100);">
+                    <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:4px;">
+                        <div style="font-weight:700; font-size:13px; flex:1;">${j.title}</div>
+                        <div style="font-size:11px; color:var(--gray-500);"><i class="far fa-calendar"></i> ${j.date}</div>
+                    </div>
+                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:6px;">${j.description || ''}</div>
+                    <div style="display:flex; gap:12px; font-size:11px;">
+                        ${j.debit ? `<span style="color:var(--danger);"><i class="fas fa-arrow-up"></i> بدهکار: ${formatNumber(j.debit)}</span>` : ''}
+                        ${j.credit ? `<span style="color:var(--success);"><i class="fas fa-arrow-down"></i> بستانکار: ${formatNumber(j.credit)}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    // دفتر سفر
+    const listTravel = document.getElementById('journalListTravel');
+    if (listTravel) {
+        const entries = state.journal.travel || [];
+        const debit = entries.reduce((s, j) => s + (j.debit || 0), 0);
+        const credit = entries.reduce((s, j) => s + (j.credit || 0), 0);
+        document.getElementById('totalDebitTravel').textContent = formatNumber(debit);
+        document.getElementById('totalCreditTravel').textContent = formatNumber(credit);
+
+        if (entries.length === 0) {
+            listTravel.innerHTML = `<div class="empty-state"><div class="emoji">✈️</div><h3>دفتر سفر خالی است</h3><p>با ثبت هزینه سفر، تراکنش‌ها اینجا نمایش داده می‌شوند</p></div>`;
+        } else {
+            listTravel.innerHTML = entries.slice().reverse().map(j => `
+                <div style="padding:12px 0; border-bottom:1px solid var(--gray-100);">
+                    <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:4px;">
+                        <div style="font-weight:700; font-size:13px; flex:1;">${j.title}</div>
+                        <div style="font-size:11px; color:var(--gray-500);"><i class="far fa-calendar"></i> ${j.date}</div>
+                    </div>
+                    <div style="font-size:11px; color:var(--gray-500); margin-bottom:6px;">${j.description || ''}</div>
+                    <div style="display:flex; gap:12px; font-size:11px;">
+                        ${j.debit ? `<span style="color:var(--danger);"><i class="fas fa-arrow-up"></i> بدهکار: ${formatNumber(j.debit)}</span>` : ''}
+                        ${j.credit ? `<span style="color:var(--success);"><i class="fas fa-arrow-down"></i> بستانکار: ${formatNumber(j.credit)}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+}
+
+function clearJournal(type) {
+    if (!state.journal) state.journal = { building: [], travel: [] };
+    const label = type === 'travel' ? 'سفر' : 'ساختمان';
+    if (!confirm(`کل دفتر ${label} پاک شود؟`)) return;
+    state.journal[type] = [];
+    saveState();
+    renderJournal();
+    showToast(`🗑️ دفتر ${label} پاک شد`, 'warning');
+}
+
+// ==================== DASHBOARD ====================
+function renderDashboard() {
+    document.getElementById('statUnits').textContent = toPersianNum(state.units.length);
+    document.getElementById('statResidents').textContent = toPersianNum(state.units.reduce((s, u) => s + (u.residents || 0), 0));
+
+    const totalExp = state.expenses.reduce((s, e) => s + e.amount, 0);
+    document.getElementById('statExpenses').textContent = formatNumber(totalExp);
+
+    let totalDebt = 0;
+    state.units.forEach(u => { const d = getUnitDebt(u); if (d > 0) totalDebt += d; });
+    document.getElementById('statDebt').textContent = formatNumber(totalDebt);
+
+    const container = document.getElementById('dashboardUnitsList');
+    if (state.units.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="emoji">🏠</div><h3>هنوز واحدی ثبت نشده</h3><p>برای شروع، واحدها را اضافه کنید</p></div>`;
+        return;
+    }
+
+    container.innerHTML = state.units.map((u, i) => {
+        const paid = getUnitTotalPaid(u);
+        const charge = getUnitTotalCharge(u);
+        const debt = charge - paid;
+        let badge = '';
+        if (charge === 0) badge = `<span class="badge badge-gray">بدون شارژ</span>`;
+        else if (debt <= 0) badge = `<span class="badge badge-success">✓ تسویه</span>`;
+        else if (paid > 0) badge = `<span class="badge badge-warning">جزئی</span>`;
+        else badge = `<span class="badge badge-danger">بدهکار</span>`;
+
+        return `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon icon-primary">${toPersianNum(i + 1)}</div>
+                    <div>
+                        <div class="list-item-title">${u.name}</div>
+                        <div class="list-item-subtitle">${toPersianNum(u.area)} متر • ${toPersianNum(u.residents)} نفر</div>
+                    </div>
+                </div>
+                ${badge}
+            </div>
+        `;
+    }).join('');
+}
+
+// ==================== EXPORT EXCEL ====================
+function exportExpensesExcel() {
+    if (state.expenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
+    const data = state.expenses.map((e, i) => ({
+        'ردیف': i + 1,
+        'نوع هزینه': e.typeName,
+        'مبلغ (تومان)': e.amount,
+        'تاریخ هزینه': e.date,
+        'تاریخ پرداخت': e.payDate,
+        'پرداخت‌کننده': e.payer
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'هزینه‌ها');
+    XLSX.writeFile(wb, 'هزینه‌های-ساختمان.xlsx');
+    showToast('✅ فایل اکسل دانلود شد', 'success');
+}
+
+function exportTravelExcel() {
+    if (state.travelExpenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
+    const data = state.travelExpenses.map((e, i) => ({
+        'ردیف': i + 1,
+        'عنوان': e.title,
+        'دسته': e.categoryName,
+        'مبلغ (تومان)': e.amount,
+        'تاریخ': e.date,
+        'پرداخت‌کننده': e.payer
+    }));
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'سفر');
+    XLSX.writeFile(wb, 'هزینه‌های-سفر.xlsx');
+    showToast('✅ فایل اکسل دانلود شد', 'success');
+}
+
+function exportJournalExcel(type) {
+    if (!state.journal) state.journal = { building: [], travel: [] };
+    const entries = state.journal[type] || [];
+    if (entries.length === 0) return showToast('دفتر خالی است', 'warning');
+
+    const label = type === 'travel' ? 'سفر' : 'ساختمان';
+    const totalDebit = entries.reduce((s, j) => s + (j.debit || 0), 0);
+    const totalCredit = entries.reduce((s, j) => s + (j.credit || 0), 0);
+
+    const data = entries.map((j, i) => ({
+        'ردیف': i + 1,
+        'تاریخ': j.date,
+        'شرح': j.title,
+        'توضیحات': j.description,
+        'بدهکار (تومان)': j.debit || 0,
+        'بستانکار (تومان)': j.credit || 0
+    }));
+
+    // اضافه کردن ردیف توضیحات
+    data.push({});
+    data.push({ 'ردیف': 'مبنای محاسبه', 'تاریخ': '—', 'شرح': type === 'travel' ? 'تقسیم مساوی بین همسفران بر اساس تعداد نفرات' : 'تقسیم بر اساس ماده ۴ قانون تملک آپارتمان‌ها (نسبت متراژ)', 'توضیحات': '', 'بدهکار (تومان)': '', 'بستانکار (تومان)': '' });
+    data.push({ 'ردیف': 'جمع کل', 'تاریخ': '—', 'شرح': '', 'توضیحات': '', 'بدهکار (تومان)': totalDebit, 'بستانکار (تومان)': totalCredit });
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'دفتر ' + label);
+    XLSX.writeFile(wb, 'دفتر-روزنامه-' + label + '.xlsx');
+    showToast('✅ فایل اکسل دانلود شد', 'success');
+}
+
+// ==================== EXPORT PDF ====================
+function exportExpensesPDF() {
+    if (state.expenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+    doc.setFontSize(16);
+    doc.text('Building Expenses Report', 105, 15, { align: 'center' });
+    doc.setFontSize(10);
+    doc.text('Building: ' + state.settings.buildingName, 105, 22, { align: 'center' });
+    doc.text('Date: ' + toPersianDateString(), 105, 28, { align: 'center' });
+
+    let y = 40;
+    doc.setFontSize(11);
+    doc.text('Row | Type | Amount | Date | Payer', 10, y);
+    y += 8;
+
+    state.expenses.forEach((e, i) => {
+        if (y > 280) { doc.addPage(); y = 20; }
+        doc.setFontSize(9);
+        doc.text(`${i + 1}. ${e.typeName}`, 10, y);
+        doc.text(`${e.amount.toLocaleString()}`, 100, y);
+        doc.text(`${e.date}`, 140, y);
+        doc.text(`${e.payer || '-'}`, 175, y);
+        y += 7;
+    });
+
+    const total = state.expenses.reduce((s, e) => s + e.amount, 0);
+    y += 5;
+    doc.setFontSize(12);
+    doc.text(`Total: ${total.toLocaleString()} Toman`, 10, y);
+
+    y += 15;
+    doc.setFontSize(9);
+    doc.text('Note: Building expenses are divided according to Article 4', 10, y);
+    y += 5;
+    doc.text('of the Apartment Ownership Law (based on unit area ratio).', 10, y);
+
+    doc.save('building-expenses.pdf');
+    showToast('✅ فایل PDF دانلود شد', 'success');
+}
+
+function exportTravelPDF() {
+    if (state.travelExpenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+    doc.setFontSize(16);
+    doc.text('Travel Expenses Report', 105, 15, { align: 'center' });
+    doc.setFontSize(10);
+    doc.text('Date: ' + toPersianDateString(), 105, 22, { align: 'center' });
+
+    let y = 35;
+    doc.setFontSize(10);
+    doc.text('Row | Title | Category | Amount | Payer', 10, y);
+    y += 8;
+
+    state.travelExpenses.forEach((e, i) => {
+        if (y > 280) { doc.addPage(); y = 20; }
+        doc.setFontSize(9);
+        doc.text(`${i + 1}. ${e.title}`, 10, y);
+        doc.text(`${e.categoryName}`, 70, y);
+        doc.text(`${e.amount.toLocaleString()}`, 130, y);
+        doc.text(`${e.payer}`, 175, y);
+        y += 7;
+    });
+
+    const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
+    y += 5;
+    doc.setFontSize(12);
+    doc.text(`Total: ${total.toLocaleString()} Toman`, 10, y);
+
+    y += 15;
+    doc.setFontSize(9);
+    doc.text('Note: Travel expenses are divided equally among all', 10, y);
+    y += 5;
+    doc.text('companions based on the number of persons.', 10, y);
+
+    doc.save('travel-expenses.pdf');
+    showToast('✅ فایل PDF دانلود شد', 'success');
+}
+
+function exportJournalPDF(type) {
+    if (!state.journal) state.journal = { building: [], travel: [] };
+    const entries = state.journal[type] || [];
+    if (entries.length === 0) return showToast('دفتر خالی است', 'warning');
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+    const label = type === 'travel' ? 'Travel Journal' : 'Building Journal';
+    const labelFa = type === 'travel' ? 'دفتر سفر' : 'دفتر ساختمان';
+
+    doc.setFontSize(16);
+    doc.text(label, 105, 15, { align: 'center' });
+    doc.setFontSize(10);
+    doc.text('Building: ' + state.settings.buildingName, 105, 22, { align: 'center' });
+    doc.text('Date: ' + toPersianDateString(), 105, 28, { align: 'center' });
+
+    let y = 40;
+    doc.setFontSize(10);
+    doc.text('Row | Date | Title | Debit | Credit', 10, y);
+    y += 8;
+
+    entries.forEach((j, i) => {
+        if (y > 270) { doc.addPage(); y = 20; }
+        doc.setFontSize(8);
+        doc.text(`${i + 1}.`, 10, y);
+        doc.text(`${j.date}`, 18, y);
+        const title = (j.title || '').substring(0, 40);
+        doc.text(`${title}`, 50, y);
+        doc.text(`${(j.debit || 0).toLocaleString()}`, 150, y);
+        doc.text(`${(j.credit || 0).toLocaleString()}`, 180, y);
+        y += 6;
+    });
+
+    const totalDebit = entries.reduce((s, j) => s + (j.debit || 0), 0);
+    const totalCredit = entries.reduce((s, j) => s + (j.credit || 0), 0);
+    y += 5;
+    doc.setFontSize(11);
+    doc.text(`Total Debit: ${totalDebit.toLocaleString()}`, 10, y);
+    y += 6;
+    doc.text(`Total Credit: ${totalCredit.toLocaleString()}`, 10, y);
+
+    // جمله توضیحی
+    y += 15;
+    doc.setFontSize(9);
+    if (type === 'travel') {
+        doc.text('Note: Travel expenses are divided equally among all', 10, y);
+        y += 5;
+        doc.text('companions based on the number of persons.', 10, y);
+    } else {
+        doc.text('Note: Building expenses are divided according to Article 4', 10, y);
+        y += 5;
+        doc.text('of the Apartment Ownership Law (based on unit area ratio).', 10, y);
+    }
+
+    doc.save(label.toLowerCase().replace(' ', '-') + '.pdf');
+    showToast('✅ فایل PDF دانلود شد', 'success');
+}
+
+// ==================== BACKUP ====================
+function exportData() {
+    const dataStr = JSON.stringify(state, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'hesabyar-backup-' + toPersianDateString().replace(/\//g, '-') + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('✅ فایل پشتیبان دانلود شد', 'success');
+}
+
+function clearAllData() {
+    if (!confirm('همه داده‌ها پاک شود؟ این عمل برگشت‌پذیر نیست!')) return;
+    if (!confirm('مطمئنی؟ داده‌ها برای همیشه حذف می‌شوند.')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+}
+
+// ==================== INIT ====================
+function init() {
+    loadState();
+    loadSettings();
+    handleChargePeriodChange();
+
+    // تاریخ‌پیکرها بعد از لود jQuery
+    setTimeout(initDatePickers, 500);
+
+    renderUnits();
+    renderExpenses();
+    renderCharges();
+    renderCompanions();
+    renderTravelExpenses();
+    renderTravelSettlement();
+    updateTravelPayerOptions();
+    renderJournal();
+    renderDashboard();
+}
+
+// اجرا بعد از لود کامل
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(e => console.log('SW:', e));
+}
+</script>
 </body>
 </html>
