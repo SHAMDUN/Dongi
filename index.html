@@ -228,6 +228,127 @@ body {
 .datepicker-day-view .table-days td.selected span { background: var(--primary) !important; color: white !important; }
 .datepicker-header .header-month, .datepicker-header .header-year { color: var(--primary) !important; font-weight: 700 !important; }
 
+/* ==================== SPLASH SCREEN ==================== */
+.splash-screen {
+    position: fixed; inset: 0; z-index: 99999;
+    background: var(--gradient-primary);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 20px;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.splash-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash-logo {
+    width: 110px; height: 110px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 58px;
+    border: 2px solid rgba(255,255,255,0.3);
+    animation: splashPulse 2s ease-in-out infinite;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+@keyframes splashPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+    50% { transform: scale(1.06); box-shadow: 0 25px 80px rgba(0,0,0,0.3); }
+}
+.splash-title {
+    color: white; font-size: 28px; font-weight: 800;
+    letter-spacing: -0.5px;
+    animation: splashFadeIn 0.9s ease;
+}
+.splash-subtitle {
+    color: rgba(255,255,255,0.85); font-size: 13px;
+    animation: splashFadeIn 1.2s ease;
+}
+@keyframes splashFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.splash-spinner {
+    display: flex; gap: 8px; margin-top: 24px;
+}
+.splash-spinner span {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    animation: splashBounce 1.4s ease-in-out infinite both;
+}
+.splash-spinner span:nth-child(1) { animation-delay: -0.32s; }
+.splash-spinner span:nth-child(2) { animation-delay: -0.16s; }
+.splash-spinner span:nth-child(3) { animation-delay: 0s; }
+@keyframes splashBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+/* ==================== OFFLINE INDICATOR ==================== */
+.offline-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    z-index: 9999;
+    transform: translateY(-100%);
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 4px 14px rgba(245,158,11,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.offline-bar.show { transform: translateY(0); }
+
+/* ==================== INSTALL PROMPT ==================== */
+.install-prompt {
+    position: fixed;
+    bottom: 16px; left: 16px; right: 16px;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 40px rgba(15,23,42,0.18);
+    border: 1px solid var(--gray-200);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateY(120%);
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+.install-prompt.show { transform: translateY(0); }
+.install-prompt-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: var(--gradient-primary);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+}
+.install-prompt-content { flex: 1; min-width: 0; }
+.install-prompt-title { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+.install-prompt-subtitle { font-size: 11px; color: var(--gray-500); }
+.install-prompt-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.install-prompt-actions button {
+    padding: 8px 14px; border-radius: 10px; border: none;
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+}
+.install-prompt-actions .btn-install {
+    background: var(--gradient-primary); color: white;
+    box-shadow: 0 4px 10px rgba(99,102,241,0.3);
+}
+.install-prompt-actions .btn-later {
+    background: var(--gray-100); color: var(--gray-700);
+}
+.install-prompt-actions button:active { transform: scale(0.96); }
+
 @media (max-width: 900px) {
     .sidebar { transform: translateX(100%); }
     .sidebar.active { transform: translateX(0); }
@@ -247,6 +368,37 @@ body {
 </style>
 </head>
 <body>
+
+<!-- ==================== SPLASH SCREEN ==================== -->
+<div class="splash-screen" id="splashScreen">
+    <div class="splash-logo">🏢</div>
+    <div style="text-align:center;">
+        <div class="splash-title">حساب‌یار</div>
+        <div class="splash-subtitle">مدیریت هوشمند هزینه‌های ساختمان</div>
+    </div>
+    <div class="splash-spinner">
+        <span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- ==================== OFFLINE INDICATOR ==================== -->
+<div class="offline-bar" id="offlineBar">
+    <i class="fas fa-wifi" style="opacity:0.5;"></i>
+    <span>آفلاین هستی — داده‌ها به‌صورت محلی ذخیره می‌شن</span>
+</div>
+
+<!-- ==================== INSTALL PROMPT ==================== -->
+<div class="install-prompt" id="installPrompt">
+    <div class="install-prompt-icon">🏢</div>
+    <div class="install-prompt-content">
+        <div class="install-prompt-title">حساب‌یار را نصب کن</div>
+        <div class="install-prompt-subtitle">دسترسی سریع از صفحه اصلی</div>
+    </div>
+    <div class="install-prompt-actions">
+        <button class="btn-install" onclick="installApp()">نصب</button>
+        <button class="btn-later" onclick="dismissInstall()">بعداً</button>
+    </div>
+</div>
 
 <div class="app-layout">
 
@@ -276,7 +428,7 @@ body {
         <div class="nav-section-title">مدیریت سفر</div>
         <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
     </nav>
-    <div class="sidebar-footer">حساب‌یار — نسخه ۷.۰.۰</div>
+    <div class="sidebar-footer">حساب‌یار — نسخه ۷.۱.۰</div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -741,6 +893,7 @@ let state = {
 let currentPaymentUnitId = null;
 let tempExpenseFile = null;
 let editContext = { type: null, id: null };
+let deferredInstallPrompt = null;
 
 // ==================== STORAGE ====================
 function saveState() {
@@ -820,6 +973,71 @@ function toPersianDateString() {
         return pd.year() + '/' + String(pd.month()).padStart(2, '0') + '/' + String(pd.date()).padStart(2, '0');
     } catch(e) { return new Date().toLocaleDateString('fa-IR'); }
 }
+
+// ==================== SPLASH SCREEN ====================
+function hideSplashScreen() {
+    const splash = document.getElementById('splashScreen');
+    if (!splash) return;
+    setTimeout(() => {
+        splash.classList.add('hide');
+        setTimeout(() => {
+            if (splash.parentNode) splash.parentNode.removeChild(splash);
+        }, 700);
+    }, 1200);
+}
+
+// ==================== OFFLINE INDICATOR ====================
+function updateOnlineStatus() {
+    const bar = document.getElementById('offlineBar');
+    if (!bar) return;
+    if (navigator.onLine) {
+        bar.classList.remove('show');
+    } else {
+        bar.classList.add('show');
+    }
+}
+
+// ==================== INSTALL PROMPT ====================
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    // چک کن قبلاً dismiss نکرده باشه
+    const dismissedAt = localStorage.getItem('installPromptDismissed');
+    if (dismissedAt) {
+        const daysSince = (Date.now() - parseInt(dismissedAt)) / (1000 * 60 * 60 * 24);
+        if (daysSince < 7) return; // کمتر از ۷ روز پیش dismiss کرده
+    }
+    setTimeout(() => {
+        const prompt = document.getElementById('installPrompt');
+        if (prompt) prompt.classList.add('show');
+    }, 3500);
+});
+
+function installApp() {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('[PWA] User accepted the install prompt');
+        } else {
+            console.log('[PWA] User dismissed the install prompt');
+        }
+        deferredInstallPrompt = null;
+        document.getElementById('installPrompt').classList.remove('show');
+    });
+}
+
+function dismissInstall() {
+    localStorage.setItem('installPromptDismissed', Date.now().toString());
+    document.getElementById('installPrompt').classList.remove('show');
+}
+
+// اگه قبلاً نصب شده، دیگه نشون نده
+window.addEventListener('appinstalled', () => {
+    console.log('[PWA] App installed');
+    document.getElementById('installPrompt').classList.remove('show');
+    deferredInstallPrompt = null;
+});
 
 // ==================== DATE PICKER ====================
 function initDatePickers() {
@@ -1991,6 +2209,11 @@ function initPart1() {
     renderTravelSettlement();
     updateTravelPayerOptions();
     renderDashboard();
+    
+    // آنلاین/آفلاین
+    updateOnlineStatus();
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
 }
 </script>
 <script>
@@ -2061,11 +2284,9 @@ function computeUnitSharesBreakdown() {
     return breakdown;
 }
 
-// ساخت نقشه اشخاص یکتا (ادغام مالک و ساکن با linkedOwnerId)
 function buildPersonsMap() {
     const persons = {};
     
-    // همه مالکین
     state.owners.forEach(o => {
         persons['owner:' + o.id] = {
             name: o.name,
@@ -2074,7 +2295,6 @@ function buildPersonsMap() {
         };
     });
     
-    // ساکنین
     state.residents.forEach(r => {
         if (r.linkedOwnerId) {
             const key = 'owner:' + r.linkedOwnerId;
@@ -2286,7 +2506,6 @@ function renderPersonsTable() {
         const ownerUnitsList = [];
         const residentUnitsList = [];
         
-        // سهم مالکانه
         if (person.ownerId) {
             state.units.forEach(u => {
                 if (u.ownerId === person.ownerId) {
@@ -2297,7 +2516,6 @@ function renderPersonsTable() {
             paid += getOwnerTotalPaid(person.ownerId);
         }
         
-        // سهم ساکنانه
         if (person.residentId) {
             state.units.forEach(u => {
                 if (u.residentId === person.residentId) {
@@ -2319,7 +2537,6 @@ function renderPersonsTable() {
             ? `<span class="badge badge-success">✓ طلبکار</span>` 
             : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
 
-        // توضیحات نقش
         let roleDesc = [];
         if (ownerUnitsList.length > 0) roleDesc.push('👔 مالک: ' + ownerUnitsList.map(escapeHtml).join('، '));
         if (residentUnitsList.length > 0) roleDesc.push('👥 ساکن: ' + residentUnitsList.map(escapeHtml).join('، '));
@@ -2520,7 +2737,6 @@ function exportJournalExcel(type) {
         const ws3 = XLSX.utils.json_to_sheet(unitData);
         XLSX.utils.book_append_sheet(wb, ws3, 'خلاصه واحدها');
 
-        // حساب همسایگان
         const persons = buildPersonsMap();
         const personsData = Object.keys(persons).map((key, i) => {
             const person = persons[key];
@@ -2852,7 +3068,6 @@ function exportJournalPDF(type) {
         </div>
     `;
 
-    // ماتریسی
     content += `<h2 style="font-size:14px; margin:15px 0 10px 0;">📊 دفتر ماتریسی — سهم هر واحد</h2>`;
     content += `<table style="${tableStyle()} font-size:9px;"><thead><tr>
         <th style="${thStyle()}">#</th>
@@ -2884,7 +3099,6 @@ function exportJournalPDF(type) {
     });
     content += `</tr></tbody></table>`;
 
-    // خلاصه واحدها
     content += `<h2 style="font-size:14px; margin:20px 0 10px 0;">🏠 خلاصه وضعیت واحدها</h2>`;
     content += `<table style="${tableStyle()}"><thead><tr>
         <th style="${thStyle()}">واحد</th>
@@ -2914,7 +3128,6 @@ function exportJournalPDF(type) {
     });
     content += `</tbody></table>`;
 
-    // ===== حساب همسایگان =====
     const persons = buildPersonsMap();
 
     content += `<h2 style="font-size:14px; margin:20px 0 10px 0;">🤝 حساب همسایگان</h2>`;
@@ -3003,7 +3216,6 @@ function saveEdit() {
     }
 }
 
-// ---- ویرایش مالک ----
 function editOwner(id) {
     const owner = state.owners.find(o => o.id === id);
     if (!owner) return;
@@ -3044,7 +3256,6 @@ function editOwner(id) {
     });
 }
 
-// ---- ویرایش ساکن ----
 function editResident(id) {
     const resident = state.residents.find(r => r.id === id);
     if (!resident) return;
@@ -3086,7 +3297,6 @@ function editResident(id) {
     });
 }
 
-// ---- ویرایش واحد ----
 function editUnit(id) {
     const unit = state.units.find(u => u.id === id);
     if (!unit) return;
@@ -3156,7 +3366,6 @@ function editUnit(id) {
     });
 }
 
-// ---- ویرایش هزینه ----
 function editExpense(id) {
     const exp = state.expenses.find(e => e.id === id);
     if (!exp) return;
@@ -3213,7 +3422,6 @@ function editExpense(id) {
     });
 }
 
-// ---- ویرایش شارژ ----
 function editCharge(key) {
     const charge = state.charges[key];
     if (!charge) return;
@@ -3249,7 +3457,6 @@ function editCharge(key) {
     });
 }
 
-// ---- ویرایش هزینه سفر ----
 function editTravelExpense(id) {
     const exp = state.travelExpenses.find(e => e.id === id);
     if (!exp) return;
@@ -3297,25 +3504,25 @@ window.addEventListener('load', () => {
     setTimeout(() => {
         renderAllJournalViews();
         updateSplitMethodHelp();
+        hideSplashScreen();
     }, 600);
 });
 </script>
+
 <script>
-// ثبت Service Worker
+// ==================== SERVICE WORKER ====================
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/Dongi/sw.js')
             .then(registration => {
                 console.log('[SW] Registered:', registration.scope);
                 
-                // چک آپدیت
                 registration.addEventListener('updatefound', () => {
                     const newWorker = registration.installing;
                     newWorker.addEventListener('statechange', () => {
                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                             if (confirm('نسخه جدید اپ آماده‌ست. برای به‌روزرسانی، صفحه رفرش میشه. آپدیت کنیم؟')) {
                                 newWorker.postMessage({ type: 'SKIP_WAITING' });
-                                // reload رو به controllerchange واگذار کن
                             }
                         }
                     });
@@ -3323,7 +3530,6 @@ if ('serviceWorker' in navigator) {
             })
             .catch(err => console.error('[SW] Registration failed:', err));
         
-        // اگه SW جدید کنترل رو گرفت، صفحه رو رفرش کن
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
             if (!refreshing) {
