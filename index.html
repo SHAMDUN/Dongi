@@ -200,7 +200,6 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .method-person_area { background: #ede9fe; color: #5b21b6; }
 .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); margin: 0 -20px; padding: 0 20px; }
 
-/* Checkbox جدید */
 .checkbox-wrap { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; }
 .checkbox-wrap:hover { border-color: var(--primary); background: var(--primary-light); }
 .checkbox-wrap input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
@@ -209,10 +208,6 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 .info-box { background: var(--primary-light); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 12px; color: var(--primary-dark); line-height: 1.8; margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; }
 .info-box i { color: var(--primary); margin-top: 3px; }
-
-.owner-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-light); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; margin: 2px; }
-.owner-chip .del { cursor: pointer; opacity: 0.7; }
-.owner-chip .del:hover { opacity: 1; }
 
 .datepicker-plot-area { font-family: 'Vazirmatn', sans-serif !important; border-radius: 12px !important; box-shadow: 0 10px 40px rgba(15,23,42,0.15) !important; z-index: 3000 !important; }
 .datepicker-day-view .table-days td span { border-radius: 8px !important; }
@@ -264,7 +259,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         <button class="nav-link" data-page="accounting" onclick="navigateTo('accounting')"><i class="fas fa-book"></i> دفتر حسابداری</button>
         <button class="nav-link" data-page="building-info" onclick="navigateTo('building-info')"><i class="fas fa-building-user"></i> اطلاعات ساختمان</button>
     </nav>
-    <div class="sidebar-footer">حساب‌یار — نسخه ۴.۰.۰</div>
+    <div class="sidebar-footer">حساب‌یار — نسخه ۵.۰.۰</div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -317,7 +312,12 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         </div>
         <div class="form-group">
             <label>نام ساکن <span class="required">*</span></label>
-            <input type="text" class="form-control" id="unitResidentName" placeholder="نام شخص ساکن">
+            <select class="form-select" id="unitResidentSelect">
+                <option value="">— ابتدا از اطلاعات ساختمان ساکن اضافه کنید —</option>
+            </select>
+            <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">
+                <i class="fas fa-info-circle"></i> ساکنین از «اطلاعات ساختمان → ساکنین» فراخوانی می‌شوند.
+            </div>
         </div>
         <div class="form-group">
             <label class="checkbox-wrap" for="unitIsTenant">
@@ -331,9 +331,6 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
                 <select class="form-select" id="unitOwnerSelect">
                     <option value="">— انتخاب مالک —</option>
                 </select>
-                <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">
-                    <i class="fas fa-info-circle"></i> اگر مالک در لیست نیست، ابتدا از «اطلاعات ساختمان → مالکین» اضافه کنید.
-                </div>
             </div>
             <div class="form-row">
                 <div class="form-group"><label>تاریخ شروع اجاره</label><input type="text" class="form-control datepicker" id="unitRentStart" placeholder="انتخاب تاریخ" readonly></div>
@@ -572,7 +569,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
                     <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('owners')"><i class="fas fa-file-pdf"></i> PDF</button>
                 </div>
             </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> در این جدول، مالکینی که چند واحد دارند با مجموع سهم و پرداختی نمایش داده می‌شوند. هزینه‌های «مالکین» بر اساس تعداد واحد مالکیت بین آن‌ها تقسیم می‌شود.</div>
+            <div class="info-box"><i class="fas fa-info-circle"></i> هزینه‌های «مالکین» بر اساس تعداد واحد مالکیت بین مالکین تقسیم می‌شود.</div>
             <div id="ownersTable"></div>
         </div>
     </div>
@@ -591,7 +588,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     </div>
 </section>
 
-<!-- BUILDING INFO (اطلاعات ساختمان) -->
+<!-- BUILDING INFO -->
 <section class="page" id="page-building-info">
     <div class="page-title"><i class="fas fa-building-user"></i> اطلاعات ساختمان</div>
     
@@ -608,7 +605,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             <div class="card-title"><i class="fas fa-user-tie icon-warning"></i> مالکین</div>
             <span class="badge badge-warning" id="ownersCount">۰ مالک</span>
         </div>
-        <div class="info-box"><i class="fas fa-info-circle"></i> مالکین اینجا ثبت می‌شوند و در صفحه «واحدها» به‌صورت آبشاری قابل انتخاب هستند.</div>
+        <div class="info-box"><i class="fas fa-info-circle"></i> با افزودن هر مالک، خودکار یک ساکن هم برایش ساخته می‌شود. در صفحه واحدها از دراپ‌داون قابل انتخاب است.</div>
         <div class="form-row">
             <div class="form-group"><label>نام مالک <span class="required">*</span></label><input type="text" class="form-control" id="ownerNameInput" placeholder="نام و نام خانوادگی"></div>
             <div class="form-group"><label>شماره تماس</label><input type="text" class="form-control" id="ownerPhoneInput" placeholder="۰۹۱۲..."></div>
@@ -616,6 +613,21 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="ownerNoteInput" placeholder="مثال: مالک واحدهای ۱ و ۲"></div>
         <button class="btn btn-warning btn-block" onclick="addOwner()"><i class="fas fa-user-plus"></i> افزودن مالک</button>
         <div id="ownersList" style="margin-top:16px;"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title"><i class="fas fa-user-friends icon-info"></i> ساکنین</div>
+            <span class="badge badge-info" id="residentsCount">۰ ساکن</span>
+        </div>
+        <div class="info-box"><i class="fas fa-info-circle"></i> ساکنین اینجا ثبت می‌شوند. مالکین خودکار به این لیست اضافه می‌شوند. مستاجرین را دستی اضافه کنید.</div>
+        <div class="form-row">
+            <div class="form-group"><label>نام ساکن <span class="required">*</span></label><input type="text" class="form-control" id="residentNameInput" placeholder="نام و نام خانوادگی"></div>
+            <div class="form-group"><label>شماره تماس</label><input type="text" class="form-control" id="residentPhoneInput" placeholder="۰۹۱۲..."></div>
+        </div>
+        <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="residentNoteInput" placeholder="مثال: مستاجر واحد ۳"></div>
+        <button class="btn btn-success btn-block" onclick="addResident()"><i class="fas fa-user-plus"></i> افزودن ساکن</button>
+        <div id="residentsList" style="margin-top:16px;"></div>
     </div>
 
     <div class="card">
@@ -651,7 +663,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 <div class="modal-overlay" id="companionModal">
     <div class="modal">
         <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-user-plus"></i> افزودن همسفر</div>
+            <div class="modal-title"><i class="fas fa-user-plus"></i> <span id="companionModalTitle">افزودن همسفر</span></div>
             <button class="modal-close" onclick="closeModal('companionModal')"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
@@ -660,7 +672,21 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         </div>
         <div class="modal-footer">
             <button class="btn btn-ghost" onclick="closeModal('companionModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-primary" onclick="saveCompanion()" style="flex:2;"><i class="fas fa-check"></i> افزودن</button>
+            <button class="btn btn-primary" onclick="saveCompanion()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><i class="fas fa-edit"></i> <span id="editModalTitle">ویرایش</span></div>
+            <button class="modal-close" onclick="closeModal('editModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body" id="editModalBody"></div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('editModal')" style="flex:1;">انصراف</button>
+            <button class="btn btn-primary" onclick="saveEdit()" style="flex:2;"><i class="fas fa-check"></i> ذخیره تغییرات</button>
         </div>
     </div>
 </div>
@@ -678,6 +704,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 const STORAGE_KEY = 'hesabyar_v5';
 let state = {
     owners: [],
+    residents: [],
     units: [],
     expenses: [],
     travelExpenses: [],
@@ -692,6 +719,7 @@ let state = {
 
 let currentPaymentUnitId = null;
 let tempExpenseFile = null;
+let editContext = { type: null, id: null };
 
 // ==================== STORAGE ====================
 function saveState() {
@@ -707,6 +735,7 @@ function loadState() {
             state = { ...state, ...parsed };
             state.settings = { ...state.settings, ...(parsed.settings || {}) };
             state.owners = parsed.owners || [];
+            state.residents = parsed.residents || [];
             state.units = parsed.units || [];
             state.expenses = parsed.expenses || [];
             state.travelExpenses = parsed.travelExpenses || [];
@@ -727,8 +756,8 @@ function navigateTo(page) {
     if (page === 'accounting') renderAllJournalViews();
     if (page === 'charges') renderCharges();
     if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
-    if (page === 'building-info') { loadSettings(); renderOwnersList(); }
-    if (page === 'units') refreshOwnerDropdowns();
+    if (page === 'building-info') { loadSettings(); renderOwnersList(); renderResidentsList(); }
+    if (page === 'units') { refreshOwnerDropdowns(); refreshResidentDropdowns(); }
 }
 
 function openSidebar() {
@@ -821,13 +850,22 @@ function addOwner() {
     const note = document.getElementById('ownerNoteInput').value.trim();
     
     if (!name) return showToast('نام مالک را وارد کنید', 'error');
+    if (state.owners.some(o => o.name === name)) return showToast('این مالک قبلاً ثبت شده', 'warning');
     
-    // چک تکراری
-    if (state.owners.some(o => o.name === name)) {
-        return showToast('این مالک قبلاً ثبت شده', 'warning');
-    }
+    const ownerId = uid();
+    state.owners.push({ id: ownerId, name, phone, note, createdAt: toPersianDateString() });
     
-    state.owners.push({ id: uid(), name, phone, note, createdAt: toPersianDateString() });
+    // خودکار یه ساکن هم برای این مالک بساز
+    state.residents.push({
+        id: uid(),
+        name,
+        phone,
+        nationalId: '',
+        note: 'مالک',
+        linkedOwnerId: ownerId,
+        createdAt: toPersianDateString()
+    });
+    
     saveState();
     
     document.getElementById('ownerNameInput').value = '';
@@ -835,27 +873,35 @@ function addOwner() {
     document.getElementById('ownerNoteInput').value = '';
     
     renderOwnersList();
+    renderResidentsList();
     refreshOwnerDropdowns();
-    showToast('✅ مالک اضافه شد', 'success');
+    refreshResidentDropdowns();
+    showToast('✅ مالک و ساکن مربوطه اضافه شد', 'success');
 }
 
 function deleteOwner(id) {
     const owner = state.owners.find(o => o.id === id);
     if (!owner) return;
     
-    // چک استفاده در واحدها
     const usedInUnits = state.units.filter(u => u.ownerId === id);
-    if (usedInUnits.length > 0) {
-        if (!confirm(`این مالک در ${usedInUnits.length} واحد استفاده شده. با حذف، این واحدها بدون مالک می‌شوند. ادامه؟`)) return;
-        usedInUnits.forEach(u => { u.ownerId = null; });
-    } else {
-        if (!confirm(`حذف «${owner.name}»؟`)) return;
-    }
+    let msg = `حذف «${owner.name}»؟`;
+    if (usedInUnits.length > 0) msg = `این مالک در ${usedInUnits.length} واحد استفاده شده. با حذف، این واحدها بدون مالک می‌شوند. ادامه؟`;
+    
+    if (!confirm(msg)) return;
     
     state.owners = state.owners.filter(o => o.id !== id);
+    // لینک ساکنین به این مالک رو null کن
+    state.residents.forEach(r => {
+        if (r.linkedOwnerId === id) r.linkedOwnerId = null;
+    });
+    // واحدها رو بدون مالک کن
+    usedInUnits.forEach(u => { u.ownerId = null; });
+    
     saveState();
     renderOwnersList();
+    renderResidentsList();
     refreshOwnerDropdowns();
+    refreshResidentDropdowns();
     renderUnits();
     renderAllJournalViews();
     showToast('🗑️ مالک حذف شد', 'warning');
@@ -871,20 +917,110 @@ function renderOwnersList() {
         return;
     }
     
-    container.innerHTML = state.owners.map(o => `
+    container.innerHTML = state.owners.map(o => {
+        const unitsOwned = state.units.filter(u => u.ownerId === o.id).length;
+        return `
         <div class="list-item">
             <div class="list-item-info">
                 <div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div>
                 <div>
                     <div class="list-item-title">${o.name}</div>
-                    <div class="list-item-subtitle">${o.phone || '—'} ${o.note ? '• ' + o.note : ''}</div>
+                    <div class="list-item-subtitle">${o.phone || '—'} ${unitsOwned > 0 ? '• ' + toPersianNum(unitsOwned) + ' واحد' : ''} ${o.note ? '• ' + o.note : ''}</div>
                 </div>
             </div>
-            <button class="btn btn-danger btn-sm btn-icon" onclick="deleteOwner('${o.id}')"><i class="fas fa-trash"></i></button>
-        </div>
-    `).join('');
+            <div class="btn-group">
+                <button class="btn btn-primary btn-sm btn-icon" onclick="editOwner('${o.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteOwner('${o.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>`;
+    }).join('');
 }
 
+// ==================== RESIDENTS ====================
+function addResident() {
+    const name = document.getElementById('residentNameInput').value.trim();
+    const phone = document.getElementById('residentPhoneInput').value.trim();
+    const note = document.getElementById('residentNoteInput').value.trim();
+    
+    if (!name) return showToast('نام ساکن را وارد کنید', 'error');
+    
+    state.residents.push({
+        id: uid(),
+        name,
+        phone,
+        nationalId: '',
+        note,
+        linkedOwnerId: null,
+        createdAt: toPersianDateString()
+    });
+    
+    saveState();
+    
+    document.getElementById('residentNameInput').value = '';
+    document.getElementById('residentPhoneInput').value = '';
+    document.getElementById('residentNoteInput').value = '';
+    
+    renderResidentsList();
+    refreshResidentDropdowns();
+    showToast('✅ ساکن اضافه شد', 'success');
+}
+
+function deleteResident(id) {
+    const resident = state.residents.find(r => r.id === id);
+    if (!resident) return;
+    
+    const usedInUnits = state.units.filter(u => u.residentId === id);
+    let msg = `حذف «${resident.name}»؟`;
+    if (usedInUnits.length > 0) msg = `این ساکن در ${usedInUnits.length} واحد استفاده شده. با حذف، این واحدها بدون ساکن می‌شوند. ادامه؟`;
+    if (resident.linkedOwnerId) msg = `«${resident.name}» یک مالک است. با حذف، مالکیتش هم از بین می‌رود. ادامه؟`;
+    
+    if (!confirm(msg)) return;
+    
+    state.residents = state.residents.filter(r => r.id !== id);
+    usedInUnits.forEach(u => { u.residentId = null; });
+    
+    saveState();
+    renderResidentsList();
+    renderOwnersList();
+    refreshResidentDropdowns();
+    renderUnits();
+    renderAllJournalViews();
+    showToast('🗑️ ساکن حذف شد', 'warning');
+}
+
+function renderResidentsList() {
+    const container = document.getElementById('residentsList');
+    if (!container) return;
+    document.getElementById('residentsCount').textContent = toPersianNum(state.residents.length) + ' ساکن';
+    
+    if (state.residents.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">👥</div><p style="font-size:12px;">هنوز ساکنی ثبت نشده</p></div>`;
+        return;
+    }
+    
+    container.innerHTML = state.residents.map(r => {
+        const isOwner = !!r.linkedOwnerId;
+        const ownerName = isOwner ? (state.owners.find(o => o.id === r.linkedOwnerId)?.name || '—') : '';
+        return `
+        <div class="list-item">
+            <div class="list-item-info">
+                <div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}">
+                    <i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i>
+                </div>
+                <div>
+                    <div class="list-item-title">${r.name} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div>
+                    <div class="list-item-subtitle">${r.phone || '—'} ${r.note ? '• ' + r.note : ''}</div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-sm btn-icon" onclick="editResident('${r.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteResident('${r.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+// ==================== DROPDOWNS ====================
 function refreshOwnerDropdowns() {
     const selects = ['unitOwnerSelect', 'unitOwnerSelfSelect'];
     selects.forEach(selId => {
@@ -901,14 +1037,23 @@ function refreshOwnerDropdowns() {
     });
 }
 
-function getOwnerById(id) {
-    return state.owners.find(o => o.id === id);
+function refreshResidentDropdowns() {
+    const sel = document.getElementById('unitResidentSelect');
+    if (!sel) return;
+    const current = sel.value;
+    if (state.residents.length === 0) {
+        sel.innerHTML = '<option value="">— ابتدا از اطلاعات ساختمان ساکن اضافه کنید —</option>';
+        return;
+    }
+    sel.innerHTML = '<option value="">— انتخاب ساکن —</option>' +
+        state.residents.map(r => `<option value="${r.id}">${r.name}${r.phone ? ' — ' + r.phone : ''}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`).join('');
+    if (current) sel.value = current;
 }
 
-function getOwnerName(id) {
-    const o = getOwnerById(id);
-    return o ? o.name : 'نامشخص';
-}
+function getOwnerById(id) { return state.owners.find(o => o.id === id); }
+function getResidentById(id) { return state.residents.find(r => r.id === id); }
+function getOwnerName(id) { const o = getOwnerById(id); return o ? o.name : 'نامشخص'; }
+function getResidentName(id) { const r = getResidentById(id); return r ? r.name : 'نامشخص'; }
 
 // ==================== UNITS ====================
 function toggleTenantFields() {
@@ -919,7 +1064,7 @@ function toggleTenantFields() {
 
 function addUnit() {
     const name = document.getElementById('unitName').value.trim();
-    const residentName = document.getElementById('unitResidentName').value.trim();
+    const residentId = document.getElementById('unitResidentSelect').value;
     const area = parseFloat(document.getElementById('unitArea').value);
     const residents = parseInt(document.getElementById('unitResidents').value) || 1;
     const isTenant = document.getElementById('unitIsTenant').checked;
@@ -932,15 +1077,14 @@ function addUnit() {
     const rentEnd = document.getElementById('unitRentEnd').value.trim();
 
     if (!name) return showToast('نام واحد را وارد کنید', 'error');
-    if (!residentName) return showToast('نام ساکن را وارد کنید', 'error');
+    if (!residentId) return showToast('نام ساکن را انتخاب کنید', 'error');
     if (!area || area <= 0) return showToast('متراژ معتبر وارد کنید', 'error');
     if (!ownerId) return showToast('نام مالک را انتخاب کنید', 'error');
-    if (state.owners.length === 0) return showToast('ابتدا از اطلاعات ساختمان، مالک اضافه کنید', 'error');
 
     state.units.push({
         id: uid(),
         name,
-        residentName,
+        residentId,
         isTenant,
         ownerId,
         rentStart: isTenant ? rentStart : '',
@@ -953,7 +1097,7 @@ function addUnit() {
 
     saveState();
     document.getElementById('unitName').value = '';
-    document.getElementById('unitResidentName').value = '';
+    document.getElementById('unitResidentSelect').value = '';
     document.getElementById('unitArea').value = '';
     document.getElementById('unitResidents').value = '1';
     document.getElementById('unitOwnerSelect').value = '';
@@ -1049,6 +1193,7 @@ function renderUnits() {
         const balance = totalPaid - totalCharge;
         const payments = unit.payments || [];
         const ownerName = getOwnerName(unit.ownerId);
+        const residentName = getResidentName(unit.residentId);
 
         let typeBadge = unit.isTenant
             ? `<span class="badge badge-warning"><i class="fas fa-key"></i> مستاجر — مالک: ${ownerName}</span>`
@@ -1096,11 +1241,14 @@ function renderUnits() {
                         <div class="list-item-icon icon-primary">${toPersianNum(idx + 1)}</div>
                         <div style="min-width:0;">
                             <div class="list-item-title">${unit.name}</div>
-                            <div class="list-item-subtitle">ساکن: ${unit.residentName} • ${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div>
+                            <div class="list-item-subtitle">ساکن: ${residentName} • ${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div>
                             ${rentInfo}
                         </div>
                     </div>
-                    <button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')"><i class="fas fa-trash"></i></button>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-icon btn-sm" onclick="editUnit('${unit.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                    </div>
                 </div>
                 <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;">${typeBadge}${statusBadge}</div>
                 <button class="btn btn-success btn-sm" style="width:100%;" onclick="openPaymentModal('${unit.id}')">
@@ -1117,7 +1265,6 @@ function renderUnits() {
 function onExpenseTypeChange() {
     const type = document.getElementById('expenseType').value;
     document.getElementById('customTitleGroup').style.display = type === 'other' ? 'block' : 'none';
-    // پیشنهاد روش تقسیم
     const splitSel = document.getElementById('expenseSplitMethod');
     if (['electricity', 'gas', 'water'].includes(type)) splitSel.value = 'per_area';
     else if (type === 'cleaning') splitSel.value = 'per_unit';
@@ -1167,23 +1314,19 @@ function removeExpenseFile() {
     document.getElementById('expenseFilePreview').innerHTML = '';
 }
 
-// ==================== محاسبه سهم هر واحد از هزینه ====================
+// ==================== محاسبه سهم هر واحد ====================
 function computeShares(amount, splitMethod) {
     const shares = {};
     if (state.units.length === 0) return shares;
-    
     state.units.forEach(u => shares[u.id] = 0);
     
     if (splitMethod === 'per_owners') {
-        // بین مالکین، بر اساس تعداد واحد مالکیت
-        // ابتدا تعداد کل واحدها
+        // مبنا: تعداد واحد مالکیت
+        // سهم هر واحد = مبلغ / تعداد کل واحدها
+        // سهم هر مالک = تعداد واحدهای مالک × سهم هر واحد
         const totalUnits = state.units.length;
         const perUnitShare = amount / totalUnits;
-        // هر مالک = تعداد واحد × perUnitShare
-        state.units.forEach(u => {
-            shares[u.id] = perUnitShare;
-        });
-        // سهم هر مالک = مجموع سهم واحدهایش (که در گزارش مالکین گروه‌بندی می‌شود)
+        state.units.forEach(u => shares[u.id] = perUnitShare);
         return shares;
     }
     
@@ -1201,14 +1344,12 @@ function computeShares(amount, splitMethod) {
             shares[u.id] = totalArea > 0 ? (amount * u.area / totalArea) : 0;
         });
     } else if (splitMethod === 'per_person_area') {
-        // ضریب هر واحد = نفرات × متراژ
         const totalFactor = state.units.reduce((s, u) => s + ((u.residents || 0) * (u.area || 0)), 0);
         state.units.forEach(u => {
             const factor = (u.residents || 0) * (u.area || 0);
             shares[u.id] = totalFactor > 0 ? (amount * factor / totalFactor) : 0;
         });
     }
-    
     return shares;
 }
 
@@ -1330,7 +1471,10 @@ function renderExpenses() {
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-danger btn-icon btn-sm" onclick="deleteExpense('${exp.id}')"><i class="fas fa-trash"></i></button>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-icon btn-sm" onclick="editExpense('${exp.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-icon btn-sm" onclick="deleteExpense('${exp.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                    </div>
                 </div>
                 <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;">
                     <span class="badge method-badge ${getMethodClass(exp.splitMethod)}">${getMethodLabel(exp.splitMethod)}</span>
@@ -1381,7 +1525,7 @@ function calculateCharges() {
     const results = state.units.map(unit => ({
         unitId: unit.id,
         unitName: unit.name,
-        residentName: unit.residentName,
+        residentName: getResidentName(unit.residentId),
         share: perUnitAmount
     }));
 
@@ -1414,7 +1558,10 @@ function renderCharges() {
                         <div style="font-weight:800; font-size:14px;">${charge.subPeriod}</div>
                         <div style="font-size:11px; color:var(--gray-500);">هر واحد: ${formatNumber(charge.perUnitAmount)} — کل: ${formatNumber(charge.totalAmount)}</div>
                     </div>
-                    <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')"><i class="fas fa-trash"></i></button>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-sm btn-icon" onclick="editCharge('${key}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')" title="حذف"><i class="fas fa-trash"></i></button>
+                    </div>
                 </div>
                 ${charge.results.map(r => {
                     const unit = state.units.find(u => u.id === r.unitId);
@@ -1455,9 +1602,20 @@ function deleteCharge(key) {
 }
 
 // ==================== TRAVEL ====================
-function openCompanionModal() {
-    document.getElementById('companionName').value = '';
-    document.getElementById('companionCount').value = '1';
+function openCompanionModal(editId = null) {
+    editContext = { type: editId ? 'edit-companion' : 'add-companion', id: editId };
+    const modalTitle = document.getElementById('companionModalTitle');
+    if (editId) {
+        const c = state.companions.find(x => x.id === editId);
+        if (!c) return;
+        modalTitle.textContent = 'ویرایش همسفر';
+        document.getElementById('companionName').value = c.name;
+        document.getElementById('companionCount').value = c.count;
+    } else {
+        modalTitle.textContent = 'افزودن همسفر';
+        document.getElementById('companionName').value = '';
+        document.getElementById('companionCount').value = '1';
+    }
     openModal('companionModal');
 }
 
@@ -1465,12 +1623,23 @@ function saveCompanion() {
     const name = document.getElementById('companionName').value.trim();
     const count = parseInt(document.getElementById('companionCount').value) || 1;
     if (!name) return showToast('نام را وارد کنید', 'error');
-    state.companions.push({ id: uid(), name, count });
+    
+    if (editContext.type === 'edit-companion' && editContext.id) {
+        const c = state.companions.find(x => x.id === editContext.id);
+        if (c) { c.name = name; c.count = count; }
+        showToast('✅ همسفر ویرایش شد', 'success');
+    } else {
+        state.companions.push({ id: uid(), name, count });
+        showToast('✅ همسفر اضافه شد', 'success');
+    }
+    
     saveState();
     closeModal('companionModal');
     renderCompanions();
     updateTravelPayerOptions();
-    showToast('✅ همسفر اضافه شد', 'success');
+    renderTravelSettlement();
+    renderAllJournalViews();
+    editContext = { type: null, id: null };
 }
 
 function deleteCompanion(id) {
@@ -1479,6 +1648,7 @@ function deleteCompanion(id) {
     saveState();
     renderCompanions();
     updateTravelPayerOptions();
+    renderTravelSettlement();
     showToast('🗑️ همسفر حذف شد', 'warning');
 }
 
@@ -1497,7 +1667,10 @@ function renderCompanions() {
                     <div class="list-item-subtitle">${toPersianNum(c.count)} نفر</div>
                 </div>
             </div>
-            <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCompanion('${c.id}')"><i class="fas fa-times"></i></button>
+            <div class="btn-group">
+                <button class="btn btn-primary btn-sm btn-icon" onclick="openCompanionModal('${c.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCompanion('${c.id}')" title="حذف"><i class="fas fa-times"></i></button>
+            </div>
         </div>
     `).join('');
 }
@@ -1587,7 +1760,8 @@ function renderTravelExpenses() {
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
                 <div class="list-item-amount amount-negative">${formatNumber(exp.amount)}</div>
-                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteTravelExpense('${exp.id}')"><i class="fas fa-times"></i></button>
+                <button class="btn btn-primary btn-sm btn-icon" onclick="editTravelExpense('${exp.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteTravelExpense('${exp.id}')" title="حذف"><i class="fas fa-times"></i></button>
             </div>
         </div>
     `).join('');
@@ -1668,13 +1842,14 @@ function renderDashboard() {
         else if (balance > 0) badge = `<span class="badge badge-info">اضافه پرداخت</span>`;
         else badge = `<span class="badge badge-danger">بدهی شارژ</span>`;
         const ownerName = getOwnerName(u.ownerId);
+        const residentName = getResidentName(u.residentId);
         return `
             <div class="list-item">
                 <div class="list-item-info">
                     <div class="list-item-icon icon-primary">${toPersianNum(i + 1)}</div>
                     <div>
                         <div class="list-item-title">${u.name}</div>
-                        <div class="list-item-subtitle">ساکن: ${u.residentName} • ${u.isTenant ? '🔑 مستاجر' : '👤 مالک'} • مالک: ${ownerName}</div>
+                        <div class="list-item-subtitle">ساکن: ${residentName} • ${u.isTenant ? '🔑 مستاجر' : '👤 مالک'} • مالک: ${ownerName}</div>
                     </div>
                 </div>
                 ${badge}
@@ -1711,7 +1886,9 @@ function initPart1() {
     updateSplitMethodHelp();
     setTimeout(initDatePickers, 500);
     refreshOwnerDropdowns();
+    refreshResidentDropdowns();
     renderOwnersList();
+    renderResidentsList();
     renderUnits();
     renderExpenses();
     renderCharges();
@@ -1722,7 +1899,6 @@ function initPart1() {
     renderDashboard();
 }
 </script>
-
 <script>
 // ==================== JOURNAL TABS ====================
 let currentTab = 'matrix';
@@ -1774,6 +1950,18 @@ function computeUnitTotalShares() {
     return shares;
 }
 
+// ==================== محاسبه سهم هر مالک ====================
+function computeOwnerTotalShares() {
+    const ownerShares = {};
+    const unitShares = computeUnitTotalShares();
+    state.units.forEach(u => {
+        if (!u.ownerId) return;
+        if (!ownerShares[u.ownerId]) ownerShares[u.ownerId] = 0;
+        ownerShares[u.ownerId] += unitShares[u.id];
+    });
+    return ownerShares;
+}
+
 // ==================== MATRIX TABLE ====================
 function renderMatrixTable() {
     const container = document.getElementById('matrixTable');
@@ -1790,13 +1978,12 @@ function renderMatrixTable() {
         <th>#</th>
         <th>عنوان هزینه</th>
         <th>تاریخ هزینه</th>
-        <th>تاریخ پرداخت</th>
-        <th>پرداخت‌کننده</th>
         <th>روش</th>
         <th>مبلغ کل</th>`;
     
     state.units.forEach(u => {
-        html += `<th>${u.name}<br><small style="font-weight:400; font-size:9px;">${u.residentName || ''}</small></th>`;
+        const residentName = getResidentName(u.residentId);
+        html += `<th>${u.name}<br><small style="font-weight:400; font-size:9px;">${residentName}</small></th>`;
     });
     html += `</tr></thead><tbody>`;
 
@@ -1805,8 +1992,6 @@ function renderMatrixTable() {
             <td>${toPersianNum(idx + 1)}</td>
             <td style="font-weight:700;">${exp.typeName}</td>
             <td>${exp.date}</td>
-            <td>${exp.payDate}</td>
-            <td>${exp.payer || '—'}</td>
             <td><span class="method-badge ${getMethodClass(exp.splitMethod)}">${getMethodLabel(exp.splitMethod)}</span></td>
             <td style="font-weight:800; color:var(--danger);">${formatNumber(exp.amount)}</td>`;
         
@@ -1820,7 +2005,7 @@ function renderMatrixTable() {
 
     const totalAll = state.expenses.reduce((s, e) => s + e.amount, 0);
     html += `<tr class="total-row">
-        <td colspan="6">جمع کل</td>
+        <td colspan="4">جمع کل</td>
         <td>${formatNumber(totalAll)}</td>`;
     state.units.forEach(u => {
         html += `<td>${formatNumber(totals[u.id])}</td>`;
@@ -1880,11 +2065,12 @@ function renderSummaryTable() {
             : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
 
         const ownerName = getOwnerName(u.ownerId);
+        const residentName = getResidentName(u.residentId);
 
         html += `<tr>
             <td>${toPersianNum(idx + 1)}</td>
             <td style="font-weight:700;">${u.name}</td>
-            <td>${u.residentName}${u.isTenant ? ' <span class="badge badge-warning" style="font-size:9px;">مستاجر</span>' : ''}</td>
+            <td>${residentName}${u.isTenant ? ' <span class="badge badge-warning" style="font-size:9px;">مستاجر</span>' : ''}</td>
             <td>${ownerName}</td>
             <td>${toPersianNum(u.area)}</td>
             <td>${toPersianNum(u.residents)}</td>
@@ -1944,18 +2130,29 @@ function renderOwnersTable() {
         <th>واحدها</th>
         <th>جمع متراژ</th>
         <th>سهم هزینه‌ها</th>
+        <th>پرداختی</th>
+        <th>مانده</th>
         <th>وضعیت</th>
         </tr></thead><tbody>`;
 
     let idx = 1;
     let totalShareAll = 0;
+    let totalPaidAll = 0;
 
     Object.keys(ownersMap).forEach(ownerId => {
         const units = ownersMap[ownerId];
         const ownerName = ownerId === 'unknown' ? 'بدون مالک' : getOwnerName(ownerId);
         const totalArea = units.reduce((s, u) => s + u.area, 0);
         const totalShare = units.reduce((s, u) => s + unitShares[u.id], 0);
+        const totalPaid = units.reduce((s, u) => s + getUnitTotalPaid(u), 0);
+        const balance = totalPaid - totalShare;
+        
         totalShareAll += totalShare;
+        totalPaidAll += totalPaid;
+
+        let statusBadge = balance >= 0 
+            ? `<span class="badge badge-success">✓ طلبکار/تسویه</span>` 
+            : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
 
         html += `<tr>
             <td>${toPersianNum(idx++)}</td>
@@ -1964,14 +2161,17 @@ function renderOwnersTable() {
             <td style="font-size:11px;">${units.map(u => u.name).join('، ')}</td>
             <td>${toPersianNum(totalArea)}</td>
             <td style="color:var(--danger); font-weight:700;">${formatNumber(totalShare)}</td>
-            <td><span class="badge badge-info">${units.length} واحد مالکیت</span></td>
+            <td style="color:var(--success); font-weight:700;">${formatNumber(totalPaid)}</td>
+            <td style="font-weight:800; color:${balance >= 0 ? 'var(--success)' : 'var(--danger)'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td>
+            <td>${statusBadge}</td>
         </tr>`;
     });
 
     html += `<tr class="total-row">
         <td colspan="5">جمع کل</td>
         <td>${formatNumber(totalShareAll)}</td>
-        <td>—</td>
+        <td>${formatNumber(totalPaidAll)}</td>
+        <td colspan="2">—</td>
     </tr></tbody></table></div>`;
 
     html += `
@@ -1979,9 +2179,10 @@ function renderOwnersTable() {
             <i class="fas fa-info-circle"></i>
             <div>
                 <strong>نحوه محاسبه سهم مالکین:</strong><br>
-                هزینه‌های با روش «👔 مالکین» بین مالکین بر اساس <strong>تعداد واحد مالکیت</strong> تقسیم می‌شود.<br>
-                یعنی مالکی که ۲ واحد دارد، دو برابر مالکی که ۱ واحد دارد پرداخت می‌کند.<br>
-                هزینه‌های ساکنین (مساوی/نفرات/متراژ) به ساکن هر واحد تعلق می‌گیرد و در این جدول به مالک همان واحد نسبت داده می‌شود.
+                هزینه‌ها بین واحدها بر اساس روش انتخابی تقسیم می‌شود، سپس سهم هر واحد به مالک آن نسبت داده می‌شود.<br>
+                • <strong>هزینه‌های مالکین (👔):</strong> بین مالکین بر اساس تعداد واحد مالکیت (مالکی که ۲ واحد دارد، دو برابر مالکی که ۱ واحد دارد پرداخت می‌کند).<br>
+                • <strong>هزینه‌های ساکنین:</strong> به ساکن هر واحد تعلق می‌گیرد و در این جدول به مالک همان واحد نسبت داده می‌شود.<br>
+                • <strong>پرداختی:</strong> مجموع پرداخت‌های ثبت‌شده برای تمام واحدهای هر مالک.
             </div>
         </div>
     `;
@@ -2043,7 +2244,7 @@ function renderTravelJournalTable() {
     container.innerHTML = html;
 }
 
-// ==================== EXPORT EXCEL ====================
+// ==================== EXCEL EXPORTS ====================
 function exportExpensesExcel() {
     if (state.expenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
     const data = state.expenses.map((e, i) => ({
@@ -2109,8 +2310,6 @@ function exportJournalExcel(type) {
                 'ردیف': i + 1,
                 'عنوان هزینه': exp.typeName,
                 'تاریخ هزینه': exp.date,
-                'تاریخ پرداخت': exp.payDate,
-                'پرداخت‌کننده': exp.payer,
                 'روش تقسیم': getMethodLabel(exp.splitMethod).replace(/[^\u0600-\u06FF\s]/g, '').trim(),
                 'مبلغ کل': exp.amount
             };
@@ -2128,7 +2327,7 @@ function exportJournalExcel(type) {
         const unitData = state.units.map((u, i) => ({
             'ردیف': i + 1,
             'واحد': u.name,
-            'ساکن': u.residentName,
+            'ساکن': getResidentName(u.residentId),
             'نوع': u.isTenant ? 'مستاجر' : 'مالک ساکن',
             'نام مالک': getOwnerName(u.ownerId),
             'متراژ': u.area,
@@ -2151,13 +2350,16 @@ function exportJournalExcel(type) {
         const ownerData = Object.keys(ownersMap).map((id, i) => {
             const units = ownersMap[id];
             const totalShare = units.reduce((s, u) => s + unitShares[u.id], 0);
+            const totalPaid = units.reduce((s, u) => s + getUnitTotalPaid(u), 0);
             return {
                 'ردیف': i + 1,
                 'نام مالک': id === 'unknown' ? 'بدون مالک' : getOwnerName(id),
                 'تعداد واحد': units.length,
                 'واحدها': units.map(u => u.name).join('، '),
                 'جمع متراژ': units.reduce((s, u) => s + u.area, 0),
-                'جمع سهم': Math.round(totalShare)
+                'جمع سهم': Math.round(totalShare),
+                'جمع پرداختی': totalPaid,
+                'مانده': Math.round(totalPaid - totalShare)
             };
         });
         const ws4 = XLSX.utils.json_to_sheet(ownerData);
@@ -2207,10 +2409,10 @@ function exportTravelJournalExcel() {
     showToast('✅ فایل اکسل دانلود شد', 'success');
 }
 
-// ==================== EXPORT PDF (اصلاح‌شده) ====================
+// ==================== EXPORT PDF (نسخه اصلاح‌شده و تست‌شده) ====================
 function generateReportHTML(title, subtitle, contentHTML) {
     return `
-        <div style="width:210mm; min-height:297mm; padding:20mm; background:#fff; font-family:'Vazirmatn',sans-serif; direction:rtl;">
+        <div style="width:794px; padding:40px 50px; background:#fff; font-family:'Vazirmatn',sans-serif; direction:rtl; box-sizing:border-box;">
             <div style="text-align:center; border-bottom:3px solid #6366f1; padding-bottom:15px; margin-bottom:20px;">
                 <h1 style="color:#6366f1; font-size:24px; margin:0;">${title}</h1>
                 <p style="color:#64748b; font-size:13px; margin:8px 0 0 0;">${subtitle}</p>
@@ -2228,7 +2430,6 @@ function thStyle() { return `background:#eef2ff; padding:8px 6px; border:1px sol
 function tdStyle() { return `padding:6px; border:1px solid #e2e8f0; text-align:center;`; }
 function totalTdStyle() { return `padding:8px 6px; border:1px solid #c7d2fe; text-align:center; background:#eef2ff; font-weight:800; color:#3730a3;`; }
 
-// 🔥 تابع اصلاح‌شده PDF
 async function htmlToPDF(html, filename) {
     showToast('⏳ در حال ساخت PDF...', 'default');
     
@@ -2237,20 +2438,32 @@ async function htmlToPDF(html, filename) {
         try { await document.fonts.ready; } catch(e) {}
     }
     
+    // ایجاد wrapper تمام‌صفحه و visible (ولی کاربر نمی‌بینه چون سریع حذف میشه)
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'fixed';
+    wrapper.style.top = '0';
+    wrapper.style.left = '0';
+    wrapper.style.width = '100vw';
+    wrapper.style.height = '100vh';
+    wrapper.style.overflow = 'hidden';
+    wrapper.style.background = '#ffffff';
+    wrapper.style.zIndex = '999999';
+    wrapper.style.opacity = '1';
+    
     const container = document.createElement('div');
-    container.style.position = 'fixed';
+    container.style.width = '794px';
+    container.style.background = '#ffffff';
+    container.style.position = 'absolute';
     container.style.top = '0';
     container.style.left = '0';
-    container.style.width = '210mm';
-    container.style.background = '#ffffff';
-    container.style.zIndex = '-99999';
-    container.style.opacity = '0.01';
-    container.style.pointerEvents = 'none';
-    container.style.overflow = 'hidden';
     container.innerHTML = html;
-    document.body.appendChild(container);
-
-    await new Promise(r => setTimeout(r, 1000));
+    
+    wrapper.appendChild(container);
+    document.body.appendChild(wrapper);
+    
+    // اسکرول به بالا و انتظار برای رندر
+    window.scrollTo(0, 0);
+    await new Promise(r => setTimeout(r, 1200));
 
     try {
         const canvas = await html2canvas(container, {
@@ -2259,9 +2472,15 @@ async function htmlToPDF(html, filename) {
             useCORS: true,
             allowTaint: true,
             logging: false,
+            width: container.scrollWidth,
+            height: container.scrollHeight,
             windowWidth: container.scrollWidth,
             windowHeight: container.scrollHeight
         });
+
+        if (!canvas || !canvas.width || !canvas.height) {
+            throw new Error('canvas خالی ساخته شد');
+        }
 
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
@@ -2271,7 +2490,7 @@ async function htmlToPDF(html, filename) {
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
         const pxPerMm = imgWidth / pdfWidth;
-        const pageHeightPx = pdfHeight * pxPerMm;
+        const pageHeightPx = Math.floor(pdfHeight * pxPerMm);
         
         let position = 0;
         let pageNum = 0;
@@ -2279,19 +2498,26 @@ async function htmlToPDF(html, filename) {
         while (position < imgHeight) {
             if (pageNum > 0) pdf.addPage();
             
+            const remaining = imgHeight - position;
+            const sliceHeight = Math.min(pageHeightPx, remaining);
+            
             const pageCanvas = document.createElement('canvas');
             pageCanvas.width = imgWidth;
-            pageCanvas.height = Math.min(pageHeightPx, imgHeight - position);
+            pageCanvas.height = sliceHeight;
             const ctx = pageCanvas.getContext('2d');
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
-            ctx.drawImage(canvas, 0, -position);
+            ctx.drawImage(
+                canvas,
+                0, position, imgWidth, sliceHeight,
+                0, 0, imgWidth, sliceHeight
+            );
             
             const pageData = pageCanvas.toDataURL('image/jpeg', 0.95);
-            const renderHeight = (pageCanvas.height / pxPerMm);
+            const renderHeight = sliceHeight / pxPerMm;
             pdf.addImage(pageData, 'JPEG', 0, 0, pdfWidth, renderHeight);
             
-            position += pageHeightPx;
+            position += sliceHeight;
             pageNum++;
         }
 
@@ -2301,7 +2527,7 @@ async function htmlToPDF(html, filename) {
         console.error('PDF Error:', e);
         showToast('خطا در ساخت PDF: ' + e.message, 'error');
     } finally {
-        document.body.removeChild(container);
+        document.body.removeChild(wrapper);
     }
 }
 
@@ -2468,6 +2694,7 @@ function exportJournalPDF(type) {
     content += `<table style="${tableStyle()}"><thead><tr>
         <th style="${thStyle()}">واحد</th>
         <th style="${thStyle()}">ساکن</th>
+        <th style="${thStyle()}">مالک</th>
         <th style="${thStyle()}">نوع</th>
         <th style="${thStyle()}">متراژ</th>
         <th style="${thStyle()}">سهم هزینه</th>
@@ -2481,7 +2708,8 @@ function exportJournalPDF(type) {
         const balance = paid - share;
         content += `<tr>
             <td style="${tdStyle()}; font-weight:700;">${u.name}</td>
-            <td style="${tdStyle()}">${u.residentName}</td>
+            <td style="${tdStyle()}">${getResidentName(u.residentId)}</td>
+            <td style="${tdStyle()}">${getOwnerName(u.ownerId)}</td>
             <td style="${tdStyle()}; font-size:10px;">${u.isTenant ? 'مستاجر' : 'مالک'}</td>
             <td style="${tdStyle()}">${toPersianNum(u.area)}</td>
             <td style="${tdStyle()}; color:#dc2626;">${formatNumber(share)}</td>
@@ -2505,17 +2733,23 @@ function exportJournalPDF(type) {
         <th style="${thStyle()}">تعداد واحد</th>
         <th style="${thStyle()}">واحدها</th>
         <th style="${thStyle()}">جمع سهم</th>
+        <th style="${thStyle()}">جمع پرداختی</th>
+        <th style="${thStyle()}">مانده</th>
     </tr></thead><tbody>`;
     
     Object.keys(ownersMap).forEach(id => {
         const units = ownersMap[id];
         const ownerName = id === 'unknown' ? 'بدون مالک' : getOwnerName(id);
         const totalShare = units.reduce((s, u) => s + unitShares[u.id], 0);
+        const totalPaid = units.reduce((s, u) => s + getUnitTotalPaid(u), 0);
+        const balance = totalPaid - totalShare;
         content += `<tr>
             <td style="${tdStyle()}; font-weight:700;">${ownerName}</td>
             <td style="${tdStyle()}">${toPersianNum(units.length)}</td>
             <td style="${tdStyle()}; font-size:10px;">${units.map(u => u.name).join('، ')}</td>
             <td style="${tdStyle()}; color:#dc2626; font-weight:700;">${formatNumber(totalShare)}</td>
+            <td style="${tdStyle()}; color:#059669;">${formatNumber(totalPaid)}</td>
+            <td style="${tdStyle()}; font-weight:800; color:${balance >= 0 ? '#059669' : '#dc2626'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td>
         </tr>`;
     });
     content += `</tbody></table>`;
@@ -2536,6 +2770,313 @@ function exportJournalPDF(type) {
     htmlToPDF(html, 'گزارش-مالی-ساختمان.pdf');
 }
 
+// ==================== EDIT FUNCTIONS ====================
+function openEditModal(title, fieldsHTML, onSave) {
+    document.getElementById('editModalTitle').textContent = title;
+    document.getElementById('editModalBody').innerHTML = fieldsHTML;
+    window._editSaveCallback = onSave;
+    setTimeout(initDatePickers, 200);
+    openModal('editModal');
+}
+
+function saveEdit() {
+    if (typeof window._editSaveCallback === 'function') {
+        window._editSaveCallback();
+    }
+}
+
+// ---- ویرایش مالک ----
+function editOwner(id) {
+    const owner = state.owners.find(o => o.id === id);
+    if (!owner) return;
+    
+    const html = `
+        <div class="form-group"><label>نام مالک <span class="required">*</span></label>
+            <input type="text" class="form-control" id="editOwnerName" value="${owner.name || ''}"></div>
+        <div class="form-group"><label>شماره تماس</label>
+            <input type="text" class="form-control" id="editOwnerPhone" value="${owner.phone || ''}"></div>
+        <div class="form-group"><label>توضیحات</label>
+            <input type="text" class="form-control" id="editOwnerNote" value="${owner.note || ''}"></div>
+    `;
+    
+    openEditModal('ویرایش مالک', html, () => {
+        const name = document.getElementById('editOwnerName').value.trim();
+        const phone = document.getElementById('editOwnerPhone').value.trim();
+        const note = document.getElementById('editOwnerNote').value.trim();
+        if (!name) return showToast('نام الزامی است', 'error');
+        
+        const oldName = owner.name;
+        owner.name = name;
+        owner.phone = phone;
+        owner.note = note;
+        
+        // ساکن لینک‌شده هم آپدیت کن
+        state.residents.forEach(r => {
+            if (r.linkedOwnerId === id) {
+                r.name = name;
+                r.phone = phone;
+            }
+        });
+        
+        saveState();
+        closeModal('editModal');
+        renderOwnersList();
+        renderResidentsList();
+        refreshOwnerDropdowns();
+        refreshResidentDropdowns();
+        renderUnits();
+        renderAllJournalViews();
+        showToast('✅ مالک ویرایش شد', 'success');
+    });
+}
+
+// ---- ویرایش ساکن ----
+function editResident(id) {
+    const resident = state.residents.find(r => r.id === id);
+    if (!resident) return;
+    
+    const html = `
+        <div class="form-group"><label>نام ساکن <span class="required">*</span></label>
+            <input type="text" class="form-control" id="editResidentName" value="${resident.name || ''}"></div>
+        <div class="form-group"><label>شماره تماس</label>
+            <input type="text" class="form-control" id="editResidentPhone" value="${resident.phone || ''}"></div>
+        <div class="form-group"><label>توضیحات</label>
+            <input type="text" class="form-control" id="editResidentNote" value="${resident.note || ''}"></div>
+    `;
+    
+    openEditModal('ویرایش ساکن', html, () => {
+        const name = document.getElementById('editResidentName').value.trim();
+        const phone = document.getElementById('editResidentPhone').value.trim();
+        const note = document.getElementById('editResidentNote').value.trim();
+        if (!name) return showToast('نام الزامی است', 'error');
+        
+        resident.name = name;
+        resident.phone = phone;
+        resident.note = note;
+        
+        // اگه مالکه، اسم مالک هم آپدیت کن
+        if (resident.linkedOwnerId) {
+            const owner = state.owners.find(o => o.id === resident.linkedOwnerId);
+            if (owner) { owner.name = name; owner.phone = phone; }
+            renderOwnersList();
+            refreshOwnerDropdowns();
+        }
+        
+        saveState();
+        closeModal('editModal');
+        renderResidentsList();
+        renderUnits();
+        refreshResidentDropdowns();
+        renderAllJournalViews();
+        showToast('✅ ساکن ویرایش شد', 'success');
+    });
+}
+
+// ---- ویرایش واحد ----
+function editUnit(id) {
+    const unit = state.units.find(u => u.id === id);
+    if (!unit) return;
+    
+    const ownerOptions = state.owners.map(o => 
+        `<option value="${o.id}" ${o.id === unit.ownerId ? 'selected' : ''}>${o.name}</option>`
+    ).join('');
+    
+    const residentOptions = state.residents.map(r => 
+        `<option value="${r.id}" ${r.id === unit.residentId ? 'selected' : ''}>${r.name}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`
+    ).join('');
+    
+    const html = `
+        <div class="form-group"><label>نام واحد <span class="required">*</span></label>
+            <input type="text" class="form-control" id="editUnitName" value="${unit.name || ''}"></div>
+        <div class="form-group"><label>ساکن <span class="required">*</span></label>
+            <select class="form-select" id="editUnitResident">${residentOptions}</select></div>
+        <div class="form-group">
+            <label class="checkbox-wrap">
+                <input type="checkbox" id="editUnitIsTenant" ${unit.isTenant ? 'checked' : ''}>
+                <span>مستاجر است</span>
+            </label>
+        </div>
+        <div class="form-group"><label>مالک <span class="required">*</span></label>
+            <select class="form-select" id="editUnitOwner">${ownerOptions}</select></div>
+        <div class="form-row">
+            <div class="form-group"><label>متراژ</label>
+                <input type="number" class="form-control" id="editUnitArea" value="${unit.area || 0}"></div>
+            <div class="form-group"><label>تعداد نفرات</label>
+                <input type="number" class="form-control" id="editUnitResidents" value="${unit.residents || 1}"></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group"><label>تاریخ شروع اجاره</label>
+                <input type="text" class="form-control datepicker" id="editUnitRentStart" value="${unit.rentStart || ''}" readonly></div>
+            <div class="form-group"><label>تاریخ پایان اجاره</label>
+                <input type="text" class="form-control datepicker" id="editUnitRentEnd" value="${unit.rentEnd || ''}" readonly></div>
+        </div>
+    `;
+    
+    openEditModal('ویرایش واحد', html, () => {
+        const name = document.getElementById('editUnitName').value.trim();
+        const residentId = document.getElementById('editUnitResident').value;
+        const ownerId = document.getElementById('editUnitOwner').value;
+        const area = parseFloat(document.getElementById('editUnitArea').value);
+        const residents = parseInt(document.getElementById('editUnitResidents').value) || 1;
+        const isTenant = document.getElementById('editUnitIsTenant').checked;
+        const rentStart = document.getElementById('editUnitRentStart').value.trim();
+        const rentEnd = document.getElementById('editUnitRentEnd').value.trim();
+        
+        if (!name || !residentId || !ownerId || !area) return showToast('همه فیلدهای الزامی را پر کنید', 'error');
+        
+        unit.name = name;
+        unit.residentId = residentId;
+        unit.ownerId = ownerId;
+        unit.area = area;
+        unit.residents = residents;
+        unit.isTenant = isTenant;
+        unit.rentStart = isTenant ? rentStart : '';
+        unit.rentEnd = isTenant ? rentEnd : '';
+        
+        saveState();
+        closeModal('editModal');
+        renderUnits();
+        renderDashboard();
+        renderAllJournalViews();
+        showToast('✅ واحد ویرایش شد', 'success');
+    });
+}
+
+// ---- ویرایش هزینه ----
+function editExpense(id) {
+    const exp = state.expenses.find(e => e.id === id);
+    if (!exp) return;
+    
+    const html = `
+        <div class="form-group"><label>عنوان</label>
+            <input type="text" class="form-control" id="editExpenseTitle" value="${exp.typeName || ''}"></div>
+        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label>
+            <input type="number" class="form-control" id="editExpenseAmount" value="${exp.amount || 0}"></div>
+        <div class="form-row">
+            <div class="form-group"><label>تاریخ هزینه</label>
+                <input type="text" class="form-control datepicker" id="editExpenseDate" value="${exp.date || ''}" readonly></div>
+            <div class="form-group"><label>تاریخ پرداخت</label>
+                <input type="text" class="form-control datepicker" id="editExpensePayDate" value="${exp.payDate || ''}" readonly></div>
+        </div>
+        <div class="form-group"><label>پرداخت‌کننده</label>
+            <input type="text" class="form-control" id="editExpensePayer" value="${exp.payer || ''}"></div>
+        <div class="form-group"><label>روش تقسیم</label>
+            <select class="form-select" id="editExpenseSplit">
+                <option value="per_unit" ${exp.splitMethod === 'per_unit' ? 'selected' : ''}>⚖️ مساوی</option>
+                <option value="per_person" ${exp.splitMethod === 'per_person' ? 'selected' : ''}>👥 نفرات</option>
+                <option value="per_area" ${exp.splitMethod === 'per_area' ? 'selected' : ''}>📏 متراژ</option>
+                <option value="per_person_area" ${exp.splitMethod === 'per_person_area' ? 'selected' : ''}>🧮 نفر×متراژ</option>
+                <option value="per_owners" ${exp.splitMethod === 'per_owners' ? 'selected' : ''}>👔 مالکین</option>
+            </select></div>
+        <div class="info-box"><i class="fas fa-info-circle"></i> با تغییر مبلغ یا روش تقسیم، سهم واحدها مجدداً محاسبه می‌شود.</div>
+    `;
+    
+    openEditModal('ویرایش هزینه', html, () => {
+        const title = document.getElementById('editExpenseTitle').value.trim();
+        const amount = parseFloat(document.getElementById('editExpenseAmount').value);
+        const date = document.getElementById('editExpenseDate').value.trim();
+        const payDate = document.getElementById('editExpensePayDate').value.trim();
+        const payer = document.getElementById('editExpensePayer').value.trim();
+        const splitMethod = document.getElementById('editExpenseSplit').value;
+        
+        if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
+        
+        exp.typeName = title || exp.typeName;
+        exp.amount = amount;
+        exp.date = date || '—';
+        exp.payDate = payDate || '—';
+        exp.payer = payer;
+        exp.splitMethod = splitMethod;
+        exp.shares = computeShares(amount, splitMethod);
+        
+        saveState();
+        closeModal('editModal');
+        renderExpenses();
+        renderDashboard();
+        renderUnits();
+        renderAllJournalViews();
+        showToast('✅ هزینه ویرایش شد', 'success');
+    });
+}
+
+// ---- ویرایش شارژ ----
+function editCharge(key) {
+    const charge = state.charges[key];
+    if (!charge) return;
+    
+    const html = `
+        <div class="form-group"><label>دوره</label>
+            <input type="text" class="form-control" value="${charge.subPeriod}" readonly></div>
+        <div class="form-group"><label>مبلغ شارژ هر واحد (تومان) <span class="required">*</span></label>
+            <input type="number" class="form-control" id="editChargeAmount" value="${charge.perUnitAmount || 0}"></div>
+        <div class="info-box"><i class="fas fa-info-circle"></i> با تغییر مبلغ، شارژ همه واحدها به‌روز می‌شود.</div>
+    `;
+    
+    openEditModal('ویرایش شارژ', html, () => {
+        const amount = parseFloat(document.getElementById('editChargeAmount').value);
+        if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
+        
+        charge.perUnitAmount = amount;
+        charge.totalAmount = amount * state.units.length;
+        charge.results = state.units.map(unit => ({
+            unitId: unit.id,
+            unitName: unit.name,
+            residentName: getResidentName(unit.residentId),
+            share: amount
+        }));
+        
+        saveState();
+        closeModal('editModal');
+        renderCharges();
+        renderDashboard();
+        renderUnits();
+        renderAllJournalViews();
+        showToast('✅ شارژ ویرایش شد', 'success');
+    });
+}
+
+// ---- ویرایش هزینه سفر ----
+function editTravelExpense(id) {
+    const exp = state.travelExpenses.find(e => e.id === id);
+    if (!exp) return;
+    
+    const payerOptions = state.companions.map(c => 
+        `<option value="${c.name}" ${c.name === exp.payer ? 'selected' : ''}>${c.name}</option>`
+    ).join('');
+    
+    const html = `
+        <div class="form-group"><label>عنوان <span class="required">*</span></label>
+            <input type="text" class="form-control" id="editTravelTitle" value="${exp.title || ''}"></div>
+        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label>
+            <input type="number" class="form-control" id="editTravelAmount" value="${exp.amount || 0}"></div>
+        <div class="form-group"><label>تاریخ</label>
+            <input type="text" class="form-control datepicker" id="editTravelDate" value="${exp.date || ''}" readonly></div>
+        <div class="form-group"><label>پرداخت‌کننده</label>
+            <select class="form-select" id="editTravelPayer">${payerOptions}</select></div>
+    `;
+    
+    openEditModal('ویرایش هزینه سفر', html, () => {
+        const title = document.getElementById('editTravelTitle').value.trim();
+        const amount = parseFloat(document.getElementById('editTravelAmount').value);
+        const date = document.getElementById('editTravelDate').value.trim();
+        const payer = document.getElementById('editTravelPayer').value;
+        
+        if (!title || !amount || amount <= 0) return showToast('عنوان و مبلغ الزامی است', 'error');
+        
+        exp.title = title;
+        exp.amount = amount;
+        exp.date = date || '—';
+        exp.payer = payer;
+        
+        saveState();
+        closeModal('editModal');
+        renderTravelExpenses();
+        renderTravelSettlement();
+        renderAllJournalViews();
+        showToast('✅ هزینه سفر ویرایش شد', 'success');
+    });
+}
+
 // ==================== INIT ====================
 window.addEventListener('load', () => {
     initPart1();
@@ -2545,3 +3086,5 @@ window.addEventListener('load', () => {
     }, 600);
 });
 </script>
+</body>
+</html>
