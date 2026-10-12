@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
 <script>
-// جلوگیری از flash تم در لود
 (function() {
     try {
         const saved = localStorage.getItem('themeMode') || 'auto';
@@ -46,13 +45,8 @@
     --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
     --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     --gradient-info: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-    /* متغیرهای بدنه */
     --body-bg: #f5f6fc;
-    --body-pattern-opacity: 0.03;
-    --body-pattern-color: %236366f1;
 }
-
-/* ==================== DARK MODE ==================== */
 html.dark-mode {
     --dark: #f1f5f9;
     --gray-700: #cbd5e1;
@@ -69,19 +63,12 @@ html.dark-mode {
     --shadow: 0 4px 20px rgba(0,0,0,0.3);
     --shadow-lg: 0 10px 40px rgba(0,0,0,0.4);
     --body-bg: #0f172a;
-    --body-pattern-opacity: 0.05;
-    --body-pattern-color: %238b5cf6;
 }
 html.dark-mode body { color: #f1f5f9; }
-html.dark-mode .law-box {
-    background: linear-gradient(135deg, #422006 0%, #78350f 100%);
-}
+html.dark-mode .law-box { background: linear-gradient(135deg, #422006 0%, #78350f 100%); }
 html.dark-mode .law-box h4 { color: #fbbf24; }
 html.dark-mode .law-box p { color: #fcd34d; }
-html.dark-mode .info-box {
-    background: var(--primary-light);
-    color: #c7d2fe;
-}
+html.dark-mode .info-box { background: var(--primary-light); color: #c7d2fe; }
 html.dark-mode .info-box i { color: #a5b4fc; }
 html.dark-mode .modal-header { background: var(--white); }
 html.dark-mode .toast { background: #334155; color: #f1f5f9; }
@@ -100,7 +87,6 @@ html.dark-mode .datepicker-plot-area .header-year { color: #c7d2fe !important; }
 html.dark-mode .datepicker-navigator .pwt-btn { background: #334155 !important; color: #f1f5f9 !important; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Vazirmatn', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-
 body { 
     color: var(--dark); min-height: 100vh; line-height: 1.6; overflow-x: hidden;
     background-color: var(--body-bg);
@@ -108,11 +94,9 @@ body {
     background-image: 
         radial-gradient(circle at 20% 20%, rgba(99,102,241,0.06) 0%, transparent 40%),
         radial-gradient(circle at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(16,185,129,0.03) 0%, transparent 50%),
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        radial-gradient(circle at 50% 50%, rgba(16,185,129,0.03) 0%, transparent 50%);
 }
 .app-layout { display: flex; min-height: 100vh; }
-
 .sidebar { width: 270px; background: var(--white); border-left: 1px solid var(--gray-200); display: flex; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; z-index: 200; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background-color 0.3s ease; box-shadow: -4px 0 24px rgba(15,23,42,0.04); }
 .sidebar-header { padding: 24px 20px; background: var(--gradient-primary); color: white; }
 .sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
@@ -131,7 +115,6 @@ body {
 .nav-divider { height: 1px; background: var(--gray-200); margin: 12px 8px; }
 .nav-section-title { font-size: 10px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; padding: 8px 14px 4px; letter-spacing: 0.5px; }
 .sidebar-footer { padding: 16px; border-top: 1px solid var(--gray-200); font-size: 11px; color: var(--gray-500); text-align: center; }
-
 .main-area { flex: 1; margin-right: 270px; min-width: 0; }
 .mobile-header { display: none; background: var(--gradient-primary); color: white; padding: 14px 16px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(99,102,241,0.25); }
 .mobile-header-content { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -144,18 +127,15 @@ body {
 .theme-toggle-btn { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.2); color: white; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
 .theme-toggle-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.05); }
 .theme-toggle-btn:active { transform: scale(0.95) rotate(180deg); }
-.theme-toggle-btn.auto .fa-sun, .theme-toggle-btn.auto .fa-moon { display: none; }
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.5); backdrop-filter: blur(4px); z-index: 199; opacity: 0; visibility: hidden; transition: all 0.3s; }
 .sidebar-overlay.active { opacity: 1; visibility: visible; }
-
 .main-content { max-width: 900px; margin: 0 auto; padding: 24px 20px 40px; }
 .page { display: none; animation: fadeIn 0.35s ease; }
 .page.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 .page-title { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-size: 22px; font-weight: 800; }
 .page-title i { width: 44px; height: 44px; background: var(--primary-light); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-
-.card { background: var(--white); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); transition: background-color 0.3s ease, border-color 0.3s ease; }
+.card { background: var(--white); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); transition: background-color 0.3s ease; }
 .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); gap: 10px; flex-wrap: wrap; }
 .card-title { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; }
 .card-title i { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
@@ -165,9 +145,8 @@ body {
 .icon-warning { background: var(--warning-light); color: var(--warning); }
 .icon-info { background: #cffafe; color: var(--info); }
 html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
-
 .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.summary-card { background: var(--white); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); position: relative; overflow: hidden; transition: background-color 0.3s ease; }
+.summary-card { background: var(--white); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); position: relative; overflow: hidden; }
 .summary-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; border-radius: 0 0 0 60px; opacity: 0.08; }
 .summary-card.primary::before { background: var(--primary); }
 .summary-card.success::before { background: var(--success); }
@@ -180,14 +159,12 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .summary-card.warning .icon-wrap { background: var(--warning-light); color: var(--warning); }
 .summary-card .value { font-size: 18px; font-weight: 800; margin-bottom: 2px; }
 .summary-card .label { font-size: 11px; color: var(--gray-500); font-weight: 500; }
-
 .form-group { margin-bottom: 14px; }
 .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
 .form-group label .required { color: var(--danger); }
 .form-control, .form-select { width: 100%; padding: 12px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; transition: all 0.2s; background: var(--white); color: var(--dark); }
 .form-control:focus, .form-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
 .btn { padding: 12px 20px; border-radius: var(--radius-sm); border: none; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
 .btn:active { transform: scale(0.97); }
 .btn-block { width: 100%; }
@@ -201,7 +178,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .btn-sm { padding: 8px 14px; font-size: 12px; border-radius: 10px; }
 .btn-icon { padding: 8px; width: 36px; height: 36px; }
 .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
-
 .list-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--gray-100); gap: 12px; }
 .list-item:last-child { border-bottom: none; }
 .list-item-info { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
@@ -211,36 +187,19 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .list-item-amount { font-size: 14px; font-weight: 800; white-space: nowrap; }
 .amount-positive { color: var(--success); }
 .amount-negative { color: var(--danger); }
-
 .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; }
 .badge-success { background: var(--success-light); color: var(--success); }
 .badge-danger { background: var(--danger-light); color: var(--danger); }
 .badge-warning { background: var(--warning-light); color: var(--warning); }
 .badge-info { background: var(--primary-light); color: var(--primary); }
 .badge-gray { background: var(--gray-100); color: var(--gray-500); }
-
 .empty-state { text-align: center; padding: 48px 24px; color: var(--gray-500); }
 .empty-state .emoji { font-size: 64px; margin-bottom: 16px; display: block; animation: emptyFloat 3s ease-in-out infinite; }
-@keyframes emptyFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-}
+@keyframes emptyFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 .empty-state h3 { font-size: 16px; font-weight: 800; color: var(--gray-700); margin-bottom: 8px; }
 .empty-state p { font-size: 13px; line-height: 1.8; max-width: 320px; margin: 0 auto; }
-.empty-state .empty-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 16px;
-    padding: 8px 16px;
-    background: var(--primary-light);
-    color: var(--primary);
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-}
+.empty-state .empty-hint { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 8px 16px; background: var(--primary-light); color: var(--primary); border-radius: 20px; font-size: 12px; font-weight: 700; }
 .empty-state .empty-hint i { font-size: 13px; }
-
 .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
 .modal-overlay.active { display: flex; }
 .modal { background: var(--white); border-radius: var(--radius); width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; animation: zoomIn 0.3s cubic-bezier(0.4,0,0.2,1); }
@@ -251,7 +210,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .modal-close { width: 36px; height: 36px; border-radius: 50%; background: var(--gray-100); border: none; font-size: 16px; color: var(--gray-700); cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .modal-body { padding: 20px; }
 .modal-footer { padding: 16px 20px 20px; border-top: 1px solid var(--gray-100); display: flex; gap: 10px; }
-
 .upload-zone { border: 2px dashed var(--gray-300); border-radius: var(--radius-sm); padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--gray-50); }
 .upload-zone:hover { border-color: var(--primary); background: var(--primary-light); }
 .upload-zone i { font-size: 32px; color: var(--primary); margin-bottom: 8px; display: block; }
@@ -262,7 +220,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .file-preview i { color: var(--primary); }
 .file-preview .name { flex: 1; color: var(--gray-700); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .file-preview .remove { color: var(--danger); cursor: pointer; padding: 4px; }
-
 .sub-list { background: var(--gray-50); border-radius: var(--radius-sm); padding: 12px; margin-top: 10px; }
 .sub-list-title { font-size: 11px; font-weight: 700; color: var(--gray-500); margin-bottom: 8px; }
 .sub-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--white); border-radius: 8px; margin-bottom: 6px; font-size: 12px; gap: 8px; }
@@ -271,18 +228,15 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .sub-item .amount { color: var(--success); font-weight: 700; }
 .sub-item .del { color: var(--danger); cursor: pointer; }
 .sub-item .payer { color: var(--primary); font-size: 10px; font-weight: 700; }
-
 .law-box { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-right: 4px solid var(--warning); border-radius: var(--radius-sm); padding: 14px 16px; margin-top: 16px; }
 .law-box h4 { font-size: 13px; font-weight: 800; color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
 .law-box p { font-size: 11px; color: #78350f; line-height: 1.8; margin-bottom: 6px; }
 .law-box p:last-child { margin-bottom: 0; }
-
 .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--dark); color: white; padding: 12px 22px; border-radius: 30px; font-size: 13px; font-weight: 600; opacity: 0; transition: all 0.3s; pointer-events: none; z-index: 2000; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px; max-width: calc(100% - 32px); }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.success { background: var(--success); }
 .toast.error { background: var(--danger); }
 .toast.warning { background: var(--warning); }
-
 .journal-tabs { display: flex; gap: 8px; margin-bottom: 16px; background: var(--white); padding: 6px; border-radius: 14px; box-shadow: var(--shadow); flex-wrap: wrap; }
 .journal-tab { flex: 1; min-width: 100px; padding: 10px; border: none; background: transparent; color: var(--gray-500); border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.25s; }
 .journal-tab.active-primary { background: var(--gradient-primary); color: white; box-shadow: 0 4px 14px rgba(99,102,241,0.3); }
@@ -290,7 +244,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .journal-tab.active-warning { background: var(--gradient-warning); color: white; box-shadow: 0 4px 14px rgba(245,158,11,0.3); }
 .journal-tab.active-danger { background: var(--gradient-danger); color: white; box-shadow: 0 4px 14px rgba(239,68,68,0.3); }
 .journal-tab.active-info { background: var(--gradient-info); color: white; box-shadow: 0 4px 14px rgba(6,182,212,0.3); }
-
 .data-table { width: 100%; border-collapse: collapse; font-size: 12px; background: var(--white); border-radius: var(--radius-sm); overflow: hidden; }
 .data-table th { background: var(--gray-100); padding: 10px 8px; text-align: right; font-weight: 700; color: var(--gray-700); font-size: 11px; border-bottom: 2px solid var(--gray-200); white-space: nowrap; }
 .data-table td { padding: 10px 8px; border-bottom: 1px solid var(--gray-100); text-align: right; white-space: nowrap; }
@@ -304,150 +257,88 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .method-owners { background: #fef3c7; color: #92400e; }
 .method-person_area { background: #ede9fe; color: #5b21b6; }
 .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); margin: 0 -20px; padding: 0 20px; }
-
 .checkbox-wrap { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s; }
 .checkbox-wrap:hover { border-color: var(--primary); background: var(--primary-light); }
 .checkbox-wrap input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
 .checkbox-wrap span { font-size: 13px; font-weight: 600; color: var(--gray-700); }
 .checkbox-wrap input:checked + span { color: var(--primary); }
-
 .info-box { background: var(--primary-light); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 12px; color: var(--primary-dark); line-height: 1.8; margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; }
 .info-box i { color: var(--primary); margin-top: 3px; }
-
 .datepicker-plot-area { font-family: 'Vazirmatn', sans-serif !important; border-radius: 12px !important; box-shadow: 0 10px 40px rgba(15,23,42,0.15) !important; z-index: 3000 !important; }
 .datepicker-day-view .table-days td span { border-radius: 8px !important; }
 .datepicker-day-view .table-days td.selected span { background: var(--primary) !important; color: white !important; }
 .datepicker-header .header-month, .datepicker-header .header-year { color: var(--primary) !important; font-weight: 700 !important; }
 
-/* ==================== SPLASH SCREEN ==================== */
-.splash-screen {
-    position: fixed; inset: 0; z-index: 99999;
-    background: var(--gradient-primary);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 20px;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
-}
+/* SPLASH SCREEN */
+.splash-screen { position: fixed; inset: 0; z-index: 99999; background: var(--gradient-primary); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; transition: opacity 0.6s ease, visibility 0.6s ease; }
 .splash-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
-.splash-logo {
-    width: 110px; height: 110px;
-    background: rgba(255,255,255,0.18);
-    border-radius: 30px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 58px;
-    border: 2px solid rgba(255,255,255,0.3);
-    animation: splashPulse 2s ease-in-out infinite;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-}
-@keyframes splashPulse {
-    0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
-    50% { transform: scale(1.06); box-shadow: 0 25px 80px rgba(0,0,0,0.3); }
-}
-.splash-title {
-    color: white; font-size: 28px; font-weight: 800;
-    letter-spacing: -0.5px;
-    animation: splashFadeIn 0.9s ease;
-}
-.splash-subtitle {
-    color: rgba(255,255,255,0.85); font-size: 13px;
-    animation: splashFadeIn 1.2s ease;
-}
-@keyframes splashFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.splash-spinner {
-    display: flex; gap: 8px; margin-top: 24px;
-}
-.splash-spinner span {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: rgba(255,255,255,0.9);
-    animation: splashBounce 1.4s ease-in-out infinite both;
-}
+.splash-logo { width: 110px; height: 110px; background: rgba(255,255,255,0.18); border-radius: 30px; display: flex; align-items: center; justify-content: center; font-size: 58px; border: 2px solid rgba(255,255,255,0.3); animation: splashPulse 2s ease-in-out infinite; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+@keyframes splashPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+.splash-title { color: white; font-size: 28px; font-weight: 800; letter-spacing: -0.5px; animation: splashFadeIn 0.9s ease; }
+.splash-subtitle { color: rgba(255,255,255,0.85); font-size: 13px; animation: splashFadeIn 1.2s ease; }
+@keyframes splashFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.splash-spinner { display: flex; gap: 8px; margin-top: 24px; }
+.splash-spinner span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.9); animation: splashBounce 1.4s ease-in-out infinite both; }
 .splash-spinner span:nth-child(1) { animation-delay: -0.32s; }
 .splash-spinner span:nth-child(2) { animation-delay: -0.16s; }
 .splash-spinner span:nth-child(3) { animation-delay: 0s; }
-@keyframes splashBounce {
-    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
-    40% { transform: scale(1); opacity: 1; }
-}
+@keyframes splashBounce { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
 
-/* ==================== OFFLINE INDICATOR (Toast موقت) ==================== */
-.offline-bar {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(120%);
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 700;
-    text-align: center;
-    z-index: 2001;
-    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
-    box-shadow: 0 8px 30px rgba(245,158,11,0.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    max-width: calc(100% - 32px);
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-}
-.offline-bar.show { 
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-}
-    
-/* ==================== INSTALL PROMPT ==================== */
-.install-prompt {
-    position: fixed;
-    bottom: 16px; left: 16px; right: 16px;
-    background: var(--white);
-    border-radius: 16px;
-    padding: 14px;
-    box-shadow: 0 10px 40px rgba(15,23,42,0.18);
-    border: 1px solid var(--gray-200);
-    z-index: 9998;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transform: translateY(120%);
-    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
-    max-width: 500px;
-    margin: 0 auto;
-}
+/* OFFLINE */
+.offline-bar { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%); background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 12px 20px; border-radius: 30px; font-size: 12px; font-weight: 700; z-index: 2001; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease; box-shadow: 0 8px 30px rgba(245,158,11,0.45); display: flex; align-items: center; gap: 8px; max-width: calc(100% - 32px); white-space: nowrap; pointer-events: none; opacity: 0; }
+.offline-bar.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* INSTALL PROMPT */
+.install-prompt { position: fixed; bottom: 16px; left: 16px; right: 16px; background: var(--white); border-radius: 16px; padding: 14px; box-shadow: 0 10px 40px rgba(15,23,42,0.18); border: 1px solid var(--gray-200); z-index: 9998; display: flex; align-items: center; gap: 12px; transform: translateY(120%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); max-width: 500px; margin: 0 auto; }
 .install-prompt.show { transform: translateY(0); }
-.install-prompt-icon {
-    width: 48px; height: 48px;
-    border-radius: 14px;
-    background: var(--gradient-primary);
-    color: white;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-    box-shadow: 0 4px 14px rgba(99,102,241,0.35);
-}
+.install-prompt-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--gradient-primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
 .install-prompt-content { flex: 1; min-width: 0; }
 .install-prompt-title { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
 .install-prompt-subtitle { font-size: 11px; color: var(--gray-500); }
 .install-prompt-actions { display: flex; gap: 6px; flex-shrink: 0; }
-.install-prompt-actions button {
-    padding: 8px 14px; border-radius: 10px; border: none;
-    font-family: inherit; font-size: 12px; font-weight: 700;
-    cursor: pointer; transition: all 0.2s;
-}
-.install-prompt-actions .btn-install {
-    background: var(--gradient-primary); color: white;
-    box-shadow: 0 4px 10px rgba(99,102,241,0.3);
-}
-.install-prompt-actions .btn-later {
-    background: var(--gray-100); color: var(--gray-700);
-}
-.install-prompt-actions button:active { transform: scale(0.96); }
+.install-prompt-actions button { padding: 8px 14px; border-radius: 10px; border: none; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.install-prompt-actions .btn-install { background: var(--gradient-primary); color: white; }
+.install-prompt-actions .btn-later { background: var(--gray-100); color: var(--gray-700); }
+
+/* ONBOARDING */
+.onboarding-overlay { position: fixed; inset: 0; z-index: 99998; display: flex; align-items: center; justify-content: center; background: rgba(15,23,42,0.85); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; padding: 20px; }
+.onboarding-overlay.active { opacity: 1; visibility: visible; }
+.onboarding-container { width: 100%; max-width: 480px; background: var(--white); border-radius: 24px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); position: relative; }
+.onboarding-overlay.active .onboarding-container { transform: scale(1); }
+.onboarding-skip { position: absolute; top: 16px; left: 16px; z-index: 10; background: rgba(255,255,255,0.25); border: 1.5px solid rgba(255,255,255,0.3); color: white; padding: 8px 14px; border-radius: 20px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; backdrop-filter: blur(10px); }
+.onboarding-skip:hover { background: rgba(255,255,255,0.35); }
+.onboarding-slides { position: relative; width: 100%; overflow: hidden; }
+.onboarding-slide { display: none; flex-direction: column; align-items: center; text-align: center; padding: 60px 30px 30px; min-height: 480px; animation: slideIn 0.5s cubic-bezier(0.4,0,0.2,1); }
+.onboarding-slide.active { display: flex; }
+@keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+.onboarding-icon-wrap { width: 140px; height: 140px; border-radius: 40px; display: flex; align-items: center; justify-content: center; font-size: 70px; margin-bottom: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); animation: onboardingFloat 3s ease-in-out infinite; }
+@keyframes onboardingFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.slide-bg-purple { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; }
+.slide-bg-blue { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; }
+.slide-bg-orange { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
+.slide-bg-green { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
+.onboarding-title { font-size: 24px; font-weight: 800; margin-bottom: 16px; color: var(--dark); line-height: 1.3; }
+.onboarding-text { font-size: 14px; line-height: 1.9; color: var(--gray-700); margin-bottom: 20px; }
+.onboarding-text strong { color: var(--primary); font-weight: 800; }
+.onboarding-hint { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: var(--primary-light); color: var(--primary); border-radius: 20px; font-size: 12px; font-weight: 700; margin-top: auto; }
+.onboarding-dots { display: flex; justify-content: center; gap: 8px; padding: 20px 30px; background: var(--white); }
+.onboarding-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200); transition: all 0.3s; cursor: pointer; }
+.onboarding-dot.active { width: 28px; border-radius: 4px; background: var(--primary); }
+.onboarding-actions { display: flex; gap: 10px; padding: 0 24px 24px; background: var(--white); }
+.onboarding-actions button { flex: 1; padding: 14px; border-radius: 12px; border: none; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.onboarding-actions .btn-prev { flex: 0 0 70px; background: var(--gray-100); color: var(--gray-700); }
+.onboarding-actions .btn-next { background: var(--gradient-primary); color: white; }
+.onboarding-actions .btn-prev:disabled { opacity: 0.4; cursor: not-allowed; }
+html.dark-mode .onboarding-container { background: #1e293b; }
+html.dark-mode .onboarding-title { color: #f1f5f9; }
+html.dark-mode .onboarding-text { color: #cbd5e1; }
+html.dark-mode .onboarding-text strong { color: #a5b4fc; }
+html.dark-mode .onboarding-hint { background: #312e81; color: #a5b4fc; }
+html.dark-mode .onboarding-dots,
+html.dark-mode .onboarding-actions { background: #1e293b; }
+html.dark-mode .onboarding-dot { background: #334155; }
+html.dark-mode .onboarding-dot.active { background: #6366f1; }
+html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5e1; }
 
 @media (max-width: 900px) {
     .sidebar { transform: translateX(100%); }
@@ -459,6 +350,12 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
     .summary-grid { grid-template-columns: repeat(2, 1fr); }
     .table-scroll { margin: 0 -16px; padding: 0 16px; }
 }
+@media (max-width: 480px) {
+    .onboarding-slide { padding: 50px 24px 20px; min-height: 440px; }
+    .onboarding-icon-wrap { width: 120px; height: 120px; font-size: 60px; border-radius: 34px; }
+    .onboarding-title { font-size: 20px; }
+    .onboarding-text { font-size: 13px; }
+}
 @media (max-width: 400px) {
     .form-row { grid-template-columns: 1fr; }
     .page-title { font-size: 18px; }
@@ -469,25 +366,81 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 </head>
 <body>
 
-<!-- ==================== SPLASH SCREEN ==================== -->
+<!-- SPLASH SCREEN -->
 <div class="splash-screen" id="splashScreen">
     <div class="splash-logo">🏢</div>
     <div style="text-align:center;">
         <div class="splash-title">حساب‌یار</div>
-        <div class="splash-subtitle">مدیریت هوشمند هزینه‌های ساختمان</div>
+        <div class="splash-subtitle">مدیریت هوشمند ساختمان و سفر</div>
     </div>
-    <div class="splash-spinner">
-        <span></span><span></span><span></span>
+    <div class="splash-spinner"><span></span><span></span><span></span></div>
+</div>
+
+<!-- ONBOARDING -->
+<div class="onboarding-overlay" id="onboardingOverlay">
+    <div class="onboarding-container">
+        <button class="onboarding-skip" onclick="closeOnboarding()">رد کردن</button>
+        <div class="onboarding-slides">
+            <div class="onboarding-slide active" data-slide="0">
+                <div class="onboarding-icon-wrap slide-bg-purple">🏢</div>
+                <div class="onboarding-title">به حساب‌یار خوش اومدی!</div>
+                <div class="onboarding-text">
+                    مدیریت هوشمند <strong>ساختمان</strong> و <strong>سفر</strong>، همه در یه اپ<br><br>
+                    هزینه‌های ساختمون، شارژ همسایه‌ها، و حساب کتاب سفر — بدون کاغذ و دفتر
+                </div>
+                <div class="onboarding-hint"><i class="fas fa-clock"></i> یه راهنمای سریع ۳۰ ثانیه‌ای</div>
+            </div>
+            <div class="onboarding-slide" data-slide="1">
+                <div class="onboarding-icon-wrap slide-bg-blue">🏘️</div>
+                <div class="onboarding-title">مدیریت ساختمان</div>
+                <div class="onboarding-text">
+                    واحدها، ساکنین و مالکین ساختمون رو ثبت کن<br><br>
+                    هزینه‌های مشترک (آب، برق، نظافت، تعمیرات) رو با <strong>۵ روش هوشمند</strong> تقسیم کن<br><br>
+                    شارژ از ساکن، هزینه‌ها طبق قانون — همه دقیق و شفاف
+                </div>
+                <div class="onboarding-hint"><i class="fas fa-hand-holding-usd"></i> گزارش بدهی و طلب هر همسایه</div>
+            </div>
+            <div class="onboarding-slide" data-slide="2">
+                <div class="onboarding-icon-wrap slide-bg-orange">✈️</div>
+                <div class="onboarding-title">مدیریت سفر</div>
+                <div class="onboarding-text">
+                    همسفرها رو اضافه کن، هزینه‌های سفر رو ثبت کن<br><br>
+                    بنزین، اقامت، غذا، بلیط — همه یه جا<br><br>
+                    <strong>تسویه خودکار</strong> بین همسفرها، بدون بحث و جدل
+                </div>
+                <div class="onboarding-hint"><i class="fas fa-balance-scale"></i> می‌دونی کی چقدر باید بده یا طلبکاره</div>
+            </div>
+            <div class="onboarding-slide" data-slide="3">
+                <div class="onboarding-icon-wrap slide-bg-green">📊</div>
+                <div class="onboarding-title">گزارش‌های حرفه‌ای</div>
+                <div class="onboarding-text">
+                    دفتر ماتریسی، خلاصه واحدها و <strong>حساب همسایگان</strong> رو ببین<br><br>
+                    هر کس چقدر باید بده، چقدر داده، چقدر طلبکار یا بدهکاره<br><br>
+                    خروجی <strong>PDF</strong> و <strong>Excel</strong> با یه کلیک
+                </div>
+                <div class="onboarding-hint"><i class="fas fa-file-export"></i> گزارش‌ها با تاریخ شمسی و فونت فارسی</div>
+            </div>
+        </div>
+        <div class="onboarding-dots">
+            <div class="onboarding-dot active" onclick="goToSlide(0)"></div>
+            <div class="onboarding-dot" onclick="goToSlide(1)"></div>
+            <div class="onboarding-dot" onclick="goToSlide(2)"></div>
+            <div class="onboarding-dot" onclick="goToSlide(3)"></div>
+        </div>
+        <div class="onboarding-actions">
+            <button class="btn-prev" id="onboardingPrev" onclick="prevSlide()" disabled><i class="fas fa-chevron-right"></i></button>
+            <button class="btn-next" id="onboardingNext" onclick="nextSlide()">بعدی <i class="fas fa-arrow-left"></i></button>
+        </div>
     </div>
 </div>
 
-<!-- ==================== OFFLINE INDICATOR ==================== -->
+<!-- OFFLINE -->
 <div class="offline-bar" id="offlineBar">
     <i class="fas fa-wifi" style="opacity:0.5;"></i>
     <span>آفلاین هستی — داده‌ها به‌صورت محلی ذخیره می‌شن</span>
 </div>
 
-<!-- ==================== INSTALL PROMPT ==================== -->
+<!-- INSTALL PROMPT -->
 <div class="install-prompt" id="installPrompt">
     <div class="install-prompt-icon">🏢</div>
     <div class="install-prompt-content">
@@ -501,7 +454,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 </div>
 
 <div class="app-layout">
-
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <div class="sidebar-brand">
@@ -523,7 +475,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
         <button class="nav-link" data-page="expenses" onclick="navigateTo('expenses')"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</button>
         <button class="nav-link" data-page="accounting" onclick="navigateTo('accounting')"><i class="fas fa-book"></i> دفتر حسابداری</button>
         <button class="nav-link active" data-page="dashboard" onclick="navigateTo('dashboard')"><i class="fas fa-chart-pie"></i> داشبورد</button>
-        
         <div class="nav-divider"></div>
         <div class="nav-section-title">مدیریت سفر</div>
         <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
@@ -534,7 +485,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 <div class="main-area">
-
 <header class="mobile-header">
     <div class="mobile-header-content">
         <div class="mobile-brand">
@@ -554,8 +504,7 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 </header>
 
 <main class="main-content">
-
-<!-- DASHBOARD -->
+  <!-- DASHBOARD -->
 <section class="page active" id="page-dashboard">
     <div class="page-title"><i class="fas fa-chart-pie"></i> داشبورد</div>
     <div class="summary-grid">
@@ -785,22 +734,12 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 <!-- ACCOUNTING -->
 <section class="page" id="page-accounting">
     <div class="page-title"><i class="fas fa-book"></i> دفتر حسابداری</div>
-
     <div class="journal-tabs">
-        <button class="journal-tab active-primary" id="tabMatrix" onclick="switchTab('matrix')">
-            <i class="fas fa-table"></i> دفتر ماتریسی
-        </button>
-        <button class="journal-tab" id="tabSummary" onclick="switchTab('summary')">
-            <i class="fas fa-chart-pie"></i> خلاصه واحدها
-        </button>
-        <button class="journal-tab" id="tabPersons" onclick="switchTab('persons')">
-            <i class="fas fa-handshake"></i> حساب همسایگان
-        </button>
-        <button class="journal-tab" id="tabTravel" onclick="switchTab('travel')">
-            <i class="fas fa-plane-departure"></i> دفتر سفر
-        </button>
+        <button class="journal-tab active-primary" id="tabMatrix" onclick="switchTab('matrix')"><i class="fas fa-table"></i> دفتر ماتریسی</button>
+        <button class="journal-tab" id="tabSummary" onclick="switchTab('summary')"><i class="fas fa-chart-pie"></i> خلاصه واحدها</button>
+        <button class="journal-tab" id="tabPersons" onclick="switchTab('persons')"><i class="fas fa-handshake"></i> حساب همسایگان</button>
+        <button class="journal-tab" id="tabTravel" onclick="switchTab('travel')"><i class="fas fa-plane-departure"></i> دفتر سفر</button>
     </div>
-
     <div id="viewMatrix">
         <div class="card">
             <div class="card-header">
@@ -814,7 +753,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
             <div id="matrixTable"></div>
         </div>
     </div>
-
     <div id="viewSummary" style="display:none;">
         <div class="card">
             <div class="card-header">
@@ -828,7 +766,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
             <div id="summaryTable"></div>
         </div>
     </div>
-
     <div id="viewPersons" style="display:none;">
         <div class="card">
             <div class="card-header">
@@ -838,11 +775,10 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
                     <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('persons')"><i class="fas fa-file-pdf"></i> PDF</button>
                 </div>
             </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> گزارش نهایی بدهی/طلب هر همسایه — جمع سهم مالکانه و ساکنانه، منهای پرداختی واقعی.</div>
+            <div class="info-box"><i class="fas fa-info-circle"></i> گزارش نهایی بدهی/طلب هر همسایه.</div>
             <div id="personsTable"></div>
         </div>
     </div>
-
     <div id="viewTravel" style="display:none;">
         <div class="card">
             <div class="card-header">
@@ -897,6 +833,17 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
         <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="residentNoteInput" placeholder="مثال: مستاجر واحد ۳"></div>
         <button class="btn btn-info btn-block" onclick="addResident()"><i class="fas fa-user-plus"></i> افزودن ساکن</button>
         <div id="residentsList" style="margin-top:16px;"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-question-circle icon-info"></i> راهنما</div></div>
+        <button class="btn btn-primary btn-block" onclick="showOnboarding()" style="margin-bottom:10px;">
+            <i class="fas fa-graduation-cap"></i> راهنمای اپ رو دوباره ببین
+        </button>
+        <div class="info-box" style="margin-bottom:0;">
+            <i class="fas fa-info-circle"></i>
+            <div>اگه می‌خوای یه بار دیگه با قابلیت‌های اپ آشنا بشی، این دکمه رو بزن.</div>
+        </div>
     </div>
 
     <div class="card">
@@ -1011,9 +958,7 @@ let editContext = { type: null, id: null };
 let deferredInstallPrompt = null;
 
 // ==================== THEME ====================
-function getThemeMode() {
-    return localStorage.getItem('themeMode') || 'auto';
-}
+function getThemeMode() { return localStorage.getItem('themeMode') || 'auto'; }
 
 function applyTheme(mode) {
     const html = document.documentElement;
@@ -1021,31 +966,23 @@ function applyTheme(mode) {
     
     if (mode === 'dark') isDark = true;
     else if (mode === 'light') isDark = false;
-    else {
-        // auto
-        isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
+    else { isDark = window.matchMedia('(prefers-color-scheme: dark)').matches; }
     
     if (isDark) html.classList.add('dark-mode');
     else html.classList.remove('dark-mode');
     
-    // آپدیت آیکون
     const btn = document.getElementById('themeToggleBtn');
     const icon = document.getElementById('themeIcon');
     if (btn && icon) {
         btn.classList.remove('auto', 'light', 'dark');
         btn.classList.add(mode);
-        
         if (mode === 'auto') icon.className = 'fas fa-adjust';
         else if (mode === 'light') icon.className = 'fas fa-sun';
         else icon.className = 'fas fa-moon';
     }
     
-    // آپدیت theme-color meta
     const metaTheme = document.querySelector('meta[name="theme-color"]');
-    if (metaTheme) {
-        metaTheme.setAttribute('content', isDark ? '#1e293b' : '#6366f1');
-    }
+    if (metaTheme) metaTheme.setAttribute('content', isDark ? '#1e293b' : '#6366f1');
 }
 
 function cycleTheme() {
@@ -1062,12 +999,69 @@ function cycleTheme() {
     showToast(labels[next], 'success');
 }
 
-// گوش دادن به تغییرات تم سیستم
 if (window.matchMedia) {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
         if (getThemeMode() === 'auto') applyTheme('auto');
     });
 }
+
+// ==================== ONBOARDING ====================
+let currentOnboardingSlide = 0;
+const ONBOARDING_KEY = 'onboardingSeen_v1';
+
+function showOnboarding() {
+    currentOnboardingSlide = 0;
+    updateOnboardingSlide();
+    document.getElementById('onboardingOverlay').classList.add('active');
+}
+
+function closeOnboarding() {
+    document.getElementById('onboardingOverlay').classList.remove('active');
+    localStorage.setItem(ONBOARDING_KEY, '1');
+}
+
+function goToSlide(index) {
+    currentOnboardingSlide = index;
+    updateOnboardingSlide();
+}
+
+function nextSlide() {
+    if (currentOnboardingSlide < 3) {
+        currentOnboardingSlide++;
+        updateOnboardingSlide();
+    } else { closeOnboarding(); }
+}
+
+function prevSlide() {
+    if (currentOnboardingSlide > 0) {
+        currentOnboardingSlide--;
+        updateOnboardingSlide();
+    }
+}
+
+function updateOnboardingSlide() {
+    document.querySelectorAll('.onboarding-slide').forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentOnboardingSlide);
+    });
+    document.querySelectorAll('.onboarding-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentOnboardingSlide);
+    });
+    const prevBtn = document.getElementById('onboardingPrev');
+    const nextBtn = document.getElementById('onboardingNext');
+    if (prevBtn) prevBtn.disabled = currentOnboardingSlide === 0;
+    if (nextBtn) {
+        if (currentOnboardingSlide === 3) nextBtn.innerHTML = 'بزن بریم! <i class="fas fa-rocket"></i>';
+        else nextBtn.innerHTML = 'بعدی <i class="fas fa-arrow-left"></i>';
+    }
+}
+
+function shouldShowOnboarding() { return !localStorage.getItem(ONBOARDING_KEY); }
+
+window.addEventListener('load', () => {
+    if (shouldShowOnboarding()) {
+        setTimeout(() => { showOnboarding(); }, 2000);
+    }
+});
 
 // ==================== STORAGE ====================
 function saveState() {
@@ -1148,38 +1142,29 @@ function toPersianDateString() {
     } catch(e) { return new Date().toLocaleDateString('fa-IR'); }
 }
 
-// ==================== SPLASH SCREEN ====================
+// ==================== SPLASH ====================
 function hideSplashScreen() {
     const splash = document.getElementById('splashScreen');
     if (!splash) return;
     setTimeout(() => {
         splash.classList.add('hide');
-        setTimeout(() => {
-            if (splash.parentNode) splash.parentNode.removeChild(splash);
-        }, 700);
+        setTimeout(() => { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 700);
     }, 1200);
 }
 
-// ==================== OFFLINE INDICATOR ====================
+// ==================== OFFLINE ====================
 let offlineToastTimer = null;
 
 function updateOnlineStatus() {
     const bar = document.getElementById('offlineBar');
     if (!bar) return;
-    
     if (navigator.onLine) {
         bar.classList.remove('show');
-        if (offlineToastTimer) {
-            clearTimeout(offlineToastTimer);
-            offlineToastTimer = null;
-        }
+        if (offlineToastTimer) { clearTimeout(offlineToastTimer); offlineToastTimer = null; }
     } else {
         bar.classList.add('show');
         if (offlineToastTimer) clearTimeout(offlineToastTimer);
-        offlineToastTimer = setTimeout(() => {
-            bar.classList.remove('show');
-            offlineToastTimer = null;
-        }, 3500);
+        offlineToastTimer = setTimeout(() => { bar.classList.remove('show'); offlineToastTimer = null; }, 3500);
     }
 }
 
@@ -1187,10 +1172,8 @@ function updateOnlineStatus() {
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
-    
     const statusEl = document.getElementById('installStatus');
     if (statusEl) statusEl.textContent = '✅ آماده نصب — دکمه بالا رو بزن.';
-    
     const dismissedAt = localStorage.getItem('installPromptDismissed');
     if (dismissedAt) {
         const daysSince = (Date.now() - parseInt(dismissedAt)) / (1000 * 60 * 60 * 24);
@@ -1205,12 +1188,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 function installApp() {
     if (!deferredInstallPrompt) return;
     deferredInstallPrompt.prompt();
-    deferredInstallPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-            console.log('[PWA] User accepted the install prompt');
-        } else {
-            console.log('[PWA] User dismissed the install prompt');
-        }
+    deferredInstallPrompt.userChoice.then(() => {
         deferredInstallPrompt = null;
         document.getElementById('installPrompt').classList.remove('show');
     });
@@ -1223,11 +1201,9 @@ function dismissInstall() {
 
 function manualInstall() {
     const statusEl = document.getElementById('installStatus');
-    
-    // چک کن قبلاً نصب شده یا نه
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
     if (isStandalone) {
-        if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ قبلاً نصب شده و الان تو حالت اپ داری استفاده می‌کنی.</span>';
+        if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ قبلاً نصب شده.</span>';
         const installBtn = document.getElementById('manualInstallBtn');
         if (installBtn) {
             installBtn.disabled = true;
@@ -1236,13 +1212,11 @@ function manualInstall() {
         }
         return;
     }
-    
     if (deferredInstallPrompt) {
-        // بنر native موجوده
         deferredInstallPrompt.prompt();
-        deferredInstallPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                if (statusEl) statusEl.innerHTML = '<span style="color:var(--primary);">⏳ در حال نصب... لطفاً صبر کن</span>';
+        deferredInstallPrompt.userChoice.then((result) => {
+            if (result.outcome === 'accepted') {
+                if (statusEl) statusEl.innerHTML = '<span style="color:var(--primary);">⏳ در حال نصب...</span>';
                 document.getElementById('installPrompt').classList.remove('show');
             } else {
                 if (statusEl) statusEl.textContent = 'نصب لغو شد.';
@@ -1250,34 +1224,27 @@ function manualInstall() {
             deferredInstallPrompt = null;
         });
     } else {
-        // راهنمای دستی
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         const isAndroid = /Android/.test(navigator.userAgent);
-        
         if (isIOS) {
-            if (statusEl) statusEl.innerHTML = '📱 <strong>iPhone/iPad:</strong> دکمه اشتراک‌گذاری (□↑) در Safari رو بزن، بعد «Add to Home Screen» رو انتخاب کن.';
+            if (statusEl) statusEl.innerHTML = '📱 <strong>iPhone/iPad:</strong> دکمه اشتراک‌گذاری (□↑) در Safari رو بزن، بعد «Add to Home Screen».';
         } else if (isAndroid) {
-            if (statusEl) statusEl.innerHTML = '📱 <strong>Android:</strong> از منوی مرورگر (⋮) «Install App» یا «Add to Home screen» رو انتخاب کن.';
+            if (statusEl) statusEl.innerHTML = '📱 <strong>Android:</strong> از منوی مرورگر (⋮) «Install App» یا «Add to Home screen».';
         } else {
-            if (statusEl) statusEl.innerHTML = '💻 <strong>دسکتاپ:</strong> از نوار آدرس مرورگر، آیکون نصب (⊕ یا 💻) رو بزن.';
+            if (statusEl) statusEl.innerHTML = '💻 <strong>دسکتاپ:</strong> از نوار آدرس مرورگر، آیکون نصب رو بزن.';
         }
     }
 }
 
 window.addEventListener('appinstalled', () => {
-    console.log('[PWA] App installed');
     document.getElementById('installPrompt').classList.remove('show');
     deferredInstallPrompt = null;
-    
     const statusEl = document.getElementById('installStatus');
-    if (statusEl) {
-        statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ با موفقیت نصب شد</span>';
-    }
+    if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ با موفقیت نصب شد</span>';
     const installBtn = document.getElementById('manualInstallBtn');
     if (installBtn) {
         installBtn.disabled = true;
         installBtn.style.opacity = '0.5';
-        installBtn.style.cursor = 'not-allowed';
         installBtn.innerHTML = '<i class="fas fa-check"></i> نصب شده';
     }
 });
@@ -1332,23 +1299,12 @@ function addOwner() {
     const name = document.getElementById('ownerNameInput').value.trim();
     const phone = document.getElementById('ownerPhoneInput').value.trim();
     const note = document.getElementById('ownerNoteInput').value.trim();
-    
     if (!name) return showToast('نام مالک را وارد کنید', 'error');
     if (state.owners.some(o => o.name === name)) return showToast('این مالک قبلاً ثبت شده', 'warning');
     
     const ownerId = uid();
     state.owners.push({ id: ownerId, name, phone, note, createdAt: toPersianDateString() });
-    
-    state.residents.push({
-        id: uid(),
-        name,
-        phone,
-        nationalId: '',
-        note: 'مالک',
-        linkedOwnerId: ownerId,
-        createdAt: toPersianDateString()
-    });
-    
+    state.residents.push({ id: uid(), name, phone, nationalId: '', note: 'مالک', linkedOwnerId: ownerId, createdAt: toPersianDateString() });
     saveState();
     
     document.getElementById('ownerNameInput').value = '';
@@ -1365,11 +1321,9 @@ function addOwner() {
 function deleteOwner(id) {
     const owner = state.owners.find(o => o.id === id);
     if (!owner) return;
-    
     const usedInUnits = state.units.filter(u => u.ownerId === id);
     let msg = `حذف «${owner.name}»؟`;
-    if (usedInUnits.length > 0) msg = `این مالک در ${usedInUnits.length} واحد استفاده شده. با حذف، این واحدها بدون مالک می‌شوند. ادامه؟`;
-    
+    if (usedInUnits.length > 0) msg = `این مالک در ${usedInUnits.length} واحد استفاده شده. ادامه؟`;
     if (!confirm(msg)) return;
     
     state.owners = state.owners.filter(o => o.id !== id);
@@ -1390,18 +1344,10 @@ function renderOwnersList() {
     const container = document.getElementById('ownersList');
     if (!container) return;
     document.getElementById('ownersCount').textContent = toPersianNum(state.owners.length) + ' مالک';
-    
     if (state.owners.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">👤</span>
-                <h3>هنوز مالکی ثبت نشده</h3>
-                <p>اولین مالک ساختمان رو اضافه کن تا بتونی واحدها رو بهش اختصاص بدی</p>
-                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">👤</span><h3>هنوز مالکی ثبت نشده</h3><p>اولین مالک ساختمان رو اضافه کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
         return;
     }
-    
     container.innerHTML = state.owners.map(o => {
         const unitsOwned = state.units.filter(u => u.ownerId === o.id).length;
         return `
@@ -1414,8 +1360,8 @@ function renderOwnersList() {
                 </div>
             </div>
             <div class="btn-group">
-                <button class="btn btn-primary btn-sm btn-icon" onclick="editOwner('${o.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteOwner('${o.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-primary btn-sm btn-icon" onclick="editOwner('${o.id}')"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteOwner('${o.id}')"><i class="fas fa-trash"></i></button>
             </div>
         </div>`;
     }).join('');
@@ -1426,25 +1372,12 @@ function addResident() {
     const name = document.getElementById('residentNameInput').value.trim();
     const phone = document.getElementById('residentPhoneInput').value.trim();
     const note = document.getElementById('residentNoteInput').value.trim();
-    
     if (!name) return showToast('نام ساکن را وارد کنید', 'error');
-    
-    state.residents.push({
-        id: uid(),
-        name,
-        phone,
-        nationalId: '',
-        note,
-        linkedOwnerId: null,
-        createdAt: toPersianDateString()
-    });
-    
+    state.residents.push({ id: uid(), name, phone, nationalId: '', note, linkedOwnerId: null, createdAt: toPersianDateString() });
     saveState();
-    
     document.getElementById('residentNameInput').value = '';
     document.getElementById('residentPhoneInput').value = '';
     document.getElementById('residentNoteInput').value = '';
-    
     renderResidentsList();
     refreshResidentDropdowns();
     showToast('✅ ساکن اضافه شد', 'success');
@@ -1453,17 +1386,13 @@ function addResident() {
 function deleteResident(id) {
     const resident = state.residents.find(r => r.id === id);
     if (!resident) return;
-    
     const usedInUnits = state.units.filter(u => u.residentId === id);
     let msg = `حذف «${resident.name}»؟`;
-    if (usedInUnits.length > 0) msg = `این ساکن در ${usedInUnits.length} واحد استفاده شده. با حذف، این واحدها بدون ساکن می‌شوند. ادامه؟`;
-    if (resident.linkedOwnerId) msg = `«${resident.name}» یک مالک است. با حذف، مالکیتش هم از بین می‌رود. ادامه؟`;
-    
+    if (usedInUnits.length > 0) msg = `این ساکن در ${usedInUnits.length} واحد استفاده شده. ادامه؟`;
+    if (resident.linkedOwnerId) msg = `«${resident.name}» یک مالک است. ادامه؟`;
     if (!confirm(msg)) return;
-    
     state.residents = state.residents.filter(r => r.id !== id);
     usedInUnits.forEach(u => { u.residentId = null; });
-    
     saveState();
     renderResidentsList();
     renderOwnersList();
@@ -1477,34 +1406,24 @@ function renderResidentsList() {
     const container = document.getElementById('residentsList');
     if (!container) return;
     document.getElementById('residentsCount').textContent = toPersianNum(state.residents.length) + ' ساکن';
-    
     if (state.residents.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">👥</span>
-                <h3>هنوز ساکنی ثبت نشده</h3>
-                <p>ساکنین ساختمان رو اینجا اضافه کن. مالکین خودکار به لیست اضافه می‌شن</p>
-                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز ساکنی ثبت نشده</h3><p>ساکنین ساختمان رو اضافه کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
         return;
     }
-    
     container.innerHTML = state.residents.map(r => {
         const isOwner = !!r.linkedOwnerId;
         return `
         <div class="list-item">
             <div class="list-item-info">
-                <div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}">
-                    <i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i>
-                </div>
+                <div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div>
                 <div>
                     <div class="list-item-title">${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div>
                     <div class="list-item-subtitle">${escapeHtml(r.phone) || '—'} ${r.note ? '• ' + escapeHtml(r.note) : ''}</div>
                 </div>
             </div>
             <div class="btn-group">
-                <button class="btn btn-primary btn-sm btn-icon" onclick="editResident('${r.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteResident('${r.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-primary btn-sm btn-icon" onclick="editResident('${r.id}')"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteResident('${r.id}')"><i class="fas fa-trash"></i></button>
             </div>
         </div>`;
     }).join('');
@@ -1544,9 +1463,7 @@ function refreshPaymentPayerDropdown() {
     const sel = document.getElementById('paymentPayer');
     if (!sel) return;
     const current = sel.value;
-    
     let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
-    
     if (state.residents.length > 0) {
         html += '<optgroup label="👥 ساکنین">';
         state.residents.forEach(r => {
@@ -1555,20 +1472,12 @@ function refreshPaymentPayerDropdown() {
         });
         html += '</optgroup>';
     }
-    
-    const ownerOnly = state.owners.filter(o => {
-        const linkedResident = state.residents.find(r => r.linkedOwnerId === o.id);
-        return !linkedResident;
-    });
-    
+    const ownerOnly = state.owners.filter(o => !state.residents.find(r => r.linkedOwnerId === o.id));
     if (ownerOnly.length > 0) {
         html += '<optgroup label="👔 مالکین">';
-        ownerOnly.forEach(o => {
-            html += `<option value="owner:${o.id}">${escapeHtml(o.name)}</option>`;
-        });
+        ownerOnly.forEach(o => { html += `<option value="owner:${o.id}">${escapeHtml(o.name)}</option>`; });
         html += '</optgroup>';
     }
-    
     sel.innerHTML = html;
     if (current) sel.value = current;
 }
@@ -1577,7 +1486,6 @@ function getOwnerById(id) { return state.owners.find(o => o.id === id); }
 function getResidentById(id) { return state.residents.find(r => r.id === id); }
 function getOwnerName(id) { const o = getOwnerById(id); return o ? o.name : 'نامشخص'; }
 function getResidentName(id) { const r = getResidentById(id); return r ? r.name : 'نامشخص'; }
-
 function getPayerName(payerCode) {
     if (!payerCode) return '—';
     const [type, id] = payerCode.split(':');
@@ -1599,11 +1507,7 @@ function addUnit() {
     const area = parseFloat(document.getElementById('unitArea').value);
     const residents = parseInt(document.getElementById('unitResidents').value) || 1;
     const isTenant = document.getElementById('unitIsTenant').checked;
-    
-    const ownerId = isTenant 
-        ? document.getElementById('unitOwnerSelect').value 
-        : document.getElementById('unitOwnerSelfSelect').value;
-    
+    const ownerId = isTenant ? document.getElementById('unitOwnerSelect').value : document.getElementById('unitOwnerSelfSelect').value;
     const rentStart = document.getElementById('unitRentStart').value.trim();
     const rentEnd = document.getElementById('unitRentEnd').value.trim();
 
@@ -1612,20 +1516,7 @@ function addUnit() {
     if (!area || area <= 0) return showToast('متراژ معتبر وارد کنید', 'error');
     if (!ownerId) return showToast('نام مالک را انتخاب کنید', 'error');
 
-    state.units.push({
-        id: uid(),
-        name,
-        residentId,
-        isTenant,
-        ownerId,
-        rentStart: isTenant ? rentStart : '',
-        rentEnd: isTenant ? rentEnd : '',
-        area,
-        residents,
-        payments: [],
-        createdAt: toPersianDateString()
-    });
-
+    state.units.push({ id: uid(), name, residentId, isTenant, ownerId, rentStart: isTenant ? rentStart : '', rentEnd: isTenant ? rentEnd : '', area, residents, payments: [], createdAt: toPersianDateString() });
     saveState();
     document.getElementById('unitName').value = '';
     document.getElementById('unitResidentSelect').value = '';
@@ -1637,7 +1528,6 @@ function addUnit() {
     document.getElementById('unitRentEnd').value = '';
     document.getElementById('unitIsTenant').checked = false;
     toggleTenantFields();
-    
     renderUnits();
     renderDashboard();
     renderAllJournalViews();
@@ -1659,13 +1549,10 @@ function deleteUnit(id) {
 function openPaymentModal(unitId) {
     currentPaymentUnitId = unitId;
     refreshPaymentPayerDropdown();
-    
     const unit = state.units.find(u => u.id === unitId);
     if (unit && unit.residentId) {
-        const sel = document.getElementById('paymentPayer');
-        sel.value = 'resident:' + unit.residentId;
+        document.getElementById('paymentPayer').value = 'resident:' + unit.residentId;
     }
-    
     document.getElementById('paymentAmount').value = '';
     document.getElementById('paymentDate').value = '';
     document.getElementById('paymentNote').value = '';
@@ -1677,23 +1564,12 @@ function savePayment() {
     const amount = parseFloat(document.getElementById('paymentAmount').value);
     const date = document.getElementById('paymentDate').value.trim() || toPersianDateString();
     const note = document.getElementById('paymentNote').value.trim();
-    
     if (!payer) return showToast('پرداخت‌کننده را انتخاب کنید', 'error');
     if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
-    
     const unit = state.units.find(u => u.id === currentPaymentUnitId);
     if (!unit) return;
-    
     unit.payments = unit.payments || [];
-    unit.payments.push({ 
-        id: uid(), 
-        payer,
-        amount, 
-        date, 
-        note, 
-        createdAt: toPersianDateString() 
-    });
-    
+    unit.payments.push({ id: uid(), payer, amount, date, note, createdAt: toPersianDateString() });
     saveState();
     closeModal('paymentModal');
     renderUnits();
@@ -1716,28 +1592,14 @@ function deletePayment(unitId, paymentId) {
     showToast('🗑️ پرداخت حذف شد', 'warning');
 }
 
-function getUnitTotalPaid(unit) {
-    return (unit.payments || []).reduce((s, p) => s + (p.amount || 0), 0);
-}
-
+function getUnitTotalPaid(unit) { return (unit.payments || []).reduce((s, p) => s + (p.amount || 0), 0); }
 function getPayerTotalPaid(payerCode) {
     let total = 0;
-    state.units.forEach(u => {
-        (u.payments || []).forEach(p => {
-            if (p.payer === payerCode) total += p.amount || 0;
-        });
-    });
+    state.units.forEach(u => { (u.payments || []).forEach(p => { if (p.payer === payerCode) total += p.amount || 0; }); });
     return total;
 }
-
-function getResidentTotalPaid(residentId) {
-    return getPayerTotalPaid('resident:' + residentId);
-}
-
-function getOwnerTotalPaid(ownerId) {
-    return getPayerTotalPaid('owner:' + ownerId);
-}
-
+function getResidentTotalPaid(residentId) { return getPayerTotalPaid('resident:' + residentId); }
+function getOwnerTotalPaid(ownerId) { return getPayerTotalPaid('owner:' + ownerId); }
 function getUnitTotalCharge(unit) {
     let total = 0;
     Object.values(state.charges).forEach(charge => {
@@ -1750,18 +1612,10 @@ function getUnitTotalCharge(unit) {
 function renderUnits() {
     const container = document.getElementById('unitsList');
     document.getElementById('unitsCount').textContent = toPersianNum(state.units.length) + ' واحد';
-
     if (state.units.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">🏘️</span>
-                <h3>هنوز واحدی ثبت نشده</h3>
-                <p>اولین واحد ساختمون رو اضافه کن تا بتونی هزینه‌ها و شارژها رو ثبت کنی</p>
-                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🏘️</span><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد ساختمون رو اضافه کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
         return;
     }
-
     let html = '';
     state.units.forEach((unit, idx) => {
         const totalPaid = getUnitTotalPaid(unit);
@@ -1770,24 +1624,18 @@ function renderUnits() {
         const payments = unit.payments || [];
         const ownerName = getOwnerName(unit.ownerId);
         const residentName = getResidentName(unit.residentId);
-
         let typeBadge = unit.isTenant
             ? `<span class="badge badge-warning"><i class="fas fa-key"></i> مستاجر — مالک: ${escapeHtml(ownerName)}</span>`
             : `<span class="badge badge-info"><i class="fas fa-home"></i> مالک ساکن: ${escapeHtml(ownerName)}</span>`;
-
         let rentInfo = '';
         if (unit.isTenant && (unit.rentStart || unit.rentEnd)) {
-            rentInfo = `<div style="font-size:10px; color:var(--gray-500); margin-top:4px;">
-                <i class="far fa-calendar"></i> اجاره: ${unit.rentStart || '—'} تا ${unit.rentEnd || '—'}
-            </div>`;
+            rentInfo = `<div style="font-size:10px; color:var(--gray-500); margin-top:4px;"><i class="far fa-calendar"></i> اجاره: ${unit.rentStart || '—'} تا ${unit.rentEnd || '—'}</div>`;
         }
-
         let statusBadge = '';
         if (totalCharge === 0) statusBadge = `<span class="badge badge-gray">شارژ تعیین نشده</span>`;
         else if (balance === 0) statusBadge = `<span class="badge badge-success">✓ شارژ پرداخت شده</span>`;
         else if (balance > 0) statusBadge = `<span class="badge badge-info">اضافه پرداخت: ${formatNumber(balance)}</span>`;
         else statusBadge = `<span class="badge badge-danger">بدهی شارژ: ${formatNumber(Math.abs(balance))}</span>`;
-
         let paymentsHtml = '';
         if (payments.length > 0) {
             paymentsHtml = `
@@ -1810,7 +1658,6 @@ function renderUnits() {
         } else {
             paymentsHtml = `<div style="font-size:11px; color:var(--gray-500); margin-top:8px; text-align:center; padding:8px;">هنوز پرداختی ثبت نشده</div>`;
         }
-
         html += `
             <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;">
                 <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">
@@ -1823,8 +1670,8 @@ function renderUnits() {
                         </div>
                     </div>
                     <div class="btn-group">
-                        <button class="btn btn-primary btn-icon btn-sm" onclick="editUnit('${unit.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-primary btn-icon btn-sm" onclick="editUnit('${unit.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
                 <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;">${typeBadge}${statusBadge}</div>
@@ -1895,27 +1742,20 @@ function computeShares(amount, splitMethod) {
     const shares = {};
     if (state.units.length === 0) return shares;
     state.units.forEach(u => shares[u.id] = 0);
-    
     if (splitMethod === 'per_owners') {
-        const totalUnits = state.units.length;
-        const perUnitShare = amount / totalUnits;
+        const perUnitShare = amount / state.units.length;
         state.units.forEach(u => shares[u.id] = perUnitShare);
         return shares;
     }
-    
     if (splitMethod === 'per_unit') {
         const perUnit = amount / state.units.length;
         state.units.forEach(u => shares[u.id] = perUnit);
     } else if (splitMethod === 'per_person') {
         const totalRes = state.units.reduce((s, u) => s + (u.residents || 0), 0);
-        state.units.forEach(u => {
-            shares[u.id] = totalRes > 0 ? (amount * (u.residents || 0) / totalRes) : 0;
-        });
+        state.units.forEach(u => { shares[u.id] = totalRes > 0 ? (amount * (u.residents || 0) / totalRes) : 0; });
     } else if (splitMethod === 'per_area') {
         const totalArea = state.units.reduce((s, u) => s + (u.area || 0), 0);
-        state.units.forEach(u => {
-            shares[u.id] = totalArea > 0 ? (amount * u.area / totalArea) : 0;
-        });
+        state.units.forEach(u => { shares[u.id] = totalArea > 0 ? (amount * u.area / totalArea) : 0; });
     } else if (splitMethod === 'per_person_area') {
         const totalFactor = state.units.reduce((s, u) => s + ((u.residents || 0) * (u.area || 0)), 0);
         state.units.forEach(u => {
@@ -1947,23 +1787,9 @@ function addExpense() {
         insurance: '📋 بیمه ساختمان', tax: '💼 مالیات و عوارض',
         other: '📦 ' + customTitle
     };
-
     const shares = computeShares(amount, splitMethod);
 
-    state.expenses.push({
-        id: uid(),
-        type,
-        typeName: typeNames[type],
-        amount,
-        date: date || '—',
-        payDate: payDate || '—',
-        payer,
-        splitMethod,
-        shares,
-        file: tempExpenseFile,
-        createdAt: toPersianDateString()
-    });
-
+    state.expenses.push({ id: uid(), type, typeName: typeNames[type], amount, date: date || '—', payDate: payDate || '—', payer, splitMethod, shares, file: tempExpenseFile, createdAt: toPersianDateString() });
     saveState();
     document.getElementById('expenseAmount').value = '';
     document.getElementById('expenseDate').value = '';
@@ -1974,7 +1800,6 @@ function addExpense() {
     document.getElementById('customTitleGroup').style.display = 'none';
     removeExpenseFile();
     updateSplitMethodHelp();
-
     renderExpenses();
     renderDashboard();
     renderAllJournalViews();
@@ -2001,37 +1826,18 @@ function downloadFile(expenseId) {
 }
 
 function getMethodLabel(method) {
-    const labels = {
-        per_unit: '⚖️ مساوی',
-        per_person: '👥 نفرات',
-        per_area: '📏 متراژ',
-        per_person_area: '🧮 نفر×متراژ',
-        per_owners: '👔 مالکین'
-    };
+    const labels = { per_unit: '⚖️ مساوی', per_person: '👥 نفرات', per_area: '📏 متراژ', per_person_area: '🧮 نفر×متراژ', per_owners: '👔 مالکین' };
     return labels[method] || method;
 }
-
 function getMethodClass(method) {
-    const map = {
-        per_unit: 'method-equal',
-        per_person: 'method-residents',
-        per_area: 'method-area',
-        per_person_area: 'method-person_area',
-        per_owners: 'method-owners'
-    };
+    const map = { per_unit: 'method-equal', per_person: 'method-residents', per_area: 'method-area', per_person_area: 'method-person_area', per_owners: 'method-owners' };
     return map[method] || 'method-equal';
 }
 
 function renderExpenses() {
     const container = document.getElementById('expensesList');
     if (state.expenses.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">📝</span>
-                <h3>هنوز هزینه‌ای ثبت نشده</h3>
-                <p>هزینه‌های ساختمون مثل آب، برق، گاز و نظافت رو اینجا ثبت کن</p>
-                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">📝</span><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمون رو اینجا ثبت کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
         return;
     }
     const icons = { electricity: '⚡', gas: '🔥', water: '💧', elevator: '🛗', cleaning: '🧹', repair: '🔧', maintenance: '🛠️', insurance: '📋', tax: '💼', other: '📦' };
@@ -2051,8 +1857,8 @@ function renderExpenses() {
                         </div>
                     </div>
                     <div class="btn-group">
-                        <button class="btn btn-primary btn-icon btn-sm" onclick="editExpense('${exp.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-icon btn-sm" onclick="deleteExpense('${exp.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-primary btn-icon btn-sm" onclick="editExpense('${exp.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-icon btn-sm" onclick="deleteExpense('${exp.id}')"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
                 <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;">
@@ -2101,17 +1907,10 @@ function calculateCharges() {
     if (!perUnitAmount || perUnitAmount <= 0) return showToast('مبلغ شارژ هر واحد را وارد کنید', 'error');
     if (state.units.length === 0) return showToast('اول واحد اضافه کنید', 'error');
 
-    const results = state.units.map(unit => ({
-        unitId: unit.id,
-        unitName: unit.name,
-        residentName: getResidentName(unit.residentId),
-        share: perUnitAmount
-    }));
-
+    const results = state.units.map(unit => ({ unitId: unit.id, unitName: unit.name, residentName: getResidentName(unit.residentId), share: perUnitAmount }));
     const totalAmount = perUnitAmount * state.units.length;
     const key = period + '_' + subPeriod;
     state.charges[key] = { perUnitAmount, totalAmount, period, subPeriod, results, createdAt: toPersianDateString() };
-
     saveState();
     renderCharges();
     renderDashboard();
@@ -2124,13 +1923,7 @@ function renderCharges() {
     const container = document.getElementById('chargesList');
     const keys = Object.keys(state.charges);
     if (keys.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">💰</span>
-                <h3>هنوز شارژی تعیین نشده</h3>
-                <p>با فرم بالا مبلغ شارژ هر واحد رو تعیین کن تا بتونی وضعیت پرداخت رو پیگیری کنی</p>
-                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">💰</span><h3>هنوز شارژی تعیین نشده</h3><p>مبلغ شارژ هر واحد رو تعیین کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
         return;
     }
     let html = '';
@@ -2144,8 +1937,8 @@ function renderCharges() {
                         <div style="font-size:11px; color:var(--gray-500);">هر واحد: ${formatNumber(charge.perUnitAmount)} — کل: ${formatNumber(charge.totalAmount)}</div>
                     </div>
                     <div class="btn-group">
-                        <button class="btn btn-primary btn-sm btn-icon" onclick="editCharge('${key}')" title="ویرایش"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')" title="حذف"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-primary btn-sm btn-icon" onclick="editCharge('${key}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
                 ${charge.results.map(r => {
@@ -2208,7 +2001,6 @@ function saveCompanion() {
     const name = document.getElementById('companionName').value.trim();
     const count = parseInt(document.getElementById('companionCount').value) || 1;
     if (!name) return showToast('نام را وارد کنید', 'error');
-    
     if (editContext.type === 'edit-companion' && editContext.id) {
         const c = state.companions.find(x => x.id === editContext.id);
         if (c) { c.name = name; c.count = count; }
@@ -2217,7 +2009,6 @@ function saveCompanion() {
         state.companions.push({ id: uid(), name, count });
         showToast('✅ همسفر اضافه شد', 'success');
     }
-    
     saveState();
     closeModal('companionModal');
     renderCompanions();
@@ -2240,13 +2031,7 @@ function deleteCompanion(id) {
 function renderCompanions() {
     const container = document.getElementById('companionsList');
     if (state.companions.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">👥</span>
-                <h3>هنوز همسفری اضافه نشده</h3>
-                <p>افرادی که تو سفر همراهتن رو اضافه کن تا هزینه‌ها بینشون تقسیم بشه</p>
-                <div class="empty-hint"><i class="fas fa-arrow-up"></i> دکمه افزودن رو بزن</div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز همسفری اضافه نشده</h3><p>افرادی که تو سفر همراهتن رو اضافه کن</p><div class="empty-hint"><i class="fas fa-plus"></i> دکمه افزودن</div></div>`;
         return;
     }
     container.innerHTML = state.companions.map(c => `
@@ -2259,8 +2044,8 @@ function renderCompanions() {
                 </div>
             </div>
             <div class="btn-group">
-                <button class="btn btn-primary btn-sm btn-icon" onclick="openCompanionModal('${c.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCompanion('${c.id}')" title="حذف"><i class="fas fa-times"></i></button>
+                <button class="btn btn-primary btn-sm btn-icon" onclick="openCompanionModal('${c.id}')"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCompanion('${c.id}')"><i class="fas fa-times"></i></button>
             </div>
         </div>
     `).join('');
@@ -2296,27 +2081,15 @@ function addTravelExpense() {
     if (category === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
     if (!payer) return showToast('پرداخت‌کننده را انتخاب کنید', 'error');
 
-    const catNames = {
-        transport: '🚗 حمل و نقل', food: '🍽️ خورد و خوراک',
-        accommodation: '🏨 اقامت', tickets: '🎫 بلیط و ورودی',
-        shopping: '🛍️ خرید', other: '📦 ' + customTitle
-    };
-
-    state.travelExpenses.push({
-        id: uid(), title, category,
-        categoryName: catNames[category],
-        amount, date, payer,
-        createdAt: toPersianDateString()
-    });
+    const catNames = { transport: '🚗 حمل و نقل', food: '🍽️ خورد و خوراک', accommodation: '🏨 اقامت', tickets: '🎫 بلیط و ورودی', shopping: '🛍️ خرید', other: '📦 ' + customTitle };
+    state.travelExpenses.push({ id: uid(), title, category, categoryName: catNames[category], amount, date, payer, createdAt: toPersianDateString() });
     saveState();
-
     document.getElementById('travelTitle').value = '';
     document.getElementById('travelAmount').value = '';
     document.getElementById('travelDate').value = '';
     document.getElementById('travelCustomTitle').value = '';
     document.getElementById('travelCategory').value = 'transport';
     toggleTravelCustomTitle();
-
     renderTravelExpenses();
     renderTravelSettlement();
     renderAllJournalViews();
@@ -2336,13 +2109,7 @@ function deleteTravelExpense(id) {
 function renderTravelExpenses() {
     const container = document.getElementById('travelList');
     if (state.travelExpenses.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">🧳</span>
-                <h3>هنوز هزینه سفری ثبت نشده</h3>
-                <p>هزینه‌های سفر مثل بنزین، اقامت، غذا و بلیط رو اینجا ثبت کن</p>
-                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🧳</span><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر رو اینجا ثبت کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
         return;
     }
     const icons = { transport: '🚗', food: '🍽️', accommodation: '🏨', tickets: '🎫', shopping: '🛍️', other: '📦' };
@@ -2357,8 +2124,8 @@ function renderTravelExpenses() {
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
                 <div class="list-item-amount amount-negative">${formatNumber(exp.amount)}</div>
-                <button class="btn btn-primary btn-sm btn-icon" onclick="editTravelExpense('${exp.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteTravelExpense('${exp.id}')" title="حذف"><i class="fas fa-times"></i></button>
+                <button class="btn btn-primary btn-sm btn-icon" onclick="editTravelExpense('${exp.id}')"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteTravelExpense('${exp.id}')"><i class="fas fa-times"></i></button>
             </div>
         </div>
     `).join('');
@@ -2368,12 +2135,7 @@ function renderTravelSettlement() {
     const container = document.getElementById('travelSettle');
     if (!container) return;
     if (state.travelExpenses.length === 0 || state.companions.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">💱</span>
-                <h3>برای تسویه، اطلاعات لازمه</h3>
-                <p>همسفران و هزینه‌های سفر رو اضافه کن تا اینجا تسویه حساب ببینی</p>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">💱</span><h3>برای تسویه، اطلاعات لازمه</h3><p>همسفران و هزینه‌ها رو اضافه کن</p></div>`;
         return;
     }
     const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
@@ -2431,15 +2193,7 @@ function renderDashboard() {
 
     const container = document.getElementById('dashboardUnitsList');
     if (state.units.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">🏠</span>
-                <h3>هنوز واحدی ثبت نشده</h3>
-                <p>برای شروع، از بخش «واحدها و ساکنین» اولین واحد رو اضافه کن</p>
-                <div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;">
-                    <i class="fas fa-plus"></i> افزودن واحد
-                </div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🏠</span><h3>هنوز واحدی ثبت نشده</h3><p>برای شروع، اولین واحد رو اضافه کن</p><div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;"><i class="fas fa-plus"></i> افزودن واحد</div></div>`;
         return;
     }
     container.innerHTML = state.units.map((u, i) => {
@@ -2482,7 +2236,7 @@ function exportData() {
 }
 
 function clearAllData() {
-    if (!confirm('همه داده‌ها پاک شود؟ این عمل برگشت‌پذیر نیست!')) return;
+    if (!confirm('همه داده‌ها پاک شود؟')) return;
     if (!confirm('مطمئنی؟')) return;
     localStorage.removeItem(STORAGE_KEY);
     location.reload();
@@ -2492,9 +2246,9 @@ function clearAllData() {
 function initPart1() {
     loadState();
     loadSettings();
+    applyTheme(getThemeMode());
     handleChargePeriodChange();
     updateSplitMethodHelp();
-    applyTheme(getThemeMode());
     setTimeout(initDatePickers, 500);
     refreshOwnerDropdowns();
     refreshResidentDropdowns();
@@ -2509,12 +2263,12 @@ function initPart1() {
     updateTravelPayerOptions();
     renderDashboard();
     
-    // آنلاین/آفلاین
     updateOnlineStatus();
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
 }
 </script>
+    
 <script>
 // ==================== JOURNAL TABS ====================
 let currentTab = 'matrix';
@@ -2533,12 +2287,10 @@ function switchTab(tab) {
         persons: document.getElementById('viewPersons'),
         travel: document.getElementById('viewTravel')
     };
-    
     Object.keys(tabs).forEach(k => {
         tabs[k].className = 'journal-tab';
         views[k].style.display = 'none';
     });
-    
     if (tab === 'matrix') { tabs.matrix.classList.add('active-primary'); views.matrix.style.display = 'block'; }
     if (tab === 'summary') { tabs.summary.classList.add('active-success'); views.summary.style.display = 'block'; }
     if (tab === 'persons') { tabs.persons.classList.add('active-info'); views.persons.style.display = 'block'; }
@@ -2585,36 +2337,18 @@ function computeUnitSharesBreakdown() {
 
 function buildPersonsMap() {
     const persons = {};
-    
     state.owners.forEach(o => {
-        persons['owner:' + o.id] = {
-            name: o.name,
-            ownerId: o.id,
-            residentId: null
-        };
+        persons['owner:' + o.id] = { name: o.name, ownerId: o.id, residentId: null };
     });
-    
     state.residents.forEach(r => {
         if (r.linkedOwnerId) {
             const key = 'owner:' + r.linkedOwnerId;
-            if (persons[key]) {
-                persons[key].residentId = r.id;
-            } else {
-                persons['resident:' + r.id] = {
-                    name: r.name,
-                    ownerId: null,
-                    residentId: r.id
-                };
-            }
+            if (persons[key]) persons[key].residentId = r.id;
+            else persons['resident:' + r.id] = { name: r.name, ownerId: null, residentId: r.id };
         } else {
-            persons['resident:' + r.id] = {
-                name: r.name,
-                ownerId: null,
-                residentId: r.id
-            };
+            persons['resident:' + r.id] = { name: r.name, ownerId: null, residentId: r.id };
         }
     });
-    
     return persons;
 }
 
@@ -2623,34 +2357,22 @@ function renderMatrixTable() {
     const container = document.getElementById('matrixTable');
     if (!container) return;
     if (state.expenses.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">📒</span>
-                <h3>هنوز هزینه‌ای ثبت نشده</h3>
-                <p>با ثبت هزینه در بخش «هزینه‌های ساختمان»، جدول اینجا نمایش داده میشه</p>
-                <div class="empty-hint" onclick="navigateTo('expenses')" style="cursor:pointer;">
-                    <i class="fas fa-plus"></i> ثبت هزینه
-                </div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">📒</span><h3>هنوز هزینه‌ای ثبت نشده</h3><p>با ثبت هزینه، این جدول نمایش داده میشه</p><div class="empty-hint" onclick="navigateTo('expenses')" style="cursor:pointer;"><i class="fas fa-plus"></i> ثبت هزینه</div></div>`;
         return;
     }
-
     const totals = {};
     state.units.forEach(u => totals[u.id] = 0);
-
     let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
         <th>#</th>
         <th>عنوان هزینه</th>
         <th>تاریخ هزینه</th>
         <th>روش</th>
         <th>مبلغ کل</th>`;
-    
     state.units.forEach(u => {
         const residentName = getResidentName(u.residentId);
         html += `<th>${escapeHtml(u.name)}<br><small style="font-weight:400; font-size:9px;">ساکن: ${escapeHtml(residentName)}</small></th>`;
     });
     html += `</tr></thead><tbody>`;
-
     state.expenses.forEach((exp, idx) => {
         html += `<tr>
             <td>${toPersianNum(idx + 1)}</td>
@@ -2658,7 +2380,6 @@ function renderMatrixTable() {
             <td>${exp.date}</td>
             <td><span class="method-badge ${getMethodClass(exp.splitMethod)}">${getMethodLabel(exp.splitMethod)}</span></td>
             <td style="font-weight:800; color:var(--danger);">${formatNumber(exp.amount)}</td>`;
-        
         state.units.forEach(u => {
             const share = exp.shares && exp.shares[u.id] ? exp.shares[u.id] : 0;
             totals[u.id] += share;
@@ -2666,27 +2387,19 @@ function renderMatrixTable() {
         });
         html += `</tr>`;
     });
-
     const totalAll = state.expenses.reduce((s, e) => s + e.amount, 0);
     html += `<tr class="total-row">
         <td colspan="4">جمع کل</td>
         <td>${formatNumber(totalAll)}</td>`;
-    state.units.forEach(u => {
-        html += `<td>${formatNumber(totals[u.id])}</td>`;
-    });
+    state.units.forEach(u => { html += `<td>${formatNumber(totals[u.id])}</td>`; });
     html += `</tr></tbody></table></div>`;
-
-    html += `
-        <div class="law-box" style="margin-top:16px;">
-            <h4><i class="fas fa-gavel"></i> راهنمای روش‌های تقسیم</h4>
-            <p>• <strong>⚖️ مساوی:</strong> سهم ساکن، بین واحدها مساوی.</p>
-            <p>• <strong>👥 نفرات:</strong> سهم ساکن، به نسبت تعداد نفرات.</p>
-            <p>• <strong>📏 متراژ:</strong> سهم ساکن، به نسبت متراژ.</p>
-            <p>• <strong>🧮 نفر×متراژ:</strong> سهم ساکن، بر اساس ضریب ترکیبی.</p>
-            <p>• <strong>👔 مالکین:</strong> سهم مالک، بین مالکین بر اساس تعداد واحد مالکیت.</p>
-        </div>
-    `;
-
+    html += `<div class="law-box" style="margin-top:16px;"><h4><i class="fas fa-gavel"></i> راهنمای روش‌های تقسیم</h4>
+        <p>• <strong>⚖️ مساوی:</strong> سهم ساکن، بین واحدها مساوی.</p>
+        <p>• <strong>👥 نفرات:</strong> سهم ساکن، به نسبت تعداد نفرات.</p>
+        <p>• <strong>📏 متراژ:</strong> سهم ساکن، به نسبت متراژ.</p>
+        <p>• <strong>🧮 نفر×متراژ:</strong> سهم ساکن، بر اساس ضریب ترکیبی.</p>
+        <p>• <strong>👔 مالکین:</strong> سهم مالک، بین مالکین بر اساس تعداد واحد مالکیت.</p>
+    </div>`;
     container.innerHTML = html;
 }
 
@@ -2694,22 +2407,11 @@ function renderMatrixTable() {
 function renderSummaryTable() {
     const container = document.getElementById('summaryTable');
     if (!container) return;
-
     if (state.units.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">🏘️</span>
-                <h3>هنوز واحدی ثبت نشده</h3>
-                <p>برای مشاهده خلاصه، ابتدا واحدها رو ثبت کن</p>
-                <div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;">
-                    <i class="fas fa-plus"></i> افزودن واحد
-                </div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🏘️</span><h3>هنوز واحدی ثبت نشده</h3><p>ابتدا واحدها رو ثبت کن</p><div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;"><i class="fas fa-plus"></i> افزودن واحد</div></div>`;
         return;
     }
-
     const breakdown = computeUnitSharesBreakdown();
-
     let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
         <th>#</th>
         <th>واحد</th>
@@ -2724,9 +2426,7 @@ function renderSummaryTable() {
         <th>مانده</th>
         <th>وضعیت</th>
         </tr></thead><tbody>`;
-
     let totalResidentShare = 0, totalOwnerShare = 0, totalPaid = 0;
-
     state.units.forEach((u, idx) => {
         const residentName = getResidentName(u.residentId);
         const ownerName = getOwnerName(u.ownerId);
@@ -2735,15 +2435,12 @@ function renderSummaryTable() {
         const ownerShare = breakdown[u.id].owner;
         const totalShare = breakdown[u.id].total;
         const balance = paid - totalShare;
-        
         totalResidentShare += residentShare;
         totalOwnerShare += ownerShare;
         totalPaid += paid;
-
         const statusBadge = balance >= 0 
             ? `<span class="badge badge-success">✓ طلبکار ${formatNumber(balance)}</span>` 
             : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
-
         html += `<tr>
             <td>${toPersianNum(idx + 1)}</td>
             <td style="font-weight:700;">${escapeHtml(u.name)}</td>
@@ -2759,7 +2456,6 @@ function renderSummaryTable() {
             <td>${statusBadge}</td>
         </tr>`;
     });
-
     const totalAll = totalResidentShare + totalOwnerShare;
     html += `<tr class="total-row">
         <td colspan="6">جمع کل</td>
@@ -2769,43 +2465,25 @@ function renderSummaryTable() {
         <td>${formatNumber(totalPaid)}</td>
         <td colspan="2">—</td>
     </tr></tbody></table></div>`;
-
-    html += `
-        <div class="info-box" style="margin-top:16px;">
-            <i class="fas fa-info-circle"></i>
-            <div>
-                <strong>نحوه محاسبه:</strong><br>
-                <span style="color:#9d174d;">■ سهم ساکن</span> = جمع هزینه‌های ساکنانه (آب، برق، نظافت، ...).<br>
-                <span style="color:#92400e;">■ سهم مالک</span> = جمع هزینه‌های مالکانه (تعمیرات، بیمه، ...).<br>
-                <strong>مانده</strong> = شارژ پرداختی − جمع سهم (ساکن + مالک).
-            </div>
-        </div>
-    `;
-
+    html += `<div class="info-box" style="margin-top:16px;"><i class="fas fa-info-circle"></i><div>
+        <strong>نحوه محاسبه:</strong><br>
+        <span style="color:#9d174d;">■ سهم ساکن</span> = جمع هزینه‌های ساکنانه.<br>
+        <span style="color:#92400e;">■ سهم مالک</span> = جمع هزینه‌های مالکانه.<br>
+        <strong>مانده</strong> = شارژ پرداختی − جمع سهم.
+    </div></div>`;
     container.innerHTML = html;
 }
 
-// ==================== PERSONS TABLE (حساب همسایگان) ====================
+// ==================== PERSONS TABLE ====================
 function renderPersonsTable() {
     const container = document.getElementById('personsTable');
     if (!container) return;
-
     if (state.units.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">🤝</span>
-                <h3>هنوز واحدی ثبت نشده</h3>
-                <p>برای مشاهده حساب همسایگان، ابتدا واحدها و مالکین رو ثبت کن</p>
-                <div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;">
-                    <i class="fas fa-plus"></i> افزودن واحد
-                </div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🤝</span><h3>هنوز واحدی ثبت نشده</h3><p>ابتدا واحدها رو ثبت کن</p><div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;"><i class="fas fa-plus"></i> افزودن واحد</div></div>`;
         return;
     }
-
     const breakdown = computeUnitSharesBreakdown();
     const persons = buildPersonsMap();
-
     let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
         <th>#</th>
         <th>نام همسایه</th>
@@ -2816,19 +2494,12 @@ function renderPersonsTable() {
         <th>مانده</th>
         <th>وضعیت</th>
         </tr></thead><tbody>`;
-
     let idx = 1;
     let totalOwnerShareAll = 0, totalResidentShareAll = 0, totalPaidAll = 0;
-
     Object.keys(persons).forEach(key => {
         const person = persons[key];
-        
-        let ownerShare = 0;
-        let residentShare = 0;
-        let paid = 0;
-        const ownerUnitsList = [];
-        const residentUnitsList = [];
-        
+        let ownerShare = 0, residentShare = 0, paid = 0;
+        const ownerUnitsList = [], residentUnitsList = [];
         if (person.ownerId) {
             state.units.forEach(u => {
                 if (u.ownerId === person.ownerId) {
@@ -2838,7 +2509,6 @@ function renderPersonsTable() {
             });
             paid += getOwnerTotalPaid(person.ownerId);
         }
-        
         if (person.residentId) {
             state.units.forEach(u => {
                 if (u.residentId === person.residentId) {
@@ -2848,23 +2518,18 @@ function renderPersonsTable() {
             });
             paid += getResidentTotalPaid(person.residentId);
         }
-        
         const totalShare = ownerShare + residentShare;
         const balance = paid - totalShare;
-        
         totalOwnerShareAll += ownerShare;
         totalResidentShareAll += residentShare;
         totalPaidAll += paid;
-
         const statusBadge = balance >= 0 
             ? `<span class="badge badge-success">✓ طلبکار</span>` 
             : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
-
         let roleDesc = [];
         if (ownerUnitsList.length > 0) roleDesc.push('👔 مالک: ' + ownerUnitsList.map(escapeHtml).join('، '));
         if (residentUnitsList.length > 0) roleDesc.push('👥 ساکن: ' + residentUnitsList.map(escapeHtml).join('، '));
         const roleText = roleDesc.length > 0 ? roleDesc.join(' | ') : '—';
-
         html += `<tr>
             <td>${toPersianNum(idx++)}</td>
             <td style="font-weight:700;">${escapeHtml(person.name)}<br><small style="color:var(--gray-500); font-weight:400; font-size:10px;">${roleText}</small></td>
@@ -2876,7 +2541,6 @@ function renderPersonsTable() {
             <td>${statusBadge}</td>
         </tr>`;
     });
-
     const totalAll = totalOwnerShareAll + totalResidentShareAll;
     html += `<tr class="total-row">
         <td colspan="2">جمع کل</td>
@@ -2886,46 +2550,28 @@ function renderPersonsTable() {
         <td>${formatNumber(totalPaidAll)}</td>
         <td colspan="2">—</td>
     </tr></tbody></table></div>`;
-
-    html += `
-        <div class="info-box" style="margin-top:16px;">
-            <i class="fas fa-info-circle"></i>
-            <div>
-                <strong>نحوه محاسبه:</strong><br>
-                <span style="color:#92400e;">■ سهم مالکانه</span> = هزینه‌های مالکانه از تمام واحدهایی که این شخص مالکشه.<br>
-                <span style="color:#9d174d;">■ سهم ساکنانه</span> = هزینه‌های ساکنانه از تمام واحدهایی که این شخص ساکنشه.<br>
-                <strong>جمع سهم</strong> = سهم مالکانه + سهم ساکنانه.<br>
-                <span style="color:var(--success);">■ پرداختی واقعی</span> = مجموع پرداخت‌هایی که این شخص به‌عنوان پرداخت‌کننده در فرم ثبت پرداخت انجام داده.<br>
-                <strong>مانده</strong> = پرداختی − جمع سهم | <span style="color:var(--success);">مثبت = طلبکار</span> | <span style="color:var(--danger);">منفی = بدهکار</span>.
-            </div>
-        </div>
-    `;
-
+    html += `<div class="info-box" style="margin-top:16px;"><i class="fas fa-info-circle"></i><div>
+        <strong>نحوه محاسبه:</strong><br>
+        <span style="color:#92400e;">■ سهم مالکانه</span> = هزینه‌های مالکانه از تمام واحدهای مالکیت.<br>
+        <span style="color:#9d174d;">■ سهم ساکنانه</span> = هزینه‌های ساکنانه از تمام واحدهای سکونت.<br>
+        <strong>جمع سهم</strong> = سهم مالکانه + سهم ساکنانه.<br>
+        <span style="color:var(--success);">■ پرداختی واقعی</span> = مجموع پرداخت‌های ثبت‌شده.<br>
+        <strong>مانده</strong> = پرداختی − جمع سهم.
+    </div></div>`;
     container.innerHTML = html;
 }
 
-// ==================== TRAVEL JOURNAL TABLE ====================
+// ==================== TRAVEL JOURNAL ====================
 function renderTravelJournalTable() {
     const container = document.getElementById('travelJournalTable');
     if (!container) return;
-
     if (state.travelExpenses.length === 0) {
-        container.innerHTML = `
-            <div class="empty-state">
-                <span class="emoji">✈️</span>
-                <h3>هنوز هزینه سفری ثبت نشده</h3>
-                <p>هزینه‌های سفر رو در بخش «سفر» ثبت کن تا اینجا نمایش داده بشه</p>
-                <div class="empty-hint" onclick="navigateTo('travel')" style="cursor:pointer;">
-                    <i class="fas fa-plus"></i> ثبت هزینه سفر
-                </div>
-            </div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">✈️</span><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر رو ثبت کن</p><div class="empty-hint" onclick="navigateTo('travel')" style="cursor:pointer;"><i class="fas fa-plus"></i> ثبت هزینه سفر</div></div>`;
         return;
     }
-
     const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
     const totalPeople = state.companions.reduce((s, c) => s + c.count, 0);
     const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
-
     let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
         <th>#</th>
         <th>عنوان</th>
@@ -2934,7 +2580,6 @@ function renderTravelJournalTable() {
         <th>پرداخت‌کننده</th>
         <th>مبلغ</th>
         </tr></thead><tbody>`;
-
     state.travelExpenses.forEach((exp, idx) => {
         html += `<tr>
             <td>${toPersianNum(idx + 1)}</td>
@@ -2945,30 +2590,19 @@ function renderTravelJournalTable() {
             <td style="color:var(--danger); font-weight:700;">${formatNumber(exp.amount)}</td>
         </tr>`;
     });
-
-    html += `<tr class="total-row">
-        <td colspan="5">جمع کل</td>
-        <td>${formatNumber(total)}</td>
-    </tr></tbody></table></div>`;
-
-    html += `
-        <div class="info-box" style="margin-top:16px;">
-            <i class="fas fa-info-circle"></i>
-            <div>
-                <strong>تسویه بین همسفران:</strong><br>
-                جمع هزینه‌ها: ${formatNumber(total)} تومان<br>
-                تعداد نفرات: ${toPersianNum(totalPeople)} نفر<br>
-                سهم هر نفر: ${formatNumber(sharePerPerson)} تومان
-            </div>
-        </div>
-    `;
-
+    html += `<tr class="total-row"><td colspan="5">جمع کل</td><td>${formatNumber(total)}</td></tr></tbody></table></div>`;
+    html += `<div class="info-box" style="margin-top:16px;"><i class="fas fa-info-circle"></i><div>
+        <strong>تسویه بین همسفران:</strong><br>
+        جمع هزینه‌ها: ${formatNumber(total)} تومان<br>
+        تعداد نفرات: ${toPersianNum(totalPeople)} نفر<br>
+        سهم هر نفر: ${formatNumber(sharePerPerson)} تومان
+    </div></div>`;
     container.innerHTML = html;
 }
 
-// ==================== EXCEL EXPORTS ====================
+// ==================== EXCEL ====================
 function exportExpensesExcel() {
-    if (state.expenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
+    if (state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const data = state.expenses.map((e, i) => ({
         'ردیف': i + 1,
         'عنوان هزینه': e.typeName,
@@ -2980,7 +2614,6 @@ function exportExpensesExcel() {
     }));
     data.push({});
     data.push({ 'ردیف': 'جمع کل', 'مبلغ (تومان)': state.expenses.reduce((s, e) => s + e.amount, 0) });
-
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'هزینه‌ها');
@@ -2989,7 +2622,7 @@ function exportExpensesExcel() {
 }
 
 function exportTravelExcel() {
-    if (state.travelExpenses.length === 0) return showToast('هزینه‌ای برای خروجی نیست', 'warning');
+    if (state.travelExpenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const data = state.travelExpenses.map((e, i) => ({
         'ردیف': i + 1,
         'عنوان': e.title,
@@ -3009,8 +2642,7 @@ function exportTravelExcel() {
 
 function exportJournalExcel(type) {
     if (type === 'travel') return exportTravelJournalExcel();
-    if (state.units.length === 0 && state.expenses.length === 0) return showToast('داده‌ای برای خروجی نیست', 'warning');
-
+    if (state.units.length === 0 && state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const wb = XLSX.utils.book_new();
     const breakdown = computeUnitSharesBreakdown();
 
@@ -3024,25 +2656,15 @@ function exportJournalExcel(type) {
         { 'عنوان': 'جمع کل هزینه‌ها', 'مقدار': state.expenses.reduce((s, e) => s + e.amount, 0) },
         { 'عنوان': 'جمع کل پرداختی شارژ', 'مقدار': state.units.reduce((s, u) => s + getUnitTotalPaid(u), 0) }
     ];
-    const ws1 = XLSX.utils.json_to_sheet(summaryData);
-    XLSX.utils.book_append_sheet(wb, ws1, 'خلاصه کل');
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(summaryData), 'خلاصه کل');
 
     if (state.expenses.length > 0) {
         const matrixData = state.expenses.map((exp, i) => {
-            const row = {
-                'ردیف': i + 1,
-                'عنوان هزینه': exp.typeName,
-                'تاریخ هزینه': exp.date,
-                'روش تقسیم': getMethodLabel(exp.splitMethod).replace(/[^\u0600-\u06FF\s]/g, '').trim(),
-                'مبلغ کل': exp.amount
-            };
-            state.units.forEach(u => {
-                row['سهم ' + u.name] = exp.shares && exp.shares[u.id] ? Math.round(exp.shares[u.id]) : 0;
-            });
+            const row = { 'ردیف': i + 1, 'عنوان هزینه': exp.typeName, 'تاریخ هزینه': exp.date, 'روش تقسیم': getMethodLabel(exp.splitMethod).replace(/[^\u0600-\u06FF\s]/g, '').trim(), 'مبلغ کل': exp.amount };
+            state.units.forEach(u => { row['سهم ' + u.name] = exp.shares && exp.shares[u.id] ? Math.round(exp.shares[u.id]) : 0; });
             return row;
         });
-        const ws2 = XLSX.utils.json_to_sheet(matrixData);
-        XLSX.utils.book_append_sheet(wb, ws2, 'دفتر ماتریسی');
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(matrixData), 'دفتر ماتریسی');
     }
 
     if (state.units.length > 0) {
@@ -3050,69 +2672,42 @@ function exportJournalExcel(type) {
             const paid = getUnitTotalPaid(u);
             const totalShare = breakdown[u.id].total;
             return {
-                'ردیف': i + 1,
-                'واحد': u.name,
-                'ساکن': getResidentName(u.residentId),
-                'نوع': u.isTenant ? 'مستاجر' : 'مالک ساکن',
-                'نام مالک': getOwnerName(u.ownerId),
-                'متراژ': u.area,
-                'نفرات': u.residents,
-                'سهم ساکن': Math.round(breakdown[u.id].resident),
-                'سهم مالک': Math.round(breakdown[u.id].owner),
-                'جمع سهم': Math.round(totalShare),
-                'جمع پرداختی': paid,
-                'مانده': Math.round(paid - totalShare),
+                'ردیف': i + 1, 'واحد': u.name, 'ساکن': getResidentName(u.residentId),
+                'نوع': u.isTenant ? 'مستاجر' : 'مالک ساکن', 'نام مالک': getOwnerName(u.ownerId),
+                'متراژ': u.area, 'نفرات': u.residents,
+                'سهم ساکن': Math.round(breakdown[u.id].resident), 'سهم مالک': Math.round(breakdown[u.id].owner),
+                'جمع سهم': Math.round(totalShare), 'جمع پرداختی': paid, 'مانده': Math.round(paid - totalShare),
                 'وضعیت': (paid - totalShare) >= 0 ? 'طلبکار/تسویه' : 'بدهکار'
             };
         });
-        const ws3 = XLSX.utils.json_to_sheet(unitData);
-        XLSX.utils.book_append_sheet(wb, ws3, 'خلاصه واحدها');
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(unitData), 'خلاصه واحدها');
 
         const persons = buildPersonsMap();
         const personsData = Object.keys(persons).map((key, i) => {
             const person = persons[key];
             let ownerShare = 0, residentShare = 0, paid = 0;
             const ownerUnitsList = [], residentUnitsList = [];
-            
             if (person.ownerId) {
-                state.units.forEach(u => {
-                    if (u.ownerId === person.ownerId) {
-                        ownerShare += breakdown[u.id].owner;
-                        ownerUnitsList.push(u.name);
-                    }
-                });
+                state.units.forEach(u => { if (u.ownerId === person.ownerId) { ownerShare += breakdown[u.id].owner; ownerUnitsList.push(u.name); } });
                 paid += getOwnerTotalPaid(person.ownerId);
             }
             if (person.residentId) {
-                state.units.forEach(u => {
-                    if (u.residentId === person.residentId) {
-                        residentShare += breakdown[u.id].resident;
-                        residentUnitsList.push(u.name);
-                    }
-                });
+                state.units.forEach(u => { if (u.residentId === person.residentId) { residentShare += breakdown[u.id].resident; residentUnitsList.push(u.name); } });
                 paid += getResidentTotalPaid(person.residentId);
             }
-            
             const totalShare = ownerShare + residentShare;
             const balance = paid - totalShare;
             let roleDesc = [];
             if (ownerUnitsList.length > 0) roleDesc.push('مالک: ' + ownerUnitsList.join('، '));
             if (residentUnitsList.length > 0) roleDesc.push('ساکن: ' + residentUnitsList.join('، '));
-            
             return {
-                'ردیف': i + 1,
-                'نام همسایه': person.name,
-                'نقش': roleDesc.join(' | '),
-                'سهم مالکانه': Math.round(ownerShare),
-                'سهم ساکنانه': Math.round(residentShare),
-                'جمع سهم': Math.round(totalShare),
-                'پرداختی واقعی': paid,
-                'مانده': Math.round(balance),
-                'وضعیت': balance >= 0 ? 'طلبکار' : 'بدهکار'
+                'ردیف': i + 1, 'نام همسایه': person.name, 'نقش': roleDesc.join(' | '),
+                'سهم مالکانه': Math.round(ownerShare), 'سهم ساکنانه': Math.round(residentShare),
+                'جمع سهم': Math.round(totalShare), 'پرداختی واقعی': paid,
+                'مانده': Math.round(balance), 'وضعیت': balance >= 0 ? 'طلبکار' : 'بدهکار'
             };
         });
-        const ws4 = XLSX.utils.json_to_sheet(personsData);
-        XLSX.utils.book_append_sheet(wb, ws4, 'حساب همسایگان');
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(personsData), 'حساب همسایگان');
     }
 
     XLSX.writeFile(wb, 'دفتر-حسابداری-ساختمان.xlsx');
@@ -3122,58 +2717,41 @@ function exportJournalExcel(type) {
 function exportTravelJournalExcel() {
     if (state.travelExpenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const wb = XLSX.utils.book_new();
-
     const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
     const totalPeople = state.companions.reduce((s, c) => s + c.count, 0);
     const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
-
     const summaryData = [
         { 'عنوان': 'گزارش سفر', 'مقدار': '' },
         { 'عنوان': 'جمع هزینه‌ها', 'مقدار': total },
         { 'عنوان': 'تعداد نفرات', 'مقدار': totalPeople },
-        { 'عنوان': 'سهم هر نفر', 'مقدار': sharePerPerson },
-        {}
+        { 'عنوان': 'سهم هر نفر', 'مقدار': sharePerPerson }, {}
     ];
     state.companions.forEach(c => {
         const paid = state.travelExpenses.filter(e => e.payer === c.name).reduce((s, e) => s + e.amount, 0);
         const shouldPay = sharePerPerson * c.count;
         const balance = paid - shouldPay;
-        summaryData.push({
-            'عنوان': 'همسفر: ' + c.name,
-            'مقدار': balance,
-            'وضعیت': balance >= 0 ? 'طلبکار' : 'بدهکار'
-        });
+        summaryData.push({ 'عنوان': 'همسفر: ' + c.name, 'مقدار': balance, 'وضعیت': balance >= 0 ? 'طلبکار' : 'بدهکار' });
     });
-    const ws1 = XLSX.utils.json_to_sheet(summaryData);
-    XLSX.utils.book_append_sheet(wb, ws1, 'خلاصه سفر');
-
-    const expData = state.travelExpenses.map((e, i) => ({
-        'ردیف': i + 1, 'عنوان': e.title, 'دسته': e.categoryName,
-        'مبلغ': e.amount, 'تاریخ': e.date, 'پرداخت‌کننده': e.payer
-    }));
-    const ws2 = XLSX.utils.json_to_sheet(expData);
-    XLSX.utils.book_append_sheet(wb, ws2, 'هزینه‌های سفر');
-
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(summaryData), 'خلاصه سفر');
+    const expData = state.travelExpenses.map((e, i) => ({ 'ردیف': i + 1, 'عنوان': e.title, 'دسته': e.categoryName, 'مبلغ': e.amount, 'تاریخ': e.date, 'پرداخت‌کننده': e.payer }));
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(expData), 'هزینه‌های سفر');
     XLSX.writeFile(wb, 'دفتر-سفر.xlsx');
     showToast('✅ فایل اکسل دانلود شد', 'success');
 }
 
 // ==================== PDF ====================
 function generateReportHTML(title, subtitle, contentHTML) {
-    return `
-        <div style="width:794px; padding:40px 50px; background:#fff; font-family:'Vazirmatn',sans-serif; direction:rtl; box-sizing:border-box;">
-            <div style="text-align:center; border-bottom:3px solid #6366f1; padding-bottom:15px; margin-bottom:20px;">
-                <h1 style="color:#6366f1; font-size:24px; margin:0;">${title}</h1>
-                <p style="color:#64748b; font-size:13px; margin:8px 0 0 0;">${subtitle}</p>
-            </div>
-            ${contentHTML}
-            <div style="margin-top:30px; padding-top:15px; border-top:1px solid #e2e8f0; font-size:11px; color:#64748b; text-align:center;">
-                گزارش تولید شده توسط حساب‌یار — ${toPersianDateString()}
-            </div>
+    return `<div style="width:794px; padding:40px 50px; background:#fff; font-family:'Vazirmatn',sans-serif; direction:rtl; box-sizing:border-box;">
+        <div style="text-align:center; border-bottom:3px solid #6366f1; padding-bottom:15px; margin-bottom:20px;">
+            <h1 style="color:#6366f1; font-size:24px; margin:0;">${title}</h1>
+            <p style="color:#64748b; font-size:13px; margin:8px 0 0 0;">${subtitle}</p>
         </div>
-    `;
+        ${contentHTML}
+        <div style="margin-top:30px; padding-top:15px; border-top:1px solid #e2e8f0; font-size:11px; color:#64748b; text-align:center;">
+            گزارش تولید شده توسط حساب‌یار — ${toPersianDateString()}
+        </div>
+    </div>`;
 }
-
 function tableStyle() { return `width:100%; border-collapse:collapse; font-size:11px; margin:10px 0;`; }
 function thStyle() { return `background:#eef2ff; padding:8px 6px; border:1px solid #c7d2fe; color:#3730a3; font-weight:700; text-align:center;`; }
 function tdStyle() { return `padding:6px; border:1px solid #e2e8f0; text-align:center;`; }
@@ -3181,72 +2759,30 @@ function totalTdStyle() { return `padding:8px 6px; border:1px solid #c7d2fe; tex
 
 async function htmlToPDF(html, filename) {
     showToast('⏳ در حال ساخت PDF...', 'default');
-    
-    if (document.fonts && document.fonts.ready) {
-        try { await document.fonts.ready; } catch(e) {}
-    }
-    
+    if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch(e) {} }
     const wrapper = document.createElement('div');
-    wrapper.style.position = 'fixed';
-    wrapper.style.top = '0';
-    wrapper.style.left = '0';
-    wrapper.style.width = '100vw';
-    wrapper.style.height = '100vh';
-    wrapper.style.overflow = 'hidden';
-    wrapper.style.background = '#ffffff';
-    wrapper.style.zIndex = '999999';
-    wrapper.style.opacity = '1';
-    
+    wrapper.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;overflow:hidden;background:#fff;z-index:999999;';
     const container = document.createElement('div');
-    container.style.width = '794px';
-    container.style.background = '#ffffff';
-    container.style.position = 'absolute';
-    container.style.top = '0';
-    container.style.left = '0';
+    container.style.cssText = 'width:794px;background:#fff;position:absolute;top:0;left:0;';
     container.innerHTML = html;
-    
     wrapper.appendChild(container);
     document.body.appendChild(wrapper);
-    
     window.scrollTo(0, 0);
     await new Promise(r => setTimeout(r, 1200));
-
     try {
-        const canvas = await html2canvas(container, {
-            scale: 2,
-            backgroundColor: '#ffffff',
-            useCORS: true,
-            allowTaint: true,
-            logging: false,
-            width: container.scrollWidth,
-            height: container.scrollHeight,
-            windowWidth: container.scrollWidth,
-            windowHeight: container.scrollHeight
-        });
-
-        if (!canvas || !canvas.width || !canvas.height) {
-            throw new Error('canvas خالی ساخته شد');
-        }
-
+        const canvas = await html2canvas(container, { scale: 2, backgroundColor: '#ffffff', useCORS: true, allowTaint: true, logging: false, width: container.scrollWidth, height: container.scrollHeight, windowWidth: container.scrollWidth, windowHeight: container.scrollHeight });
+        if (!canvas || !canvas.width || !canvas.height) throw new Error('canvas خالی');
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-        
-        const pdfWidth = 210;
-        const pdfHeight = 297;
-        const imgWidth = canvas.width;
-        const imgHeight = canvas.height;
+        const pdfWidth = 210, pdfHeight = 297;
+        const imgWidth = canvas.width, imgHeight = canvas.height;
         const pxPerMm = imgWidth / pdfWidth;
         const pageHeightPx = Math.floor(pdfHeight * pxPerMm);
-        
-        let position = 0;
-        let pageNum = 0;
-        
+        let position = 0, pageNum = 0;
         while (position < imgHeight) {
             if (pageNum > 0) pdf.addPage();
-            
             const remaining = imgHeight - position;
             const sliceHeight = Math.min(pageHeightPx, remaining);
-            
             const pageCanvas = document.createElement('canvas');
             pageCanvas.width = imgWidth;
             pageCanvas.height = sliceHeight;
@@ -3254,15 +2790,11 @@ async function htmlToPDF(html, filename) {
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
             ctx.drawImage(canvas, 0, position, imgWidth, sliceHeight, 0, 0, imgWidth, sliceHeight);
-            
             const pageData = pageCanvas.toDataURL('image/jpeg', 0.95);
-            const renderHeight = sliceHeight / pxPerMm;
-            pdf.addImage(pageData, 'JPEG', 0, 0, pdfWidth, renderHeight);
-            
+            pdf.addImage(pageData, 'JPEG', 0, 0, pdfWidth, sliceHeight / pxPerMm);
             position += sliceHeight;
             pageNum++;
         }
-
         pdf.save(filename);
         showToast('✅ PDF دانلود شد', 'success');
     } catch(e) {
@@ -3276,17 +2808,11 @@ async function htmlToPDF(html, filename) {
 function exportExpensesPDF() {
     if (state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const total = state.expenses.reduce((s, e) => s + e.amount, 0);
-    
     let content = `<h2 style="color:#1e293b; font-size:16px; margin:20px 0 10px 0;">📋 لیست هزینه‌ها</h2>`;
     content += `<table style="${tableStyle()}"><thead><tr>
-        <th style="${thStyle()}">#</th>
-        <th style="${thStyle()}">عنوان هزینه</th>
-        <th style="${thStyle()}">تاریخ هزینه</th>
-        <th style="${thStyle()}">پرداخت‌کننده</th>
-        <th style="${thStyle()}">روش</th>
-        <th style="${thStyle()}">مبلغ (تومان)</th>
+        <th style="${thStyle()}">#</th><th style="${thStyle()}">عنوان</th><th style="${thStyle()}">تاریخ</th>
+        <th style="${thStyle()}">پرداخت‌کننده</th><th style="${thStyle()}">روش</th><th style="${thStyle()}">مبلغ</th>
     </tr></thead><tbody>`;
-    
     state.expenses.forEach((e, i) => {
         content += `<tr>
             <td style="${tdStyle()}">${toPersianNum(i + 1)}</td>
@@ -3294,26 +2820,12 @@ function exportExpensesPDF() {
             <td style="${tdStyle()}">${e.date}</td>
             <td style="${tdStyle()}">${escapeHtml(e.payer)}</td>
             <td style="${tdStyle()}; font-size:10px;">${getMethodLabel(e.splitMethod).replace(/[^\u0600-\u06FF\s]/g,'').trim()}</td>
-            <td style="${tdStyle()}; font-weight:700; color:#dc2626;">${formatNumber(e.amount)}</td>
+            <td style="${tdStyle()}; color:#dc2626; font-weight:700;">${formatNumber(e.amount)}</td>
         </tr>`;
     });
-    content += `<tr>
-        <td colspan="5" style="${totalTdStyle()}">جمع کل</td>
-        <td style="${totalTdStyle()}; color:#dc2626;">${formatNumber(total)}</td>
-    </tr></tbody></table>`;
-
-    content += `<div style="background:#fef3c7; border-right:4px solid #f59e0b; padding:12px; margin-top:20px; font-size:11px; line-height:1.8;">
-        <strong>توضیحات:</strong><br>
-        هزینه‌ها طبق ماده ۴ قانون تملک آپارتمان‌ها بین واحدها تقسیم شده است.
-    </div>`;
-
-    const html = generateReportHTML(
-        'گزارش هزینه‌های ساختمان',
-        `ساختمان: ${state.settings.buildingName} — مدیر: ${state.settings.managerName}`,
-        content
-    );
-    
-    htmlToPDF(html, 'گزارش-هزینه‌ها.pdf');
+    content += `<tr><td colspan="5" style="${totalTdStyle()}">جمع کل</td><td style="${totalTdStyle()}; color:#dc2626;">${formatNumber(total)}</td></tr></tbody></table>`;
+    content += `<div style="background:#fef3c7; border-right:4px solid #f59e0b; padding:12px; margin-top:20px; font-size:11px; line-height:1.8;"><strong>توضیحات:</strong><br>هزینه‌ها طبق ماده ۴ قانون تملک آپارتمان‌ها بین واحدها تقسیم شده است.</div>`;
+    htmlToPDF(generateReportHTML('گزارش هزینه‌های ساختمان', `ساختمان: ${state.settings.buildingName} — مدیر: ${state.settings.managerName}`, content), 'گزارش-هزینه‌ها.pdf');
 }
 
 function exportTravelPDF() {
@@ -3321,21 +2833,15 @@ function exportTravelPDF() {
     const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
     const totalPeople = state.companions.reduce((s, c) => s + c.count, 0);
     const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
-
     let content = `<div style="background:#eef2ff; padding:15px; border-radius:10px; margin-bottom:15px; text-align:center;">
         <div style="font-size:12px; color:#64748b;">مجموع هزینه سفر</div>
         <div style="font-size:22px; font-weight:800; color:#6366f1;">${formatNumber(total)} تومان</div>
         <div style="font-size:11px; color:#64748b; margin-top:5px;">${toPersianNum(totalPeople)} نفر — سهم هر نفر: ${formatNumber(sharePerPerson)} تومان</div>
     </div>`;
-    
     content += `<h2 style="font-size:14px; margin:15px 0 10px 0;">📋 لیست هزینه‌ها</h2>`;
     content += `<table style="${tableStyle()}"><thead><tr>
-        <th style="${thStyle()}">#</th>
-        <th style="${thStyle()}">عنوان</th>
-        <th style="${thStyle()}">دسته</th>
-        <th style="${thStyle()}">تاریخ</th>
-        <th style="${thStyle()}">پرداخت‌کننده</th>
-        <th style="${thStyle()}">مبلغ</th>
+        <th style="${thStyle()}">#</th><th style="${thStyle()}">عنوان</th><th style="${thStyle()}">دسته</th>
+        <th style="${thStyle()}">تاریخ</th><th style="${thStyle()}">پرداخت‌کننده</th><th style="${thStyle()}">مبلغ</th>
     </tr></thead><tbody>`;
     state.travelExpenses.forEach((e, i) => {
         content += `<tr>
@@ -3348,15 +2854,10 @@ function exportTravelPDF() {
         </tr>`;
     });
     content += `</tbody></table>`;
-    
     content += `<h2 style="font-size:14px; margin:20px 0 10px 0;">👥 تسویه همسفران</h2>`;
     content += `<table style="${tableStyle()}"><thead><tr>
-        <th style="${thStyle()}">نام</th>
-        <th style="${thStyle()}">تعداد</th>
-        <th style="${thStyle()}">جمع پرداختی</th>
-        <th style="${thStyle()}">سهم</th>
-        <th style="${thStyle()}">مانده</th>
-        <th style="${thStyle()}">وضعیت</th>
+        <th style="${thStyle()}">نام</th><th style="${thStyle()}">تعداد</th><th style="${thStyle()}">پرداختی</th>
+        <th style="${thStyle()}">سهم</th><th style="${thStyle()}">مانده</th><th style="${thStyle()}">وضعیت</th>
     </tr></thead><tbody>`;
     state.companions.forEach(c => {
         const paid = state.travelExpenses.filter(e => e.payer === c.name).reduce((s, e) => s + e.amount, 0);
@@ -3372,44 +2873,28 @@ function exportTravelPDF() {
         </tr>`;
     });
     content += `</tbody></table>`;
-
-    const html = generateReportHTML('گزارش سفر', `تاریخ: ${toPersianDateString()}`, content);
-    htmlToPDF(html, 'گزارش-سفر.pdf');
+    htmlToPDF(generateReportHTML('گزارش سفر', `تاریخ: ${toPersianDateString()}`, content), 'گزارش-سفر.pdf');
 }
 
 function exportJournalPDF(type) {
     if (type === 'travel') return exportTravelPDF();
-
-    if (state.units.length === 0 && state.expenses.length === 0) {
-        return showToast('داده‌ای نیست', 'warning');
-    }
-
+    if (state.units.length === 0 && state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const breakdown = computeUnitSharesBreakdown();
     const totalExp = state.expenses.reduce((s, e) => s + e.amount, 0);
     const totalPaid = state.units.reduce((s, u) => s + getUnitTotalPaid(u), 0);
-
-    let content = `
-        <div style="background:linear-gradient(135deg,#eef2ff,#e0e7ff); padding:15px; border-radius:10px; margin-bottom:20px;">
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                <div><strong>تعداد واحدها:</strong> ${toPersianNum(state.units.length)}</div>
-                <div><strong>تعداد ساکنان:</strong> ${toPersianNum(state.units.reduce((s,u)=>s+u.residents,0))}</div>
-                <div><strong>جمع کل هزینه‌ها:</strong> ${formatNumber(totalExp)} تومان</div>
-                <div><strong>جمع پرداختی شارژ:</strong> ${formatNumber(totalPaid)} تومان</div>
-            </div>
+    let content = `<div style="background:linear-gradient(135deg,#eef2ff,#e0e7ff); padding:15px; border-radius:10px; margin-bottom:20px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div><strong>تعداد واحدها:</strong> ${toPersianNum(state.units.length)}</div>
+            <div><strong>تعداد ساکنان:</strong> ${toPersianNum(state.units.reduce((s,u)=>s+u.residents,0))}</div>
+            <div><strong>جمع کل هزینه‌ها:</strong> ${formatNumber(totalExp)} تومان</div>
+            <div><strong>جمع پرداختی شارژ:</strong> ${formatNumber(totalPaid)} تومان</div>
         </div>
-    `;
-
+    </div>`;
     content += `<h2 style="font-size:14px; margin:15px 0 10px 0;">📊 دفتر ماتریسی — سهم هر واحد</h2>`;
     content += `<table style="${tableStyle()} font-size:9px;"><thead><tr>
-        <th style="${thStyle()}">#</th>
-        <th style="${thStyle()}">هزینه</th>
-        <th style="${thStyle()}">تاریخ</th>
-        <th style="${thStyle()}">مبلغ کل</th>`;
-    state.units.forEach(u => {
-        content += `<th style="${thStyle()}">${escapeHtml(u.name)}</th>`;
-    });
+        <th style="${thStyle()}">#</th><th style="${thStyle()}">هزینه</th><th style="${thStyle()}">تاریخ</th><th style="${thStyle()}">مبلغ کل</th>`;
+    state.units.forEach(u => { content += `<th style="${thStyle()}">${escapeHtml(u.name)}</th>`; });
     content += `</tr></thead><tbody>`;
-    
     state.expenses.forEach((exp, i) => {
         content += `<tr>
             <td style="${tdStyle()}">${toPersianNum(i + 1)}</td>
@@ -3422,26 +2907,15 @@ function exportJournalPDF(type) {
         });
         content += `</tr>`;
     });
-    content += `<tr>
-        <td colspan="3" style="${totalTdStyle()}">جمع کل</td>
-        <td style="${totalTdStyle()}; color:#dc2626;">${formatNumber(totalExp)}</td>`;
-    state.units.forEach(u => {
-        content += `<td style="${totalTdStyle()}">${formatNumber(breakdown[u.id].total)}</td>`;
-    });
+    content += `<tr><td colspan="3" style="${totalTdStyle()}">جمع کل</td><td style="${totalTdStyle()}; color:#dc2626;">${formatNumber(totalExp)}</td>`;
+    state.units.forEach(u => { content += `<td style="${totalTdStyle()}">${formatNumber(breakdown[u.id].total)}</td>`; });
     content += `</tr></tbody></table>`;
-
     content += `<h2 style="font-size:14px; margin:20px 0 10px 0;">🏠 خلاصه وضعیت واحدها</h2>`;
     content += `<table style="${tableStyle()}"><thead><tr>
-        <th style="${thStyle()}">واحد</th>
-        <th style="${thStyle()}">ساکن</th>
-        <th style="${thStyle()}">مالک</th>
-        <th style="${thStyle()}">سهم ساکن</th>
-        <th style="${thStyle()}">سهم مالک</th>
-        <th style="${thStyle()}">جمع</th>
-        <th style="${thStyle()}">پرداختی</th>
-        <th style="${thStyle()}">مانده</th>
+        <th style="${thStyle()}">واحد</th><th style="${thStyle()}">ساکن</th><th style="${thStyle()}">مالک</th>
+        <th style="${thStyle()}">سهم ساکن</th><th style="${thStyle()}">سهم مالک</th><th style="${thStyle()}">جمع</th>
+        <th style="${thStyle()}">پرداختی</th><th style="${thStyle()}">مانده</th>
     </tr></thead><tbody>`;
-    
     state.units.forEach(u => {
         const paid = getUnitTotalPaid(u);
         const totalShare = breakdown[u.id].total;
@@ -3458,50 +2932,29 @@ function exportJournalPDF(type) {
         </tr>`;
     });
     content += `</tbody></table>`;
-
     const persons = buildPersonsMap();
-
     content += `<h2 style="font-size:14px; margin:20px 0 10px 0;">🤝 حساب همسایگان</h2>`;
     content += `<table style="${tableStyle()}"><thead><tr>
-        <th style="${thStyle()}">نام همسایه</th>
-        <th style="${thStyle()}">نقش</th>
-        <th style="${thStyle()}">سهم مالکانه</th>
-        <th style="${thStyle()}">سهم ساکنانه</th>
-        <th style="${thStyle()}">جمع سهم</th>
-        <th style="${thStyle()}">پرداختی</th>
-        <th style="${thStyle()}">مانده</th>
+        <th style="${thStyle()}">نام</th><th style="${thStyle()}">نقش</th><th style="${thStyle()}">مالکانه</th>
+        <th style="${thStyle()}">ساکنانه</th><th style="${thStyle()}">جمع</th><th style="${thStyle()}">پرداختی</th><th style="${thStyle()}">مانده</th>
     </tr></thead><tbody>`;
-
     Object.keys(persons).forEach(key => {
         const person = persons[key];
         let ownerShare = 0, residentShare = 0, paid = 0;
         const ownerUnitsList = [], residentUnitsList = [];
-        
         if (person.ownerId) {
-            state.units.forEach(u => {
-                if (u.ownerId === person.ownerId) {
-                    ownerShare += breakdown[u.id].owner;
-                    ownerUnitsList.push(u.name);
-                }
-            });
+            state.units.forEach(u => { if (u.ownerId === person.ownerId) { ownerShare += breakdown[u.id].owner; ownerUnitsList.push(u.name); } });
             paid += getOwnerTotalPaid(person.ownerId);
         }
         if (person.residentId) {
-            state.units.forEach(u => {
-                if (u.residentId === person.residentId) {
-                    residentShare += breakdown[u.id].resident;
-                    residentUnitsList.push(u.name);
-                }
-            });
+            state.units.forEach(u => { if (u.residentId === person.residentId) { residentShare += breakdown[u.id].resident; residentUnitsList.push(u.name); } });
             paid += getResidentTotalPaid(person.residentId);
         }
-        
         const totalShare = ownerShare + residentShare;
         const balance = paid - totalShare;
         let roleDesc = [];
         if (ownerUnitsList.length > 0) roleDesc.push('مالک: ' + ownerUnitsList.join('، '));
         if (residentUnitsList.length > 0) roleDesc.push('ساکن: ' + residentUnitsList.join('، '));
-        
         content += `<tr>
             <td style="${tdStyle()}; font-weight:700;">${escapeHtml(person.name)}</td>
             <td style="${tdStyle()}; font-size:9px;">${roleDesc.join(' | ') || '—'}</td>
@@ -3513,23 +2966,15 @@ function exportJournalPDF(type) {
         </tr>`;
     });
     content += `</tbody></table>`;
-
     content += `<div style="background:#fef3c7; border-right:4px solid #f59e0b; padding:12px; margin-top:20px; font-size:11px; line-height:1.9;">
         <strong>⚖️ مبنای محاسبه:</strong><br>
         • هزینه‌های ساکنین بین واحدها تقسیم می‌شود → سهم ساکن.<br>
         • هزینه‌های مالکین (👔) بین مالکین بر اساس تعداد واحد مالکیت → سهم مالک.<br>
         • گزارش «حساب همسایگان» جمع سهم مالکانه و ساکنانه هر شخص را نشان می‌دهد.<br>
-        • <strong>پرداختی واقعی</strong> = فقط پولی که خود شخص در فرم پرداخت به‌عنوان پرداخت‌کننده ثبت کرده.<br>
+        • <strong>پرداختی واقعی</strong> = فقط پولی که خود شخص ثبت کرده.<br>
         • مانده مثبت = طلبکار | مانده منفی = بدهکار
     </div>`;
-
-    const html = generateReportHTML(
-        'گزارش مالی ساختمان',
-        `${state.settings.buildingName} — مدیر: ${state.settings.managerName} — ${toPersianDateString()}`,
-        content
-    );
-
-    htmlToPDF(html, 'گزارش-مالی-ساختمان.pdf');
+    htmlToPDF(generateReportHTML('گزارش مالی ساختمان', `${state.settings.buildingName} — مدیر: ${state.settings.managerName} — ${toPersianDateString()}`, content), 'گزارش-مالی-ساختمان.pdf');
 }
 
 // ==================== EDIT FUNCTIONS ====================
@@ -3542,47 +2987,29 @@ function openEditModal(title, fieldsHTML, onSave) {
 }
 
 function saveEdit() {
-    if (typeof window._editSaveCallback === 'function') {
-        window._editSaveCallback();
-    }
+    if (typeof window._editSaveCallback === 'function') window._editSaveCallback();
 }
 
 function editOwner(id) {
     const owner = state.owners.find(o => o.id === id);
     if (!owner) return;
-    
     const html = `
-        <div class="form-group"><label>نام مالک <span class="required">*</span></label>
-            <input type="text" class="form-control" id="editOwnerName" value="${escapeHtml(owner.name)}"></div>
-        <div class="form-group"><label>شماره تماس</label>
-            <input type="text" class="form-control" id="editOwnerPhone" value="${escapeHtml(owner.phone)}"></div>
-        <div class="form-group"><label>توضیحات</label>
-            <input type="text" class="form-control" id="editOwnerNote" value="${escapeHtml(owner.note)}"></div>
+        <div class="form-group"><label>نام مالک <span class="required">*</span></label><input type="text" class="form-control" id="editOwnerName" value="${escapeHtml(owner.name)}"></div>
+        <div class="form-group"><label>شماره تماس</label><input type="text" class="form-control" id="editOwnerPhone" value="${escapeHtml(owner.phone)}"></div>
+        <div class="form-group"><label>توضیحات</label><input type="text" class="form-control" id="editOwnerNote" value="${escapeHtml(owner.note)}"></div>
     `;
-    
     openEditModal('ویرایش مالک', html, () => {
         const name = document.getElementById('editOwnerName').value.trim();
         const phone = document.getElementById('editOwnerPhone').value.trim();
         const note = document.getElementById('editOwnerNote').value.trim();
         if (!name) return showToast('نام الزامی است', 'error');
-        
-        owner.name = name;
-        owner.phone = phone;
-        owner.note = note;
-        
-        state.residents.forEach(r => {
-            if (r.linkedOwnerId === id) { r.name = name; r.phone = phone; }
-        });
-        
+        owner.name = name; owner.phone = phone; owner.note = note;
+        state.residents.forEach(r => { if (r.linkedOwnerId === id) { r.name = name; r.phone = phone; } });
         saveState();
         closeModal('editModal');
-        renderOwnersList();
-        renderResidentsList();
-        refreshOwnerDropdowns();
-        refreshResidentDropdowns();
-        refreshPaymentPayerDropdown();
-        renderUnits();
-        renderAllJournalViews();
+        renderOwnersList(); renderResidentsList();
+        refreshOwnerDropdowns(); refreshResidentDropdowns(); refreshPaymentPayerDropdown();
+        renderUnits(); renderAllJournalViews();
         showToast('✅ مالک ویرایش شد', 'success');
     });
 }
@@ -3590,39 +3017,26 @@ function editOwner(id) {
 function editResident(id) {
     const resident = state.residents.find(r => r.id === id);
     if (!resident) return;
-    
     const html = `
-        <div class="form-group"><label>نام ساکن <span class="required">*</span></label>
-            <input type="text" class="form-control" id="editResidentName" value="${escapeHtml(resident.name)}"></div>
-        <div class="form-group"><label>شماره تماس</label>
-            <input type="text" class="form-control" id="editResidentPhone" value="${escapeHtml(resident.phone)}"></div>
-        <div class="form-group"><label>توضیحات</label>
-            <input type="text" class="form-control" id="editResidentNote" value="${escapeHtml(resident.note)}"></div>
+        <div class="form-group"><label>نام ساکن <span class="required">*</span></label><input type="text" class="form-control" id="editResidentName" value="${escapeHtml(resident.name)}"></div>
+        <div class="form-group"><label>شماره تماس</label><input type="text" class="form-control" id="editResidentPhone" value="${escapeHtml(resident.phone)}"></div>
+        <div class="form-group"><label>توضیحات</label><input type="text" class="form-control" id="editResidentNote" value="${escapeHtml(resident.note)}"></div>
     `;
-    
     openEditModal('ویرایش ساکن', html, () => {
         const name = document.getElementById('editResidentName').value.trim();
         const phone = document.getElementById('editResidentPhone').value.trim();
         const note = document.getElementById('editResidentNote').value.trim();
         if (!name) return showToast('نام الزامی است', 'error');
-        
-        resident.name = name;
-        resident.phone = phone;
-        resident.note = note;
-        
+        resident.name = name; resident.phone = phone; resident.note = note;
         if (resident.linkedOwnerId) {
             const owner = state.owners.find(o => o.id === resident.linkedOwnerId);
             if (owner) { owner.name = name; owner.phone = phone; }
-            renderOwnersList();
-            refreshOwnerDropdowns();
+            renderOwnersList(); refreshOwnerDropdowns();
         }
-        
         saveState();
         closeModal('editModal');
-        renderResidentsList();
-        renderUnits();
-        refreshResidentDropdowns();
-        refreshPaymentPayerDropdown();
+        renderResidentsList(); renderUnits();
+        refreshResidentDropdowns(); refreshPaymentPayerDropdown();
         renderAllJournalViews();
         showToast('✅ ساکن ویرایش شد', 'success');
     });
@@ -3631,42 +3045,22 @@ function editResident(id) {
 function editUnit(id) {
     const unit = state.units.find(u => u.id === id);
     if (!unit) return;
-    
-    const ownerOptions = state.owners.map(o => 
-        `<option value="${o.id}" ${o.id === unit.ownerId ? 'selected' : ''}>${escapeHtml(o.name)}</option>`
-    ).join('');
-    
-    const residentOptions = state.residents.map(r => 
-        `<option value="${r.id}" ${r.id === unit.residentId ? 'selected' : ''}>${escapeHtml(r.name)}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`
-    ).join('');
-    
+    const ownerOptions = state.owners.map(o => `<option value="${o.id}" ${o.id === unit.ownerId ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('');
+    const residentOptions = state.residents.map(r => `<option value="${r.id}" ${r.id === unit.residentId ? 'selected' : ''}>${escapeHtml(r.name)}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`).join('');
     const html = `
-        <div class="form-group"><label>نام واحد <span class="required">*</span></label>
-            <input type="text" class="form-control" id="editUnitName" value="${escapeHtml(unit.name)}"></div>
-        <div class="form-group"><label>ساکن <span class="required">*</span></label>
-            <select class="form-select" id="editUnitResident">${residentOptions}</select></div>
-        <div class="form-group">
-            <label class="checkbox-wrap">
-                <input type="checkbox" id="editUnitIsTenant" ${unit.isTenant ? 'checked' : ''}>
-                <span>مستاجر است</span>
-            </label>
-        </div>
-        <div class="form-group"><label>مالک <span class="required">*</span></label>
-            <select class="form-select" id="editUnitOwner">${ownerOptions}</select></div>
+        <div class="form-group"><label>نام واحد <span class="required">*</span></label><input type="text" class="form-control" id="editUnitName" value="${escapeHtml(unit.name)}"></div>
+        <div class="form-group"><label>ساکن <span class="required">*</span></label><select class="form-select" id="editUnitResident">${residentOptions}</select></div>
+        <div class="form-group"><label class="checkbox-wrap"><input type="checkbox" id="editUnitIsTenant" ${unit.isTenant ? 'checked' : ''}><span>مستاجر است</span></label></div>
+        <div class="form-group"><label>مالک <span class="required">*</span></label><select class="form-select" id="editUnitOwner">${ownerOptions}</select></div>
         <div class="form-row">
-            <div class="form-group"><label>متراژ</label>
-                <input type="number" class="form-control" id="editUnitArea" value="${unit.area || 0}"></div>
-            <div class="form-group"><label>تعداد نفرات</label>
-                <input type="number" class="form-control" id="editUnitResidents" value="${unit.residents || 1}"></div>
+            <div class="form-group"><label>متراژ</label><input type="number" class="form-control" id="editUnitArea" value="${unit.area || 0}"></div>
+            <div class="form-group"><label>تعداد نفرات</label><input type="number" class="form-control" id="editUnitResidents" value="${unit.residents || 1}"></div>
         </div>
         <div class="form-row">
-            <div class="form-group"><label>تاریخ شروع اجاره</label>
-                <input type="text" class="form-control datepicker" id="editUnitRentStart" value="${unit.rentStart || ''}" readonly></div>
-            <div class="form-group"><label>تاریخ پایان اجاره</label>
-                <input type="text" class="form-control datepicker" id="editUnitRentEnd" value="${unit.rentEnd || ''}" readonly></div>
+            <div class="form-group"><label>تاریخ شروع اجاره</label><input type="text" class="form-control datepicker" id="editUnitRentStart" value="${unit.rentStart || ''}" readonly></div>
+            <div class="form-group"><label>تاریخ پایان اجاره</label><input type="text" class="form-control datepicker" id="editUnitRentEnd" value="${unit.rentEnd || ''}" readonly></div>
         </div>
     `;
-    
     openEditModal('ویرایش واحد', html, () => {
         const name = document.getElementById('editUnitName').value.trim();
         const residentId = document.getElementById('editUnitResident').value;
@@ -3676,23 +3070,13 @@ function editUnit(id) {
         const isTenant = document.getElementById('editUnitIsTenant').checked;
         const rentStart = document.getElementById('editUnitRentStart').value.trim();
         const rentEnd = document.getElementById('editUnitRentEnd').value.trim();
-        
-        if (!name || !residentId || !ownerId || !area) return showToast('همه فیلدهای الزامی را پر کنید', 'error');
-        
-        unit.name = name;
-        unit.residentId = residentId;
-        unit.ownerId = ownerId;
-        unit.area = area;
-        unit.residents = residents;
-        unit.isTenant = isTenant;
-        unit.rentStart = isTenant ? rentStart : '';
-        unit.rentEnd = isTenant ? rentEnd : '';
-        
+        if (!name || !residentId || !ownerId || !area) return showToast('همه فیلدها الزامی است', 'error');
+        unit.name = name; unit.residentId = residentId; unit.ownerId = ownerId;
+        unit.area = area; unit.residents = residents; unit.isTenant = isTenant;
+        unit.rentStart = isTenant ? rentStart : ''; unit.rentEnd = isTenant ? rentEnd : '';
         saveState();
         closeModal('editModal');
-        renderUnits();
-        renderDashboard();
-        renderAllJournalViews();
+        renderUnits(); renderDashboard(); renderAllJournalViews();
         showToast('✅ واحد ویرایش شد', 'success');
     });
 }
@@ -3700,20 +3084,14 @@ function editUnit(id) {
 function editExpense(id) {
     const exp = state.expenses.find(e => e.id === id);
     if (!exp) return;
-    
     const html = `
-        <div class="form-group"><label>عنوان</label>
-            <input type="text" class="form-control" id="editExpenseTitle" value="${escapeHtml(exp.typeName)}"></div>
-        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label>
-            <input type="number" class="form-control" id="editExpenseAmount" value="${exp.amount || 0}"></div>
+        <div class="form-group"><label>عنوان</label><input type="text" class="form-control" id="editExpenseTitle" value="${escapeHtml(exp.typeName)}"></div>
+        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label><input type="number" class="form-control" id="editExpenseAmount" value="${exp.amount || 0}"></div>
         <div class="form-row">
-            <div class="form-group"><label>تاریخ هزینه</label>
-                <input type="text" class="form-control datepicker" id="editExpenseDate" value="${exp.date || ''}" readonly></div>
-            <div class="form-group"><label>تاریخ پرداخت</label>
-                <input type="text" class="form-control datepicker" id="editExpensePayDate" value="${exp.payDate || ''}" readonly></div>
+            <div class="form-group"><label>تاریخ هزینه</label><input type="text" class="form-control datepicker" id="editExpenseDate" value="${exp.date || ''}" readonly></div>
+            <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="editExpensePayDate" value="${exp.payDate || ''}" readonly></div>
         </div>
-        <div class="form-group"><label>پرداخت‌کننده</label>
-            <input type="text" class="form-control" id="editExpensePayer" value="${escapeHtml(exp.payer)}"></div>
+        <div class="form-group"><label>پرداخت‌کننده</label><input type="text" class="form-control" id="editExpensePayer" value="${escapeHtml(exp.payer)}"></div>
         <div class="form-group"><label>روش تقسیم</label>
             <select class="form-select" id="editExpenseSplit">
                 <option value="per_unit" ${exp.splitMethod === 'per_unit' ? 'selected' : ''}>⚖️ مساوی (ساکنین)</option>
@@ -3724,7 +3102,6 @@ function editExpense(id) {
             </select></div>
         <div class="info-box"><i class="fas fa-info-circle"></i> با تغییر مبلغ یا روش تقسیم، سهم واحدها مجدداً محاسبه می‌شود.</div>
     `;
-    
     openEditModal('ویرایش هزینه', html, () => {
         const title = document.getElementById('editExpenseTitle').value.trim();
         const amount = parseFloat(document.getElementById('editExpenseAmount').value);
@@ -3732,23 +3109,14 @@ function editExpense(id) {
         const payDate = document.getElementById('editExpensePayDate').value.trim();
         const payer = document.getElementById('editExpensePayer').value.trim();
         const splitMethod = document.getElementById('editExpenseSplit').value;
-        
         if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
-        
-        exp.typeName = title || exp.typeName;
-        exp.amount = amount;
-        exp.date = date || '—';
-        exp.payDate = payDate || '—';
-        exp.payer = payer;
-        exp.splitMethod = splitMethod;
+        exp.typeName = title || exp.typeName; exp.amount = amount;
+        exp.date = date || '—'; exp.payDate = payDate || '—';
+        exp.payer = payer; exp.splitMethod = splitMethod;
         exp.shares = computeShares(amount, splitMethod);
-        
         saveState();
         closeModal('editModal');
-        renderExpenses();
-        renderDashboard();
-        renderUnits();
-        renderAllJournalViews();
+        renderExpenses(); renderDashboard(); renderUnits(); renderAllJournalViews();
         showToast('✅ هزینه ویرایش شد', 'success');
     });
 }
@@ -3756,34 +3124,20 @@ function editExpense(id) {
 function editCharge(key) {
     const charge = state.charges[key];
     if (!charge) return;
-    
     const html = `
-        <div class="form-group"><label>دوره</label>
-            <input type="text" class="form-control" value="${charge.subPeriod}" readonly></div>
-        <div class="form-group"><label>مبلغ شارژ هر واحد (تومان) <span class="required">*</span></label>
-            <input type="number" class="form-control" id="editChargeAmount" value="${charge.perUnitAmount || 0}"></div>
+        <div class="form-group"><label>دوره</label><input type="text" class="form-control" value="${charge.subPeriod}" readonly></div>
+        <div class="form-group"><label>مبلغ شارژ هر واحد (تومان) <span class="required">*</span></label><input type="number" class="form-control" id="editChargeAmount" value="${charge.perUnitAmount || 0}"></div>
         <div class="info-box"><i class="fas fa-info-circle"></i> با تغییر مبلغ، شارژ همه واحدها به‌روز می‌شود.</div>
     `;
-    
     openEditModal('ویرایش شارژ', html, () => {
         const amount = parseFloat(document.getElementById('editChargeAmount').value);
         if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
-        
         charge.perUnitAmount = amount;
         charge.totalAmount = amount * state.units.length;
-        charge.results = state.units.map(unit => ({
-            unitId: unit.id,
-            unitName: unit.name,
-            residentName: getResidentName(unit.residentId),
-            share: amount
-        }));
-        
+        charge.results = state.units.map(unit => ({ unitId: unit.id, unitName: unit.name, residentName: getResidentName(unit.residentId), share: amount }));
         saveState();
         closeModal('editModal');
-        renderCharges();
-        renderDashboard();
-        renderUnits();
-        renderAllJournalViews();
+        renderCharges(); renderDashboard(); renderUnits(); renderAllJournalViews();
         showToast('✅ شارژ ویرایش شد', 'success');
     });
 }
@@ -3791,40 +3145,23 @@ function editCharge(key) {
 function editTravelExpense(id) {
     const exp = state.travelExpenses.find(e => e.id === id);
     if (!exp) return;
-    
-    const payerOptions = state.companions.map(c => 
-        `<option value="${escapeHtml(c.name)}" ${c.name === exp.payer ? 'selected' : ''}>${escapeHtml(c.name)}</option>`
-    ).join('');
-    
+    const payerOptions = state.companions.map(c => `<option value="${escapeHtml(c.name)}" ${c.name === exp.payer ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('');
     const html = `
-        <div class="form-group"><label>عنوان <span class="required">*</span></label>
-            <input type="text" class="form-control" id="editTravelTitle" value="${escapeHtml(exp.title)}"></div>
-        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label>
-            <input type="number" class="form-control" id="editTravelAmount" value="${exp.amount || 0}"></div>
-        <div class="form-group"><label>تاریخ</label>
-            <input type="text" class="form-control datepicker" id="editTravelDate" value="${exp.date || ''}" readonly></div>
-        <div class="form-group"><label>پرداخت‌کننده</label>
-            <select class="form-select" id="editTravelPayer">${payerOptions}</select></div>
+        <div class="form-group"><label>عنوان <span class="required">*</span></label><input type="text" class="form-control" id="editTravelTitle" value="${escapeHtml(exp.title)}"></div>
+        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label><input type="number" class="form-control" id="editTravelAmount" value="${exp.amount || 0}"></div>
+        <div class="form-group"><label>تاریخ</label><input type="text" class="form-control datepicker" id="editTravelDate" value="${exp.date || ''}" readonly></div>
+        <div class="form-group"><label>پرداخت‌کننده</label><select class="form-select" id="editTravelPayer">${payerOptions}</select></div>
     `;
-    
     openEditModal('ویرایش هزینه سفر', html, () => {
         const title = document.getElementById('editTravelTitle').value.trim();
         const amount = parseFloat(document.getElementById('editTravelAmount').value);
         const date = document.getElementById('editTravelDate').value.trim();
         const payer = document.getElementById('editTravelPayer').value;
-        
         if (!title || !amount || amount <= 0) return showToast('عنوان و مبلغ الزامی است', 'error');
-        
-        exp.title = title;
-        exp.amount = amount;
-        exp.date = date || '—';
-        exp.payer = payer;
-        
+        exp.title = title; exp.amount = amount; exp.date = date || '—'; exp.payer = payer;
         saveState();
         closeModal('editModal');
-        renderTravelExpenses();
-        renderTravelSettlement();
-        renderAllJournalViews();
+        renderTravelExpenses(); renderTravelSettlement(); renderAllJournalViews();
         showToast('✅ هزینه سفر ویرایش شد', 'success');
     });
 }
@@ -3847,7 +3184,6 @@ if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/Dongi/sw.js')
             .then(registration => {
                 console.log('[SW] Registered:', registration.scope);
-                
                 registration.addEventListener('updatefound', () => {
                     const newWorker = registration.installing;
                     newWorker.addEventListener('statechange', () => {
@@ -3872,4 +3208,4 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 </body>
-</html>
+</html>    
