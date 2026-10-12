@@ -1102,13 +1102,26 @@ function manualInstall() {
     }
 }    
 
+
 // اگه قبلاً نصب شده، دیگه نشون نده
 window.addEventListener('appinstalled', () => {
     console.log('[PWA] App installed');
     document.getElementById('installPrompt').classList.remove('show');
     deferredInstallPrompt = null;
+    
+    // آپدیت وضعیت نصب تو صفحه اطلاعات ساختمان
+    const statusEl = document.getElementById('installStatus');
+    if (statusEl) {
+        statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ با موفقیت نصب شد</span>';
+    }
+    const installBtn = document.getElementById('manualInstallBtn');
+    if (installBtn) {
+        installBtn.disabled = true;
+        installBtn.style.opacity = '0.5';
+        installBtn.style.cursor = 'not-allowed';
+        installBtn.innerHTML = '<i class="fas fa-check"></i> نصب شده';
+    }
 });
-
 // ==================== DATE PICKER ====================
 function initDatePickers() {
     if (typeof jQuery === 'undefined' || !jQuery.fn.pDatepicker) return;
