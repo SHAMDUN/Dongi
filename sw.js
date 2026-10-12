@@ -49,4 +49,46 @@ function isCdnRequest(url) {
     return CDN_HOSTS.some(host => url.hostname.includes(host));
 }
 
-self.addEventListener
+self.addEventListener('fetch', event => {
+    const url = new URL(event.request.url);
+    
+    if (event.request.method !== 'GET') return;
+    if (url.pathname.includes('/api/')) return;
+    
+    if (isCdnRequest(url)) {
+        event.respondWith(
+            caches.open(CDN_CACHE).then(cache => {
+                return cache.match(event.request).then(cachedResponse => {
+                    const fetchPromise = fetch(event.request).then(networkResponse => {
+                        if (networkResponse && networkResponse.status === 200) {
+                            cache.put(event.request, networkResponse.clone());
+                        }
+                        return networkResponse;
+                    }).catch(() => cachedResponse);
+                    
+                    return cachedResponse || fetchPromise;
+                });
+            })
+        );
+        return;
+    }
+    
+    event.respondWith(
+        caches.open(CACHE_NAME).then(cache => {
+            return cache.match(event.request).then(cachedResponse => {
+                if (cachedResponse) return cachedResponse;
+                return fetch(event.request).then(networkResponse => {
+                    if (networkResponse && networkResponse.status === 200) {
+                        cache.put(event.request, networkResponse.clone());
+                    }
+                    return networkResponse;
+                }).catch(err => {
+                    if (event.request.mode === 'navigate') {
+                        return caches.match('/Dongi/index.html');
+                    }
+                    throw err;
+                });
+            });
+        })
+    );
+});
