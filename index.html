@@ -14,6 +14,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+<script>
+// جلوگیری از flash تم در لود
+(function() {
+    try {
+        const saved = localStorage.getItem('themeMode') || 'auto';
+        let isDark = false;
+        if (saved === 'dark') isDark = true;
+        else if (saved === 'auto') {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        if (isDark) document.documentElement.classList.add('dark-mode');
+    } catch(e) {}
+})();
+</script>
 <style>
 :root {
     --primary: #6366f1; --primary-dark: #4f46e5; --primary-light: #eef2ff;
@@ -32,11 +46,65 @@
     --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
     --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     --gradient-info: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    /* متغیرهای بدنه */
+    --body-bg: #f5f6fc;
+    --body-pattern-opacity: 0.03;
+    --body-pattern-color: %236366f1;
 }
+
+/* ==================== DARK MODE ==================== */
+html.dark-mode {
+    --dark: #f1f5f9;
+    --gray-700: #cbd5e1;
+    --gray-500: #94a3b8;
+    --gray-300: #475569;
+    --gray-200: #334155;
+    --gray-100: #1e293b;
+    --gray-50: #0f172a;
+    --white: #1e293b;
+    --primary-light: #312e81;
+    --success-light: #064e3b;
+    --danger-light: #7f1d1d;
+    --warning-light: #78350f;
+    --shadow: 0 4px 20px rgba(0,0,0,0.3);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.4);
+    --body-bg: #0f172a;
+    --body-pattern-opacity: 0.05;
+    --body-pattern-color: %238b5cf6;
+}
+html.dark-mode body { color: #f1f5f9; }
+html.dark-mode .law-box {
+    background: linear-gradient(135deg, #422006 0%, #78350f 100%);
+}
+html.dark-mode .law-box h4 { color: #fbbf24; }
+html.dark-mode .law-box p { color: #fcd34d; }
+html.dark-mode .info-box {
+    background: var(--primary-light);
+    color: #c7d2fe;
+}
+html.dark-mode .info-box i { color: #a5b4fc; }
+html.dark-mode .modal-header { background: var(--white); }
+html.dark-mode .toast { background: #334155; color: #f1f5f9; }
+html.dark-mode .splash-screen { background: linear-gradient(135deg, #312e81 0%, #4c1d95 100%); }
+html.dark-mode .method-area { background: #1e3a8a; color: #93c5fd; }
+html.dark-mode .method-residents { background: #831843; color: #fbcfe8; }
+html.dark-mode .method-equal { background: #064e3b; color: #6ee7b7; }
+html.dark-mode .method-owners { background: #78350f; color: #fcd34d; }
+html.dark-mode .method-person_area { background: #4c1d95; color: #ddd6fe; }
+html.dark-mode .data-table th { background: #1e293b; color: #cbd5e1; border-bottom-color: #334155; }
+html.dark-mode .data-table td { border-bottom-color: #334155; }
+html.dark-mode .datepicker-plot-area { background: #1e293b !important; color: #f1f5f9 !important; }
+html.dark-mode .datepicker-plot-area .table-days td span { color: #f1f5f9 !important; }
+html.dark-mode .datepicker-plot-area .header-month, 
+html.dark-mode .datepicker-plot-area .header-year { color: #c7d2fe !important; }
+html.dark-mode .datepicker-navigator .pwt-btn { background: #334155 !important; color: #f1f5f9 !important; }
+
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Vazirmatn', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+
 body { 
     color: var(--dark); min-height: 100vh; line-height: 1.6; overflow-x: hidden;
-    background-color: #f5f6fc;
+    background-color: var(--body-bg);
+    transition: background-color 0.3s ease, color 0.3s ease;
     background-image: 
         radial-gradient(circle at 20% 20%, rgba(99,102,241,0.06) 0%, transparent 40%),
         radial-gradient(circle at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 40%),
@@ -45,7 +113,7 @@ body {
 }
 .app-layout { display: flex; min-height: 100vh; }
 
-.sidebar { width: 270px; background: var(--white); border-left: 1px solid var(--gray-200); display: flex; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; z-index: 200; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: -4px 0 24px rgba(15,23,42,0.04); }
+.sidebar { width: 270px; background: var(--white); border-left: 1px solid var(--gray-200); display: flex; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; z-index: 200; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background-color 0.3s ease; box-shadow: -4px 0 24px rgba(15,23,42,0.04); }
 .sidebar-header { padding: 24px 20px; background: var(--gradient-primary); color: white; }
 .sidebar-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .sidebar-logo { width: 48px; height: 48px; background: rgba(255,255,255,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1.5px solid rgba(255,255,255,0.25); }
@@ -72,6 +140,11 @@ body {
 .mobile-brand-text h1 { font-size: 15px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mobile-brand-text p { font-size: 10px; opacity: 0.85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mobile-menu-btn { width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.2); color: white; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mobile-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.theme-toggle-btn { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.2); color: white; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+.theme-toggle-btn:hover { background: rgba(255,255,255,0.25); transform: scale(1.05); }
+.theme-toggle-btn:active { transform: scale(0.95) rotate(180deg); }
+.theme-toggle-btn.auto .fa-sun, .theme-toggle-btn.auto .fa-moon { display: none; }
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.5); backdrop-filter: blur(4px); z-index: 199; opacity: 0; visibility: hidden; transition: all 0.3s; }
 .sidebar-overlay.active { opacity: 1; visibility: visible; }
 
@@ -82,7 +155,7 @@ body {
 .page-title { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-size: 22px; font-weight: 800; }
 .page-title i { width: 44px; height: 44px; background: var(--primary-light); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
 
-.card { background: var(--white); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); }
+.card { background: var(--white); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); transition: background-color 0.3s ease, border-color 0.3s ease; }
 .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); gap: 10px; flex-wrap: wrap; }
 .card-title { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; }
 .card-title i { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; }
@@ -91,9 +164,10 @@ body {
 .icon-danger { background: var(--danger-light); color: var(--danger); }
 .icon-warning { background: var(--warning-light); color: var(--warning); }
 .icon-info { background: #cffafe; color: var(--info); }
+html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 
 .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-.summary-card { background: var(--white); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); position: relative; overflow: hidden; }
+.summary-card { background: var(--white); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--gray-100); position: relative; overflow: hidden; transition: background-color 0.3s ease; }
 .summary-card::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 60px; border-radius: 0 0 0 60px; opacity: 0.08; }
 .summary-card.primary::before { background: var(--primary); }
 .summary-card.success::before { background: var(--success); }
@@ -145,10 +219,27 @@ body {
 .badge-info { background: var(--primary-light); color: var(--primary); }
 .badge-gray { background: var(--gray-100); color: var(--gray-500); }
 
-.empty-state { text-align: center; padding: 40px 20px; color: var(--gray-500); }
-.empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
-.empty-state h3 { font-size: 15px; font-weight: 700; color: var(--gray-700); margin-bottom: 4px; }
-.empty-state p { font-size: 12px; }
+.empty-state { text-align: center; padding: 48px 24px; color: var(--gray-500); }
+.empty-state .emoji { font-size: 64px; margin-bottom: 16px; display: block; animation: emptyFloat 3s ease-in-out infinite; }
+@keyframes emptyFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+.empty-state h3 { font-size: 16px; font-weight: 800; color: var(--gray-700); margin-bottom: 8px; }
+.empty-state p { font-size: 13px; line-height: 1.8; max-width: 320px; margin: 0 auto; }
+.empty-state .empty-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 8px 16px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+.empty-state .empty-hint i { font-size: 13px; }
 
 .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
 .modal-overlay.active { display: flex; }
@@ -437,7 +528,7 @@ body {
         <div class="nav-section-title">مدیریت سفر</div>
         <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
     </nav>
-    <div class="sidebar-footer">حساب‌یار — نسخه ۷.۱.۰</div>
+    <div class="sidebar-footer">حساب‌یار — نسخه ۸.۰.۰</div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -453,7 +544,12 @@ body {
                 <p id="mobileManagerName">مدیریت هوشمند هزینه‌ها</p>
             </div>
         </div>
-        <button class="mobile-menu-btn" onclick="openSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="mobile-header-actions">
+            <button class="theme-toggle-btn auto" id="themeToggleBtn" onclick="cycleTheme()" title="تغییر تم">
+                <i class="fas fa-adjust" id="themeIcon"></i>
+            </button>
+            <button class="mobile-menu-btn" onclick="openSidebar()"><i class="fas fa-bars"></i></button>
+        </div>
     </div>
 </header>
 
@@ -804,20 +900,19 @@ body {
     </div>
 
     <div class="card">
-    <div class="card-header"><div class="card-title"><i class="fas fa-download icon-primary"></i> نصب اپلیکیشن</div></div>
-    <div class="info-box"><i class="fas fa-info-circle"></i> با نصب اپ، به‌صورت آفلاین هم کار می‌کنه و از صفحه اصلی گوشی در دسترسه.</div>
-    <button class="btn btn-primary btn-block" onclick="manualInstall()" id="manualInstallBtn" style="margin-bottom:10px;">
-        <i class="fas fa-mobile-alt"></i> نصب روی گوشی
-    </button>
-    <div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div>
-</div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-download icon-primary"></i> نصب اپلیکیشن</div></div>
+        <div class="info-box"><i class="fas fa-info-circle"></i> با نصب اپ، به‌صورت آفلاین هم کار می‌کنه و از صفحه اصلی گوشی در دسترسه.</div>
+        <button class="btn btn-primary btn-block" onclick="manualInstall()" id="manualInstallBtn" style="margin-bottom:10px;">
+            <i class="fas fa-mobile-alt"></i> نصب روی گوشی
+        </button>
+        <div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div>
+    </div>
 
-<div class="card">
-    <div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div>
-    <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
-    <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
-</div>
-    
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div>
+        <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
+        <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
+    </div>
 </section>
 
 </main>
@@ -891,6 +986,7 @@ body {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 <script>
 // ==================== STATE ====================
 const STORAGE_KEY = 'hesabyar_v8';
@@ -913,6 +1009,65 @@ let currentPaymentUnitId = null;
 let tempExpenseFile = null;
 let editContext = { type: null, id: null };
 let deferredInstallPrompt = null;
+
+// ==================== THEME ====================
+function getThemeMode() {
+    return localStorage.getItem('themeMode') || 'auto';
+}
+
+function applyTheme(mode) {
+    const html = document.documentElement;
+    let isDark = false;
+    
+    if (mode === 'dark') isDark = true;
+    else if (mode === 'light') isDark = false;
+    else {
+        // auto
+        isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    
+    if (isDark) html.classList.add('dark-mode');
+    else html.classList.remove('dark-mode');
+    
+    // آپدیت آیکون
+    const btn = document.getElementById('themeToggleBtn');
+    const icon = document.getElementById('themeIcon');
+    if (btn && icon) {
+        btn.classList.remove('auto', 'light', 'dark');
+        btn.classList.add(mode);
+        
+        if (mode === 'auto') icon.className = 'fas fa-adjust';
+        else if (mode === 'light') icon.className = 'fas fa-sun';
+        else icon.className = 'fas fa-moon';
+    }
+    
+    // آپدیت theme-color meta
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+        metaTheme.setAttribute('content', isDark ? '#1e293b' : '#6366f1');
+    }
+}
+
+function cycleTheme() {
+    const current = getThemeMode();
+    let next;
+    if (current === 'auto') next = 'light';
+    else if (current === 'light') next = 'dark';
+    else next = 'auto';
+    
+    localStorage.setItem('themeMode', next);
+    applyTheme(next);
+    
+    const labels = { auto: '🌗 تم خودکار', light: '☀️ تم روشن', dark: '🌙 تم تاریک' };
+    showToast(labels[next], 'success');
+}
+
+// گوش دادن به تغییرات تم سیستم
+if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (getThemeMode() === 'auto') applyTheme('auto');
+    });
+}
 
 // ==================== STORAGE ====================
 function saveState() {
@@ -1006,7 +1161,6 @@ function hideSplashScreen() {
 }
 
 // ==================== OFFLINE INDICATOR ====================
-
 let offlineToastTimer = null;
 
 function updateOnlineStatus() {
@@ -1014,38 +1168,38 @@ function updateOnlineStatus() {
     if (!bar) return;
     
     if (navigator.onLine) {
-        // آنلاین شد: اگه داره نشون داده میشه، فوراً مخفی کن
         bar.classList.remove('show');
         if (offlineToastTimer) {
             clearTimeout(offlineToastTimer);
             offlineToastTimer = null;
         }
     } else {
-        // آفلاین شد: نشون بده، ۳.۵ ثانیه بعد خودکار مخفی کن
         bar.classList.add('show');
         if (offlineToastTimer) clearTimeout(offlineToastTimer);
         offlineToastTimer = setTimeout(() => {
             bar.classList.remove('show');
             offlineToastTimer = null;
-        }, 10000);
+        }, 3500);
     }
 }
+
 // ==================== INSTALL PROMPT ====================
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
+    
     const statusEl = document.getElementById('installStatus');
-if (statusEl) statusEl.textContent = '✅ آماده نصب — دکمه بالا رو بزن.';
-    // چک کن قبلاً dismiss نکرده باشه
+    if (statusEl) statusEl.textContent = '✅ آماده نصب — دکمه بالا رو بزن.';
+    
     const dismissedAt = localStorage.getItem('installPromptDismissed');
     if (dismissedAt) {
         const daysSince = (Date.now() - parseInt(dismissedAt)) / (1000 * 60 * 60 * 24);
-        if (daysSince < 7) return; // کمتر از ۷ روز پیش dismiss کرده
+        if (daysSince < 7) return;
     }
     setTimeout(() => {
         const prompt = document.getElementById('installPrompt');
         if (prompt) prompt.classList.add('show');
-    }, 3500);
+    }, 10000);
 });
 
 function installApp() {
@@ -1066,9 +1220,11 @@ function dismissInstall() {
     localStorage.setItem('installPromptDismissed', Date.now().toString());
     document.getElementById('installPrompt').classList.remove('show');
 }
+
 function manualInstall() {
     const statusEl = document.getElementById('installStatus');
-       // چک کن قبلاً نصب شده یا نه
+    
+    // چک کن قبلاً نصب شده یا نه
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
     if (isStandalone) {
         if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ قبلاً نصب شده و الان تو حالت اپ داری استفاده می‌کنی.</span>';
@@ -1081,30 +1237,22 @@ function manualInstall() {
         return;
     }
     
-    if (deferredInstallPrompt) { 
     if (deferredInstallPrompt) {
-        // اگه بنر native موجوده، صدا بزن
+        // بنر native موجوده
         deferredInstallPrompt.prompt();
         deferredInstallPrompt.userChoice.then((choiceResult) => {
-            
+            if (choiceResult.outcome === 'accepted') {
+                if (statusEl) statusEl.innerHTML = '<span style="color:var(--primary);">⏳ در حال نصب... لطفاً صبر کن</span>';
+                document.getElementById('installPrompt').classList.remove('show');
+            } else {
+                if (statusEl) statusEl.textContent = 'نصب لغو شد.';
+            }
             deferredInstallPrompt = null;
         });
     } else {
-        // بنر native موجود نیست → راهنمای دستی
+        // راهنمای دستی
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         const isAndroid = /Android/.test(navigator.userAgent);
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-        if (choiceResult.outcome === 'accepted') {
-            if (statusEl) statusEl.innerHTML = '<span style="color:var(--primary);">⏳ در حال نصب... لطفاً صبر کن</span>';
-            document.getElementById('installPrompt').classList.remove('show');
-            // منتظر event appinstalled بمون که بعدش خودش پیام "✅ نصب شد" رو نشون میده
-        } else {
-            if (statusEl) statusEl.textContent = 'نصب لغو شد.';
-        }
-        if (isStandalone) {
-            if (statusEl) statusEl.textContent = '✅ اپ قبلاً نصب شده.';
-            return;
-        }
         
         if (isIOS) {
             if (statusEl) statusEl.innerHTML = '📱 <strong>iPhone/iPad:</strong> دکمه اشتراک‌گذاری (□↑) در Safari رو بزن، بعد «Add to Home Screen» رو انتخاب کن.';
@@ -1114,16 +1262,13 @@ function manualInstall() {
             if (statusEl) statusEl.innerHTML = '💻 <strong>دسکتاپ:</strong> از نوار آدرس مرورگر، آیکون نصب (⊕ یا 💻) رو بزن.';
         }
     }
-}    
+}
 
-
-// اگه قبلاً نصب شده، دیگه نشون نده
 window.addEventListener('appinstalled', () => {
     console.log('[PWA] App installed');
     document.getElementById('installPrompt').classList.remove('show');
     deferredInstallPrompt = null;
     
-    // آپدیت وضعیت نصب تو صفحه اطلاعات ساختمان
     const statusEl = document.getElementById('installStatus');
     if (statusEl) {
         statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ با موفقیت نصب شد</span>';
@@ -1136,6 +1281,7 @@ window.addEventListener('appinstalled', () => {
         installBtn.innerHTML = '<i class="fas fa-check"></i> نصب شده';
     }
 });
+
 // ==================== DATE PICKER ====================
 function initDatePickers() {
     if (typeof jQuery === 'undefined' || !jQuery.fn.pDatepicker) return;
@@ -1246,7 +1392,13 @@ function renderOwnersList() {
     document.getElementById('ownersCount').textContent = toPersianNum(state.owners.length) + ' مالک';
     
     if (state.owners.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">👤</div><p style="font-size:12px;">هنوز مالکی ثبت نشده</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">👤</span>
+                <h3>هنوز مالکی ثبت نشده</h3>
+                <p>اولین مالک ساختمان رو اضافه کن تا بتونی واحدها رو بهش اختصاص بدی</p>
+                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
+            </div>`;
         return;
     }
     
@@ -1327,7 +1479,13 @@ function renderResidentsList() {
     document.getElementById('residentsCount').textContent = toPersianNum(state.residents.length) + ' ساکن';
     
     if (state.residents.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">👥</div><p style="font-size:12px;">هنوز ساکنی ثبت نشده</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">👥</span>
+                <h3>هنوز ساکنی ثبت نشده</h3>
+                <p>ساکنین ساختمان رو اینجا اضافه کن. مالکین خودکار به لیست اضافه می‌شن</p>
+                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
+            </div>`;
         return;
     }
     
@@ -1594,7 +1752,13 @@ function renderUnits() {
     document.getElementById('unitsCount').textContent = toPersianNum(state.units.length) + ' واحد';
 
     if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🏘️</div><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد را اضافه کنید</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">🏘️</span>
+                <h3>هنوز واحدی ثبت نشده</h3>
+                <p>اولین واحد ساختمون رو اضافه کن تا بتونی هزینه‌ها و شارژها رو ثبت کنی</p>
+                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
+            </div>`;
         return;
     }
 
@@ -1861,7 +2025,13 @@ function getMethodClass(method) {
 function renderExpenses() {
     const container = document.getElementById('expensesList');
     if (state.expenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">📝</div><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمان را اضافه کنید</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">📝</span>
+                <h3>هنوز هزینه‌ای ثبت نشده</h3>
+                <p>هزینه‌های ساختمون مثل آب، برق، گاز و نظافت رو اینجا ثبت کن</p>
+                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
+            </div>`;
         return;
     }
     const icons = { electricity: '⚡', gas: '🔥', water: '💧', elevator: '🛗', cleaning: '🧹', repair: '🔧', maintenance: '🛠️', insurance: '📋', tax: '💼', other: '📦' };
@@ -1954,7 +2124,13 @@ function renderCharges() {
     const container = document.getElementById('chargesList');
     const keys = Object.keys(state.charges);
     if (keys.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">💰</div><h3>هنوز شارژی تعیین نشده</h3><p>از فرم بالا شارژ را تعیین کنید</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">💰</span>
+                <h3>هنوز شارژی تعیین نشده</h3>
+                <p>با فرم بالا مبلغ شارژ هر واحد رو تعیین کن تا بتونی وضعیت پرداخت رو پیگیری کنی</p>
+                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
+            </div>`;
         return;
     }
     let html = '';
@@ -2064,7 +2240,13 @@ function deleteCompanion(id) {
 function renderCompanions() {
     const container = document.getElementById('companionsList');
     if (state.companions.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">👥</div><p style="font-size:12px;">هنوز همسفری اضافه نشده</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">👥</span>
+                <h3>هنوز همسفری اضافه نشده</h3>
+                <p>افرادی که تو سفر همراهتن رو اضافه کن تا هزینه‌ها بینشون تقسیم بشه</p>
+                <div class="empty-hint"><i class="fas fa-arrow-up"></i> دکمه افزودن رو بزن</div>
+            </div>`;
         return;
     }
     container.innerHTML = state.companions.map(c => `
@@ -2154,7 +2336,13 @@ function deleteTravelExpense(id) {
 function renderTravelExpenses() {
     const container = document.getElementById('travelList');
     if (state.travelExpenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🧳</div><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر را اضافه کنید</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">🧳</span>
+                <h3>هنوز هزینه سفری ثبت نشده</h3>
+                <p>هزینه‌های سفر مثل بنزین، اقامت، غذا و بلیط رو اینجا ثبت کن</p>
+                <div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا استفاده کن</div>
+            </div>`;
         return;
     }
     const icons = { transport: '🚗', food: '🍽️', accommodation: '🏨', tickets: '🎫', shopping: '🛍️', other: '📦' };
@@ -2180,7 +2368,12 @@ function renderTravelSettlement() {
     const container = document.getElementById('travelSettle');
     if (!container) return;
     if (state.travelExpenses.length === 0 || state.companions.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><div class="emoji">💱</div><p style="font-size:12px;">برای تسویه، همسفر و هزینه اضافه کنید</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">💱</span>
+                <h3>برای تسویه، اطلاعات لازمه</h3>
+                <p>همسفران و هزینه‌های سفر رو اضافه کن تا اینجا تسویه حساب ببینی</p>
+            </div>`;
         return;
     }
     const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
@@ -2238,7 +2431,15 @@ function renderDashboard() {
 
     const container = document.getElementById('dashboardUnitsList');
     if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🏠</div><h3>هنوز واحدی ثبت نشده</h3><p>برای شروع، واحدها را اضافه کنید</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">🏠</span>
+                <h3>هنوز واحدی ثبت نشده</h3>
+                <p>برای شروع، از بخش «واحدها و ساکنین» اولین واحد رو اضافه کن</p>
+                <div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;">
+                    <i class="fas fa-plus"></i> افزودن واحد
+                </div>
+            </div>`;
         return;
     }
     container.innerHTML = state.units.map((u, i) => {
@@ -2293,6 +2494,7 @@ function initPart1() {
     loadSettings();
     handleChargePeriodChange();
     updateSplitMethodHelp();
+    applyTheme(getThemeMode());
     setTimeout(initDatePickers, 500);
     refreshOwnerDropdowns();
     refreshResidentDropdowns();
@@ -2421,7 +2623,15 @@ function renderMatrixTable() {
     const container = document.getElementById('matrixTable');
     if (!container) return;
     if (state.expenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">📒</div><h3>هنوز هزینه‌ای ثبت نشده</h3><p>با ثبت هزینه، جدول اینجا نمایش داده می‌شود</p></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">📒</span>
+                <h3>هنوز هزینه‌ای ثبت نشده</h3>
+                <p>با ثبت هزینه در بخش «هزینه‌های ساختمان»، جدول اینجا نمایش داده میشه</p>
+                <div class="empty-hint" onclick="navigateTo('expenses')" style="cursor:pointer;">
+                    <i class="fas fa-plus"></i> ثبت هزینه
+                </div>
+            </div>`;
         return;
     }
 
@@ -2486,7 +2696,15 @@ function renderSummaryTable() {
     if (!container) return;
 
     if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🏘️</div><h3>هنوز واحدی ثبت نشده</h3></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">🏘️</span>
+                <h3>هنوز واحدی ثبت نشده</h3>
+                <p>برای مشاهده خلاصه، ابتدا واحدها رو ثبت کن</p>
+                <div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;">
+                    <i class="fas fa-plus"></i> افزودن واحد
+                </div>
+            </div>`;
         return;
     }
 
@@ -2573,7 +2791,15 @@ function renderPersonsTable() {
     if (!container) return;
 
     if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">🤝</div><h3>هنوز واحدی ثبت نشده</h3></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">🤝</span>
+                <h3>هنوز واحدی ثبت نشده</h3>
+                <p>برای مشاهده حساب همسایگان، ابتدا واحدها و مالکین رو ثبت کن</p>
+                <div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;">
+                    <i class="fas fa-plus"></i> افزودن واحد
+                </div>
+            </div>`;
         return;
     }
 
@@ -2684,7 +2910,15 @@ function renderTravelJournalTable() {
     if (!container) return;
 
     if (state.travelExpenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><div class="emoji">✈️</div><h3>هنوز هزینه سفری ثبت نشده</h3></div>`;
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">✈️</span>
+                <h3>هنوز هزینه سفری ثبت نشده</h3>
+                <p>هزینه‌های سفر رو در بخش «سفر» ثبت کن تا اینجا نمایش داده بشه</p>
+                <div class="empty-hint" onclick="navigateTo('travel')" style="cursor:pointer;">
+                    <i class="fas fa-plus"></i> ثبت هزینه سفر
+                </div>
+            </div>`;
         return;
     }
 
