@@ -34,7 +34,17 @@
     --gradient-info: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Vazirmatn', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-height: 1.6; overflow-x: hidden; }
+
+/* بک‌گراند طرح‌دار ملایم */
+body { 
+    color: var(--dark); min-height: 100vh; line-height: 1.6; overflow-x: hidden;
+    background-color: #f5f6fc;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(99,102,241,0.06) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(16,185,129,0.03) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
 .app-layout { display: flex; min-height: 100vh; }
 
 .sidebar { width: 270px; background: var(--white); border-left: 1px solid var(--gray-200); display: flex; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; z-index: 200; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: -4px 0 24px rgba(15,23,42,0.04); }
@@ -52,6 +62,8 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .nav-link:hover { background: var(--gray-100); }
 .nav-link.active { background: var(--primary-light); color: var(--primary); }
 .nav-link.active i { color: var(--primary); }
+.nav-divider { height: 1px; background: var(--gray-200); margin: 12px 8px; }
+.nav-section-title { font-size: 10px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; padding: 8px 14px 4px; letter-spacing: 0.5px; }
 .sidebar-footer { padding: 16px; border-top: 1px solid var(--gray-200); font-size: 11px; color: var(--gray-500); text-align: center; }
 
 .main-area { flex: 1; margin-right: 270px; min-width: 0; }
@@ -169,6 +181,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .sub-item .date { color: var(--gray-500); font-size: 11px; }
 .sub-item .amount { color: var(--success); font-weight: 700; }
 .sub-item .del { color: var(--danger); cursor: pointer; }
+.sub-item .payer { color: var(--primary); font-size: 10px; font-weight: 700; }
 
 .law-box { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-right: 4px solid var(--warning); border-radius: var(--radius-sm); padding: 14px 16px; margin-top: 16px; }
 .law-box h4 { font-size: 13px; font-weight: 800; color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
@@ -212,6 +225,8 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 .info-box { background: var(--primary-light); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 12px; color: var(--primary-dark); line-height: 1.8; margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; }
 .info-box i { color: var(--primary); margin-top: 3px; }
 
+.optgroup-label { font-weight: 700; color: var(--primary); }
+
 .datepicker-plot-area { font-family: 'Vazirmatn', sans-serif !important; border-radius: 12px !important; box-shadow: 0 10px 40px rgba(15,23,42,0.15) !important; z-index: 3000 !important; }
 .datepicker-day-view .table-days td span { border-radius: 8px !important; }
 .datepicker-day-view .table-days td.selected span { background: var(--primary) !important; color: white !important; }
@@ -254,15 +269,18 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
         </div>
     </div>
     <nav class="sidebar-nav">
-        <button class="nav-link active" data-page="dashboard" onclick="navigateTo('dashboard')"><i class="fas fa-chart-pie"></i> داشبورد</button>
-        <button class="nav-link" data-page="units" onclick="navigateTo('units')"><i class="fas fa-building"></i> واحدها</button>
-        <button class="nav-link" data-page="expenses" onclick="navigateTo('expenses')"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</button>
-        <button class="nav-link" data-page="charges" onclick="navigateTo('charges')"><i class="fas fa-coins"></i> شارژها</button>
-        <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
-        <button class="nav-link" data-page="accounting" onclick="navigateTo('accounting')"><i class="fas fa-book"></i> دفتر حسابداری</button>
         <button class="nav-link" data-page="building-info" onclick="navigateTo('building-info')"><i class="fas fa-building-user"></i> اطلاعات ساختمان</button>
+        <button class="nav-link" data-page="units" onclick="navigateTo('units')"><i class="fas fa-building"></i> واحدها و ساکنین</button>
+        <button class="nav-link" data-page="charges" onclick="navigateTo('charges')"><i class="fas fa-coins"></i> شارژها</button>
+        <button class="nav-link" data-page="expenses" onclick="navigateTo('expenses')"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</button>
+        <button class="nav-link" data-page="accounting" onclick="navigateTo('accounting')"><i class="fas fa-book"></i> دفتر حسابداری</button>
+        <button class="nav-link active" data-page="dashboard" onclick="navigateTo('dashboard')"><i class="fas fa-chart-pie"></i> داشبورد</button>
+        
+        <div class="nav-divider"></div>
+        <div class="nav-section-title">مدیریت سفر</div>
+        <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
     </nav>
-    <div class="sidebar-footer">حساب‌یار — نسخه ۵.۰.۰</div>
+    <div class="sidebar-footer">حساب‌یار — نسخه ۶.۰.۰</div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -306,7 +324,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 
 <!-- UNITS -->
 <section class="page" id="page-units">
-    <div class="page-title"><i class="fas fa-building"></i> واحدها</div>
+    <div class="page-title"><i class="fas fa-building"></i> واحدها و ساکنین</div>
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-plus-circle icon-primary"></i> افزودن واحد جدید</div></div>
         <div class="form-group">
@@ -436,7 +454,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
     <div class="page-title"><i class="fas fa-coins"></i> شارژها</div>
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-calculator icon-primary"></i> تعیین شارژ</div></div>
-        <div class="info-box"><i class="fas fa-info-circle"></i> شارژ مبلغ ثابتی است که هر واحد موظف است پرداخت کند. این مبلغ در محاسبه بدهی/طلب هر واحد لحاظ می‌شود.</div>
+        <div class="info-box"><i class="fas fa-info-circle"></i> شارژ مبلغ ثابتی است که هر واحد موظف است پرداخت کند.</div>
         <div class="form-row">
             <div class="form-group">
                 <label>دوره</label>
@@ -548,7 +566,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
                     <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('matrix')"><i class="fas fa-file-pdf"></i> PDF</button>
                 </div>
             </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> این جدول سهم هر واحد از هر هزینه را نشان می‌دهد (کل هزینه به واحد نسبت داده می‌شود).</div>
+            <div class="info-box"><i class="fas fa-info-circle"></i> سهم هر واحد از هر هزینه.</div>
             <div id="matrixTable"></div>
         </div>
     </div>
@@ -562,7 +580,6 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
                     <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('summary')"><i class="fas fa-file-pdf"></i> PDF</button>
                 </div>
             </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> سهم هر واحد به دو بخش ساکن و مالک تفکیک شده است.</div>
             <div id="summaryTable"></div>
         </div>
     </div>
@@ -576,7 +593,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
                     <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('owners')"><i class="fas fa-file-pdf"></i> PDF</button>
                 </div>
             </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> سهم مالکانه + سهم ساکنانه فقط از واحدهایی که خود مالک در آن‌ها ساکن است.</div>
+            <div class="info-box"><i class="fas fa-info-circle"></i> پرداختی هر مالک بر اساس پرداخت‌هایی است که خودش انجام داده.</div>
             <div id="ownersTable"></div>
         </div>
     </div>
@@ -590,7 +607,6 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
                     <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('residents')"><i class="fas fa-file-pdf"></i> PDF</button>
                 </div>
             </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> سهم ساکنانه هر ساکن از هزینه‌های جاری (آب، برق، نظافت، ...). هزینه‌های مالکانه اینجا نمایش داده نمی‌شوند.</div>
             <div id="residentsSummaryTable"></div>
         </div>
     </div>
@@ -626,7 +642,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             <div class="card-title"><i class="fas fa-user-tie icon-warning"></i> مالکین</div>
             <span class="badge badge-warning" id="ownersCount">۰ مالک</span>
         </div>
-        <div class="info-box"><i class="fas fa-info-circle"></i> با افزودن هر مالک، خودکار یک ساکن هم برایش ساخته می‌شود. در صفحه واحدها از دراپ‌داون قابل انتخاب است.</div>
+        <div class="info-box"><i class="fas fa-info-circle"></i> با افزودن هر مالک، خودکار یک ساکن هم برایش ساخته می‌شود.</div>
         <div class="form-row">
             <div class="form-group"><label>نام مالک <span class="required">*</span></label><input type="text" class="form-control" id="ownerNameInput" placeholder="نام و نام خانوادگی"></div>
             <div class="form-group"><label>شماره تماس</label><input type="text" class="form-control" id="ownerPhoneInput" placeholder="۰۹۱۲..."></div>
@@ -641,7 +657,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             <div class="card-title"><i class="fas fa-user-friends icon-info"></i> ساکنین</div>
             <span class="badge badge-info" id="residentsCount">۰ ساکن</span>
         </div>
-        <div class="info-box"><i class="fas fa-info-circle"></i> ساکنین اینجا ثبت می‌شوند. مالکین خودکار به این لیست اضافه می‌شوند. مستاجرین را دستی اضافه کنید.</div>
+        <div class="info-box"><i class="fas fa-info-circle"></i> مالکین خودکار به این لیست اضافه می‌شوند. مستاجرین را دستی اضافه کنید.</div>
         <div class="form-row">
             <div class="form-group"><label>نام ساکن <span class="required">*</span></label><input type="text" class="form-control" id="residentNameInput" placeholder="نام و نام خانوادگی"></div>
             <div class="form-group"><label>شماره تماس</label><input type="text" class="form-control" id="residentPhoneInput" placeholder="۰۹۱۲..."></div>
@@ -670,6 +686,15 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
             <button class="modal-close" onclick="closeModal('paymentModal')"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
+            <div class="form-group">
+                <label>پرداخت‌کننده <span class="required">*</span></label>
+                <select class="form-select" id="paymentPayer">
+                    <option value="">— انتخاب پرداخت‌کننده —</option>
+                </select>
+                <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">
+                    <i class="fas fa-info-circle"></i> مشخص کنید این پرداخت توسط چه کسی انجام شده است.
+                </div>
+            </div>
             <div class="form-group"><label>مبلغ پرداخت (تومان)</label><input type="number" class="form-control" id="paymentAmount" placeholder="۲۰۰۰۰۰۰"></div>
             <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="paymentDate" placeholder="انتخاب تاریخ" readonly></div>
             <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="paymentNote" placeholder="پرداخت نقدی"></div>
@@ -722,7 +747,7 @@ body { background: var(--gray-50); color: var(--dark); min-height: 100vh; line-h
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 // ==================== STATE ====================
-const STORAGE_KEY = 'hesabyar_v6';
+const STORAGE_KEY = 'hesabyar_v7';
 let state = {
     owners: [],
     residents: [],
@@ -779,6 +804,7 @@ function navigateTo(page) {
     if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
     if (page === 'building-info') { loadSettings(); renderOwnersList(); renderResidentsList(); }
     if (page === 'units') { refreshOwnerDropdowns(); refreshResidentDropdowns(); }
+    if (page === 'dashboard') renderDashboard();
 }
 
 function openSidebar() {
@@ -811,6 +837,7 @@ function showToast(msg, type = 'default') {
     window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
 }
 function uid() { return Date.now() + Math.random().toString(36).substr(2, 9); }
+function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 function toPersianDateString() {
     try {
@@ -822,7 +849,7 @@ function toPersianDateString() {
 // ==================== DATE PICKER ====================
 function initDatePickers() {
     if (typeof jQuery === 'undefined' || !jQuery.fn.pDatepicker) return;
-    jQuery('.datepicker').pDatepicker({
+    jQuery('.datepicker:not(.has-picker)').addClass('has-picker').pDatepicker({
         format: 'YYYY/MM/DD', initialValue: false, autoClose: true, persianDigit: true, observer: true,
         calendar: { persian: { locale: 'fa', leapYearMode: 'algorithmic' } },
         toolbox: { calendarSwitch: { enabled: false } },
@@ -941,8 +968,8 @@ function renderOwnersList() {
             <div class="list-item-info">
                 <div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div>
                 <div>
-                    <div class="list-item-title">${o.name}</div>
-                    <div class="list-item-subtitle">${o.phone || '—'} ${unitsOwned > 0 ? '• ' + toPersianNum(unitsOwned) + ' واحد' : ''} ${o.note ? '• ' + o.note : ''}</div>
+                    <div class="list-item-title">${escapeHtml(o.name)}</div>
+                    <div class="list-item-subtitle">${escapeHtml(o.phone) || '—'} ${unitsOwned > 0 ? '• ' + toPersianNum(unitsOwned) + ' واحد' : ''} ${o.note ? '• ' + escapeHtml(o.note) : ''}</div>
                 </div>
             </div>
             <div class="btn-group">
@@ -1024,8 +1051,8 @@ function renderResidentsList() {
                     <i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i>
                 </div>
                 <div>
-                    <div class="list-item-title">${r.name} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div>
-                    <div class="list-item-subtitle">${r.phone || '—'} ${r.note ? '• ' + r.note : ''}</div>
+                    <div class="list-item-title">${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div>
+                    <div class="list-item-subtitle">${escapeHtml(r.phone) || '—'} ${r.note ? '• ' + escapeHtml(r.note) : ''}</div>
                 </div>
             </div>
             <div class="btn-group">
@@ -1048,7 +1075,7 @@ function refreshOwnerDropdowns() {
             return;
         }
         sel.innerHTML = '<option value="">— انتخاب مالک —</option>' +
-            state.owners.map(o => `<option value="${o.id}">${o.name}${o.phone ? ' — ' + o.phone : ''}</option>`).join('');
+            state.owners.map(o => `<option value="${o.id}">${escapeHtml(o.name)}${o.phone ? ' — ' + escapeHtml(o.phone) : ''}</option>`).join('');
         if (current) sel.value = current;
     });
 }
@@ -1062,7 +1089,44 @@ function refreshResidentDropdowns() {
         return;
     }
     sel.innerHTML = '<option value="">— انتخاب ساکن —</option>' +
-        state.residents.map(r => `<option value="${r.id}">${r.name}${r.phone ? ' — ' + r.phone : ''}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`).join('');
+        state.residents.map(r => `<option value="${r.id}">${escapeHtml(r.name)}${r.phone ? ' — ' + escapeHtml(r.phone) : ''}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`).join('');
+    if (current) sel.value = current;
+}
+
+// دراپ‌داون پرداخت‌کننده — همه ساکنین + همه مالکین
+function refreshPaymentPayerDropdown() {
+    const sel = document.getElementById('paymentPayer');
+    if (!sel) return;
+    const current = sel.value;
+    
+    let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
+    
+    // گروه ساکنین
+    if (state.residents.length > 0) {
+        html += '<optgroup label="👥 ساکنین">';
+        state.residents.forEach(r => {
+            const ownerTag = r.linkedOwnerId ? ' (مالک)' : '';
+            html += `<option value="resident:${r.id}">${escapeHtml(r.name)}${ownerTag}</option>`;
+        });
+        html += '</optgroup>';
+    }
+    
+    // گروه مالکین (فقط مالکینی که ساکن نیستند تا تکراری نشه)
+    const ownerOnly = state.owners.filter(o => {
+        // بررسی کن که آیا این مالک خودش یه ساکن لینک‌شده داره
+        const linkedResident = state.residents.find(r => r.linkedOwnerId === o.id);
+        return !linkedResident;
+    });
+    
+    if (ownerOnly.length > 0) {
+        html += '<optgroup label="👔 مالکین">';
+        ownerOnly.forEach(o => {
+            html += `<option value="owner:${o.id}">${escapeHtml(o.name)}</option>`;
+        });
+        html += '</optgroup>';
+    }
+    
+    sel.innerHTML = html;
     if (current) sel.value = current;
 }
 
@@ -1070,6 +1134,15 @@ function getOwnerById(id) { return state.owners.find(o => o.id === id); }
 function getResidentById(id) { return state.residents.find(r => r.id === id); }
 function getOwnerName(id) { const o = getOwnerById(id); return o ? o.name : 'نامشخص'; }
 function getResidentName(id) { const r = getResidentById(id); return r ? r.name : 'نامشخص'; }
+
+// نام پرداخت‌کننده از کد ذخیره‌شده
+function getPayerName(payerCode) {
+    if (!payerCode) return '—';
+    const [type, id] = payerCode.split(':');
+    if (type === 'resident') return getResidentName(id);
+    if (type === 'owner') return getOwnerName(id);
+    return '—';
+}
 
 // ==================== UNITS ====================
 function toggleTenantFields() {
@@ -1143,6 +1216,15 @@ function deleteUnit(id) {
 
 function openPaymentModal(unitId) {
     currentPaymentUnitId = unitId;
+    refreshPaymentPayerDropdown();
+    
+    // پیش‌فرض: ساکن این واحد
+    const unit = state.units.find(u => u.id === unitId);
+    if (unit && unit.residentId) {
+        const sel = document.getElementById('paymentPayer');
+        sel.value = 'resident:' + unit.residentId;
+    }
+    
     document.getElementById('paymentAmount').value = '';
     document.getElementById('paymentDate').value = '';
     document.getElementById('paymentNote').value = '';
@@ -1150,14 +1232,27 @@ function openPaymentModal(unitId) {
 }
 
 function savePayment() {
+    const payer = document.getElementById('paymentPayer').value;
     const amount = parseFloat(document.getElementById('paymentAmount').value);
     const date = document.getElementById('paymentDate').value.trim() || toPersianDateString();
     const note = document.getElementById('paymentNote').value.trim();
+    
+    if (!payer) return showToast('پرداخت‌کننده را انتخاب کنید', 'error');
     if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
+    
     const unit = state.units.find(u => u.id === currentPaymentUnitId);
     if (!unit) return;
+    
     unit.payments = unit.payments || [];
-    unit.payments.push({ id: uid(), amount, date, note, createdAt: toPersianDateString() });
+    unit.payments.push({ 
+        id: uid(), 
+        payer,        // "resident:ID" یا "owner:ID"
+        amount, 
+        date, 
+        note, 
+        createdAt: toPersianDateString() 
+    });
+    
     saveState();
     closeModal('paymentModal');
     renderUnits();
@@ -1182,6 +1277,27 @@ function deletePayment(unitId, paymentId) {
 
 function getUnitTotalPaid(unit) {
     return (unit.payments || []).reduce((s, p) => s + (p.amount || 0), 0);
+}
+
+// جمع پرداختی‌های یک شخص خاص (resident یا owner)
+function getPayerTotalPaid(payerCode) {
+    let total = 0;
+    state.units.forEach(u => {
+        (u.payments || []).forEach(p => {
+            if (p.payer === payerCode) total += p.amount || 0;
+        });
+    });
+    return total;
+}
+
+// جمع پرداختی‌های یک ساکن (با کد resident:ID)
+function getResidentTotalPaid(residentId) {
+    return getPayerTotalPaid('resident:' + residentId);
+}
+
+// جمع پرداختی‌های یک مالک (با کد owner:ID)
+function getOwnerTotalPaid(ownerId) {
+    return getPayerTotalPaid('owner:' + ownerId);
 }
 
 function getUnitTotalCharge(unit) {
@@ -1212,8 +1328,8 @@ function renderUnits() {
         const residentName = getResidentName(unit.residentId);
 
         let typeBadge = unit.isTenant
-            ? `<span class="badge badge-warning"><i class="fas fa-key"></i> مستاجر — مالک: ${ownerName}</span>`
-            : `<span class="badge badge-info"><i class="fas fa-home"></i> مالک ساکن: ${ownerName}</span>`;
+            ? `<span class="badge badge-warning"><i class="fas fa-key"></i> مستاجر — مالک: ${escapeHtml(ownerName)}</span>`
+            : `<span class="badge badge-info"><i class="fas fa-home"></i> مالک ساکن: ${escapeHtml(ownerName)}</span>`;
 
         let rentInfo = '';
         if (unit.isTenant && (unit.rentStart || unit.rentEnd)) {
@@ -1236,6 +1352,7 @@ function renderUnits() {
                     ${payments.map(p => `
                         <div class="sub-item">
                             <span class="date"><i class="far fa-calendar"></i> ${p.date}</span>
+                            <span class="payer"><i class="fas fa-user"></i> ${escapeHtml(getPayerName(p.payer))}</span>
                             <span class="amount">${formatNumber(p.amount)} ت</span>
                             <span class="del" onclick="deletePayment('${unit.id}', '${p.id}')"><i class="fas fa-times"></i></span>
                         </div>
@@ -1256,8 +1373,8 @@ function renderUnits() {
                     <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
                         <div class="list-item-icon icon-primary">${toPersianNum(idx + 1)}</div>
                         <div style="min-width:0;">
-                            <div class="list-item-title">${unit.name}</div>
-                            <div class="list-item-subtitle">ساکن: ${residentName} • ${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div>
+                            <div class="list-item-title">${escapeHtml(unit.name)}</div>
+                            <div class="list-item-subtitle">ساکن: ${escapeHtml(residentName)} • ${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div>
                             ${rentInfo}
                         </div>
                     </div>
@@ -1316,7 +1433,7 @@ function handleExpenseFile(event) {
         document.getElementById('expenseFilePreview').innerHTML = `
             <div class="file-preview">
                 <i class="fas fa-file"></i>
-                <span class="name">${file.name}</span>
+                <span class="name">${escapeHtml(file.name)}</span>
                 <span class="remove" onclick="removeExpenseFile()"><i class="fas fa-times"></i></span>
             </div>
         `;
@@ -1330,7 +1447,7 @@ function removeExpenseFile() {
     document.getElementById('expenseFilePreview').innerHTML = '';
 }
 
-// ==================== محاسبه سهم هر واحد ====================
+// ==================== محاسبه سهم هر واحد از هزینه ====================
 function computeShares(amount, splitMethod) {
     const shares = {};
     if (state.units.length === 0) return shares;
@@ -1477,7 +1594,7 @@ function renderExpenses() {
                     <div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;">
                         <div class="list-item-icon icon-danger">${icons[exp.type] || '📦'}</div>
                         <div style="min-width:0;">
-                            <div class="list-item-title">${exp.typeName}</div>
+                            <div class="list-item-title">${escapeHtml(exp.typeName)}</div>
                             <div class="list-item-subtitle" style="margin-top:4px;">
                                 <i class="far fa-calendar-alt"></i> ${exp.date}
                                 ${exp.payDate !== '—' ? ` • <i class="fas fa-check"></i> ${exp.payDate}` : ''}
@@ -1493,13 +1610,13 @@ function renderExpenses() {
                     <span class="badge method-badge ${getMethodClass(exp.splitMethod)}">${getMethodLabel(exp.splitMethod)}</span>
                 </div>
                 <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
-                    <div style="font-size:11px; color:var(--gray-500);">👤 ${exp.payer || '—'}</div>
+                    <div style="font-size:11px; color:var(--gray-500);">👤 ${escapeHtml(exp.payer) || '—'}</div>
                     <div style="font-size:15px; font-weight:800; color:var(--danger);">${formatNumber(exp.amount)} تومان</div>
                 </div>
                 ${exp.file ? `
                     <div class="file-preview" style="margin-top:10px;">
                         <i class="fas fa-paperclip"></i>
-                        <span class="name">${exp.file.name}</span>
+                        <span class="name">${escapeHtml(exp.file.name)}</span>
                         <span onclick="downloadFile('${exp.id}')" style="color:var(--primary); cursor:pointer; padding:4px;"><i class="fas fa-download"></i></span>
                     </div>
                 ` : ''}
@@ -1588,7 +1705,7 @@ function renderCharges() {
                     return `
                         <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--gray-100); gap:8px;">
                             <div style="flex:1; min-width:0;">
-                                <div style="font-size:13px; font-weight:600;">${r.unitName} — ${r.residentName || '—'}</div>
+                                <div style="font-size:13px; font-weight:600;">${escapeHtml(r.unitName)} — ${escapeHtml(r.residentName) || '—'}</div>
                                 <div style="font-size:10px; color:var(--gray-500);">پرداختی: ${formatNumber(paid)}</div>
                             </div>
                             <div style="text-align:left;">
@@ -1676,7 +1793,7 @@ function renderCompanions() {
             <div class="list-item-info">
                 <div class="list-item-icon icon-info"><i class="fas fa-user"></i></div>
                 <div>
-                    <div class="list-item-title">${c.name}</div>
+                    <div class="list-item-title">${escapeHtml(c.name)}</div>
                     <div class="list-item-subtitle">${toPersianNum(c.count)} نفر</div>
                 </div>
             </div>
@@ -1696,7 +1813,7 @@ function updateTravelPayerOptions() {
         sel.innerHTML = '<option value="">— ابتدا همسفر اضافه کنید —</option>';
         return;
     }
-    sel.innerHTML = state.companions.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+    sel.innerHTML = state.companions.map(c => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
     if (current) sel.value = current;
 }
 
@@ -1767,8 +1884,8 @@ function renderTravelExpenses() {
             <div class="list-item-info">
                 <div class="list-item-icon icon-warning">${icons[exp.category] || '📦'}</div>
                 <div>
-                    <div class="list-item-title">${exp.title}</div>
-                    <div class="list-item-subtitle">${exp.categoryName} • ${exp.date} • ${exp.payer}</div>
+                    <div class="list-item-title">${escapeHtml(exp.title)}</div>
+                    <div class="list-item-subtitle">${exp.categoryName} • ${exp.date} • ${escapeHtml(exp.payer)}</div>
                 </div>
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
@@ -1816,7 +1933,7 @@ function renderTravelSettlement() {
                 <div class="list-item-info">
                     <div class="list-item-icon icon-info">${toPersianNum(c.count)}</div>
                     <div>
-                        <div class="list-item-title">${c.name}</div>
+                        <div class="list-item-title">${escapeHtml(c.name)}</div>
                         <div class="list-item-subtitle">پرداختی: ${formatNumber(paid)} • سهم: ${formatNumber(shouldPay)}</div>
                     </div>
                 </div>
@@ -1861,8 +1978,8 @@ function renderDashboard() {
                 <div class="list-item-info">
                     <div class="list-item-icon icon-primary">${toPersianNum(i + 1)}</div>
                     <div>
-                        <div class="list-item-title">${u.name}</div>
-                        <div class="list-item-subtitle">ساکن: ${residentName} • ${u.isTenant ? '🔑 مستاجر' : '👤 مالک'} • مالک: ${ownerName}</div>
+                        <div class="list-item-title">${escapeHtml(u.name)}</div>
+                        <div class="list-item-subtitle">ساکن: ${escapeHtml(residentName)} • ${u.isTenant ? '🔑 مستاجر' : '👤 مالک'} • مالک: ${escapeHtml(ownerName)}</div>
                     </div>
                 </div>
                 ${badge}
@@ -1953,7 +2070,7 @@ function renderAllJournalViews() {
     renderTravelJournalTable();
 }
 
-// ==================== محاسبات کمکی ====================
+// ==================== محاسبات ====================
 function computeUnitTotalShares() {
     const shares = {};
     state.units.forEach(u => shares[u.id] = 0);
@@ -1967,7 +2084,6 @@ function computeUnitTotalShares() {
     return shares;
 }
 
-// سهم هر واحد به تفکیک ساکن و مالک
 function computeUnitSharesBreakdown() {
     const breakdown = {};
     state.units.forEach(u => breakdown[u.id] = { resident: 0, owner: 0, total: 0 });
@@ -2006,14 +2122,14 @@ function renderMatrixTable() {
     
     state.units.forEach(u => {
         const residentName = getResidentName(u.residentId);
-        html += `<th>${u.name}<br><small style="font-weight:400; font-size:9px;">ساکن: ${residentName}</small></th>`;
+        html += `<th>${escapeHtml(u.name)}<br><small style="font-weight:400; font-size:9px;">ساکن: ${escapeHtml(residentName)}</small></th>`;
     });
     html += `</tr></thead><tbody>`;
 
     state.expenses.forEach((exp, idx) => {
         html += `<tr>
             <td>${toPersianNum(idx + 1)}</td>
-            <td style="font-weight:700;">${exp.typeName}</td>
+            <td style="font-weight:700;">${escapeHtml(exp.typeName)}</td>
             <td>${exp.date}</td>
             <td><span class="method-badge ${getMethodClass(exp.splitMethod)}">${getMethodLabel(exp.splitMethod)}</span></td>
             <td style="font-weight:800; color:var(--danger);">${formatNumber(exp.amount)}</td>`;
@@ -2038,11 +2154,11 @@ function renderMatrixTable() {
     html += `
         <div class="law-box" style="margin-top:16px;">
             <h4><i class="fas fa-gavel"></i> راهنمای روش‌های تقسیم</h4>
-            <p>• <strong>⚖️ مساوی:</strong> مبلغ بین واحدها به‌طور مساوی (سهم ساکن).</p>
-            <p>• <strong>👥 نفرات:</strong> به نسبت تعداد نفرات هر واحد (سهم ساکن).</p>
-            <p>• <strong>📏 متراژ:</strong> به نسبت متراژ هر واحد (سهم ساکن).</p>
-            <p>• <strong>🧮 نفر×متراژ:</strong> بر اساس ضریب ترکیبی (سهم ساکن).</p>
-            <p>• <strong>👔 مالکین:</strong> بین مالکین بر اساس تعداد واحد مالکیت (سهم مالک).</p>
+            <p>• <strong>⚖️ مساوی:</strong> سهم ساکن، بین واحدها مساوی.</p>
+            <p>• <strong>👥 نفرات:</strong> سهم ساکن، به نسبت تعداد نفرات.</p>
+            <p>• <strong>📏 متراژ:</strong> سهم ساکن، به نسبت متراژ.</p>
+            <p>• <strong>🧮 نفر×متراژ:</strong> سهم ساکن، بر اساس ضریب ترکیبی.</p>
+            <p>• <strong>👔 مالکین:</strong> سهم مالک، بین مالکین بر اساس تعداد واحد مالکیت.</p>
         </div>
     `;
 
@@ -2097,9 +2213,9 @@ function renderSummaryTable() {
 
         html += `<tr>
             <td>${toPersianNum(idx + 1)}</td>
-            <td style="font-weight:700;">${u.name}</td>
-            <td>${residentName}${u.isTenant ? ' <span class="badge badge-warning" style="font-size:9px;">مستاجر</span>' : ''}</td>
-            <td>${ownerName}</td>
+            <td style="font-weight:700;">${escapeHtml(u.name)}</td>
+            <td>${escapeHtml(residentName)}${u.isTenant ? ' <span class="badge badge-warning" style="font-size:9px;">مستاجر</span>' : ''}</td>
+            <td>${escapeHtml(ownerName)}</td>
             <td>${toPersianNum(u.area)}</td>
             <td>${toPersianNum(u.residents)}</td>
             <td style="color:#9d174d; font-weight:700;">${formatNumber(residentShare)}</td>
@@ -2126,10 +2242,9 @@ function renderSummaryTable() {
             <i class="fas fa-info-circle"></i>
             <div>
                 <strong>نحوه محاسبه:</strong><br>
-                <span style="color:#9d174d;">■ سهم ساکن</span> = جمع هزینه‌های ساکنانه (آب، برق، نظافت، ...) که به ساکن هر واحد تعلق می‌گیرد.<br>
-                <span style="color:#92400e;">■ سهم مالک</span> = جمع هزینه‌های مالکانه (تعمیرات، بیمه، ...) که به مالک هر واحد تعلق می‌گیرد.<br>
-                <strong>مانده</strong> = شارژ پرداختی − جمع سهم (ساکن + مالک).<br>
-                <span style="color:var(--success);">مثبت = طلبکار</span> | <span style="color:var(--danger);">منفی = بدهکار</span>
+                <span style="color:#9d174d;">■ سهم ساکن</span> = جمع هزینه‌های ساکنانه (آب، برق، نظافت، ...).<br>
+                <span style="color:#92400e;">■ سهم مالک</span> = جمع هزینه‌های مالکانه (تعمیرات، بیمه، ...).<br>
+                <strong>مانده</strong> = شارژ پرداختی − جمع سهم (ساکن + مالک).
             </div>
         </div>
     `;
@@ -2137,7 +2252,7 @@ function renderSummaryTable() {
     container.innerHTML = html;
 }
 
-// ==================== OWNERS TABLE ====================
+// ==================== OWNERS TABLE (پرداختی واقعی) ====================
 function renderOwnersTable() {
     const container = document.getElementById('ownersTable');
     if (!container) return;
@@ -2164,7 +2279,7 @@ function renderOwnersTable() {
         <th>سهم مالکانه</th>
         <th>سهم ساکنانه</th>
         <th>جمع سهم</th>
-        <th>شارژ پرداختی</th>
+        <th>پرداختی واقعی</th>
         <th>مانده</th>
         <th>وضعیت</th>
         </tr></thead><tbody>`;
@@ -2176,23 +2291,22 @@ function renderOwnersTable() {
         const units = ownersMap[ownerId];
         const ownerName = ownerId === 'unknown' ? 'بدون مالک' : getOwnerName(ownerId);
         
-        let ownerShare = 0;     // سهم مالکانه از تمام واحدهای این مالک
-        let residentShare = 0;  // سهم ساکنانه فقط از واحدهایی که این مالک خودش ساکنه
-        let paid = 0;
+        let ownerShare = 0;
+        let residentShare = 0;
         
         units.forEach(u => {
             ownerShare += breakdown[u.id].owner;
             
-            // بررسی: آیا ساکن این واحد، خود مالک است؟
             const resident = getResidentById(u.residentId);
             const isOwnerResident = resident && resident.linkedOwnerId === ownerId;
             
             if (isOwnerResident) {
                 residentShare += breakdown[u.id].resident;
             }
-            
-            paid += getUnitTotalPaid(u);
         });
+        
+        // پرداختی واقعی: فقط پولی که خود مالک شخصاً پرداخت کرده
+        const paid = ownerId === 'unknown' ? 0 : getOwnerTotalPaid(ownerId);
         
         const totalShare = ownerShare + residentShare;
         const balance = paid - totalShare;
@@ -2202,13 +2316,13 @@ function renderOwnersTable() {
         totalPaidAll += paid;
 
         const statusBadge = balance >= 0 
-            ? `<span class="badge badge-success">✓ طلبکار</span>` 
+            ? `<span class="badge badge-success">✓ طلبکار ${formatNumber(balance)}</span>` 
             : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
 
         html += `<tr>
             <td>${toPersianNum(idx++)}</td>
-            <td style="font-weight:700;">👤 ${ownerName}</td>
-            <td style="font-size:11px;">${units.map(u => u.name).join('، ')}<br><small style="color:var(--gray-500);">${toPersianNum(units.length)} واحد</small></td>
+            <td style="font-weight:700;">👤 ${escapeHtml(ownerName)}</td>
+            <td style="font-size:11px;">${units.map(u => escapeHtml(u.name)).join('، ')}<br><small style="color:var(--gray-500);">${toPersianNum(units.length)} واحد</small></td>
             <td style="color:#92400e; font-weight:700;">${formatNumber(ownerShare)}</td>
             <td style="color:#9d174d; font-weight:700;">${formatNumber(residentShare)}</td>
             <td style="color:var(--primary); font-weight:800;">${formatNumber(totalShare)}</td>
@@ -2232,11 +2346,11 @@ function renderOwnersTable() {
         <div class="info-box" style="margin-top:16px;">
             <i class="fas fa-info-circle"></i>
             <div>
-                <strong>نحوه محاسبه سهم مالکین:</strong><br>
-                <span style="color:#92400e;">■ سهم مالکانه</span> = جمع هزینه‌های مالکانه (تعمیرات، بیمه، ...) از <strong>تمام واحدهای</strong> این مالک، بر اساس تعداد واحد مالکیت.<br>
-                <span style="color:#9d174d;">■ سهم ساکنانه</span> = جمع هزینه‌های ساکنانه (آب، برق، ...) <strong>فقط از واحدهایی که خود مالک در آن‌ها ساکن است</strong>.<br>
-                اگه مالک واحد رو اجاره داده باشه، سهم ساکنانه‌ی اون واحد به <strong>ساکن (مستاجر)</strong> تعلق می‌گیرد، نه به مالک.<br>
-                <strong>پرداختی</strong> = جمع شارژهای پرداختی از تمام واحدهای این مالک.
+                <strong>نحوه محاسبه:</strong><br>
+                <span style="color:#92400e;">■ سهم مالکانه</span> = جمع هزینه‌های مالکانه از تمام واحدهای این مالک.<br>
+                <span style="color:#9d174d;">■ سهم ساکنانه</span> = جمع هزینه‌های ساکنانه <strong>فقط از واحدهایی که خود مالک در آن‌ها ساکن است</strong>.<br>
+                <span style="color:var(--success);">■ پرداختی واقعی</span> = فقط پولی که <strong>خود مالک شخصاً</strong> پرداخت کرده (در فرم پرداخت، پرداخت‌کننده = این مالک).<br>
+                اگه مستاجر واحد پرداخت کرده باشه، در این ستون نمایش داده <strong>نمی‌شود</strong>.
             </div>
         </div>
     `;
@@ -2244,7 +2358,7 @@ function renderOwnersTable() {
     container.innerHTML = html;
 }
 
-// ==================== RESIDENTS TABLE ====================
+// ==================== RESIDENTS TABLE (پرداختی واقعی) ====================
 function renderResidentsTable() {
     const container = document.getElementById('residentsSummaryTable');
     if (!container) return;
@@ -2269,7 +2383,7 @@ function renderResidentsTable() {
         <th>نام ساکن</th>
         <th>واحدها</th>
         <th>سهم ساکنانه</th>
-        <th>شارژ پرداختی</th>
+        <th>پرداختی واقعی</th>
         <th>مانده</th>
         <th>وضعیت</th>
         </tr></thead><tbody>`;
@@ -2282,25 +2396,25 @@ function renderResidentsTable() {
         const residentName = residentId === 'unknown' ? 'نامشخص' : getResidentName(residentId);
         
         let residentShare = 0;
-        let paid = 0;
-        
         units.forEach(u => {
             residentShare += breakdown[u.id].resident;
-            paid += getUnitTotalPaid(u);
         });
+        
+        // پرداختی واقعی: فقط پولی که خود این ساکن شخصاً پرداخت کرده
+        const paid = residentId === 'unknown' ? 0 : getResidentTotalPaid(residentId);
         
         const balance = paid - residentShare;
         totalShareAll += residentShare;
         totalPaidAll += paid;
 
         const statusBadge = balance >= 0 
-            ? `<span class="badge badge-success">✓ طلبکار</span>` 
+            ? `<span class="badge badge-success">✓ طلبکار ${formatNumber(balance)}</span>` 
             : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
 
         html += `<tr>
             <td>${toPersianNum(idx++)}</td>
-            <td style="font-weight:700;">👤 ${residentName}</td>
-            <td style="font-size:11px;">${units.map(u => u.name).join('، ')}</td>
+            <td style="font-weight:700;">👤 ${escapeHtml(residentName)}</td>
+            <td style="font-size:11px;">${units.map(u => escapeHtml(u.name)).join('، ')}</td>
             <td style="color:#9d174d; font-weight:700;">${formatNumber(residentShare)}</td>
             <td style="color:var(--success); font-weight:700;">${formatNumber(paid)}</td>
             <td style="font-weight:800; color:${balance >= 0 ? 'var(--success)' : 'var(--danger)'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td>
@@ -2319,10 +2433,10 @@ function renderResidentsTable() {
         <div class="info-box" style="margin-top:16px;">
             <i class="fas fa-info-circle"></i>
             <div>
-                <strong>نحوه محاسبه سهم ساکنین:</strong><br>
-                <span style="color:#9d174d;">■ سهم ساکنانه</span> = جمع هزینه‌های ساکنانه (آب، برق، نظافت، ...) که به ساکن هر واحد تعلق می‌گیرد.<br>
-                هزینه‌های مالکانه (تعمیرات، بیمه) در این جدول نمایش داده <strong>نمی‌شوند</strong>، چون به مالک تعلق دارند.<br>
-                <strong>مانده</strong> = شارژ پرداختی − سهم ساکنانه.
+                <strong>نحوه محاسبه:</strong><br>
+                <span style="color:#9d174d;">■ سهم ساکنانه</span> = جمع هزینه‌های ساکنانه (آب، برق، نظافت، ...).<br>
+                <span style="color:var(--success);">■ پرداختی واقعی</span> = فقط پولی که <strong>خود این ساکن شخصاً</strong> پرداخت کرده.<br>
+                اگه مالک واحد پرداخت کرده باشه، در این ستون نمایش داده <strong>نمی‌شود</strong>.
             </div>
         </div>
     `;
@@ -2356,10 +2470,10 @@ function renderTravelJournalTable() {
     state.travelExpenses.forEach((exp, idx) => {
         html += `<tr>
             <td>${toPersianNum(idx + 1)}</td>
-            <td style="font-weight:700;">${exp.title}</td>
+            <td style="font-weight:700;">${escapeHtml(exp.title)}</td>
             <td>${exp.categoryName}</td>
             <td>${exp.date}</td>
-            <td>${exp.payer}</td>
+            <td>${escapeHtml(exp.payer)}</td>
             <td style="color:var(--danger); font-weight:700;">${formatNumber(exp.amount)}</td>
         </tr>`;
     });
@@ -2430,6 +2544,7 @@ function exportJournalExcel(type) {
     if (state.units.length === 0 && state.expenses.length === 0) return showToast('داده‌ای برای خروجی نیست', 'warning');
 
     const wb = XLSX.utils.book_new();
+    const breakdown = computeUnitSharesBreakdown();
 
     const summaryData = [
         { 'عنوان': 'گزارش مالی ساختمان', 'مقدار': '' },
@@ -2461,8 +2576,6 @@ function exportJournalExcel(type) {
         const ws2 = XLSX.utils.json_to_sheet(matrixData);
         XLSX.utils.book_append_sheet(wb, ws2, 'دفتر ماتریسی');
     }
-
-    const breakdown = computeUnitSharesBreakdown();
 
     if (state.units.length > 0) {
         const unitData = state.units.map((u, i) => {
@@ -2496,15 +2609,15 @@ function exportJournalExcel(type) {
         });
         const ownerData = Object.keys(ownersMap).map((id, i) => {
             const units = ownersMap[id];
-            let ownerShare = 0, residentShare = 0, paid = 0;
+            let ownerShare = 0, residentShare = 0;
             units.forEach(u => {
                 ownerShare += breakdown[u.id].owner;
                 const resident = getResidentById(u.residentId);
                 if (resident && resident.linkedOwnerId === id) {
                     residentShare += breakdown[u.id].resident;
                 }
-                paid += getUnitTotalPaid(u);
             });
+            const paid = id === 'unknown' ? 0 : getOwnerTotalPaid(id);
             return {
                 'ردیف': i + 1,
                 'نام مالک': id === 'unknown' ? 'بدون مالک' : getOwnerName(id),
@@ -2513,7 +2626,7 @@ function exportJournalExcel(type) {
                 'سهم مالکانه': Math.round(ownerShare),
                 'سهم ساکنانه': Math.round(residentShare),
                 'جمع سهم': Math.round(ownerShare + residentShare),
-                'جمع پرداختی': paid,
+                'پرداختی واقعی': paid,
                 'مانده': Math.round(paid - ownerShare - residentShare)
             };
         });
@@ -2529,17 +2642,15 @@ function exportJournalExcel(type) {
         });
         const residentData = Object.keys(residentsMap).map((id, i) => {
             const units = residentsMap[id];
-            let residentShare = 0, paid = 0;
-            units.forEach(u => {
-                residentShare += breakdown[u.id].resident;
-                paid += getUnitTotalPaid(u);
-            });
+            let residentShare = 0;
+            units.forEach(u => { residentShare += breakdown[u.id].resident; });
+            const paid = id === 'unknown' ? 0 : getResidentTotalPaid(id);
             return {
                 'ردیف': i + 1,
                 'نام ساکن': id === 'unknown' ? 'نامشخص' : getResidentName(id),
                 'واحدها': units.map(u => u.name).join('، '),
                 'سهم ساکنانه': Math.round(residentShare),
-                'جمع پرداختی': paid,
+                'پرداختی واقعی': paid,
                 'مانده': Math.round(paid - residentShare)
             };
         });
@@ -2590,7 +2701,7 @@ function exportTravelJournalExcel() {
     showToast('✅ فایل اکسل دانلود شد', 'success');
 }
 
-// ==================== PDF (اصلاح‌شده) ====================
+// ==================== PDF ====================
 function generateReportHTML(title, subtitle, contentHTML) {
     return `
         <div style="width:794px; padding:40px 50px; background:#fff; font-family:'Vazirmatn',sans-serif; direction:rtl; box-sizing:border-box;">
@@ -2722,9 +2833,9 @@ function exportExpensesPDF() {
     state.expenses.forEach((e, i) => {
         content += `<tr>
             <td style="${tdStyle()}">${toPersianNum(i + 1)}</td>
-            <td style="${tdStyle()}; font-weight:700;">${e.typeName}</td>
+            <td style="${tdStyle()}; font-weight:700;">${escapeHtml(e.typeName)}</td>
             <td style="${tdStyle()}">${e.date}</td>
-            <td style="${tdStyle()}">${e.payer}</td>
+            <td style="${tdStyle()}">${escapeHtml(e.payer)}</td>
             <td style="${tdStyle()}; font-size:10px;">${getMethodLabel(e.splitMethod).replace(/[^\u0600-\u06FF\s]/g,'').trim()}</td>
             <td style="${tdStyle()}; font-weight:700; color:#dc2626;">${formatNumber(e.amount)}</td>
         </tr>`;
@@ -2772,10 +2883,10 @@ function exportTravelPDF() {
     state.travelExpenses.forEach((e, i) => {
         content += `<tr>
             <td style="${tdStyle()}">${toPersianNum(i + 1)}</td>
-            <td style="${tdStyle()}; font-weight:700;">${e.title}</td>
+            <td style="${tdStyle()}; font-weight:700;">${escapeHtml(e.title)}</td>
             <td style="${tdStyle()}">${e.categoryName}</td>
             <td style="${tdStyle()}">${e.date}</td>
-            <td style="${tdStyle()}">${e.payer}</td>
+            <td style="${tdStyle()}">${escapeHtml(e.payer)}</td>
             <td style="${tdStyle()}; color:#dc2626; font-weight:700;">${formatNumber(e.amount)}</td>
         </tr>`;
     });
@@ -2795,7 +2906,7 @@ function exportTravelPDF() {
         const shouldPay = sharePerPerson * c.count;
         const balance = paid - shouldPay;
         content += `<tr>
-            <td style="${tdStyle()}; font-weight:700;">${c.name}</td>
+            <td style="${tdStyle()}; font-weight:700;">${escapeHtml(c.name)}</td>
             <td style="${tdStyle()}">${toPersianNum(c.count)}</td>
             <td style="${tdStyle()}; color:#059669;">${formatNumber(paid)}</td>
             <td style="${tdStyle()}">${formatNumber(shouldPay)}</td>
@@ -2839,14 +2950,14 @@ function exportJournalPDF(type) {
         <th style="${thStyle()}">تاریخ</th>
         <th style="${thStyle()}">مبلغ کل</th>`;
     state.units.forEach(u => {
-        content += `<th style="${thStyle()}">${u.name}</th>`;
+        content += `<th style="${thStyle()}">${escapeHtml(u.name)}</th>`;
     });
     content += `</tr></thead><tbody>`;
     
     state.expenses.forEach((exp, i) => {
         content += `<tr>
             <td style="${tdStyle()}">${toPersianNum(i + 1)}</td>
-            <td style="${tdStyle()}; font-weight:700; font-size:10px;">${exp.typeName}</td>
+            <td style="${tdStyle()}; font-weight:700; font-size:10px;">${escapeHtml(exp.typeName)}</td>
             <td style="${tdStyle()}; font-size:9px;">${exp.date}</td>
             <td style="${tdStyle()}; color:#dc2626; font-weight:700;">${formatNumber(exp.amount)}</td>`;
         state.units.forEach(u => {
@@ -2881,9 +2992,9 @@ function exportJournalPDF(type) {
         const totalShare = breakdown[u.id].total;
         const balance = paid - totalShare;
         content += `<tr>
-            <td style="${tdStyle()}; font-weight:700;">${u.name}</td>
-            <td style="${tdStyle()}">${getResidentName(u.residentId)}</td>
-            <td style="${tdStyle()}">${getOwnerName(u.ownerId)}</td>
+            <td style="${tdStyle()}; font-weight:700;">${escapeHtml(u.name)}</td>
+            <td style="${tdStyle()}">${escapeHtml(getResidentName(u.residentId))}</td>
+            <td style="${tdStyle()}">${escapeHtml(getOwnerName(u.ownerId))}</td>
             <td style="${tdStyle()}; color:#9d174d;">${formatNumber(breakdown[u.id].resident)}</td>
             <td style="${tdStyle()}; color:#92400e;">${formatNumber(breakdown[u.id].owner)}</td>
             <td style="${tdStyle()}; color:#6366f1; font-weight:700;">${formatNumber(totalShare)}</td>
@@ -2915,20 +3026,20 @@ function exportJournalPDF(type) {
     Object.keys(ownersMap).forEach(id => {
         const units = ownersMap[id];
         const ownerName = id === 'unknown' ? 'بدون مالک' : getOwnerName(id);
-        let ownerShare = 0, residentShare = 0, paid = 0;
+        let ownerShare = 0, residentShare = 0;
         units.forEach(u => {
             ownerShare += breakdown[u.id].owner;
             const resident = getResidentById(u.residentId);
             if (resident && resident.linkedOwnerId === id) {
                 residentShare += breakdown[u.id].resident;
             }
-            paid += getUnitTotalPaid(u);
         });
+        const paid = id === 'unknown' ? 0 : getOwnerTotalPaid(id);
         const totalShare = ownerShare + residentShare;
         const balance = paid - totalShare;
         content += `<tr>
-            <td style="${tdStyle()}; font-weight:700;">${ownerName}</td>
-            <td style="${tdStyle()}; font-size:10px;">${units.map(u => u.name).join('، ')}</td>
+            <td style="${tdStyle()}; font-weight:700;">${escapeHtml(ownerName)}</td>
+            <td style="${tdStyle()}; font-size:10px;">${units.map(u => escapeHtml(u.name)).join('، ')}</td>
             <td style="${tdStyle()}; color:#92400e;">${formatNumber(ownerShare)}</td>
             <td style="${tdStyle()}; color:#9d174d;">${formatNumber(residentShare)}</td>
             <td style="${tdStyle()}; color:#6366f1; font-weight:700;">${formatNumber(totalShare)}</td>
@@ -2951,22 +3062,20 @@ function exportJournalPDF(type) {
         <th style="${thStyle()}">نام ساکن</th>
         <th style="${thStyle()}">واحدها</th>
         <th style="${thStyle()}">سهم ساکنانه</th>
-        <th style="${thStyle()}">پرداختی</th>
+        <th style="${thStyle()}">پرداختی واقعی</th>
         <th style="${thStyle()}">مانده</th>
     </tr></thead><tbody>`;
     
     Object.keys(residentsMap).forEach(id => {
         const units = residentsMap[id];
         const residentName = id === 'unknown' ? 'نامشخص' : getResidentName(id);
-        let residentShare = 0, paid = 0;
-        units.forEach(u => {
-            residentShare += breakdown[u.id].resident;
-            paid += getUnitTotalPaid(u);
-        });
+        let residentShare = 0;
+        units.forEach(u => { residentShare += breakdown[u.id].resident; });
+        const paid = id === 'unknown' ? 0 : getResidentTotalPaid(id);
         const balance = paid - residentShare;
         content += `<tr>
-            <td style="${tdStyle()}; font-weight:700;">${residentName}</td>
-            <td style="${tdStyle()}; font-size:10px;">${units.map(u => u.name).join('، ')}</td>
+            <td style="${tdStyle()}; font-weight:700;">${escapeHtml(residentName)}</td>
+            <td style="${tdStyle()}; font-size:10px;">${units.map(u => escapeHtml(u.name)).join('، ')}</td>
             <td style="${tdStyle()}; color:#9d174d;">${formatNumber(residentShare)}</td>
             <td style="${tdStyle()}; color:#059669;">${formatNumber(paid)}</td>
             <td style="${tdStyle()}; font-weight:800; color:${balance >= 0 ? '#059669' : '#dc2626'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td>
@@ -2976,8 +3085,9 @@ function exportJournalPDF(type) {
 
     content += `<div style="background:#fef3c7; border-right:4px solid #f59e0b; padding:12px; margin-top:20px; font-size:11px; line-height:1.9;">
         <strong>⚖️ مبنای محاسبه:</strong><br>
-        • هزینه‌های ساکنین بر اساس روش انتخابی (مساوی / نفرات / متراژ / نفر×متراژ) بین واحدها تقسیم می‌شود → سهم ساکن.<br>
-        • هزینه‌های مالکین (👔) فقط بین مالکین بر اساس تعداد واحد مالکیت تقسیم می‌شود → سهم مالک.<br>
+        • هزینه‌های ساکنین بین واحدها تقسیم می‌شود → سهم ساکن.<br>
+        • هزینه‌های مالکین (👔) بین مالکین بر اساس تعداد واحد مالکیت → سهم مالک.<br>
+        • <strong>پرداختی واقعی</strong> = فقط پولی که خود شخص در فرم پرداخت به‌عنوان پرداخت‌کننده ثبت کرده.<br>
         • مانده مثبت = طلبکار | مانده منفی = بدهکار
     </div>`;
 
@@ -3012,11 +3122,11 @@ function editOwner(id) {
     
     const html = `
         <div class="form-group"><label>نام مالک <span class="required">*</span></label>
-            <input type="text" class="form-control" id="editOwnerName" value="${owner.name || ''}"></div>
+            <input type="text" class="form-control" id="editOwnerName" value="${escapeHtml(owner.name)}"></div>
         <div class="form-group"><label>شماره تماس</label>
-            <input type="text" class="form-control" id="editOwnerPhone" value="${owner.phone || ''}"></div>
+            <input type="text" class="form-control" id="editOwnerPhone" value="${escapeHtml(owner.phone)}"></div>
         <div class="form-group"><label>توضیحات</label>
-            <input type="text" class="form-control" id="editOwnerNote" value="${owner.note || ''}"></div>
+            <input type="text" class="form-control" id="editOwnerNote" value="${escapeHtml(owner.note)}"></div>
     `;
     
     openEditModal('ویرایش مالک', html, () => {
@@ -3039,6 +3149,7 @@ function editOwner(id) {
         renderResidentsList();
         refreshOwnerDropdowns();
         refreshResidentDropdowns();
+        refreshPaymentPayerDropdown();
         renderUnits();
         renderAllJournalViews();
         showToast('✅ مالک ویرایش شد', 'success');
@@ -3052,11 +3163,11 @@ function editResident(id) {
     
     const html = `
         <div class="form-group"><label>نام ساکن <span class="required">*</span></label>
-            <input type="text" class="form-control" id="editResidentName" value="${resident.name || ''}"></div>
+            <input type="text" class="form-control" id="editResidentName" value="${escapeHtml(resident.name)}"></div>
         <div class="form-group"><label>شماره تماس</label>
-            <input type="text" class="form-control" id="editResidentPhone" value="${resident.phone || ''}"></div>
+            <input type="text" class="form-control" id="editResidentPhone" value="${escapeHtml(resident.phone)}"></div>
         <div class="form-group"><label>توضیحات</label>
-            <input type="text" class="form-control" id="editResidentNote" value="${resident.note || ''}"></div>
+            <input type="text" class="form-control" id="editResidentNote" value="${escapeHtml(resident.note)}"></div>
     `;
     
     openEditModal('ویرایش ساکن', html, () => {
@@ -3081,6 +3192,7 @@ function editResident(id) {
         renderResidentsList();
         renderUnits();
         refreshResidentDropdowns();
+        refreshPaymentPayerDropdown();
         renderAllJournalViews();
         showToast('✅ ساکن ویرایش شد', 'success');
     });
@@ -3092,16 +3204,16 @@ function editUnit(id) {
     if (!unit) return;
     
     const ownerOptions = state.owners.map(o => 
-        `<option value="${o.id}" ${o.id === unit.ownerId ? 'selected' : ''}>${o.name}</option>`
+        `<option value="${o.id}" ${o.id === unit.ownerId ? 'selected' : ''}>${escapeHtml(o.name)}</option>`
     ).join('');
     
     const residentOptions = state.residents.map(r => 
-        `<option value="${r.id}" ${r.id === unit.residentId ? 'selected' : ''}>${r.name}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`
+        `<option value="${r.id}" ${r.id === unit.residentId ? 'selected' : ''}>${escapeHtml(r.name)}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`
     ).join('');
     
     const html = `
         <div class="form-group"><label>نام واحد <span class="required">*</span></label>
-            <input type="text" class="form-control" id="editUnitName" value="${unit.name || ''}"></div>
+            <input type="text" class="form-control" id="editUnitName" value="${escapeHtml(unit.name)}"></div>
         <div class="form-group"><label>ساکن <span class="required">*</span></label>
             <select class="form-select" id="editUnitResident">${residentOptions}</select></div>
         <div class="form-group">
@@ -3163,7 +3275,7 @@ function editExpense(id) {
     
     const html = `
         <div class="form-group"><label>عنوان</label>
-            <input type="text" class="form-control" id="editExpenseTitle" value="${exp.typeName || ''}"></div>
+            <input type="text" class="form-control" id="editExpenseTitle" value="${escapeHtml(exp.typeName)}"></div>
         <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label>
             <input type="number" class="form-control" id="editExpenseAmount" value="${exp.amount || 0}"></div>
         <div class="form-row">
@@ -3173,7 +3285,7 @@ function editExpense(id) {
                 <input type="text" class="form-control datepicker" id="editExpensePayDate" value="${exp.payDate || ''}" readonly></div>
         </div>
         <div class="form-group"><label>پرداخت‌کننده</label>
-            <input type="text" class="form-control" id="editExpensePayer" value="${exp.payer || ''}"></div>
+            <input type="text" class="form-control" id="editExpensePayer" value="${escapeHtml(exp.payer)}"></div>
         <div class="form-group"><label>روش تقسیم</label>
             <select class="form-select" id="editExpenseSplit">
                 <option value="per_unit" ${exp.splitMethod === 'per_unit' ? 'selected' : ''}>⚖️ مساوی (ساکنین)</option>
@@ -3255,12 +3367,12 @@ function editTravelExpense(id) {
     if (!exp) return;
     
     const payerOptions = state.companions.map(c => 
-        `<option value="${c.name}" ${c.name === exp.payer ? 'selected' : ''}>${c.name}</option>`
+        `<option value="${escapeHtml(c.name)}" ${c.name === exp.payer ? 'selected' : ''}>${escapeHtml(c.name)}</option>`
     ).join('');
     
     const html = `
         <div class="form-group"><label>عنوان <span class="required">*</span></label>
-            <input type="text" class="form-control" id="editTravelTitle" value="${exp.title || ''}"></div>
+            <input type="text" class="form-control" id="editTravelTitle" value="${escapeHtml(exp.title)}"></div>
         <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label>
             <input type="number" class="form-control" id="editTravelAmount" value="${exp.amount || 0}"></div>
         <div class="form-group"><label>تاریخ</label>
