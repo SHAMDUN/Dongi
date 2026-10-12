@@ -38,19 +38,5 @@
             "type": "image/png",
             "purpose": "maskable"
         }
-    ],
-    "shortcuts": [
-        {
-            "name": "ثبت هزینه",
-            "short_name": "هزینه",
-            "url": "/Dongi/?page=expenses",
-            "icons": [{ "src": "/Dongi/icon-192.png", "sizes": "192x192" }]
-        },
-        {
-            "name": "واحدها و ساکنین",
-            "short_name": "واحدها",
-            "url": "/Dongi/?page=units",
-            "icons": [{ "src": "/Dongi/icon-192.png", "sizes": "192x192" }]
-        }
     ]
 }
