@@ -804,10 +804,20 @@ body {
     </div>
 
     <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div>
-        <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
-        <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
-    </div>
+    <div class="card-header"><div class="card-title"><i class="fas fa-download icon-primary"></i> نصب اپلیکیشن</div></div>
+    <div class="info-box"><i class="fas fa-info-circle"></i> با نصب اپ، به‌صورت آفلاین هم کار می‌کنه و از صفحه اصلی گوشی در دسترسه.</div>
+    <button class="btn btn-primary btn-block" onclick="manualInstall()" id="manualInstallBtn" style="margin-bottom:10px;">
+        <i class="fas fa-mobile-alt"></i> نصب روی گوشی
+    </button>
+    <div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div>
+</div>
+
+<div class="card">
+    <div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div>
+    <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
+    <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
+</div>
+    
 </section>
 
 </main>
@@ -1017,13 +1027,15 @@ function updateOnlineStatus() {
         offlineToastTimer = setTimeout(() => {
             bar.classList.remove('show');
             offlineToastTimer = null;
-        }, 3500);
+        }, 10000);
     }
 }
 // ==================== INSTALL PROMPT ====================
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
+    const statusEl = document.getElementById('installStatus');
+if (statusEl) statusEl.textContent = '✅ آماده نصب — دکمه بالا رو بزن.';
     // چک کن قبلاً dismiss نکرده باشه
     const dismissedAt = localStorage.getItem('installPromptDismissed');
     if (dismissedAt) {
@@ -1054,6 +1066,41 @@ function dismissInstall() {
     localStorage.setItem('installPromptDismissed', Date.now().toString());
     document.getElementById('installPrompt').classList.remove('show');
 }
+function manualInstall() {
+    const statusEl = document.getElementById('installStatus');
+    
+    if (deferredInstallPrompt) {
+        // اگه بنر native موجوده، صدا بزن
+        deferredInstallPrompt.prompt();
+        deferredInstallPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                if (statusEl) statusEl.textContent = '✅ اپ در حال نصبه...';
+                document.getElementById('installPrompt').classList.remove('show');
+            } else {
+                if (statusEl) statusEl.textContent = 'نصب لغو شد.';
+            }
+            deferredInstallPrompt = null;
+        });
+    } else {
+        // بنر native موجود نیست → راهنمای دستی
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isAndroid = /Android/.test(navigator.userAgent);
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        
+        if (isStandalone) {
+            if (statusEl) statusEl.textContent = '✅ اپ قبلاً نصب شده.';
+            return;
+        }
+        
+        if (isIOS) {
+            if (statusEl) statusEl.innerHTML = '📱 <strong>iPhone/iPad:</strong> دکمه اشتراک‌گذاری (□↑) در Safari رو بزن، بعد «Add to Home Screen» رو انتخاب کن.';
+        } else if (isAndroid) {
+            if (statusEl) statusEl.innerHTML = '📱 <strong>Android:</strong> از منوی مرورگر (⋮) «Install App» یا «Add to Home screen» رو انتخاب کن.';
+        } else {
+            if (statusEl) statusEl.innerHTML = '💻 <strong>دسکتاپ:</strong> از نوار آدرس مرورگر، آیکون نصب (⊕ یا 💻) رو بزن.';
+        }
+    }
+}    
 
 // اگه قبلاً نصب شده، دیگه نشون نده
 window.addEventListener('appinstalled', () => {
