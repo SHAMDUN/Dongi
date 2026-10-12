@@ -2749,5 +2749,39 @@ window.addEventListener('load', () => {
     }, 600);
 });
 </script>
+<script>
+// ثبت Service Worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/Dongi/sw.js')
+            .then(registration => {
+                console.log('[SW] Registered:', registration.scope);
+                
+                // چک آپدیت
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            if (confirm('نسخه جدید اپ آماده‌ست. برای به‌روزرسانی، صفحه رفرش میشه. آپدیت کنیم؟')) {
+                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                                // reload رو به controllerchange واگذار کن
+                            }
+                        }
+                    });
+                });
+            })
+            .catch(err => console.error('[SW] Registration failed:', err));
+        
+        // اگه SW جدید کنترل رو گرفت، صفحه رو رفرش کن
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                refreshing = true;
+                window.location.reload();
+            }
+        });
+    });
+}
+</script>
 </body>
 </html>
