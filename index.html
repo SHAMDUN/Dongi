@@ -1068,17 +1068,25 @@ function dismissInstall() {
 }
 function manualInstall() {
     const statusEl = document.getElementById('installStatus');
+       // چک کن قبلاً نصب شده یا نه
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    if (isStandalone) {
+        if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ قبلاً نصب شده و الان تو حالت اپ داری استفاده می‌کنی.</span>';
+        const installBtn = document.getElementById('manualInstallBtn');
+        if (installBtn) {
+            installBtn.disabled = true;
+            installBtn.style.opacity = '0.5';
+            installBtn.innerHTML = '<i class="fas fa-check"></i> نصب شده';
+        }
+        return;
+    }
     
+    if (deferredInstallPrompt) { 
     if (deferredInstallPrompt) {
         // اگه بنر native موجوده، صدا بزن
         deferredInstallPrompt.prompt();
         deferredInstallPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                if (statusEl) statusEl.textContent = '✅ اپ در حال نصبه...';
-                document.getElementById('installPrompt').classList.remove('show');
-            } else {
-                if (statusEl) statusEl.textContent = 'نصب لغو شد.';
-            }
+            
             deferredInstallPrompt = null;
         });
     } else {
@@ -1086,7 +1094,13 @@ function manualInstall() {
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         const isAndroid = /Android/.test(navigator.userAgent);
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-        
+        if (choiceResult.outcome === 'accepted') {
+            if (statusEl) statusEl.innerHTML = '<span style="color:var(--primary);">⏳ در حال نصب... لطفاً صبر کن</span>';
+            document.getElementById('installPrompt').classList.remove('show');
+            // منتظر event appinstalled بمون که بعدش خودش پیام "✅ نصب شد" رو نشون میده
+        } else {
+            if (statusEl) statusEl.textContent = 'نصب لغو شد.';
+        }
         if (isStandalone) {
             if (statusEl) statusEl.textContent = '✅ اپ قبلاً نصب شده.';
             return;
