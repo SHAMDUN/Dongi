@@ -384,7 +384,375 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
 .status-card.even .count { color: var(--gray-500); }
 .status-card .label { font-size: 11px; color: var(--gray-500); font-weight: 600; margin-bottom: 4px; }
 .status-card .amount { font-size: 12px; font-weight: 700; }
+/* ==================== NOTIFICATION BELL ==================== */
+.notif-bell-btn {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.notif-bell-btn:hover {
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.05);
+}
+.notif-bell-btn:active {
+    transform: scale(0.95);
+}
+.notif-bell-count {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background: var(--danger);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(239,68,68,0.5);
+    animation: bellPulse 2s ease-in-out infinite;
+}
+.notif-bell-count.show {
+    display: flex;
+}
+@keyframes bellPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
 
+/* ==================== NOTIFICATION MODAL ==================== */
+.notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    background: var(--gray-50);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+    border-right: 3px solid transparent;
+}
+.notif-item.unread {
+    background: var(--primary-light);
+    border-right-color: var(--primary);
+}
+.notif-item:hover {
+    background: var(--gray-100);
+}
+.notif-item.unread:hover {
+    background: var(--primary-light);
+}
+.notif-item-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+.notif-item-icon.danger {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+.notif-item-icon.warning {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+.notif-item-icon.success {
+    background: var(--success-light);
+    color: var(--success);
+}
+.notif-item-icon.info {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+.notif-item-content {
+    flex: 1;
+    min-width: 0;
+}
+.notif-item-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    color: var(--dark);
+}
+.notif-item-text {
+    font-size: 11px;
+    color: var(--gray-500);
+    line-height: 1.6;
+}
+.notif-item-time {
+    font-size: 10px;
+    color: var(--gray-500);
+    margin-top: 4px;
+}
+.notif-item-close {
+    color: var(--gray-500);
+    cursor: pointer;
+    padding: 4px;
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: color 0.2s;
+}
+.notif-item-close:hover {
+    color: var(--danger);
+}
+.notif-empty {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--gray-500);
+}
+.notif-empty .emoji {
+    font-size: 48px;
+    margin-bottom: 10px;
+    display: block;
+    opacity: 0.5;
+}
+.notif-actions-bar {
+    display: flex;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-100);
+    margin-top: 12px;
+}
+.notif-actions-bar button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.notif-actions-bar .btn-mark-read {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+.notif-actions-bar .btn-clear-all {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+/* ==================== SHARE MODAL ==================== */
+.share-info-box {
+    background: var(--primary-light);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--primary-dark);
+    line-height: 1.8;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+.share-info-box i {
+    color: var(--primary);
+    margin-top: 3px;
+}
+.share-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.share-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--white);
+}
+.share-option:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+.share-option.selected {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
+}
+.share-option-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+.share-option-icon.text {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+.share-option-icon.pdf {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+.share-option-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+}
+.share-option-desc {
+    font-size: 10px;
+    color: var(--gray-500);
+}
+.share-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+    color: var(--gray-500);
+    font-size: 11px;
+    font-weight: 700;
+}
+.share-divider::before,
+.share-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+}
+.share-apps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.share-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 6px;
+    border-radius: 14px;
+    border: 1.5px solid var(--gray-200);
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--white);
+}
+.share-app:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15,23,42,0.12);
+}
+.share-app:active {
+    transform: translateY(-1px) scale(0.97);
+}
+.share-app-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: white;
+    flex-shrink: 0;
+}
+.share-app-icon.whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+.share-app-icon.telegram {
+    background: linear-gradient(135deg, #229ED9 0%, #0088CC 100%);
+}
+.share-app-icon.eitaa {
+    background: linear-gradient(135deg, #F26722 0%, #E55311 100%);
+}
+.share-app-icon.copy {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+}
+.share-app-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dark);
+    text-align: center;
+}
+html.dark-mode .share-app-icon.whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+html.dark-mode .share-app-icon.telegram {
+    background: linear-gradient(135deg, #229ED9 0%, #0088CC 100%);
+}
+html.dark-mode .share-app-icon.eitaa {
+    background: linear-gradient(135deg, #F26722 0%, #E55311 100%);
+}
+html.dark-mode .notif-item {
+    background: #334155;
+}
+html.dark-mode .notif-item.unread {
+    background: #312e81;
+}
+html.dark-mode .notif-item:hover {
+    background: #475569;
+}
+html.dark-mode .share-option {
+    background: #1e293b;
+}
+html.dark-mode .share-option.selected {
+    background: #312e81;
+}
+html.dark-mode .share-app {
+    background: #1e293b;
+}
+html.dark-mode .share-info-box {
+    background: #312e81;
+    color: #c7d2fe;
+}
+
+/* ==================== PUSH NOTIFICATION SUPPORT ==================== */
+.push-permission-box {
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    border-right: 4px solid var(--primary);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    line-height: 1.8;
+}
+.push-permission-box i {
+    color: var(--primary);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+.push-permission-box button {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: none;
+    background: var(--gradient-primary);
+    color: white;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+    
 @media (max-width: 900px) {
     .sidebar { transform: translateX(100%); }
     .sidebar.active { transform: translateX(0); }
@@ -540,12 +908,16 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
                 <p id="mobileManagerName">مدیریت هوشمند هزینه‌ها</p>
             </div>
         </div>
-        <div class="mobile-header-actions">
+       <div class="mobile-header-actions">
+            <button class="notif-bell-btn" id="notifBellBtn" onclick="openNotifications()" title="اعلان‌ها">
+                <i class="fas fa-bell"></i>
+                <span class="notif-bell-count" id="notifBellCount">۰</span>
+            </button>
             <button class="theme-toggle-btn auto" id="themeToggleBtn" onclick="cycleTheme()" title="تغییر تم">
                 <i class="fas fa-adjust" id="themeIcon"></i>
             </button>
             <button class="mobile-menu-btn" onclick="openSidebar()"><i class="fas fa-bars"></i></button>
-        </div>
+        </div> 
     </div>
 </header>
 
@@ -1019,6 +1391,103 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
         </div>
     </div>
 </div>
+<!-- NOTIFICATIONS MODAL -->
+<div class="modal-overlay" id="notificationsModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><i class="fas fa-bell"></i> اعلان‌ها</div>
+            <button class="modal-close" onclick="closeModal('notificationsModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div id="notificationsList"></div>
+            <div class="notif-actions-bar" id="notifActionsBar" style="display:none;">
+                <button class="btn-mark-read" onclick="markAllNotificationsRead()">
+                    <i class="fas fa-check-double"></i> همه رو خونده کن
+                </button>
+                <button class="btn-clear-all" onclick="clearAllNotifications()">
+                    <i class="fas fa-trash"></i> حذف همه
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="modal-overlay" id="shareModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><i class="fas fa-share-alt"></i> اشتراک‌گذاری گزارش</div>
+            <button class="modal-close" onclick="closeModal('shareModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="share-info-box">
+                <i class="fas fa-info-circle"></i>
+                <div>گزارش کامل «حساب همسایگان» رو با همسایه‌ها به اشتراک بگذار. می‌تونی متن خلاصه یا فایل PDF بفرستی.</div>
+            </div>
+            
+            <div class="form-group" style="margin-bottom:10px;">
+                <label style="font-size:12px; font-weight:700;">چه چیزی رو بفرستم؟</label>
+            </div>
+            <div class="share-options">
+                <div class="share-option selected" id="shareOptText" onclick="selectShareType('text')">
+                    <div class="share-option-icon text"><i class="fas fa-file-alt"></i></div>
+                    <div>
+                        <div class="share-option-label">متن خلاصه</div>
+                        <div class="share-option-desc">سریع و سبک</div>
+                    </div>
+                </div>
+                <div class="share-option" id="shareOptPdf" onclick="selectShareType('pdf')">
+                    <div class="share-option-icon pdf"><i class="fas fa-file-pdf"></i></div>
+                    <div>
+                        <div class="share-option-label">فایل PDF</div>
+                        <div class="share-option-desc">کامل و رسمی</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="share-divider">از طریق</div>
+            
+            <div class="share-apps">
+                <div class="share-app" onclick="shareTo('whatsapp')">
+                    <div class="share-app-icon whatsapp">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    </div>
+                    <div class="share-app-label">واتساپ</div>
+                </div>
+                
+                <div class="share-app" onclick="shareTo('telegram')">
+                    <div class="share-app-icon telegram">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    </div>
+                    <div class="share-app-label">تلگرام</div>
+                </div>
+                
+                <div class="share-app" onclick="shareTo('eitaa')">
+                    <div class="share-app-icon eitaa">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18.5c-4.687 0-8.5-3.813-8.5-8.5S7.313 3.5 12 3.5s8.5 3.813 8.5 8.5-3.813 8.5-8.5 8.5zm-.9-4.35c-.35-.15-.66-.47-.78-.83-.12-.36-.05-.76.19-1.05.37-.45 1.4-1.63 1.86-2.16.23-.26.06-.36-.13-.3-.87.28-3.55 1.16-4.9 1.6-.2.06-.32.18-.37.32-.05.14-.02.3.1.4.34.3 1.16 1.01 1.6 1.39.13.11.24.22.36.32.86.74 1.4 1.19 1.6 1.32.14.09.31.06.42-.06.06-.07.86-1.02 1.44-1.7.26-.31.06-.6-.16-.63-.27-.04-.68-.06-.85-.13-.17-.07-.18-.24-.13-.39z"/></svg>
+                    </div>
+                    <div class="share-app-label">ایتا</div>
+                </div>
+                
+                <div class="share-app" onclick="shareTo('copy')">
+                    <div class="share-app-icon copy">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <div class="share-app-label">کپی</div>
+                </div>
+            </div>
+            
+            <div class="push-permission-box" id="pushPermissionBox" style="display:none;">
+                <i class="fas fa-bell"></i>
+                <div style="flex:1;">می‌خوای اعلان‌های مهم رو تو گوشی هم ببینی؟</div>
+                <button onclick="requestNotificationPermission()">فعال‌سازی</button>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('shareModal')" style="flex:1;">انصراف</button>
+        </div>
+    </div>
+</div>    
 
 <div class="toast" id="toast"></div>
 
@@ -3717,7 +4186,610 @@ if ('serviceWorker' in navigator) {
             if (!refreshing) { refreshing = true; window.location.reload(); }
         });
     });
+}   
+// ==================== NOTIFICATIONS ====================
+function getNotifications() {
+    return state.notifications || [];
 }
+
+function saveNotifications() {
+    state.notifications = state.notifications || [];
+    saveState();
+}
+
+function addNotification(type, title, text, linkPage) {
+    state.notifications = state.notifications || [];
+    state.notifications.unshift({
+        id: uid(),
+        type, // 'danger' | 'warning' | 'success' | 'info'
+        title,
+        text,
+        linkPage: linkPage || null,
+        read: false,
+        createdAt: toPersianDateString(),
+        timestamp: Date.now()
+    });
+    // فقط ۵۰ اعلان آخر
+    if (state.notifications.length > 50) {
+        state.notifications = state.notifications.slice(0, 50);
+    }
+    saveState();
+    updateNotificationBadge();
+}
+
+function updateNotificationBadge() {
+    const count = (state.notifications || []).filter(n => !n.read).length;
+    const badge = document.getElementById('notifBellCount');
+    if (!badge) return;
+    if (count > 0) {
+        badge.textContent = toPersianNum(count);
+        badge.classList.add('show');
+    } else {
+        badge.classList.remove('show');
+    }
+}
+
+function openNotifications() {
+    renderNotificationsList();
+    // علامت خونده‌نشده‌ها رو بعد از ۲ ثانیه خونده کن
+    setTimeout(() => {
+        (state.notifications || []).forEach(n => n.read = true);
+        saveState();
+        updateNotificationBadge();
+    }, 2000);
+    openModal('notificationsModal');
+}
+
+function renderNotificationsList() {
+    const container = document.getElementById('notificationsList');
+    const actionsBar = document.getElementById('notifActionsBar');
+    if (!container) return;
+    
+    const notifications = state.notifications || [];
+    
+    if (notifications.length === 0) {
+        container.innerHTML = `
+            <div class="notif-empty">
+                <span class="emoji">🔔</span>
+                <h3 style="font-size:14px; font-weight:700; color:var(--gray-700); margin-bottom:6px;">اعلانی نداری</h3>
+                <p style="font-size:12px;">اینجا اعلان‌های مهم مثل مهلت پرداخت، پرداخت‌های جدید و هزینه‌های ثبت شده نمایش داده می‌شن.</p>
+            </div>
+        `;
+        if (actionsBar) actionsBar.style.display = 'none';
+        return;
+    }
+    
+    if (actionsBar) actionsBar.style.display = 'flex';
+    
+    container.innerHTML = notifications.map(n => {
+        const icons = { danger: 'fa-exclamation-triangle', warning: 'fa-clock', success: 'fa-check-circle', info: 'fa-info-circle' };
+        return `
+            <div class="notif-item ${n.read ? '' : 'unread'}" onclick="openNotificationLink('${n.id}', '${n.linkPage || ''}')" style="cursor:pointer;">
+                <div class="notif-item-icon ${n.type}">
+                    <i class="fas ${icons[n.type] || 'fa-bell'}"></i>
+                </div>
+                <div class="notif-item-content">
+                    <div class="notif-item-title">${escapeHtml(n.title)}</div>
+                    <div class="notif-item-text">${escapeHtml(n.text)}</div>
+                    <div class="notif-item-time"><i class="far fa-clock"></i> ${n.createdAt}</div>
+                </div>
+                <span class="notif-item-close" onclick="event.stopPropagation(); deleteNotification('${n.id}')">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+        `;
+    }).join('');
+}
+
+function openNotificationLink(id, page) {
+    const notif = (state.notifications || []).find(n => n.id === id);
+    if (notif) {
+        notif.read = true;
+        saveState();
+        updateNotificationBadge();
+    }
+    if (page) {
+        closeModal('notificationsModal');
+        navigateTo(page);
+    }
+}
+
+function deleteNotification(id) {
+    state.notifications = (state.notifications || []).filter(n => n.id !== id);
+    saveState();
+    updateNotificationBadge();
+    renderNotificationsList();
+}
+
+function markAllNotificationsRead() {
+    (state.notifications || []).forEach(n => n.read = true);
+    saveState();
+    updateNotificationBadge();
+    renderNotificationsList();
+    showToast('✅ همه اعلان‌ها خونده شد', 'success');
+}
+
+function clearAllNotifications() {
+    if (!confirm('همه اعلان‌ها پاک شود؟')) return;
+    state.notifications = [];
+    saveState();
+    updateNotificationBadge();
+    renderNotificationsList();
+    showToast('🗑️ اعلان‌ها پاک شد', 'warning');
+}
+
+// ==================== AUTO-GENERATE NOTIFICATIONS ====================
+function generateAutoNotifications() {
+    const notifications = state.notifications || [];
+    const existingKeys = new Set(notifications.map(n => n.key).filter(k => k));
+    
+    // ۱. چک مهلت پرداخت‌ها
+    Object.keys(state.charges).forEach(key => {
+        const charge = state.charges[key];
+        if (!charge.deadline) return;
+        
+        const today = toPersianDateString();
+        const daysLeft = daysBetweenPersian(today, charge.deadline);
+        const isPast = comparePersianDates(today, charge.deadline) > 0;
+        
+        // شمارش پرداخت‌نشده‌ها
+        let unpaidList = [];
+        charge.results.forEach(r => {
+            const unit = state.units.find(u => u.id === r.unitId);
+            if (!unit) return;
+            const status = getPaymentStatus(unit, charge);
+            if (status.status === 'unpaid' || status.status === 'partial') {
+                unpaidList.push(getResidentName(unit.residentId) + ' (' + unit.name + ')');
+            }
+        });
+        
+        // مهلت گذشته
+        if (isPast && unpaidList.length > 0) {
+            const notifKey = 'deadline_past_' + key;
+            if (!existingKeys.has(notifKey)) {
+                addNotification(
+                    'danger',
+                    '⚠️ مهلت پرداخت گذشته',
+                    `${toPersianNum(unpaidList.length)} ساکن هنوز شارژ «${charge.subPeriod}» رو پرداخت نکردن: ${unpaidList.slice(0, 3).join('، ')}${unpaidList.length > 3 ? ' و...' : ''}`,
+                    'charges'
+                );
+                notifications[0].key = notifKey;
+            }
+        }
+        // نزدیک مهلت (۳ روز)
+        else if (!isPast && daysLeft >= 0 && daysLeft <= 3 && unpaidList.length > 0) {
+            const notifKey = 'deadline_near_' + key;
+            if (!existingKeys.has(notifKey)) {
+                addNotification(
+                    'warning',
+                    '⏰ مهلت پرداخت نزدیکه',
+                    `${toPersianNum(daysLeft)} روز تا مهلت شارژ «${charge.subPeriod}» مونده — ${toPersianNum(unpaidList.length)} ساکن هنوز پرداخت نکردن`,
+                    'charges'
+                );
+                notifications[0].key = notifKey;
+            }
+        }
+    });
+    
+    saveState();
+    updateNotificationBadge();
+}
+
+// ==================== NOTIFICATIONS FOR NEW EVENTS ====================
+// این توابع خودکار موقع ثبت رویدادهای جدید، اعلان می‌سازن
+
+// افزودن به توابع قبلی - فقط یادآوری که توابع addNotification و updateNotificationBadge اینجا هستن
+// توی توابع savePayment و addExpense و... اینا رو صدا بزن:
+
+// Hook برای savePayment
+const _originalSavePayment = window.savePayment;
+window.savePayment = function() {
+    const payer = document.getElementById('paymentPayer').value;
+    const amount = parseFloat(document.getElementById('paymentAmount').value);
+    if (payer && amount > 0) {
+        const payerName = getPayerName(payer);
+        addNotification(
+            'success',
+            '💰 پرداخت جدید ثبت شد',
+            `${payerName} مبلغ ${formatMoney(amount)} پرداخت کرد`,
+            'units'
+        );
+    }
+    if (typeof _originalSavePayment === 'function') _originalSavePayment();
+};
+
+// Hook برای addExpense
+const _originalAddExpense = window.addExpense;
+window.addExpense = function() {
+    const type = document.getElementById('expenseType').value;
+    const amount = parseFloat(document.getElementById('expenseAmount').value);
+    if (amount > 0) {
+        const typeNames = {
+            electricity: 'برق ساختمان', gas: 'گاز ساختمان', water: 'آب ساختمان',
+            elevator: 'آسانسور', cleaning: 'نظافت', repair: 'تعمیرات',
+            maintenance: 'سرویس و نگهداری', insurance: 'بیمه ساختمان',
+            tax: 'مالیات', other: document.getElementById('expenseCustomTitle').value || 'سایر'
+        };
+        addNotification(
+            'info',
+            '📝 هزینه جدید ثبت شد',
+            `«${typeNames[type] || 'هزینه'}» به مبلغ ${formatMoney(amount)} ثبت شد`,
+            'expenses'
+        );
+    }
+    if (typeof _originalAddExpense === 'function') _originalAddExpense();
+};
+
+// Hook برای addUnit
+const _originalAddUnit = window.addUnit;
+window.addUnit = function() {
+    const name = document.getElementById('unitName').value.trim();
+    if (name) {
+        addNotification('info', '🏠 واحد جدید اضافه شد', `«${name}» به لیست واحدها اضافه شد`, 'units');
+    }
+    if (typeof _originalAddUnit === 'function') _originalAddUnit();
+};
+
+// ==================== SHARE MODAL ====================
+let selectedShareType = 'text';
+
+function openShareModal() {
+    selectedShareType = 'text';
+    selectShareType('text');
+    // چک مجوز اعلان
+    if ('Notification' in window && Notification.permission === 'default') {
+        const box = document.getElementById('pushPermissionBox');
+        if (box) box.style.display = 'flex';
+    }
+    openModal('shareModal');
+}
+
+function selectShareType(type) {
+    selectedShareType = type;
+    document.getElementById('shareOptText')?.classList.toggle('selected', type === 'text');
+    document.getElementById('shareOptPdf')?.classList.toggle('selected', type === 'pdf');
+}
+
+function generateShareText() {
+    const breakdown = computeUnitSharesBreakdown();
+    const persons = buildPersonsMap();
+    
+    let text = `📊 *گزارش مالی ساختمان*\n`;
+    text += `🏢 ${state.settings.buildingName || 'حساب‌یار'}\n`;
+    text += `📅 ${toPersianDateString()}\n\n`;
+    text += `━━━━━━━━━━━━━━━━\n\n`;
+    
+    text += `👥 *وضعیت همسایگان:*\n\n`;
+    
+    let idx = 1;
+    let totalDebt = 0, totalCredit = 0;
+    
+    Object.keys(persons).forEach(key => {
+        const person = persons[key];
+        let ownerShare = 0, residentShare = 0, paid = 0;
+        
+        if (person.ownerId) {
+            state.units.forEach(u => { if (u.ownerId === person.ownerId) ownerShare += breakdown[u.id].owner; });
+            paid += getOwnerTotalPaid(person.ownerId);
+        }
+        if (person.residentId) {
+            state.units.forEach(u => { if (u.residentId === person.residentId) residentShare += breakdown[u.id].resident; });
+            paid += getResidentTotalPaid(person.residentId);
+        }
+        
+        const totalShare = ownerShare + residentShare;
+        const balance = paid - totalShare;
+        
+        if (balance < 0) totalDebt += Math.abs(balance);
+        else if (balance > 0) totalCredit += balance;
+        
+        const emoji = balance < 0 ? '🔴' : balance > 0 ? '🟢' : '⚪';
+        const status = balance < 0 ? `بدهکار ${formatMoney(Math.abs(balance))}` : balance > 0 ? `طلبکار ${formatMoney(balance)}` : 'تسویه';
+        
+        text += `${toPersianNum(idx++)}. ${emoji} *${person.name}*\n`;
+        text += `   سهم: ${formatMoney(totalShare)} | پرداختی: ${formatMoney(paid)}\n`;
+        text += `   وضعیت: ${status}\n\n`;
+    });
+    
+    text += `━━━━━━━━━━━━━━━━\n`;
+    text += `💸 *جمع کل بدهی:* ${formatMoney(totalDebt)}\n`;
+    text += `✅ *جمع کل طلب:* ${formatMoney(totalCredit)}\n\n`;
+    text += `_ارسال شده از حساب‌یار_ 🏢✈️`;
+    
+    return text;
+}
+
+function shareTo(app) {
+    const text = generateShareText();
+    
+    if (selectedShareType === 'pdf') {
+        // اگر PDF انتخاب شده، اول PDF رو بساز
+        showToast('⏳ در حال آماده‌سازی PDF...', 'default');
+        generateSharePDF(app);
+        return;
+    }
+    
+    // متن خلاصه
+    switch(app) {
+        case 'whatsapp':
+            const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(waUrl, '_blank');
+            showToast('✅ واتساپ باز شد', 'success');
+            break;
+        case 'telegram':
+            const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(state.settings.buildingName || 'حساب‌یار')}&text=${encodeURIComponent(text)}`;
+            window.open(tgUrl, '_blank');
+            showToast('✅ تلگرام باز شد', 'success');
+            break;
+        case 'eitaa':
+            const eitaaUrl = `https://eitaa.com/share/url?url=${encodeURIComponent(state.settings.buildingName || 'حساب‌یار')}&text=${encodeURIComponent(text)}`;
+            window.open(eitaaUrl, '_blank');
+            showToast('✅ ایتا باز شد', 'success');
+            break;
+        case 'copy':
+            copyToClipboard(text);
+            break;
+    }
+}
+
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('✅ متن کپی شد', 'success');
+        }).catch(() => {
+            fallbackCopy(text);
+        });
+    } else {
+        fallbackCopy(text);
+    }
+}
+
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        showToast('✅ متن کپی شد', 'success');
+    } catch(e) {
+        showToast('❌ کپی نشد', 'error');
+    }
+    document.body.removeChild(textarea);
+}
+
+async function generateSharePDF(app) {
+    const breakdown = computeUnitSharesBreakdown();
+    const persons = buildPersonsMap();
+    const totalExp = state.expenses.reduce((s, e) => s + e.amount, 0);
+    const totalPaid = state.units.reduce((s, u) => s + getUnitTotalPaid(u), 0);
+    
+    let content = `
+        <div style="background:linear-gradient(135deg,#eef2ff,#e0e7ff); padding:15px; border-radius:10px; margin-bottom:20px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div><strong>تعداد واحدها:</strong> ${toPersianNum(state.units.length)}</div>
+                <div><strong>تعداد ساکنان:</strong> ${toPersianNum(state.units.reduce((s,u)=>s+u.residents,0))}</div>
+                <div><strong>جمع کل هزینه‌ها:</strong> ${formatMoney(totalExp)}</div>
+                <div><strong>جمع پرداختی شارژ:</strong> ${formatMoney(totalPaid)}</div>
+            </div>
+        </div>
+    `;
+    
+    content += `<h2 style="font-size:14px; margin:15px 0 10px 0;">🤝 حساب همسایگان</h2>`;
+    content += `<table style="${tableStyle()}"><thead><tr>
+        <th style="${thStyle()}">نام</th><th style="${thStyle()}">مالکانه</th><th style="${thStyle()}">ساکنانه</th>
+        <th style="${thStyle()}">جمع سهم</th><th style="${thStyle()}">پرداختی</th><th style="${thStyle()}">مانده</th>
+    </tr></thead><tbody>`;
+    
+    Object.keys(persons).forEach(key => {
+        const person = persons[key];
+        let ownerShare = 0, residentShare = 0, paid = 0;
+        if (person.ownerId) {
+            state.units.forEach(u => { if (u.ownerId === person.ownerId) ownerShare += breakdown[u.id].owner; });
+            paid += getOwnerTotalPaid(person.ownerId);
+        }
+        if (person.residentId) {
+            state.units.forEach(u => { if (u.residentId === person.residentId) residentShare += breakdown[u.id].resident; });
+            paid += getResidentTotalPaid(person.residentId);
+        }
+        const totalShare = ownerShare + residentShare;
+        const balance = paid - totalShare;
+        
+        content += `<tr>
+            <td style="${tdStyle()}; font-weight:700;">${escapeHtml(person.name)}</td>
+            <td style="${tdStyle()}; color:#92400e;">${formatNumber(ownerShare)}</td>
+            <td style="${tdStyle()}; color:#9d174d;">${formatNumber(residentShare)}</td>
+            <td style="${tdStyle()}; color:#6366f1; font-weight:700;">${formatNumber(totalShare)}</td>
+            <td style="${tdStyle()}; color:#059669;">${formatNumber(paid)}</td>
+            <td style="${tdStyle()}; font-weight:800; color:${balance >= 0 ? '#059669' : '#dc2626'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td>
+        </tr>`;
+    });
+    content += `</tbody></table>`;
+    
+    const html = generateReportHTML(
+        'گزارش مالی ساختمان',
+        `${state.settings.buildingName} — ${toPersianDateString()}`,
+        content
+    );
+    
+    // ساخت PDF به صورت data URL
+    await new Promise(r => setTimeout(r, 500));
+    
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;overflow:hidden;background:#fff;z-index:999999;';
+    const container = document.createElement('div');
+    container.style.cssText = 'width:794px;background:#fff;position:absolute;top:0;left:0;';
+    container.innerHTML = html;
+    wrapper.appendChild(container);
+    document.body.appendChild(wrapper);
+    
+    try {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 1000));
+        
+        const canvas = await html2canvas(container, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false });
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pdfWidth = 210, pdfHeight = 297;
+        const pxPerMm = canvas.width / pdfWidth;
+        const pageHeightPx = Math.floor(pdfHeight * pxPerMm);
+        
+        let position = 0, pageNum = 0;
+        while (position < canvas.height) {
+            if (pageNum > 0) pdf.addPage();
+            const sliceHeight = Math.min(pageHeightPx, canvas.height - position);
+            const pageCanvas = document.createElement('canvas');
+            pageCanvas.width = canvas.width;
+            pageCanvas.height = sliceHeight;
+            const ctx = pageCanvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+            ctx.drawImage(canvas, 0, position, canvas.width, sliceHeight, 0, 0, canvas.width, sliceHeight);
+            const pageData = pageCanvas.toDataURL('image/jpeg', 0.95);
+            pdf.addImage(pageData, 'JPEG', 0, 0, pdfWidth, sliceHeight / pxPerMm);
+            position += sliceHeight;
+            pageNum++;
+        }
+        
+        document.body.removeChild(wrapper);
+        
+        // ذخیره PDF به صورت Blob
+        const pdfBlob = pdf.output('blob');
+        const fileName = `گزارش-مالی-${state.settings.buildingName || 'ساختمان'}-${toPersianDateString().replace(/\//g, '-')}.pdf`;
+        const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
+        
+        // تلاش برای اشتراک با Web Share API
+        const text = generateShareText();
+        
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            try {
+                await navigator.share({
+                    files: [file],
+                    title: 'گزارش مالی ساختمان',
+                    text: text
+                });
+                showToast('✅ PDF به اشتراک گذاشته شد', 'success');
+                return;
+            } catch(err) {
+                if (err.name === 'AbortError') return;
+                console.log('Share failed:', err);
+            }
+        }
+        
+        // fallback: دانلود + باز کردن اپ
+        const url = URL.createObjectURL(pdfBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        // باز کردن اپ
+        setTimeout(() => {
+            switch(app) {
+                case 'whatsapp': window.open('https://wa.me/', '_blank'); break;
+                case 'telegram': window.open('https://t.me/', '_blank'); break;
+                case 'eitaa': window.open('https://eitaa.com/', '_blank'); break;
+                case 'copy': showToast('✅ PDF دانلود شد', 'success'); break;
+            }
+        }, 800);
+        
+        showToast('✅ PDF دانلود شد — می‌تونی تو اپ بفرستی', 'success');
+        
+    } catch(e) {
+        console.error('PDF Share Error:', e);
+        document.body.removeChild(wrapper);
+        showToast('خطا در ساخت PDF', 'error');
+    }
+}
+
+// ==================== PUSH NOTIFICATION PERMISSION ====================
+async function requestNotificationPermission() {
+    if (!('Notification' in window)) {
+        showToast('مرورگر از اعلان پشتیبانی نمی‌کنه', 'warning');
+        return;
+    }
+    
+    try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+            showToast('✅ اعلان‌ها فعال شد', 'success');
+            document.getElementById('pushPermissionBox').style.display = 'none';
+            // یه تست اعلان
+            new Notification('حساب‌یار', {
+                body: 'اعلان‌ها فعال شدن! از این به بعد اعلان‌های مهم رو اینجا می‌بینی.',
+                icon: '/Dongi/icon-192.png',
+                badge: '/Dongi/icon-192.png'
+            });
+        } else if (permission === 'denied') {
+            showToast('❌ اعلان‌ها رد شد — از تنظیمات مرورگر می‌تونی فعال کنی', 'warning');
+        }
+    } catch(e) {
+        console.error(e);
+        showToast('خطا در فعال‌سازی اعلان', 'error');
+    }
+}
+
+function showPushNotification(title, body) {
+    if (!('Notification' in window)) return;
+    if (Notification.permission !== 'granted') return;
+    try {
+        new Notification(title, {
+            body: body,
+            icon: '/Dongi/icon-192.png',
+            badge: '/Dongi/icon-192.png',
+            dir: 'rtl',
+            lang: 'fa'
+        });
+    } catch(e) { console.error(e); }
+}
+
+// ==================== INIT NOTIFICATIONS ====================
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        // بررسی اعلان‌های خودکار
+        generateAutoNotifications();
+        updateNotificationBadge();
+        
+        // بررسی هر ۱ ساعت
+        setInterval(() => {
+            generateAutoNotifications();
+        }, 60 * 60 * 1000);
+    }, 3000);
+});
+
+// ==================== SHARE BUTTONS IN JOURNAL TABS ====================
+// این تابع رو بعد از رندر جداول، دکمه اشتراک اضافه می‌کنه
+function addShareButtonsToReports() {
+    // دکمه اشتراک تو کارت «حساب همسایگان»
+    const personsCard = document.querySelector('#viewPersons .card-header .btn-group');
+    if (personsCard && !personsCard.querySelector('.share-btn')) {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-info btn-sm share-btn';
+        btn.innerHTML = '<i class="fas fa-share-alt"></i> اشتراک‌گذاری';
+        btn.onclick = openShareModal;
+        personsCard.insertBefore(btn, personsCard.firstChild);
+    }
+    
+    // دکمه اشتراک تو کارت «خلاصه واحدها»
+    const summaryCard = document.querySelector('#viewSummary .card-header .btn-group');
+    if (summaryCard && !summaryCard.querySelector('.share-btn')) {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-info btn-sm share-btn';
+        btn.innerHTML = '<i class="fas fa-share-alt"></i> اشتراک‌گذاری';
+        btn.onclick = openShareModal;
+        summaryCard.insertBefore(btn, summaryCard.firstChild);
+    }
+}
+
+// صدا زدن بعد از رندر
+const _originalRenderAllJournalViews = window.renderAllJournalViews;
+window.renderAllJournalViews = function() {
+    if (typeof _originalRenderAllJournalViews === 'function') _originalRenderAllJournalViews();
+    setTimeout(addShareButtonsToReports, 100);
+};    
 </script>
 </body>
 </html>
