@@ -14,15 +14,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 (function() {
     try {
         const saved = localStorage.getItem('themeMode') || 'auto';
         let isDark = false;
         if (saved === 'dark') isDark = true;
-        else if (saved === 'auto') {
-            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        }
+        else if (saved === 'auto') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (isDark) document.documentElement.classList.add('dark-mode');
     } catch(e) {}
 })();
@@ -48,18 +47,11 @@
     --body-bg: #f5f6fc;
 }
 html.dark-mode {
-    --dark: #f1f5f9;
-    --gray-700: #cbd5e1;
-    --gray-500: #94a3b8;
-    --gray-300: #475569;
-    --gray-200: #334155;
-    --gray-100: #1e293b;
-    --gray-50: #0f172a;
-    --white: #1e293b;
-    --primary-light: #312e81;
-    --success-light: #064e3b;
-    --danger-light: #7f1d1d;
-    --warning-light: #78350f;
+    --dark: #f1f5f9; --gray-700: #cbd5e1; --gray-500: #94a3b8;
+    --gray-300: #475569; --gray-200: #334155; --gray-100: #1e293b;
+    --gray-50: #0f172a; --white: #1e293b;
+    --primary-light: #312e81; --success-light: #064e3b;
+    --danger-light: #7f1d1d; --warning-light: #78350f;
     --shadow: 0 4px 20px rgba(0,0,0,0.3);
     --shadow-lg: 0 10px 40px rgba(0,0,0,0.4);
     --body-bg: #0f172a;
@@ -87,15 +79,7 @@ html.dark-mode .datepicker-plot-area .header-year { color: #c7d2fe !important; }
 html.dark-mode .datepicker-navigator .pwt-btn { background: #334155 !important; color: #f1f5f9 !important; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Vazirmatn', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
-body { 
-    color: var(--dark); min-height: 100vh; line-height: 1.6; overflow-x: hidden;
-    background-color: var(--body-bg);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    background-image: 
-        radial-gradient(circle at 20% 20%, rgba(99,102,241,0.06) 0%, transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(16,185,129,0.03) 0%, transparent 50%);
-}
+body { color: var(--dark); min-height: 100vh; line-height: 1.6; overflow-x: hidden; background-color: var(--body-bg); transition: background-color 0.3s ease, color 0.3s ease; background-image: radial-gradient(circle at 20% 20%, rgba(99,102,241,0.06) 0%, transparent 40%), radial-gradient(circle at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 40%), radial-gradient(circle at 50% 50%, rgba(16,185,129,0.03) 0%, transparent 50%); }
 .app-layout { display: flex; min-height: 100vh; }
 .sidebar { width: 270px; background: var(--white); border-left: 1px solid var(--gray-200); display: flex; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; z-index: 200; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background-color 0.3s ease; box-shadow: -4px 0 24px rgba(15,23,42,0.04); }
 .sidebar-header { padding: 24px 20px; background: var(--gradient-primary); color: white; }
@@ -193,13 +177,44 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .badge-warning { background: var(--warning-light); color: var(--warning); }
 .badge-info { background: var(--primary-light); color: var(--primary); }
 .badge-gray { background: var(--gray-100); color: var(--gray-500); }
+
+/* Payment status badges */
+.pay-status { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.pay-status.on-time { background: #d1fae5; color: #065f46; }
+.pay-status.late { background: #fef3c7; color: #92400e; }
+.pay-status.partial { background: #fed7aa; color: #9a3412; }
+.pay-status.unpaid { background: #fee2e2; color: #991b1b; }
+.pay-status.pending { background: #e2e8f0; color: #475569; }
+html.dark-mode .pay-status.on-time { background: #064e3b; color: #6ee7b7; }
+html.dark-mode .pay-status.late { background: #78350f; color: #fcd34d; }
+html.dark-mode .pay-status.partial { background: #7c2d12; color: #fdba74; }
+html.dark-mode .pay-status.unpaid { background: #7f1d1d; color: #fca5a5; }
+html.dark-mode .pay-status.pending { background: #334155; color: #cbd5e1; }
+
+/* Deadline banner */
+.deadline-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.deadline-banner.warning { background: var(--warning-light); color: #92400e; border-right: 4px solid var(--warning); }
+.deadline-banner.danger { background: var(--danger-light); color: #991b1b; border-right: 4px solid var(--danger); }
+.deadline-banner.success { background: var(--success-light); color: #065f46; border-right: 4px solid var(--success); }
+html.dark-mode .deadline-banner.warning { color: #fcd34d; }
+html.dark-mode .deadline-banner.danger { color: #fca5a5; }
+html.dark-mode .deadline-banner.success { color: #6ee7b7; }
+
 .empty-state { text-align: center; padding: 48px 24px; color: var(--gray-500); }
 .empty-state .emoji { font-size: 64px; margin-bottom: 16px; display: block; animation: emptyFloat 3s ease-in-out infinite; }
 @keyframes emptyFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 .empty-state h3 { font-size: 16px; font-weight: 800; color: var(--gray-700); margin-bottom: 8px; }
 .empty-state p { font-size: 13px; line-height: 1.8; max-width: 320px; margin: 0 auto; }
 .empty-state .empty-hint { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 8px 16px; background: var(--primary-light); color: var(--primary); border-radius: 20px; font-size: 12px; font-weight: 700; }
-.empty-state .empty-hint i { font-size: 13px; }
 .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
 .modal-overlay.active { display: flex; }
 .modal { background: var(--white); border-radius: var(--radius); width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; animation: zoomIn 0.3s cubic-bezier(0.4,0,0.2,1); }
@@ -269,7 +284,7 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .datepicker-day-view .table-days td.selected span { background: var(--primary) !important; color: white !important; }
 .datepicker-header .header-month, .datepicker-header .header-year { color: var(--primary) !important; font-weight: 700 !important; }
 
-/* SPLASH SCREEN */
+/* SPLASH */
 .splash-screen { position: fixed; inset: 0; z-index: 99999; background: var(--gradient-primary); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; transition: opacity 0.6s ease, visibility 0.6s ease; }
 .splash-screen.hide { opacity: 0; visibility: hidden; pointer-events: none; }
 .splash-logo { width: 110px; height: 110px; background: rgba(255,255,255,0.18); border-radius: 30px; display: flex; align-items: center; justify-content: center; font-size: 58px; border: 2px solid rgba(255,255,255,0.3); animation: splashPulse 2s ease-in-out infinite; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
@@ -306,7 +321,6 @@ html.dark-mode .icon-info { background: #164e63; color: #67e8f9; }
 .onboarding-container { width: 100%; max-width: 480px; background: var(--white); border-radius: 24px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.3); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); position: relative; }
 .onboarding-overlay.active .onboarding-container { transform: scale(1); }
 .onboarding-skip { position: absolute; top: 16px; left: 16px; z-index: 10; background: rgba(255,255,255,0.25); border: 1.5px solid rgba(255,255,255,0.3); color: white; padding: 8px 14px; border-radius: 20px; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; backdrop-filter: blur(10px); }
-.onboarding-skip:hover { background: rgba(255,255,255,0.35); }
 .onboarding-slides { position: relative; width: 100%; overflow: hidden; }
 .onboarding-slide { display: none; flex-direction: column; align-items: center; text-align: center; padding: 60px 30px 30px; min-height: 480px; animation: slideIn 0.5s cubic-bezier(0.4,0,0.2,1); }
 .onboarding-slide.active { display: flex; }
@@ -334,11 +348,42 @@ html.dark-mode .onboarding-title { color: #f1f5f9; }
 html.dark-mode .onboarding-text { color: #cbd5e1; }
 html.dark-mode .onboarding-text strong { color: #a5b4fc; }
 html.dark-mode .onboarding-hint { background: #312e81; color: #a5b4fc; }
-html.dark-mode .onboarding-dots,
-html.dark-mode .onboarding-actions { background: #1e293b; }
+html.dark-mode .onboarding-dots, html.dark-mode .onboarding-actions { background: #1e293b; }
 html.dark-mode .onboarding-dot { background: #334155; }
 html.dark-mode .onboarding-dot.active { background: #6366f1; }
 html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5e1; }
+
+/* CHART CONTAINERS */
+.chart-container { position: relative; height: 260px; margin: 10px 0; }
+.chart-container-small { position: relative; height: 200px; margin: 10px 0; }
+
+/* PROGRESS BAR */
+.progress-bar-wrap { background: var(--gray-100); border-radius: 20px; height: 14px; overflow: hidden; margin: 12px 0; }
+.progress-bar-fill { height: 100%; border-radius: 20px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); background: var(--gradient-success); }
+.progress-info { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-top: 8px; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-right: 32px; }
+.timeline::before { content: ''; position: absolute; right: 14px; top: 8px; bottom: 8px; width: 2px; background: var(--gray-200); }
+.timeline-item { position: relative; padding: 10px 0; font-size: 12px; }
+.timeline-dot { position: absolute; right: -24px; top: 14px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 2px solid var(--white); box-shadow: 0 0 0 2px var(--primary-light); }
+.timeline-dot.success { background: var(--success); box-shadow: 0 0 0 2px var(--success-light); }
+.timeline-dot.danger { background: var(--danger); box-shadow: 0 0 0 2px var(--danger-light); }
+.timeline-dot.warning { background: var(--warning); box-shadow: 0 0 0 2px var(--warning-light); }
+.timeline-time { font-size: 10px; color: var(--gray-500); margin-top: 2px; }
+
+/* STATUS SUMMARY CARDS */
+.status-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.status-card { background: var(--white); border-radius: var(--radius-sm); padding: 14px; border: 2px solid; text-align: center; }
+.status-card.debt { border-color: var(--danger); }
+.status-card.credit { border-color: var(--success); }
+.status-card.even { border-color: var(--gray-300); }
+.status-card .count { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+.status-card.debt .count { color: var(--danger); }
+.status-card.credit .count { color: var(--success); }
+.status-card.even .count { color: var(--gray-500); }
+.status-card .label { font-size: 11px; color: var(--gray-500); font-weight: 600; margin-bottom: 4px; }
+.status-card .amount { font-size: 12px; font-weight: 700; }
 
 @media (max-width: 900px) {
     .sidebar { transform: translateX(100%); }
@@ -348,6 +393,7 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
     .mobile-header { display: block; }
     .main-content { padding: 20px 16px 32px; }
     .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .status-summary { grid-template-columns: 1fr; }
     .table-scroll { margin: 0 -16px; padding: 0 16px; }
 }
 @media (max-width: 480px) {
@@ -395,7 +441,7 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
                 <div class="onboarding-title">مدیریت ساختمان</div>
                 <div class="onboarding-text">
                     واحدها، ساکنین و مالکین ساختمون رو ثبت کن<br><br>
-                    هزینه‌های مشترک (آب، برق، نظافت، تعمیرات) رو با <strong>۵ روش هوشمند</strong> تقسیم کن<br><br>
+                    هزینه‌های مشترک رو با <strong>۵ روش هوشمند</strong> تقسیم کن<br><br>
                     شارژ از ساکن، هزینه‌ها طبق قانون — همه دقیق و شفاف
                 </div>
                 <div class="onboarding-hint"><i class="fas fa-hand-holding-usd"></i> گزارش بدهی و طلب هر همسایه</div>
@@ -479,7 +525,7 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
         <div class="nav-section-title">مدیریت سفر</div>
         <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
     </nav>
-    <div class="sidebar-footer">حساب‌یار — نسخه ۸.۰.۰</div>
+    <div class="sidebar-footer">حساب‌یار — نسخه ۹.۰.۰</div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -504,19 +550,50 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
 </header>
 
 <main class="main-content">
-  <!-- DASHBOARD -->
+
+<!-- DASHBOARD -->
 <section class="page active" id="page-dashboard">
     <div class="page-title"><i class="fas fa-chart-pie"></i> داشبورد</div>
+    
+    <div id="deadlineBannerContainer"></div>
+    
     <div class="summary-grid">
         <div class="summary-card primary"><div class="icon-wrap"><i class="fas fa-building"></i></div><div class="value" id="statUnits">۰</div><div class="label">تعداد واحدها</div></div>
         <div class="summary-card success"><div class="icon-wrap"><i class="fas fa-users"></i></div><div class="value" id="statResidents">۰</div><div class="label">کل ساکنان</div></div>
         <div class="summary-card danger"><div class="icon-wrap"><i class="fas fa-money-bill-wave"></i></div><div class="value" id="statExpenses">۰</div><div class="label">کل هزینه‌ها</div></div>
         <div class="summary-card warning"><div class="icon-wrap"><i class="fas fa-hand-holding-usd"></i></div><div class="value" id="statDebt">۰</div><div class="label">کل بدهی شارژ</div></div>
     </div>
+    
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-chart-pie icon-primary"></i> خلاصه وضعیت همسایگان</div></div>
+        <div class="status-summary" id="statusSummary"></div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-chart-pie icon-warning"></i> توزیع هزینه‌ها بر اساس نوع</div></div>
+        <div class="chart-container"><canvas id="expensesChart"></canvas></div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-chart-bar icon-success"></i> روند هزینه‌های ماهانه</div></div>
+        <div class="chart-container"><canvas id="monthlyChart"></canvas></div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-hand-holding-usd icon-info"></i> وضعیت پرداخت شارژ</div></div>
+        <div id="chargeProgressContainer"></div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-clock-rotate-left icon-warning"></i> آخرین فعالیت‌ها</div></div>
+        <div id="recentActivities"></div>
+    </div>
+    
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-list-check icon-primary"></i> وضعیت واحدها</div></div>
         <div id="dashboardUnitsList"></div>
     </div>
+    
     <div class="law-box">
         <h4><i class="fas fa-gavel"></i> ماده ۴ قانون تملک آپارتمان‌ها</h4>
         <p>هزینه‌های مرتبط با زیربنا (برق، گاز، آب) متناسب با مساحت هر واحد تقسیم می‌شوند.</p>
@@ -548,9 +625,7 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
         <div id="tenantFields" style="display:none;">
             <div class="form-group">
                 <label>نام مالک <span class="required">*</span></label>
-                <select class="form-select" id="unitOwnerSelect">
-                    <option value="">— انتخاب مالک —</option>
-                </select>
+                <select class="form-select" id="unitOwnerSelect"><option value="">— انتخاب مالک —</option></select>
             </div>
             <div class="form-row">
                 <div class="form-group"><label>تاریخ شروع اجاره</label><input type="text" class="form-control datepicker" id="unitRentStart" placeholder="انتخاب تاریخ" readonly></div>
@@ -560,9 +635,7 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
         <div id="ownerSelfFields">
             <div class="form-group">
                 <label>نام مالک (خود ساکن) <span class="required">*</span></label>
-                <select class="form-select" id="unitOwnerSelfSelect">
-                    <option value="">— انتخاب مالک —</option>
-                </select>
+                <select class="form-select" id="unitOwnerSelfSelect"><option value="">— انتخاب مالک —</option></select>
             </div>
         </div>
         <div class="form-row">
@@ -615,7 +688,7 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
             </select>
             <div style="font-size:11px; color:var(--gray-500); margin-top:6px;" id="splitMethodHelp"></div>
         </div>
-        <div class="form-group"><label>مبلغ کل (تومان) <span class="required">*</span></label><input type="number" class="form-control" id="expenseAmount" placeholder="۲۵۰۰۰۰۰"></div>
+        <div class="form-group"><label>مبلغ کل <span class="required">*</span></label><input type="number" class="form-control" id="expenseAmount" placeholder="۲۵۰۰۰۰۰"></div>
         <div class="form-row">
             <div class="form-group"><label>تاریخ هزینه (قبض/خدمت)</label><input type="text" class="form-control datepicker" id="expenseDate" placeholder="انتخاب تاریخ" readonly></div>
             <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="expensePayDate" placeholder="انتخاب تاریخ" readonly></div>
@@ -668,9 +741,13 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
             </div>
         </div>
         <div class="form-group">
-            <label>مبلغ شارژ هر واحد (تومان)</label>
+            <label>مبلغ شارژ هر واحد</label>
             <input type="number" class="form-control" id="chargeTotal" placeholder="۴۰۰۰۰۰۰">
-            <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">این مبلغ برای هر واحد به‌صورت مساوی تعیین می‌شود.</div>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-calendar-times" style="color:var(--warning);"></i> مهلت پرداخت (اختیاری)</label>
+            <input type="text" class="form-control datepicker" id="chargeDeadline" placeholder="انتخاب تاریخ" readonly>
+            <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">اگه تعیین کنی، وضعیت پرداخت هر ساکن با رنگ‌بندی مشخص میشه.</div>
         </div>
         <button class="btn btn-primary btn-block" onclick="calculateCharges()"><i class="fas fa-calculator"></i> تعیین شارژ</button>
     </div>
@@ -709,7 +786,7 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
             <input type="text" class="form-control" id="travelCustomTitle" placeholder="مثال: بنزین">
         </div>
         <div class="form-row">
-            <div class="form-group"><label>مبلغ (تومان)</label><input type="number" class="form-control" id="travelAmount" placeholder="۵۰۰۰۰۰"></div>
+            <div class="form-group"><label>مبلغ</label><input type="number" class="form-control" id="travelAmount" placeholder="۵۰۰۰۰۰"></div>
             <div class="form-group"><label>تاریخ</label><input type="text" class="form-control datepicker" id="travelDate" placeholder="انتخاب تاریخ" readonly></div>
         </div>
         <div class="form-group"><label>پرداخت‌کننده</label><select class="form-select" id="travelPayer"></select></div>
@@ -806,6 +883,34 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
     </div>
 
     <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-cog icon-info"></i> تنظیمات پیشرفته</div></div>
+        <div class="form-group">
+            <label>واحد پول</label>
+            <select class="form-select" id="settingsCurrency" onchange="saveCurrency()">
+                <option value="toman">تومان</option>
+                <option value="rial">ریال</option>
+                <option value="dirham">درهم امارات</option>
+                <option value="dollar">دلار</option>
+                <option value="euro">یورو</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>فرمت تاریخ</label>
+            <select class="form-select" id="settingsDateFormat" onchange="saveDateFormat()">
+                <option value="persian">شمسی (۱۴۰۵/۰۶/۱۵)</option>
+                <option value="gregorian">میلادی (2026/09/06)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="checkbox-wrap">
+                <input type="checkbox" id="settingsAutoBackup" onchange="saveAutoBackup()">
+                <span><i class="fas fa-save"></i> پشتیبان‌گیری خودکار (۳ نسخه آخر)</span>
+            </label>
+        </div>
+        <div id="autoBackupInfo" style="font-size:11px; color:var(--gray-500); margin-top:8px;"></div>
+    </div>
+
+    <div class="card">
         <div class="card-header">
             <div class="card-title"><i class="fas fa-user-tie icon-warning"></i> مالکین</div>
             <span class="badge badge-warning" id="ownersCount">۰ مالک</span>
@@ -840,15 +945,10 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
         <button class="btn btn-primary btn-block" onclick="showOnboarding()" style="margin-bottom:10px;">
             <i class="fas fa-graduation-cap"></i> راهنمای اپ رو دوباره ببین
         </button>
-        <div class="info-box" style="margin-bottom:0;">
-            <i class="fas fa-info-circle"></i>
-            <div>اگه می‌خوای یه بار دیگه با قابلیت‌های اپ آشنا بشی، این دکمه رو بزن.</div>
-        </div>
     </div>
 
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-download icon-primary"></i> نصب اپلیکیشن</div></div>
-        <div class="info-box"><i class="fas fa-info-circle"></i> با نصب اپ، به‌صورت آفلاین هم کار می‌کنه و از صفحه اصلی گوشی در دسترسه.</div>
         <button class="btn btn-primary btn-block" onclick="manualInstall()" id="manualInstallBtn" style="margin-bottom:10px;">
             <i class="fas fa-mobile-alt"></i> نصب روی گوشی
         </button>
@@ -876,14 +976,9 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
         <div class="modal-body">
             <div class="form-group">
                 <label>پرداخت‌کننده <span class="required">*</span></label>
-                <select class="form-select" id="paymentPayer">
-                    <option value="">— انتخاب پرداخت‌کننده —</option>
-                </select>
-                <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">
-                    <i class="fas fa-info-circle"></i> مشخص کنید این پرداخت توسط چه کسی انجام شده است.
-                </div>
+                <select class="form-select" id="paymentPayer"><option value="">— انتخاب —</option></select>
             </div>
-            <div class="form-group"><label>مبلغ پرداخت (تومان)</label><input type="number" class="form-control" id="paymentAmount" placeholder="۲۰۰۰۰۰۰"></div>
+            <div class="form-group"><label>مبلغ پرداخت</label><input type="number" class="form-control" id="paymentAmount" placeholder="۲۰۰۰۰۰۰"></div>
             <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="paymentDate" placeholder="انتخاب تاریخ" readonly></div>
             <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="paymentNote" placeholder="پرداخت نقدی"></div>
         </div>
@@ -936,7 +1031,7 @@ html.dark-mode .onboarding-actions .btn-prev { background: #334155; color: #cbd5
 
 <script>
 // ==================== STATE ====================
-const STORAGE_KEY = 'hesabyar_v8';
+const STORAGE_KEY = 'hesabyar_v9';
 let state = {
     owners: [],
     residents: [],
@@ -948,7 +1043,10 @@ let state = {
     settings: {
         buildingName: 'حساب‌یار',
         managerName: 'مدیریت هوشمند هزینه‌ها',
-        startDate: ''
+        startDate: '',
+        currency: 'toman',
+        dateFormat: 'persian',
+        autoBackup: true
     }
 };
 
@@ -956,6 +1054,21 @@ let currentPaymentUnitId = null;
 let tempExpenseFile = null;
 let editContext = { type: null, id: null };
 let deferredInstallPrompt = null;
+let expensesChartInstance = null;
+let monthlyChartInstance = null;
+
+// ==================== CURRENCY ====================
+const CURRENCIES = {
+    toman: { symbol: 'تومان', name: 'تومان' },
+    rial: { symbol: 'ریال', name: 'ریال' },
+    dirham: { symbol: 'درهم', name: 'درهم امارات' },
+    dollar: { symbol: 'دلار', name: 'دلار' },
+    euro: { symbol: 'یورو', name: 'یورو' }
+};
+
+function getCurrencySymbol() {
+    return CURRENCIES[state.settings.currency]?.symbol || 'تومان';
+}
 
 // ==================== THEME ====================
 function getThemeMode() { return localStorage.getItem('themeMode') || 'auto'; }
@@ -963,10 +1076,9 @@ function getThemeMode() { return localStorage.getItem('themeMode') || 'auto'; }
 function applyTheme(mode) {
     const html = document.documentElement;
     let isDark = false;
-    
     if (mode === 'dark') isDark = true;
     else if (mode === 'light') isDark = false;
-    else { isDark = window.matchMedia('(prefers-color-scheme: dark)').matches; }
+    else isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     if (isDark) html.classList.add('dark-mode');
     else html.classList.remove('dark-mode');
@@ -983,6 +1095,11 @@ function applyTheme(mode) {
     
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) metaTheme.setAttribute('content', isDark ? '#1e293b' : '#6366f1');
+    
+    // رفرش چارت‌ها
+    if (typeof renderDashboard === 'function' && document.getElementById('page-dashboard').classList.contains('active')) {
+        renderDashboard();
+    }
 }
 
 function cycleTheme() {
@@ -991,10 +1108,8 @@ function cycleTheme() {
     if (current === 'auto') next = 'light';
     else if (current === 'light') next = 'dark';
     else next = 'auto';
-    
     localStorage.setItem('themeMode', next);
     applyTheme(next);
-    
     const labels = { auto: '🌗 تم خودکار', light: '☀️ تم روشن', dark: '🌙 تم تاریک' };
     showToast(labels[next], 'success');
 }
@@ -1007,45 +1122,23 @@ if (window.matchMedia) {
 
 // ==================== ONBOARDING ====================
 let currentOnboardingSlide = 0;
-const ONBOARDING_KEY = 'onboardingSeen_v1';
+const ONBOARDING_KEY = 'onboardingSeen_v2';
 
 function showOnboarding() {
     currentOnboardingSlide = 0;
     updateOnboardingSlide();
     document.getElementById('onboardingOverlay').classList.add('active');
 }
-
 function closeOnboarding() {
     document.getElementById('onboardingOverlay').classList.remove('active');
     localStorage.setItem(ONBOARDING_KEY, '1');
 }
-
-function goToSlide(index) {
-    currentOnboardingSlide = index;
-    updateOnboardingSlide();
-}
-
-function nextSlide() {
-    if (currentOnboardingSlide < 3) {
-        currentOnboardingSlide++;
-        updateOnboardingSlide();
-    } else { closeOnboarding(); }
-}
-
-function prevSlide() {
-    if (currentOnboardingSlide > 0) {
-        currentOnboardingSlide--;
-        updateOnboardingSlide();
-    }
-}
-
+function goToSlide(index) { currentOnboardingSlide = index; updateOnboardingSlide(); }
+function nextSlide() { if (currentOnboardingSlide < 3) { currentOnboardingSlide++; updateOnboardingSlide(); } else closeOnboarding(); }
+function prevSlide() { if (currentOnboardingSlide > 0) { currentOnboardingSlide--; updateOnboardingSlide(); } }
 function updateOnboardingSlide() {
-    document.querySelectorAll('.onboarding-slide').forEach((slide, i) => {
-        slide.classList.toggle('active', i === currentOnboardingSlide);
-    });
-    document.querySelectorAll('.onboarding-dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentOnboardingSlide);
-    });
+    document.querySelectorAll('.onboarding-slide').forEach((slide, i) => slide.classList.toggle('active', i === currentOnboardingSlide));
+    document.querySelectorAll('.onboarding-dot').forEach((dot, i) => dot.classList.toggle('active', i === currentOnboardingSlide));
     const prevBtn = document.getElementById('onboardingPrev');
     const nextBtn = document.getElementById('onboardingNext');
     if (prevBtn) prevBtn.disabled = currentOnboardingSlide === 0;
@@ -1054,19 +1147,25 @@ function updateOnboardingSlide() {
         else nextBtn.innerHTML = 'بعدی <i class="fas fa-arrow-left"></i>';
     }
 }
-
 function shouldShowOnboarding() { return !localStorage.getItem(ONBOARDING_KEY); }
 
 window.addEventListener('load', () => {
-    if (shouldShowOnboarding()) {
-        setTimeout(() => { showOnboarding(); }, 2000);
-    }
+    if (shouldShowOnboarding()) setTimeout(() => showOnboarding(), 2000);
 });
 
 // ==================== STORAGE ====================
 function saveState() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-    catch(e) { console.error(e); showToast('خطا در ذخیره‌سازی', 'error'); }
+    try {
+        // پشتیبان‌گیری خودکار
+        if (state.settings.autoBackup) {
+            const backups = JSON.parse(localStorage.getItem('hesabyar_backups') || '[]');
+            backups.unshift({ timestamp: Date.now(), data: JSON.stringify(state) });
+            // فقط ۳ نسخه آخر
+            while (backups.length > 3) backups.pop();
+            localStorage.setItem('hesabyar_backups', JSON.stringify(backups));
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch(e) { console.error(e); showToast('خطا در ذخیره‌سازی', 'error'); }
 }
 
 function loadState() {
@@ -1085,6 +1184,126 @@ function loadState() {
             state.charges = parsed.charges || {};
         }
     } catch(e) { console.error(e); }
+}
+
+// ==================== FORMAT NUMBER (فارسی + جداکننده فارسی) ====================
+function formatNumber(num) {
+    if (num === null || num === undefined || isNaN(num)) return '۰';
+    const n = Math.round(Number(num));
+    // toLocaleString('fa-IR') اعداد فارسی + جداکننده فارسی می‌ذاره
+    return n.toLocaleString('fa-IR');
+}
+
+// اعداد با واحد پول
+function formatMoney(num) {
+    return formatNumber(num) + ' ' + getCurrencySymbol();
+}
+
+function toPersianNum(num) { return String(num).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+
+function showToast(msg, type = 'default') {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.className = 'toast show ' + (type !== 'default' ? type : '');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+function uid() { return Date.now() + Math.random().toString(36).substr(2, 9); }
+function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function toPersianDateString() {
+    try {
+        const pd = new persianDate();
+        return pd.year() + '/' + String(pd.month()).padStart(2, '0') + '/' + String(pd.date()).padStart(2, '0');
+    } catch(e) { return new Date().toLocaleDateString('fa-IR'); }
+}
+
+// ==================== DATE UTILS ====================
+function comparePersianDates(date1, date2) {
+    if (!date1 || !date2) return 0;
+    const d1 = String(date1).split('/').map(Number);
+    const d2 = String(date2).split('/').map(Number);
+    if (d1.length !== 3 || d2.length !== 3) return 0;
+    for (let i = 0; i < 3; i++) {
+        if (d1[i] !== d2[i]) return d1[i] - d2[i];
+    }
+    return 0;
+}
+
+function daysBetweenPersian(date1, date2) {
+    if (!date1 || !date2) return 0;
+    try {
+        const d1 = String(date1).split('/').map(Number);
+        const d2 = String(date2).split('/').map(Number);
+        const p1 = new persianDate([d1[0], d1[1], d1[2]]);
+        const p2 = new persianDate([d2[0], d2[1], d2[2]]);
+        return Math.round((p2.valueOf() - p1.valueOf()) / (1000 * 60 * 60 * 24));
+    } catch(e) { return 0; }
+}
+
+// ==================== PAYMENT STATUS ====================
+function getPaymentStatus(unit, charge) {
+    const paid = getUnitTotalPaid(unit);
+    const share = charge.perUnitAmount || 0;
+    const deadline = charge.deadline || null;
+    const balance = paid - share;
+    
+    // آخرین پرداخت
+    const payments = unit.payments || [];
+    const lastPayment = payments.length > 0 ? payments[payments.length - 1] : null;
+    const lastPaymentDate = lastPayment ? lastPayment.date : null;
+    
+    // کاملاً پرداخت کرده
+    if (balance >= 0) {
+        if (!deadline) {
+            return { status: 'on-time', color: 'green', text: 'پرداخت شد', amount: 0 };
+        }
+        if (lastPaymentDate && comparePersianDates(lastPaymentDate, deadline) <= 0) {
+            return { status: 'on-time', color: 'green', text: 'به موقع پرداخت شد', amount: 0 };
+        }
+        return { status: 'late', color: 'yellow', text: 'با تأخیر پرداخت شد', amount: 0 };
+    }
+    
+    // پرداخت ناقص
+    if (paid > 0) {
+        return { 
+            status: 'partial', 
+            color: 'yellow-dark', 
+            text: `ناقص — بدهی ${formatMoney(Math.abs(balance))}`,
+            amount: Math.abs(balance)
+        };
+    }
+    
+    // پرداخت نکرده
+    const today = toPersianDateString();
+    if (deadline && comparePersianDates(today, deadline) > 0) {
+        return { 
+            status: 'unpaid', 
+            color: 'red', 
+            text: `پرداخت نشده — بدهی ${formatMoney(share)}`,
+            amount: share
+        };
+    }
+    
+    if (deadline) {
+        const daysLeft = daysBetweenPersian(today, deadline);
+        if (daysLeft >= 0) {
+            return { 
+                status: 'pending', 
+                color: 'gray', 
+                text: `در انتظار — ${toPersianNum(daysLeft)} روز مهلت`,
+                amount: share
+            };
+        }
+    }
+    
+    return { 
+        status: 'unpaid', 
+        color: 'red', 
+        text: `پرداخت نشده — بدهی ${formatMoney(share)}`,
+        amount: share
+    };
 }
 
 // ==================== NAVIGATION ====================
@@ -1119,29 +1338,6 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
     m.addEventListener('click', e => { if (e.target === e.currentTarget) m.classList.remove('active'); });
 });
 
-// ==================== UTILS ====================
-function formatNumber(num) {
-    if (!num && num !== 0) return '۰';
-    return Number(Math.round(num)).toLocaleString('fa-IR');
-}
-function toPersianNum(num) { return String(num).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
-function showToast(msg, type = 'default') {
-    const toast = document.getElementById('toast');
-    toast.textContent = msg;
-    toast.className = 'toast show ' + (type !== 'default' ? type : '');
-    clearTimeout(window._toastTimer);
-    window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
-}
-function uid() { return Date.now() + Math.random().toString(36).substr(2, 9); }
-function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-function toPersianDateString() {
-    try {
-        const pd = new persianDate();
-        return pd.year() + '/' + String(pd.month()).padStart(2, '0') + '/' + String(pd.date()).padStart(2, '0');
-    } catch(e) { return new Date().toLocaleDateString('fa-IR'); }
-}
-
 // ==================== SPLASH ====================
 function hideSplashScreen() {
     const splash = document.getElementById('splashScreen');
@@ -1154,7 +1350,6 @@ function hideSplashScreen() {
 
 // ==================== OFFLINE ====================
 let offlineToastTimer = null;
-
 function updateOnlineStatus() {
     const bar = document.getElementById('offlineBar');
     if (!bar) return;
@@ -1168,7 +1363,7 @@ function updateOnlineStatus() {
     }
 }
 
-// ==================== INSTALL PROMPT ====================
+// ==================== INSTALL ====================
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredInstallPrompt = e;
@@ -1193,23 +1388,15 @@ function installApp() {
         document.getElementById('installPrompt').classList.remove('show');
     });
 }
-
 function dismissInstall() {
     localStorage.setItem('installPromptDismissed', Date.now().toString());
     document.getElementById('installPrompt').classList.remove('show');
 }
-
 function manualInstall() {
     const statusEl = document.getElementById('installStatus');
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
     if (isStandalone) {
         if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ قبلاً نصب شده.</span>';
-        const installBtn = document.getElementById('manualInstallBtn');
-        if (installBtn) {
-            installBtn.disabled = true;
-            installBtn.style.opacity = '0.5';
-            installBtn.innerHTML = '<i class="fas fa-check"></i> نصب شده';
-        }
         return;
     }
     if (deferredInstallPrompt) {
@@ -1217,7 +1404,6 @@ function manualInstall() {
         deferredInstallPrompt.userChoice.then((result) => {
             if (result.outcome === 'accepted') {
                 if (statusEl) statusEl.innerHTML = '<span style="color:var(--primary);">⏳ در حال نصب...</span>';
-                document.getElementById('installPrompt').classList.remove('show');
             } else {
                 if (statusEl) statusEl.textContent = 'نصب لغو شد.';
             }
@@ -1226,27 +1412,18 @@ function manualInstall() {
     } else {
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         const isAndroid = /Android/.test(navigator.userAgent);
-        if (isIOS) {
-            if (statusEl) statusEl.innerHTML = '📱 <strong>iPhone/iPad:</strong> دکمه اشتراک‌گذاری (□↑) در Safari رو بزن، بعد «Add to Home Screen».';
-        } else if (isAndroid) {
-            if (statusEl) statusEl.innerHTML = '📱 <strong>Android:</strong> از منوی مرورگر (⋮) «Install App» یا «Add to Home screen».';
-        } else {
-            if (statusEl) statusEl.innerHTML = '💻 <strong>دسکتاپ:</strong> از نوار آدرس مرورگر، آیکون نصب رو بزن.';
-        }
+        if (isIOS) statusEl.innerHTML = '📱 <strong>iPhone:</strong> دکمه اشتراک‌گذاری (□↑) در Safari → «Add to Home Screen».';
+        else if (isAndroid) statusEl.innerHTML = '📱 <strong>Android:</strong> منوی مرورگر (⋮) → «Install App».';
+        else statusEl.innerHTML = '💻 <strong>دسکتاپ:</strong> آیکون نصب در نوار آدرس.';
     }
 }
-
 window.addEventListener('appinstalled', () => {
     document.getElementById('installPrompt').classList.remove('show');
     deferredInstallPrompt = null;
     const statusEl = document.getElementById('installStatus');
     if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ با موفقیت نصب شد</span>';
-    const installBtn = document.getElementById('manualInstallBtn');
-    if (installBtn) {
-        installBtn.disabled = true;
-        installBtn.style.opacity = '0.5';
-        installBtn.innerHTML = '<i class="fas fa-check"></i> نصب شده';
-    }
+    const btn = document.getElementById('manualInstallBtn');
+    if (btn) { btn.disabled = true; btn.style.opacity = '0.5'; btn.innerHTML = '<i class="fas fa-check"></i> نصب شده'; }
 });
 
 // ==================== DATE PICKER ====================
@@ -1272,6 +1449,43 @@ function saveSettings() {
     showToast('✅ مشخصات ذخیره شد', 'success');
 }
 
+function saveCurrency() {
+    state.settings.currency = document.getElementById('settingsCurrency').value;
+    saveState();
+    renderAllJournalViews();
+    if (document.getElementById('page-dashboard').classList.contains('active')) renderDashboard();
+    renderCharges();
+    renderExpenses();
+    showToast('✅ واحد پول: ' + CURRENCIES[state.settings.currency].name, 'success');
+}
+
+function saveDateFormat() {
+    state.settings.dateFormat = document.getElementById('settingsDateFormat').value;
+    saveState();
+    showToast('✅ فرمت تاریخ ذخیره شد', 'success');
+}
+
+function saveAutoBackup() {
+    state.settings.autoBackup = document.getElementById('settingsAutoBackup').checked;
+    saveState();
+    updateAutoBackupInfo();
+    showToast('✅ تنظیم پشتیبان‌گیری ذخیره شد', 'success');
+}
+
+function updateAutoBackupInfo() {
+    const infoEl = document.getElementById('autoBackupInfo');
+    if (!infoEl) return;
+    try {
+        const backups = JSON.parse(localStorage.getItem('hesabyar_backups') || '[]');
+        if (backups.length === 0) {
+            infoEl.textContent = 'هنوز پشتیبانی ذخیره نشده';
+        } else {
+            const last = new Date(backups[0].timestamp);
+            infoEl.innerHTML = `آخرین پشتیبان: ${backups.length} نسخه — ${toPersianNum(backups.length)} عدد`;
+        }
+    } catch(e) { infoEl.textContent = '—'; }
+}
+
 function updateHeader() {
     const bn = state.settings.buildingName;
     const mn = state.settings.managerName;
@@ -1291,7 +1505,11 @@ function loadSettings() {
     document.getElementById('settingsBuildingName').value = state.settings.buildingName || '';
     document.getElementById('settingsManagerName').value = state.settings.managerName || '';
     document.getElementById('settingsStartDate').value = state.settings.startDate || '';
+    document.getElementById('settingsCurrency').value = state.settings.currency || 'toman';
+    document.getElementById('settingsDateFormat').value = state.settings.dateFormat || 'persian';
+    document.getElementById('settingsAutoBackup').checked = state.settings.autoBackup !== false;
     updateHeader();
+    updateAutoBackupInfo();
 }
 
 // ==================== OWNERS ====================
@@ -1301,21 +1519,15 @@ function addOwner() {
     const note = document.getElementById('ownerNoteInput').value.trim();
     if (!name) return showToast('نام مالک را وارد کنید', 'error');
     if (state.owners.some(o => o.name === name)) return showToast('این مالک قبلاً ثبت شده', 'warning');
-    
     const ownerId = uid();
     state.owners.push({ id: ownerId, name, phone, note, createdAt: toPersianDateString() });
     state.residents.push({ id: uid(), name, phone, nationalId: '', note: 'مالک', linkedOwnerId: ownerId, createdAt: toPersianDateString() });
     saveState();
-    
     document.getElementById('ownerNameInput').value = '';
     document.getElementById('ownerPhoneInput').value = '';
     document.getElementById('ownerNoteInput').value = '';
-    
-    renderOwnersList();
-    renderResidentsList();
-    refreshOwnerDropdowns();
-    refreshResidentDropdowns();
-    showToast('✅ مالک و ساکن مربوطه اضافه شد', 'success');
+    renderOwnersList(); renderResidentsList(); refreshOwnerDropdowns(); refreshResidentDropdowns();
+    showToast('✅ مالک اضافه شد', 'success');
 }
 
 function deleteOwner(id) {
@@ -1323,20 +1535,14 @@ function deleteOwner(id) {
     if (!owner) return;
     const usedInUnits = state.units.filter(u => u.ownerId === id);
     let msg = `حذف «${owner.name}»؟`;
-    if (usedInUnits.length > 0) msg = `این مالک در ${usedInUnits.length} واحد استفاده شده. ادامه؟`;
+    if (usedInUnits.length > 0) msg = `این مالک در ${toPersianNum(usedInUnits.length)} واحد استفاده شده. ادامه؟`;
     if (!confirm(msg)) return;
-    
     state.owners = state.owners.filter(o => o.id !== id);
     state.residents.forEach(r => { if (r.linkedOwnerId === id) r.linkedOwnerId = null; });
     usedInUnits.forEach(u => { u.ownerId = null; });
-    
     saveState();
-    renderOwnersList();
-    renderResidentsList();
-    refreshOwnerDropdowns();
-    refreshResidentDropdowns();
-    renderUnits();
-    renderAllJournalViews();
+    renderOwnersList(); renderResidentsList(); refreshOwnerDropdowns(); refreshResidentDropdowns();
+    renderUnits(); renderAllJournalViews();
     showToast('🗑️ مالک حذف شد', 'warning');
 }
 
@@ -1345,7 +1551,7 @@ function renderOwnersList() {
     if (!container) return;
     document.getElementById('ownersCount').textContent = toPersianNum(state.owners.length) + ' مالک';
     if (state.owners.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">👤</span><h3>هنوز مالکی ثبت نشده</h3><p>اولین مالک ساختمان رو اضافه کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">👤</span><h3>هنوز مالکی ثبت نشده</h3><p>اولین مالک ساختمان رو اضافه کن</p></div>`;
         return;
     }
     container.innerHTML = state.owners.map(o => {
@@ -1356,7 +1562,7 @@ function renderOwnersList() {
                 <div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div>
                 <div>
                     <div class="list-item-title">${escapeHtml(o.name)}</div>
-                    <div class="list-item-subtitle">${escapeHtml(o.phone) || '—'} ${unitsOwned > 0 ? '• ' + toPersianNum(unitsOwned) + ' واحد' : ''} ${o.note ? '• ' + escapeHtml(o.note) : ''}</div>
+                    <div class="list-item-subtitle">${escapeHtml(o.phone) || '—'} ${unitsOwned > 0 ? '• ' + toPersianNum(unitsOwned) + ' واحد' : ''}</div>
                 </div>
             </div>
             <div class="btn-group">
@@ -1378,8 +1584,7 @@ function addResident() {
     document.getElementById('residentNameInput').value = '';
     document.getElementById('residentPhoneInput').value = '';
     document.getElementById('residentNoteInput').value = '';
-    renderResidentsList();
-    refreshResidentDropdowns();
+    renderResidentsList(); refreshResidentDropdowns();
     showToast('✅ ساکن اضافه شد', 'success');
 }
 
@@ -1388,17 +1593,13 @@ function deleteResident(id) {
     if (!resident) return;
     const usedInUnits = state.units.filter(u => u.residentId === id);
     let msg = `حذف «${resident.name}»؟`;
-    if (usedInUnits.length > 0) msg = `این ساکن در ${usedInUnits.length} واحد استفاده شده. ادامه؟`;
-    if (resident.linkedOwnerId) msg = `«${resident.name}» یک مالک است. ادامه؟`;
+    if (usedInUnits.length > 0) msg = `این ساکن در ${toPersianNum(usedInUnits.length)} واحد استفاده شده. ادامه؟`;
     if (!confirm(msg)) return;
     state.residents = state.residents.filter(r => r.id !== id);
     usedInUnits.forEach(u => { u.residentId = null; });
     saveState();
-    renderResidentsList();
-    renderOwnersList();
-    refreshResidentDropdowns();
-    renderUnits();
-    renderAllJournalViews();
+    renderResidentsList(); renderOwnersList(); refreshResidentDropdowns();
+    renderUnits(); renderAllJournalViews();
     showToast('🗑️ ساکن حذف شد', 'warning');
 }
 
@@ -1407,7 +1608,7 @@ function renderResidentsList() {
     if (!container) return;
     document.getElementById('residentsCount').textContent = toPersianNum(state.residents.length) + ' ساکن';
     if (state.residents.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز ساکنی ثبت نشده</h3><p>ساکنین ساختمان رو اضافه کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز ساکنی ثبت نشده</h3><p>ساکنین ساختمان رو اضافه کن</p></div>`;
         return;
     }
     container.innerHTML = state.residents.map(r => {
@@ -1418,7 +1619,7 @@ function renderResidentsList() {
                 <div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div>
                 <div>
                     <div class="list-item-title">${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div>
-                    <div class="list-item-subtitle">${escapeHtml(r.phone) || '—'} ${r.note ? '• ' + escapeHtml(r.note) : ''}</div>
+                    <div class="list-item-subtitle">${escapeHtml(r.phone) || '—'}</div>
                 </div>
             </div>
             <div class="btn-group">
@@ -1437,11 +1638,11 @@ function refreshOwnerDropdowns() {
         if (!sel) return;
         const current = sel.value;
         if (state.owners.length === 0) {
-            sel.innerHTML = '<option value="">— ابتدا از اطلاعات ساختمان مالک اضافه کنید —</option>';
+            sel.innerHTML = '<option value="">— ابتدا مالک اضافه کنید —</option>';
             return;
         }
         sel.innerHTML = '<option value="">— انتخاب مالک —</option>' +
-            state.owners.map(o => `<option value="${o.id}">${escapeHtml(o.name)}${o.phone ? ' — ' + escapeHtml(o.phone) : ''}</option>`).join('');
+            state.owners.map(o => `<option value="${o.id}">${escapeHtml(o.name)}</option>`).join('');
         if (current) sel.value = current;
     });
 }
@@ -1451,11 +1652,11 @@ function refreshResidentDropdowns() {
     if (!sel) return;
     const current = sel.value;
     if (state.residents.length === 0) {
-        sel.innerHTML = '<option value="">— ابتدا از اطلاعات ساختمان ساکن اضافه کنید —</option>';
+        sel.innerHTML = '<option value="">— ابتدا ساکن اضافه کنید —</option>';
         return;
     }
     sel.innerHTML = '<option value="">— انتخاب ساکن —</option>' +
-        state.residents.map(r => `<option value="${r.id}">${escapeHtml(r.name)}${r.phone ? ' — ' + escapeHtml(r.phone) : ''}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`).join('');
+        state.residents.map(r => `<option value="${r.id}">${escapeHtml(r.name)}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`).join('');
     if (current) sel.value = current;
 }
 
@@ -1467,8 +1668,7 @@ function refreshPaymentPayerDropdown() {
     if (state.residents.length > 0) {
         html += '<optgroup label="👥 ساکنین">';
         state.residents.forEach(r => {
-            const ownerTag = r.linkedOwnerId ? ' (مالک)' : '';
-            html += `<option value="resident:${r.id}">${escapeHtml(r.name)}${ownerTag}</option>`;
+            html += `<option value="resident:${r.id}">${escapeHtml(r.name)}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`;
         });
         html += '</optgroup>';
     }
@@ -1510,12 +1710,10 @@ function addUnit() {
     const ownerId = isTenant ? document.getElementById('unitOwnerSelect').value : document.getElementById('unitOwnerSelfSelect').value;
     const rentStart = document.getElementById('unitRentStart').value.trim();
     const rentEnd = document.getElementById('unitRentEnd').value.trim();
-
     if (!name) return showToast('نام واحد را وارد کنید', 'error');
-    if (!residentId) return showToast('نام ساکن را انتخاب کنید', 'error');
+    if (!residentId) return showToast('ساکن را انتخاب کنید', 'error');
     if (!area || area <= 0) return showToast('متراژ معتبر وارد کنید', 'error');
-    if (!ownerId) return showToast('نام مالک را انتخاب کنید', 'error');
-
+    if (!ownerId) return showToast('مالک را انتخاب کنید', 'error');
     state.units.push({ id: uid(), name, residentId, isTenant, ownerId, rentStart: isTenant ? rentStart : '', rentEnd: isTenant ? rentEnd : '', area, residents, payments: [], createdAt: toPersianDateString() });
     saveState();
     document.getElementById('unitName').value = '';
@@ -1528,9 +1726,7 @@ function addUnit() {
     document.getElementById('unitRentEnd').value = '';
     document.getElementById('unitIsTenant').checked = false;
     toggleTenantFields();
-    renderUnits();
-    renderDashboard();
-    renderAllJournalViews();
+    renderUnits(); renderDashboard(); renderAllJournalViews();
     showToast('✅ واحد اضافه شد', 'success');
 }
 
@@ -1540,9 +1736,7 @@ function deleteUnit(id) {
     if (!confirm(`حذف «${unit.name}»؟`)) return;
     state.units = state.units.filter(u => u.id !== id);
     saveState();
-    renderUnits();
-    renderDashboard();
-    renderAllJournalViews();
+    renderUnits(); renderDashboard(); renderAllJournalViews();
     showToast('🗑️ واحد حذف شد', 'warning');
 }
 
@@ -1550,9 +1744,7 @@ function openPaymentModal(unitId) {
     currentPaymentUnitId = unitId;
     refreshPaymentPayerDropdown();
     const unit = state.units.find(u => u.id === unitId);
-    if (unit && unit.residentId) {
-        document.getElementById('paymentPayer').value = 'resident:' + unit.residentId;
-    }
+    if (unit && unit.residentId) document.getElementById('paymentPayer').value = 'resident:' + unit.residentId;
     document.getElementById('paymentAmount').value = '';
     document.getElementById('paymentDate').value = '';
     document.getElementById('paymentNote').value = '';
@@ -1572,10 +1764,7 @@ function savePayment() {
     unit.payments.push({ id: uid(), payer, amount, date, note, createdAt: toPersianDateString() });
     saveState();
     closeModal('paymentModal');
-    renderUnits();
-    renderDashboard();
-    renderCharges();
-    renderAllJournalViews();
+    renderUnits(); renderDashboard(); renderCharges(); renderAllJournalViews();
     showToast('✅ پرداخت ثبت شد', 'success');
 }
 
@@ -1585,10 +1774,7 @@ function deletePayment(unitId, paymentId) {
     if (!confirm('حذف این پرداخت؟')) return;
     unit.payments = unit.payments.filter(p => p.id !== paymentId);
     saveState();
-    renderUnits();
-    renderDashboard();
-    renderCharges();
-    renderAllJournalViews();
+    renderUnits(); renderDashboard(); renderCharges(); renderAllJournalViews();
     showToast('🗑️ پرداخت حذف شد', 'warning');
 }
 
@@ -1613,7 +1799,7 @@ function renderUnits() {
     const container = document.getElementById('unitsList');
     document.getElementById('unitsCount').textContent = toPersianNum(state.units.length) + ' واحد';
     if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">🏘️</span><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد ساختمون رو اضافه کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🏘️</span><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد ساختمون رو اضافه کن</p></div>`;
         return;
     }
     let html = '';
@@ -1634,8 +1820,8 @@ function renderUnits() {
         let statusBadge = '';
         if (totalCharge === 0) statusBadge = `<span class="badge badge-gray">شارژ تعیین نشده</span>`;
         else if (balance === 0) statusBadge = `<span class="badge badge-success">✓ شارژ پرداخت شده</span>`;
-        else if (balance > 0) statusBadge = `<span class="badge badge-info">اضافه پرداخت: ${formatNumber(balance)}</span>`;
-        else statusBadge = `<span class="badge badge-danger">بدهی شارژ: ${formatNumber(Math.abs(balance))}</span>`;
+        else if (balance > 0) statusBadge = `<span class="badge badge-info">اضافه پرداخت: ${formatMoney(balance)}</span>`;
+        else statusBadge = `<span class="badge badge-danger">بدهی: ${formatMoney(Math.abs(balance))}</span>`;
         let paymentsHtml = '';
         if (payments.length > 0) {
             paymentsHtml = `
@@ -1644,14 +1830,14 @@ function renderUnits() {
                     ${payments.map(p => `
                         <div class="sub-item">
                             <span class="date"><i class="far fa-calendar"></i> ${p.date}</span>
-                            <span class="payer"><i class="fas fa-user"></i> ${escapeHtml(getPayerName(p.payer))}</span>
-                            <span class="amount">${formatNumber(p.amount)} ت</span>
+                            <span class="payer">${escapeHtml(getPayerName(p.payer))}</span>
+                            <span class="amount">${formatNumber(p.amount)}</span>
                             <span class="del" onclick="deletePayment('${unit.id}', '${p.id}')"><i class="fas fa-times"></i></span>
                         </div>
                     `).join('')}
                     <div class="sub-item" style="background: var(--primary-light); font-weight: 700;">
                         <span>جمع پرداختی</span>
-                        <span style="color: var(--primary);">${formatNumber(totalPaid)} تومان</span>
+                        <span style="color: var(--primary);">${formatMoney(totalPaid)}</span>
                     </div>
                 </div>
             `;
@@ -1701,11 +1887,11 @@ function updateSplitMethodHelp() {
     const method = document.getElementById('expenseSplitMethod').value;
     const help = document.getElementById('splitMethodHelp');
     const helps = {
-        per_unit: '⚖️ مبلغ بین همه واحدها مساوی تقسیم می‌شود (سهم ساکن).',
-        per_person: '👥 مبلغ به نسبت تعداد نفرات هر واحد تقسیم می‌شود (سهم ساکن).',
-        per_area: '📏 مبلغ به نسبت متراژ هر واحد تقسیم می‌شود (سهم ساکن).',
-        per_person_area: '🧮 مبلغ بر اساس ضریب (نفرات × متراژ) هر واحد تقسیم می‌شود (سهم ساکن).',
-        per_owners: '👔 مبلغ بین مالکین بر اساس تعداد واحد مالکیت تقسیم می‌شود (سهم مالک).'
+        per_unit: '⚖️ مبلغ بین همه واحدها مساوی (سهم ساکن).',
+        per_person: '👥 به نسبت تعداد نفرات (سهم ساکن).',
+        per_area: '📏 به نسبت متراژ (سهم ساکن).',
+        per_person_area: '🧮 بر اساس ضریب نفر×متراژ (سهم ساکن).',
+        per_owners: '👔 بین مالکین بر اساس تعداد واحد مالکیت (سهم مالک).'
     };
     help.textContent = helps[method] || '';
 }
@@ -1774,11 +1960,9 @@ function addExpense() {
     const payDate = document.getElementById('expensePayDate').value.trim();
     const payer = document.getElementById('expensePayer').value.trim() || state.settings.managerName;
     const splitMethod = document.getElementById('expenseSplitMethod').value;
-
     if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
     if (type === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
     if (state.units.length === 0) return showToast('اول واحد اضافه کنید', 'error');
-
     const typeNames = {
         electricity: '⚡ برق ساختمان', gas: '🔥 گاز ساختمان',
         water: '💧 آب ساختمان', elevator: '🛗 آسانسور',
@@ -1788,7 +1972,6 @@ function addExpense() {
         other: '📦 ' + customTitle
     };
     const shares = computeShares(amount, splitMethod);
-
     state.expenses.push({ id: uid(), type, typeName: typeNames[type], amount, date: date || '—', payDate: payDate || '—', payer, splitMethod, shares, file: tempExpenseFile, createdAt: toPersianDateString() });
     saveState();
     document.getElementById('expenseAmount').value = '';
@@ -1800,9 +1983,7 @@ function addExpense() {
     document.getElementById('customTitleGroup').style.display = 'none';
     removeExpenseFile();
     updateSplitMethodHelp();
-    renderExpenses();
-    renderDashboard();
-    renderAllJournalViews();
+    renderExpenses(); renderDashboard(); renderAllJournalViews();
     showToast('✅ هزینه ثبت شد', 'success');
 }
 
@@ -1810,9 +1991,7 @@ function deleteExpense(id) {
     if (!confirm('حذف این هزینه؟')) return;
     state.expenses = state.expenses.filter(e => e.id !== id);
     saveState();
-    renderExpenses();
-    renderDashboard();
-    renderAllJournalViews();
+    renderExpenses(); renderDashboard(); renderAllJournalViews();
     showToast('🗑️ هزینه حذف شد', 'warning');
 }
 
@@ -1837,7 +2016,7 @@ function getMethodClass(method) {
 function renderExpenses() {
     const container = document.getElementById('expensesList');
     if (state.expenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">📝</span><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمون رو اینجا ثبت کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">📝</span><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمون رو اینجا ثبت کن</p></div>`;
         return;
     }
     const icons = { electricity: '⚡', gas: '🔥', water: '💧', elevator: '🛗', cleaning: '🧹', repair: '🔧', maintenance: '🛠️', insurance: '📋', tax: '💼', other: '📦' };
@@ -1866,7 +2045,7 @@ function renderExpenses() {
                 </div>
                 <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;">
                     <div style="font-size:11px; color:var(--gray-500);">👤 ${escapeHtml(exp.payer) || '—'}</div>
-                    <div style="font-size:15px; font-weight:800; color:var(--danger);">${formatNumber(exp.amount)} تومان</div>
+                    <div style="font-size:15px; font-weight:800; color:var(--danger);">${formatMoney(exp.amount)}</div>
                 </div>
                 ${exp.file ? `
                     <div class="file-preview" style="margin-top:10px;">
@@ -1881,7 +2060,7 @@ function renderExpenses() {
     container.innerHTML = html;
 }
 
-// ==================== CHARGES ====================
+// ==================== CHARGES (با مهلت) ====================
 function handleChargePeriodChange() {
     const period = document.getElementById('chargePeriod').value;
     const sub = document.getElementById('chargeSubPeriod');
@@ -1899,23 +2078,21 @@ function handleChargePeriodChange() {
 
 function calculateCharges() {
     const perUnitAmount = parseFloat(document.getElementById('chargeTotal').value);
+    const deadline = document.getElementById('chargeDeadline').value.trim();
     const period = document.getElementById('chargePeriod').value;
     let subPeriod;
     if (period === 'yearly') subPeriod = 'سالیانه';
     else subPeriod = document.getElementById('chargeSubPeriod').value;
-
-    if (!perUnitAmount || perUnitAmount <= 0) return showToast('مبلغ شارژ هر واحد را وارد کنید', 'error');
+    if (!perUnitAmount || perUnitAmount <= 0) return showToast('مبلغ شارژ را وارد کنید', 'error');
     if (state.units.length === 0) return showToast('اول واحد اضافه کنید', 'error');
-
     const results = state.units.map(unit => ({ unitId: unit.id, unitName: unit.name, residentName: getResidentName(unit.residentId), share: perUnitAmount }));
     const totalAmount = perUnitAmount * state.units.length;
     const key = period + '_' + subPeriod;
-    state.charges[key] = { perUnitAmount, totalAmount, period, subPeriod, results, createdAt: toPersianDateString() };
+    state.charges[key] = { perUnitAmount, totalAmount, period, subPeriod, deadline: deadline || null, results, createdAt: toPersianDateString() };
     saveState();
-    renderCharges();
-    renderDashboard();
-    renderUnits();
+    renderCharges(); renderDashboard(); renderUnits();
     document.getElementById('chargeTotal').value = '';
+    document.getElementById('chargeDeadline').value = '';
     showToast('✅ شارژ تعیین شد', 'success');
 }
 
@@ -1923,46 +2100,110 @@ function renderCharges() {
     const container = document.getElementById('chargesList');
     const keys = Object.keys(state.charges);
     if (keys.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">💰</span><h3>هنوز شارژی تعیین نشده</h3><p>مبلغ شارژ هر واحد رو تعیین کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">💰</span><h3>هنوز شارژی تعیین نشده</h3><p>مبلغ شارژ هر واحد رو تعیین کن</p></div>`;
         return;
     }
     let html = '';
     keys.slice().reverse().forEach(key => {
         const charge = state.charges[key];
+        
+        // محاسبه خلاصه
+        let unpaidCount = 0, partialCount = 0, onTimeCount = 0, lateCount = 0, pendingCount = 0;
+        let totalDebt = 0, totalCredit = 0;
+        
+        const rowsHtml = charge.results.map(r => {
+            const unit = state.units.find(u => u.id === r.unitId);
+            if (!unit) return '';
+            const paid = getUnitTotalPaid(unit);
+            const status = getPaymentStatus(unit, charge);
+            
+            // آپدیت شمارنده‌ها
+            if (status.status === 'unpaid') unpaidCount++;
+            else if (status.status === 'partial') partialCount++;
+            else if (status.status === 'on-time') onTimeCount++;
+            else if (status.status === 'late') lateCount++;
+            else if (status.status === 'pending') pendingCount++;
+            
+            if (status.amount > 0) totalDebt += status.amount;
+            const balance = paid - charge.perUnitAmount;
+            if (balance > 0) totalCredit += balance;
+            
+            // آخرین پرداخت
+            const payments = unit.payments || [];
+            const lastPayment = payments.length > 0 ? payments[payments.length - 1] : null;
+            const lastPaymentDate = lastPayment ? lastPayment.date : '—';
+            
+            return `
+                <tr>
+                    <td style="font-weight:700;">${escapeHtml(unit.name)}<br><small style="color:var(--gray-500); font-weight:400;">${escapeHtml(getResidentName(unit.residentId))}</small></td>
+                    <td style="font-size:11px;">${lastPaymentDate}</td>
+                    <td style="font-weight:700; color:var(--success);">${formatNumber(paid)}</td>
+                    <td><span class="pay-status ${status.status}">${status.text}</span></td>
+                </tr>
+            `;
+        }).join('');
+        
+        // بنر مهلت
+        let deadlineBanner = '';
+        if (charge.deadline) {
+            const today = toPersianDateString();
+            const daysLeft = daysBetweenPersian(today, charge.deadline);
+            const isPast = comparePersianDates(today, charge.deadline) > 0;
+            
+            if (isPast && (unpaidCount + partialCount) > 0) {
+                deadlineBanner = `<div class="deadline-banner danger"><i class="fas fa-exclamation-triangle"></i> مهلت پرداخت گذشته — ${toPersianNum(unpaidCount + partialCount)} ساکن پرداخت نکرده</div>`;
+            } else if (!isPast && daysLeft <= 3 && daysLeft >= 0) {
+                deadlineBanner = `<div class="deadline-banner warning"><i class="fas fa-clock"></i> ${toPersianNum(daysLeft)} روز تا مهلت پرداخت (${charge.deadline})</div>`;
+            } else {
+                deadlineBanner = `<div class="deadline-banner success"><i class="fas fa-check-circle"></i> مهلت پرداخت: ${charge.deadline}</div>`;
+            }
+        }
+        
         html += `
             <div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;">
                 <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--gray-100);">
                     <div>
                         <div style="font-weight:800; font-size:14px;">${charge.subPeriod}</div>
-                        <div style="font-size:11px; color:var(--gray-500);">هر واحد: ${formatNumber(charge.perUnitAmount)} — کل: ${formatNumber(charge.totalAmount)}</div>
+                        <div style="font-size:11px; color:var(--gray-500);">هر واحد: ${formatMoney(charge.perUnitAmount)} — کل: ${formatMoney(charge.totalAmount)}</div>
                     </div>
                     <div class="btn-group">
                         <button class="btn btn-primary btn-sm btn-icon" onclick="editCharge('${key}')"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
-                ${charge.results.map(r => {
-                    const unit = state.units.find(u => u.id === r.unitId);
-                    if (!unit) return '';
-                    const paid = getUnitTotalPaid(unit);
-                    const balance = paid - r.share;
-                    let statusBadge = '';
-                    if (balance >= 0) statusBadge = '<span class="badge badge-success">✓ شارژ پرداخت شده</span>';
-                    else if (paid > 0) statusBadge = `<span class="badge badge-warning">جزئی — بدهی ${formatNumber(Math.abs(balance))}</span>`;
-                    else statusBadge = `<span class="badge badge-danger">پرداخت نشده — ${formatNumber(r.share)}</span>`;
-                    return `
-                        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--gray-100); gap:8px;">
-                            <div style="flex:1; min-width:0;">
-                                <div style="font-size:13px; font-weight:600;">${escapeHtml(r.unitName)} — ${escapeHtml(r.residentName) || '—'}</div>
-                                <div style="font-size:10px; color:var(--gray-500);">پرداختی: ${formatNumber(paid)}</div>
-                            </div>
-                            <div style="text-align:left;">
-                                <div style="font-size:13px; font-weight:800; color:var(--primary);">${formatNumber(r.share)}</div>
-                                <div style="margin-top:2px;">${statusBadge}</div>
-                            </div>
-                        </div>
-                    `;
-                }).join('')}
+                
+                ${deadlineBanner}
+                
+                ${(unpaidCount + partialCount + totalCredit) > 0 ? `
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; font-size:11px;">
+                        ${unpaidCount > 0 ? `<span class="badge badge-danger">🔴 ${toPersianNum(unpaidCount)} پرداخت نشده</span>` : ''}
+                        ${partialCount > 0 ? `<span class="badge badge-warning">🟡 ${toPersianNum(partialCount)} ناقص</span>` : ''}
+                        ${onTimeCount > 0 ? `<span class="badge badge-success">🟢 ${toPersianNum(onTimeCount)} به موقع</span>` : ''}
+                        ${lateCount > 0 ? `<span class="badge badge-warning">🟡 ${toPersianNum(lateCount)} با تأخیر</span>` : ''}
+                        ${pendingCount > 0 ? `<span class="badge badge-gray">⚪ ${toPersianNum(pendingCount)} در انتظار</span>` : ''}
+                    </div>
+                ` : ''}
+                
+                <div class="table-scroll">
+                    <table class="data-table" style="margin:0;">
+                        <thead>
+                            <tr>
+                                <th>ساکن</th>
+                                <th>تاریخ پرداخت</th>
+                                <th>مبلغ پرداختی</th>
+                                <th>وضعیت</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHtml}</tbody>
+                    </table>
+                </div>
+                
+                ${(totalDebt > 0 || totalCredit > 0) ? `
+                    <div style="display:flex; justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px dashed var(--gray-200); font-size:12px; font-weight:700;">
+                        ${totalDebt > 0 ? `<span style="color:var(--danger);">💸 جمع بدهی: ${formatMoney(totalDebt)}</span>` : '<span></span>'}
+                        ${totalCredit > 0 ? `<span style="color:var(--success);">✅ جمع طلب: ${formatMoney(totalCredit)}</span>` : ''}
+                    </div>
+                ` : ''}
             </div>
         `;
     });
@@ -1973,12 +2214,11 @@ function deleteCharge(key) {
     if (!confirm('حذف این شارژ؟')) return;
     delete state.charges[key];
     saveState();
-    renderCharges();
-    renderDashboard();
-    renderUnits();
+    renderCharges(); renderDashboard(); renderUnits();
     showToast('🗑️ شارژ حذف شد', 'warning');
 }
-
+</script>
+<script>
 // ==================== TRAVEL ====================
 function openCompanionModal(editId = null) {
     editContext = { type: editId ? 'edit-companion' : 'add-companion', id: editId };
@@ -2011,10 +2251,7 @@ function saveCompanion() {
     }
     saveState();
     closeModal('companionModal');
-    renderCompanions();
-    updateTravelPayerOptions();
-    renderTravelSettlement();
-    renderAllJournalViews();
+    renderCompanions(); updateTravelPayerOptions(); renderTravelSettlement(); renderAllJournalViews();
     editContext = { type: null, id: null };
 }
 
@@ -2022,16 +2259,14 @@ function deleteCompanion(id) {
     if (!confirm('حذف این همسفر؟')) return;
     state.companions = state.companions.filter(c => c.id !== id);
     saveState();
-    renderCompanions();
-    updateTravelPayerOptions();
-    renderTravelSettlement();
+    renderCompanions(); updateTravelPayerOptions(); renderTravelSettlement();
     showToast('🗑️ همسفر حذف شد', 'warning');
 }
 
 function renderCompanions() {
     const container = document.getElementById('companionsList');
     if (state.companions.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز همسفری اضافه نشده</h3><p>افرادی که تو سفر همراهتن رو اضافه کن</p><div class="empty-hint"><i class="fas fa-plus"></i> دکمه افزودن</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز همسفری اضافه نشده</h3><p>افرادی که تو سفر همراهتن رو اضافه کن</p></div>`;
         return;
     }
     container.innerHTML = state.companions.map(c => `
@@ -2075,12 +2310,10 @@ function addTravelExpense() {
     const amount = parseFloat(document.getElementById('travelAmount').value);
     const date = document.getElementById('travelDate').value.trim() || '—';
     const payer = document.getElementById('travelPayer').value;
-
     if (!title) return showToast('عنوان سفر را وارد کنید', 'error');
     if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
     if (category === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
     if (!payer) return showToast('پرداخت‌کننده را انتخاب کنید', 'error');
-
     const catNames = { transport: '🚗 حمل و نقل', food: '🍽️ خورد و خوراک', accommodation: '🏨 اقامت', tickets: '🎫 بلیط و ورودی', shopping: '🛍️ خرید', other: '📦 ' + customTitle };
     state.travelExpenses.push({ id: uid(), title, category, categoryName: catNames[category], amount, date, payer, createdAt: toPersianDateString() });
     saveState();
@@ -2090,9 +2323,7 @@ function addTravelExpense() {
     document.getElementById('travelCustomTitle').value = '';
     document.getElementById('travelCategory').value = 'transport';
     toggleTravelCustomTitle();
-    renderTravelExpenses();
-    renderTravelSettlement();
-    renderAllJournalViews();
+    renderTravelExpenses(); renderTravelSettlement(); renderAllJournalViews();
     showToast('✅ هزینه سفر ثبت شد', 'success');
 }
 
@@ -2100,16 +2331,14 @@ function deleteTravelExpense(id) {
     if (!confirm('حذف شود؟')) return;
     state.travelExpenses = state.travelExpenses.filter(e => e.id !== id);
     saveState();
-    renderTravelExpenses();
-    renderTravelSettlement();
-    renderAllJournalViews();
+    renderTravelExpenses(); renderTravelSettlement(); renderAllJournalViews();
     showToast('🗑️ حذف شد', 'warning');
 }
 
 function renderTravelExpenses() {
     const container = document.getElementById('travelList');
     if (state.travelExpenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">🧳</span><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر رو اینجا ثبت کن</p><div class="empty-hint"><i class="fas fa-arrow-up"></i> از فرم بالا</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🧳</span><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر رو اینجا ثبت کن</p></div>`;
         return;
     }
     const icons = { transport: '🚗', food: '🍽️', accommodation: '🏨', tickets: '🎫', shopping: '🛍️', other: '📦' };
@@ -2123,7 +2352,7 @@ function renderTravelExpenses() {
                 </div>
             </div>
             <div style="display:flex; align-items:center; gap:6px;">
-                <div class="list-item-amount amount-negative">${formatNumber(exp.amount)}</div>
+                <div class="list-item-amount amount-negative">${formatMoney(exp.amount)}</div>
                 <button class="btn btn-primary btn-sm btn-icon" onclick="editTravelExpense('${exp.id}')"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger btn-sm btn-icon" onclick="deleteTravelExpense('${exp.id}')"><i class="fas fa-times"></i></button>
             </div>
@@ -2147,9 +2376,9 @@ function renderTravelSettlement() {
     let html = `
         <div style="background: var(--primary-light); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px;">
             <div style="font-size: 12px; color: var(--gray-500);">مجموع هزینه سفر</div>
-            <div style="font-size: 20px; font-weight: 800; color: var(--primary);">${formatNumber(total)} تومان</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--primary);">${formatMoney(total)}</div>
             <div style="font-size: 11px; color: var(--gray-500); margin-top: 6px;">
-                ${toPersianNum(totalPeople)} نفر • سهم هر نفر: ${formatNumber(sharePerPerson)} تومان
+                ${toPersianNum(totalPeople)} نفر • سهم هر نفر: ${formatMoney(sharePerPerson)}
             </div>
         </div>
     `;
@@ -2159,8 +2388,8 @@ function renderTravelSettlement() {
         const shouldPay = sharePerPerson * c.count;
         const diff = paid - shouldPay;
         let status, color;
-        if (diff > 0) { status = `طلبکار: ${formatNumber(diff)}`; color = 'var(--success)'; }
-        else if (diff < 0) { status = `بدهکار: ${formatNumber(Math.abs(diff))}`; color = 'var(--danger)'; }
+        if (diff > 0) { status = `طلبکار: ${formatMoney(diff)}`; color = 'var(--success)'; }
+        else if (diff < 0) { status = `بدهکار: ${formatMoney(Math.abs(diff))}`; color = 'var(--danger)'; }
         else { status = 'تسویه'; color = 'var(--gray-500)'; }
         html += `
             <div class="list-item">
@@ -2178,7 +2407,7 @@ function renderTravelSettlement() {
     container.innerHTML = html;
 }
 
-// ==================== DASHBOARD ====================
+// ==================== DASHBOARD (با Chart و خلاصه) ====================
 function renderDashboard() {
     document.getElementById('statUnits').textContent = toPersianNum(state.units.length);
     document.getElementById('statResidents').textContent = toPersianNum(state.units.reduce((s, u) => s + (u.residents || 0), 0));
@@ -2191,6 +2420,25 @@ function renderDashboard() {
     });
     document.getElementById('statDebt').textContent = formatNumber(totalDebt);
 
+    // بنر مهلت
+    renderDeadlineBanner();
+    
+    // خلاصه وضعیت همسایگان
+    renderStatusSummary();
+    
+    // نمودار هزینه‌ها
+    renderExpensesChart();
+    
+    // نمودار ماهانه
+    renderMonthlyChart();
+    
+    // پیشرفت شارژ
+    renderChargeProgress();
+    
+    // آخرین فعالیت‌ها
+    renderRecentActivities();
+
+    // لیست واحدها
     const container = document.getElementById('dashboardUnitsList');
     if (state.units.length === 0) {
         container.innerHTML = `<div class="empty-state"><span class="emoji">🏠</span><h3>هنوز واحدی ثبت نشده</h3><p>برای شروع، اولین واحد رو اضافه کن</p><div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;"><i class="fas fa-plus"></i> افزودن واحد</div></div>`;
@@ -2222,6 +2470,329 @@ function renderDashboard() {
     }).join('');
 }
 
+// بنر مهلت پرداخت
+function renderDeadlineBanner() {
+    const container = document.getElementById('deadlineBannerContainer');
+    if (!container) return;
+    
+    const keys = Object.keys(state.charges);
+    if (keys.length === 0) { container.innerHTML = ''; return; }
+    
+    // آخرین شارژ
+    const lastKey = keys[keys.length - 1];
+    const charge = state.charges[lastKey];
+    if (!charge.deadline) { container.innerHTML = ''; return; }
+    
+    const today = toPersianDateString();
+    const isPast = comparePersianDates(today, charge.deadline) > 0;
+    const daysLeft = daysBetweenPersian(today, charge.deadline);
+    
+    // شمارش معوق
+    let unpaidUnits = [];
+    let totalDebt = 0;
+    charge.results.forEach(r => {
+        const unit = state.units.find(u => u.id === r.unitId);
+        if (!unit) return;
+        const status = getPaymentStatus(unit, charge);
+        if (status.status === 'unpaid' || status.status === 'partial') {
+            unpaidUnits.push(unit.name);
+            totalDebt += status.amount || 0;
+        }
+    });
+    
+    let html = '';
+    if (isPast && unpaidUnits.length > 0) {
+        html = `
+            <div class="deadline-banner danger" style="margin-bottom:16px;">
+                <i class="fas fa-exclamation-triangle" style="font-size:18px;"></i>
+                <div style="flex:1;">
+                    <div style="font-weight:800;">مهلت پرداخت گذشته!</div>
+                    <div style="font-size:11px; margin-top:2px;">
+                        ${toPersianNum(unpaidUnits.length)} ساکن پرداخت نکرده — جمع بدهی: ${formatMoney(totalDebt)}
+                    </div>
+                </div>
+            </div>
+        `;
+    } else if (!isPast && daysLeft <= 3 && daysLeft >= 0 && unpaidUnits.length > 0) {
+        html = `
+            <div class="deadline-banner warning" style="margin-bottom:16px;">
+                <i class="fas fa-clock" style="font-size:18px;"></i>
+                <div style="flex:1;">
+                    <div style="font-weight:800;">مهلت پرداخت نزدیکه!</div>
+                    <div style="font-size:11px; margin-top:2px;">
+                        ${toPersianNum(daysLeft)} روز مونده — ${toPersianNum(unpaidUnits.length)} ساکن هنوز پرداخت نکرده
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    container.innerHTML = html;
+}
+
+// خلاصه وضعیت همسایگان
+function renderStatusSummary() {
+    const container = document.getElementById('statusSummary');
+    if (!container) return;
+    
+    const unitShares = computeUnitTotalShares();
+    let debtors = 0, creditors = 0, settled = 0;
+    let totalDebt = 0, totalCredit = 0;
+    
+    state.units.forEach(u => {
+        const paid = getUnitTotalPaid(u);
+        const share = unitShares[u.id];
+        const balance = paid - share;
+        if (balance < 0) { debtors++; totalDebt += Math.abs(balance); }
+        else if (balance > 0) { creditors++; totalCredit += balance; }
+        else { settled++; }
+    });
+    
+    container.innerHTML = `
+        <div class="status-card debt">
+            <div class="count">${toPersianNum(debtors)}</div>
+            <div class="label">بدهکار</div>
+            <div class="amount" style="color:var(--danger);">${formatMoney(totalDebt)}</div>
+        </div>
+        <div class="status-card credit">
+            <div class="count">${toPersianNum(creditors)}</div>
+            <div class="label">طلبکار</div>
+            <div class="amount" style="color:var(--success);">${formatMoney(totalCredit)}</div>
+        </div>
+        <div class="status-card even">
+            <div class="count">${toPersianNum(settled)}</div>
+            <div class="label">تسویه</div>
+            <div class="amount" style="color:var(--gray-500);">—</div>
+        </div>
+    `;
+}
+
+// نمودار دایره‌ای هزینه‌ها
+function renderExpensesChart() {
+    const canvas = document.getElementById('expensesChart');
+    if (!canvas) return;
+    
+    if (expensesChartInstance) expensesChartInstance.destroy();
+    
+    if (state.expenses.length === 0) {
+        canvas.parentElement.innerHTML = '<div class="empty-state" style="padding:30px;"><span class="emoji">📊</span><p style="font-size:12px;">هنوز هزینه‌ای ثبت نشده</p></div>';
+        return;
+    }
+    
+    const typeGroups = {};
+    state.expenses.forEach(e => {
+        if (!typeGroups[e.type]) typeGroups[e.type] = { name: e.typeName, total: 0 };
+        typeGroups[e.type].total += e.amount;
+    });
+    
+    const labels = Object.values(typeGroups).map(g => g.name);
+    const data = Object.values(typeGroups).map(g => g.total);
+    const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4', '#ef4444', '#84cc16', '#f97316', '#14b8a6'];
+    
+    const isDark = document.documentElement.classList.contains('dark-mode');
+    
+    expensesChartInstance = new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: colors.slice(0, labels.length),
+                borderWidth: 2,
+                borderColor: isDark ? '#1e293b' : '#ffffff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: { family: 'Vazirmatn', size: 11 },
+                        color: isDark ? '#cbd5e1' : '#334155',
+                        padding: 10,
+                        usePointStyle: true
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                            return context.label + ': ' + formatMoney(context.parsed) + ' (' + toPersianNum(percentage) + '٪)';
+                        }
+                    },
+                    titleFont: { family: 'Vazirmatn' },
+                    bodyFont: { family: 'Vazirmatn' }
+                }
+            }
+        }
+    });
+}
+
+// نمودار ماهانه
+function renderMonthlyChart() {
+    const canvas = document.getElementById('monthlyChart');
+    if (!canvas) return;
+    
+    if (monthlyChartInstance) monthlyChartInstance.destroy();
+    
+    if (state.expenses.length === 0) {
+        canvas.parentElement.innerHTML = '<div class="empty-state" style="padding:30px;"><span class="emoji">📈</span><p style="font-size:12px;">هنوز هزینه‌ای ثبت نشده</p></div>';
+        return;
+    }
+    
+    // گروه‌بندی بر اساس ماه
+    const monthGroups = {};
+    state.expenses.forEach(e => {
+        if (!e.date || e.date === '—') return;
+        const parts = e.date.split('/');
+        if (parts.length < 2) return;
+        const monthKey = parts[0] + '/' + parts[1];
+        monthGroups[monthKey] = (monthGroups[monthKey] || 0) + e.amount;
+    });
+    
+    const sortedKeys = Object.keys(monthGroups).sort();
+    const labels = sortedKeys.slice(-6); // ۶ ماه آخر
+    const data = labels.map(k => monthGroups[k]);
+    
+    const isDark = document.documentElement.classList.contains('dark-mode');
+    
+    monthlyChartInstance = new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'جمع هزینه',
+                data: data,
+                backgroundColor: 'rgba(99,102,241,0.8)',
+                borderColor: '#6366f1',
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) { return formatMoney(context.parsed.y); }
+                    },
+                    titleFont: { family: 'Vazirmatn' },
+                    bodyFont: { family: 'Vazirmatn' }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { font: { family: 'Vazirmatn', size: 10 }, color: isDark ? '#cbd5e1' : '#334155' },
+                    grid: { display: false }
+                },
+                y: {
+                    ticks: {
+                        font: { family: 'Vazirmatn', size: 10 },
+                        color: isDark ? '#cbd5e1' : '#334155',
+                        callback: function(value) { return formatNumber(value); }
+                    },
+                    grid: { color: isDark ? '#334155' : '#e2e8f0' }
+                }
+            }
+        }
+    });
+}
+
+// پیشرفت شارژ
+function renderChargeProgress() {
+    const container = document.getElementById('chargeProgressContainer');
+    if (!container) return;
+    
+    const keys = Object.keys(state.charges);
+    if (keys.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">💰</span><p style="font-size:12px;">هنوز شارژی تعیین نشده</p></div>`;
+        return;
+    }
+    
+    let html = '';
+    keys.slice().reverse().slice(0, 3).forEach(key => {
+        const charge = state.charges[key];
+        let totalPaid = 0;
+        let totalExpected = charge.totalAmount;
+        
+        charge.results.forEach(r => {
+            const unit = state.units.find(u => u.id === r.unitId);
+            if (unit) totalPaid += getUnitTotalPaid(unit);
+        });
+        
+        const percentage = totalExpected > 0 ? Math.round((totalPaid / totalExpected) * 100) : 0;
+        const remaining = totalExpected - totalPaid;
+        
+        html += `
+            <div style="margin-bottom:20px;">
+                <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; margin-bottom:8px;">
+                    <span>${charge.subPeriod}${charge.deadline ? ' — مهلت: ' + charge.deadline : ''}</span>
+                    <span style="color:${percentage >= 100 ? 'var(--success)' : 'var(--primary)'};">${toPersianNum(percentage)}٪</span>
+                </div>
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" style="width:${Math.min(100, percentage)}%;${percentage >= 100 ? 'background:var(--gradient-success);' : percentage >= 50 ? 'background:var(--gradient-primary);' : 'background:var(--gradient-warning);'}"></div>
+                </div>
+                <div class="progress-info">
+                    <span style="color:var(--success);">✅ پرداخت‌شده: ${formatNumber(totalPaid)}</span>
+                    <span style="color:${remaining > 0 ? 'var(--danger)' : 'var(--success)'};">${remaining > 0 ? '💸 باقی‌مانده: ' + formatNumber(remaining) : '🎉 تسویه کامل'}</span>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+}
+
+// آخرین فعالیت‌ها
+function renderRecentActivities() {
+    const container = document.getElementById('recentActivities');
+    if (!container) return;
+    
+    const activities = [];
+    
+    // هزینه‌ها
+    state.expenses.slice(-3).forEach(e => {
+        activities.push({ type: 'expense', icon: '📝', title: `هزینه «${e.typeName}»`, amount: e.amount, date: e.date, createdAt: e.createdAt });
+    });
+    
+    // پرداخت‌ها
+    state.units.forEach(u => {
+        (u.payments || []).slice(-2).forEach(p => {
+            activities.push({ type: 'payment', icon: '💰', title: `پرداخت ${getPayerName(p.payer)} (${u.name})`, amount: p.amount, date: p.date, createdAt: p.createdAt });
+        });
+    });
+    
+    // مرتب‌سازی بر اساس تاریخ ساخت
+    activities.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
+    const recent = activities.slice(0, 5);
+    
+    if (recent.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">📋</span><p style="font-size:12px;">هنوز فعالیتی ثبت نشده</p></div>`;
+        return;
+    }
+    
+    container.innerHTML = `<div class="timeline">${recent.map(a => {
+        let dotClass = 'timeline-dot';
+        let amountColor = 'var(--gray-500)';
+        if (a.type === 'payment') { dotClass += ' success'; amountColor = 'var(--success)'; }
+        else if (a.type === 'expense') { dotClass += ' danger'; amountColor = 'var(--danger)'; }
+        return `
+            <div class="timeline-item">
+                <div class="${dotClass}"></div>
+                <div style="display:flex; justify-content:space-between; gap:8px;">
+                    <span style="font-weight:600;">${a.icon} ${a.title}</span>
+                    <span style="color:${amountColor}; font-weight:700; white-space:nowrap;">${formatMoney(a.amount)}</span>
+                </div>
+                <div class="timeline-time">${a.date}</div>
+            </div>
+        `;
+    }).join('')}</div>`;
+}
+
 // ==================== BACKUP ====================
 function exportData() {
     const dataStr = JSON.stringify(state, null, 2);
@@ -2239,6 +2810,7 @@ function clearAllData() {
     if (!confirm('همه داده‌ها پاک شود؟')) return;
     if (!confirm('مطمئنی؟')) return;
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('hesabyar_backups');
     location.reload();
 }
 
@@ -2268,7 +2840,6 @@ function initPart1() {
     window.addEventListener('offline', updateOnlineStatus);
 }
 </script>
-    
 <script>
 // ==================== JOURNAL TABS ====================
 let currentTab = 'matrix';
@@ -2304,7 +2875,6 @@ function renderAllJournalViews() {
     renderTravelJournalTable();
 }
 
-// ==================== محاسبات ====================
 function computeUnitTotalShares() {
     const shares = {};
     state.units.forEach(u => shares[u.id] = 0);
@@ -2363,14 +2933,9 @@ function renderMatrixTable() {
     const totals = {};
     state.units.forEach(u => totals[u.id] = 0);
     let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
-        <th>#</th>
-        <th>عنوان هزینه</th>
-        <th>تاریخ هزینه</th>
-        <th>روش</th>
-        <th>مبلغ کل</th>`;
+        <th>#</th><th>عنوان هزینه</th><th>تاریخ هزینه</th><th>روش</th><th>مبلغ کل</th>`;
     state.units.forEach(u => {
-        const residentName = getResidentName(u.residentId);
-        html += `<th>${escapeHtml(u.name)}<br><small style="font-weight:400; font-size:9px;">ساکن: ${escapeHtml(residentName)}</small></th>`;
+        html += `<th>${escapeHtml(u.name)}<br><small style="font-weight:400; font-size:9px;">${escapeHtml(getResidentName(u.residentId))}</small></th>`;
     });
     html += `</tr></thead><tbody>`;
     state.expenses.forEach((exp, idx) => {
@@ -2388,9 +2953,7 @@ function renderMatrixTable() {
         html += `</tr>`;
     });
     const totalAll = state.expenses.reduce((s, e) => s + e.amount, 0);
-    html += `<tr class="total-row">
-        <td colspan="4">جمع کل</td>
-        <td>${formatNumber(totalAll)}</td>`;
+    html += `<tr class="total-row"><td colspan="4">جمع کل</td><td>${formatNumber(totalAll)}</td>`;
     state.units.forEach(u => { html += `<td>${formatNumber(totals[u.id])}</td>`; });
     html += `</tr></tbody></table></div>`;
     html += `<div class="law-box" style="margin-top:16px;"><h4><i class="fas fa-gavel"></i> راهنمای روش‌های تقسیم</h4>
@@ -2408,44 +2971,30 @@ function renderSummaryTable() {
     const container = document.getElementById('summaryTable');
     if (!container) return;
     if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">🏘️</span><h3>هنوز واحدی ثبت نشده</h3><p>ابتدا واحدها رو ثبت کن</p><div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;"><i class="fas fa-plus"></i> افزودن واحد</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🏘️</span><h3>هنوز واحدی ثبت نشده</h3></div>`;
         return;
     }
     const breakdown = computeUnitSharesBreakdown();
     let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
-        <th>#</th>
-        <th>واحد</th>
-        <th>ساکن</th>
-        <th>مالک</th>
-        <th>متراژ</th>
-        <th>نفرات</th>
-        <th>سهم ساکن</th>
-        <th>سهم مالک</th>
-        <th>جمع سهم</th>
-        <th>شارژ پرداختی</th>
-        <th>مانده</th>
-        <th>وضعیت</th>
+        <th>#</th><th>واحد</th><th>ساکن</th><th>مالک</th><th>متراژ</th><th>نفرات</th>
+        <th>سهم ساکن</th><th>سهم مالک</th><th>جمع سهم</th><th>پرداختی</th><th>مانده</th><th>وضعیت</th>
         </tr></thead><tbody>`;
     let totalResidentShare = 0, totalOwnerShare = 0, totalPaid = 0;
     state.units.forEach((u, idx) => {
-        const residentName = getResidentName(u.residentId);
-        const ownerName = getOwnerName(u.ownerId);
         const paid = getUnitTotalPaid(u);
         const residentShare = breakdown[u.id].resident;
         const ownerShare = breakdown[u.id].owner;
         const totalShare = breakdown[u.id].total;
         const balance = paid - totalShare;
-        totalResidentShare += residentShare;
-        totalOwnerShare += ownerShare;
-        totalPaid += paid;
+        totalResidentShare += residentShare; totalOwnerShare += ownerShare; totalPaid += paid;
         const statusBadge = balance >= 0 
             ? `<span class="badge badge-success">✓ طلبکار ${formatNumber(balance)}</span>` 
             : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
         html += `<tr>
             <td>${toPersianNum(idx + 1)}</td>
             <td style="font-weight:700;">${escapeHtml(u.name)}</td>
-            <td>${escapeHtml(residentName)}${u.isTenant ? ' <span class="badge badge-warning" style="font-size:9px;">مستاجر</span>' : ''}</td>
-            <td>${escapeHtml(ownerName)}</td>
+            <td>${escapeHtml(getResidentName(u.residentId))}${u.isTenant ? ' <span class="badge badge-warning" style="font-size:9px;">مستاجر</span>' : ''}</td>
+            <td>${escapeHtml(getOwnerName(u.ownerId))}</td>
             <td>${toPersianNum(u.area)}</td>
             <td>${toPersianNum(u.residents)}</td>
             <td style="color:#9d174d; font-weight:700;">${formatNumber(residentShare)}</td>
@@ -2457,14 +3006,12 @@ function renderSummaryTable() {
         </tr>`;
     });
     const totalAll = totalResidentShare + totalOwnerShare;
-    html += `<tr class="total-row">
-        <td colspan="6">جمع کل</td>
+    html += `<tr class="total-row"><td colspan="6">جمع کل</td>
         <td style="color:#9d174d;">${formatNumber(totalResidentShare)}</td>
         <td style="color:#92400e;">${formatNumber(totalOwnerShare)}</td>
         <td>${formatNumber(totalAll)}</td>
         <td>${formatNumber(totalPaid)}</td>
-        <td colspan="2">—</td>
-    </tr></tbody></table></div>`;
+        <td colspan="2">—</td></tr></tbody></table></div>`;
     html += `<div class="info-box" style="margin-top:16px;"><i class="fas fa-info-circle"></i><div>
         <strong>نحوه محاسبه:</strong><br>
         <span style="color:#9d174d;">■ سهم ساکن</span> = جمع هزینه‌های ساکنانه.<br>
@@ -2479,20 +3026,14 @@ function renderPersonsTable() {
     const container = document.getElementById('personsTable');
     if (!container) return;
     if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">🤝</span><h3>هنوز واحدی ثبت نشده</h3><p>ابتدا واحدها رو ثبت کن</p><div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;"><i class="fas fa-plus"></i> افزودن واحد</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🤝</span><h3>هنوز واحدی ثبت نشده</h3></div>`;
         return;
     }
     const breakdown = computeUnitSharesBreakdown();
     const persons = buildPersonsMap();
     let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
-        <th>#</th>
-        <th>نام همسایه</th>
-        <th>سهم مالکانه</th>
-        <th>سهم ساکنانه</th>
-        <th>جمع سهم</th>
-        <th>پرداختی واقعی</th>
-        <th>مانده</th>
-        <th>وضعیت</th>
+        <th>#</th><th>نام همسایه</th><th>سهم مالکانه</th><th>سهم ساکنانه</th><th>جمع سهم</th>
+        <th>پرداختی واقعی</th><th>مانده</th><th>وضعیت</th>
         </tr></thead><tbody>`;
     let idx = 1;
     let totalOwnerShareAll = 0, totalResidentShareAll = 0, totalPaidAll = 0;
@@ -2502,37 +3043,28 @@ function renderPersonsTable() {
         const ownerUnitsList = [], residentUnitsList = [];
         if (person.ownerId) {
             state.units.forEach(u => {
-                if (u.ownerId === person.ownerId) {
-                    ownerShare += breakdown[u.id].owner;
-                    ownerUnitsList.push(u.name);
-                }
+                if (u.ownerId === person.ownerId) { ownerShare += breakdown[u.id].owner; ownerUnitsList.push(u.name); }
             });
             paid += getOwnerTotalPaid(person.ownerId);
         }
         if (person.residentId) {
             state.units.forEach(u => {
-                if (u.residentId === person.residentId) {
-                    residentShare += breakdown[u.id].resident;
-                    residentUnitsList.push(u.name);
-                }
+                if (u.residentId === person.residentId) { residentShare += breakdown[u.id].resident; residentUnitsList.push(u.name); }
             });
             paid += getResidentTotalPaid(person.residentId);
         }
         const totalShare = ownerShare + residentShare;
         const balance = paid - totalShare;
-        totalOwnerShareAll += ownerShare;
-        totalResidentShareAll += residentShare;
-        totalPaidAll += paid;
+        totalOwnerShareAll += ownerShare; totalResidentShareAll += residentShare; totalPaidAll += paid;
         const statusBadge = balance >= 0 
             ? `<span class="badge badge-success">✓ طلبکار</span>` 
             : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
         let roleDesc = [];
         if (ownerUnitsList.length > 0) roleDesc.push('👔 مالک: ' + ownerUnitsList.map(escapeHtml).join('، '));
         if (residentUnitsList.length > 0) roleDesc.push('👥 ساکن: ' + residentUnitsList.map(escapeHtml).join('، '));
-        const roleText = roleDesc.length > 0 ? roleDesc.join(' | ') : '—';
         html += `<tr>
             <td>${toPersianNum(idx++)}</td>
-            <td style="font-weight:700;">${escapeHtml(person.name)}<br><small style="color:var(--gray-500); font-weight:400; font-size:10px;">${roleText}</small></td>
+            <td style="font-weight:700;">${escapeHtml(person.name)}<br><small style="color:var(--gray-500); font-weight:400; font-size:10px;">${roleDesc.join(' | ') || '—'}</small></td>
             <td style="color:#92400e; font-weight:700;">${formatNumber(ownerShare)}</td>
             <td style="color:#9d174d; font-weight:700;">${formatNumber(residentShare)}</td>
             <td style="color:var(--primary); font-weight:800;">${formatNumber(totalShare)}</td>
@@ -2542,14 +3074,12 @@ function renderPersonsTable() {
         </tr>`;
     });
     const totalAll = totalOwnerShareAll + totalResidentShareAll;
-    html += `<tr class="total-row">
-        <td colspan="2">جمع کل</td>
+    html += `<tr class="total-row"><td colspan="2">جمع کل</td>
         <td style="color:#92400e;">${formatNumber(totalOwnerShareAll)}</td>
         <td style="color:#9d174d;">${formatNumber(totalResidentShareAll)}</td>
         <td>${formatNumber(totalAll)}</td>
         <td>${formatNumber(totalPaidAll)}</td>
-        <td colspan="2">—</td>
-    </tr></tbody></table></div>`;
+        <td colspan="2">—</td></tr></tbody></table></div>`;
     html += `<div class="info-box" style="margin-top:16px;"><i class="fas fa-info-circle"></i><div>
         <strong>نحوه محاسبه:</strong><br>
         <span style="color:#92400e;">■ سهم مالکانه</span> = هزینه‌های مالکانه از تمام واحدهای مالکیت.<br>
@@ -2566,19 +3096,14 @@ function renderTravelJournalTable() {
     const container = document.getElementById('travelJournalTable');
     if (!container) return;
     if (state.travelExpenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">✈️</span><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر رو ثبت کن</p><div class="empty-hint" onclick="navigateTo('travel')" style="cursor:pointer;"><i class="fas fa-plus"></i> ثبت هزینه سفر</div></div>`;
+        container.innerHTML = `<div class="empty-state"><span class="emoji">✈️</span><h3>هنوز هزینه سفری ثبت نشده</h3></div>`;
         return;
     }
     const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
     const totalPeople = state.companions.reduce((s, c) => s + c.count, 0);
     const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
     let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
-        <th>#</th>
-        <th>عنوان</th>
-        <th>دسته</th>
-        <th>تاریخ</th>
-        <th>پرداخت‌کننده</th>
-        <th>مبلغ</th>
+        <th>#</th><th>عنوان</th><th>دسته</th><th>تاریخ</th><th>پرداخت‌کننده</th><th>مبلغ</th>
         </tr></thead><tbody>`;
     state.travelExpenses.forEach((exp, idx) => {
         html += `<tr>
@@ -2593,9 +3118,9 @@ function renderTravelJournalTable() {
     html += `<tr class="total-row"><td colspan="5">جمع کل</td><td>${formatNumber(total)}</td></tr></tbody></table></div>`;
     html += `<div class="info-box" style="margin-top:16px;"><i class="fas fa-info-circle"></i><div>
         <strong>تسویه بین همسفران:</strong><br>
-        جمع هزینه‌ها: ${formatNumber(total)} تومان<br>
+        جمع هزینه‌ها: ${formatMoney(total)}<br>
         تعداد نفرات: ${toPersianNum(totalPeople)} نفر<br>
-        سهم هر نفر: ${formatNumber(sharePerPerson)} تومان
+        سهم هر نفر: ${formatMoney(sharePerPerson)}
     </div></div>`;
     container.innerHTML = html;
 }
@@ -2604,16 +3129,12 @@ function renderTravelJournalTable() {
 function exportExpensesExcel() {
     if (state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const data = state.expenses.map((e, i) => ({
-        'ردیف': i + 1,
-        'عنوان هزینه': e.typeName,
-        'مبلغ (تومان)': e.amount,
-        'تاریخ هزینه': e.date,
-        'تاریخ پرداخت': e.payDate,
-        'پرداخت‌کننده': e.payer,
+        'ردیف': i + 1, 'عنوان هزینه': e.typeName, 'مبلغ': e.amount,
+        'تاریخ هزینه': e.date, 'تاریخ پرداخت': e.payDate, 'پرداخت‌کننده': e.payer,
         'روش تقسیم': getMethodLabel(e.splitMethod).replace(/[^\u0600-\u06FF\s]/g, '').trim()
     }));
     data.push({});
-    data.push({ 'ردیف': 'جمع کل', 'مبلغ (تومان)': state.expenses.reduce((s, e) => s + e.amount, 0) });
+    data.push({ 'ردیف': 'جمع کل', 'مبلغ': state.expenses.reduce((s, e) => s + e.amount, 0) });
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'هزینه‌ها');
@@ -2624,15 +3145,11 @@ function exportExpensesExcel() {
 function exportTravelExcel() {
     if (state.travelExpenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const data = state.travelExpenses.map((e, i) => ({
-        'ردیف': i + 1,
-        'عنوان': e.title,
-        'دسته': e.categoryName,
-        'مبلغ (تومان)': e.amount,
-        'تاریخ': e.date,
-        'پرداخت‌کننده': e.payer
+        'ردیف': i + 1, 'عنوان': e.title, 'دسته': e.categoryName,
+        'مبلغ': e.amount, 'تاریخ': e.date, 'پرداخت‌کننده': e.payer
     }));
     data.push({});
-    data.push({ 'ردیف': 'جمع کل', 'مبلغ (تومان)': state.travelExpenses.reduce((s, e) => s + e.amount, 0) });
+    data.push({ 'ردیف': 'جمع کل', 'مبلغ': state.travelExpenses.reduce((s, e) => s + e.amount, 0) });
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'سفر');
@@ -2651,8 +3168,7 @@ function exportJournalExcel(type) {
         { 'عنوان': 'نام ساختمان', 'مقدار': state.settings.buildingName },
         { 'عنوان': 'نام مدیر', 'مقدار': state.settings.managerName },
         { 'عنوان': 'تاریخ گزارش', 'مقدار': toPersianDateString() },
-        {},
-        { 'عنوان': 'تعداد واحدها', 'مقدار': state.units.length },
+        {}, { 'عنوان': 'تعداد واحدها', 'مقدار': state.units.length },
         { 'عنوان': 'جمع کل هزینه‌ها', 'مقدار': state.expenses.reduce((s, e) => s + e.amount, 0) },
         { 'عنوان': 'جمع کل پرداختی شارژ', 'مقدار': state.units.reduce((s, u) => s + getUnitTotalPaid(u), 0) }
     ];
@@ -2811,7 +3327,7 @@ function exportExpensesPDF() {
     let content = `<h2 style="color:#1e293b; font-size:16px; margin:20px 0 10px 0;">📋 لیست هزینه‌ها</h2>`;
     content += `<table style="${tableStyle()}"><thead><tr>
         <th style="${thStyle()}">#</th><th style="${thStyle()}">عنوان</th><th style="${thStyle()}">تاریخ</th>
-        <th style="${thStyle()}">پرداخت‌کننده</th><th style="${thStyle()}">روش</th><th style="${thStyle()}">مبلغ</th>
+        <th style="${thStyle()}">پرداخت‌کننده</th><th style="${thStyle()}">روش</th><th style="${thStyle()}">مبلغ (${getCurrencySymbol()})</th>
     </tr></thead><tbody>`;
     state.expenses.forEach((e, i) => {
         content += `<tr>
@@ -2835,8 +3351,8 @@ function exportTravelPDF() {
     const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
     let content = `<div style="background:#eef2ff; padding:15px; border-radius:10px; margin-bottom:15px; text-align:center;">
         <div style="font-size:12px; color:#64748b;">مجموع هزینه سفر</div>
-        <div style="font-size:22px; font-weight:800; color:#6366f1;">${formatNumber(total)} تومان</div>
-        <div style="font-size:11px; color:#64748b; margin-top:5px;">${toPersianNum(totalPeople)} نفر — سهم هر نفر: ${formatNumber(sharePerPerson)} تومان</div>
+        <div style="font-size:22px; font-weight:800; color:#6366f1;">${formatMoney(total)}</div>
+        <div style="font-size:11px; color:#64748b; margin-top:5px;">${toPersianNum(totalPeople)} نفر — سهم هر نفر: ${formatMoney(sharePerPerson)}</div>
     </div>`;
     content += `<h2 style="font-size:14px; margin:15px 0 10px 0;">📋 لیست هزینه‌ها</h2>`;
     content += `<table style="${tableStyle()}"><thead><tr>
@@ -2886,8 +3402,8 @@ function exportJournalPDF(type) {
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div><strong>تعداد واحدها:</strong> ${toPersianNum(state.units.length)}</div>
             <div><strong>تعداد ساکنان:</strong> ${toPersianNum(state.units.reduce((s,u)=>s+u.residents,0))}</div>
-            <div><strong>جمع کل هزینه‌ها:</strong> ${formatNumber(totalExp)} تومان</div>
-            <div><strong>جمع پرداختی شارژ:</strong> ${formatNumber(totalPaid)} تومان</div>
+            <div><strong>جمع کل هزینه‌ها:</strong> ${formatMoney(totalExp)}</div>
+            <div><strong>جمع پرداختی شارژ:</strong> ${formatMoney(totalPaid)}</div>
         </div>
     </div>`;
     content += `<h2 style="font-size:14px; margin:15px 0 10px 0;">📊 دفتر ماتریسی — سهم هر واحد</h2>`;
@@ -2985,7 +3501,6 @@ function openEditModal(title, fieldsHTML, onSave) {
     setTimeout(initDatePickers, 200);
     openModal('editModal');
 }
-
 function saveEdit() {
     if (typeof window._editSaveCallback === 'function') window._editSaveCallback();
 }
@@ -3007,8 +3522,7 @@ function editOwner(id) {
         state.residents.forEach(r => { if (r.linkedOwnerId === id) { r.name = name; r.phone = phone; } });
         saveState();
         closeModal('editModal');
-        renderOwnersList(); renderResidentsList();
-        refreshOwnerDropdowns(); refreshResidentDropdowns(); refreshPaymentPayerDropdown();
+        renderOwnersList(); renderResidentsList(); refreshOwnerDropdowns(); refreshResidentDropdowns(); refreshPaymentPayerDropdown();
         renderUnits(); renderAllJournalViews();
         showToast('✅ مالک ویرایش شد', 'success');
     });
@@ -3035,8 +3549,7 @@ function editResident(id) {
         }
         saveState();
         closeModal('editModal');
-        renderResidentsList(); renderUnits();
-        refreshResidentDropdowns(); refreshPaymentPayerDropdown();
+        renderResidentsList(); renderUnits(); refreshResidentDropdowns(); refreshPaymentPayerDropdown();
         renderAllJournalViews();
         showToast('✅ ساکن ویرایش شد', 'success');
     });
@@ -3086,7 +3599,7 @@ function editExpense(id) {
     if (!exp) return;
     const html = `
         <div class="form-group"><label>عنوان</label><input type="text" class="form-control" id="editExpenseTitle" value="${escapeHtml(exp.typeName)}"></div>
-        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label><input type="number" class="form-control" id="editExpenseAmount" value="${exp.amount || 0}"></div>
+        <div class="form-group"><label>مبلغ <span class="required">*</span></label><input type="number" class="form-control" id="editExpenseAmount" value="${exp.amount || 0}"></div>
         <div class="form-row">
             <div class="form-group"><label>تاریخ هزینه</label><input type="text" class="form-control datepicker" id="editExpenseDate" value="${exp.date || ''}" readonly></div>
             <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="editExpensePayDate" value="${exp.payDate || ''}" readonly></div>
@@ -3126,13 +3639,16 @@ function editCharge(key) {
     if (!charge) return;
     const html = `
         <div class="form-group"><label>دوره</label><input type="text" class="form-control" value="${charge.subPeriod}" readonly></div>
-        <div class="form-group"><label>مبلغ شارژ هر واحد (تومان) <span class="required">*</span></label><input type="number" class="form-control" id="editChargeAmount" value="${charge.perUnitAmount || 0}"></div>
+        <div class="form-group"><label>مبلغ شارژ هر واحد <span class="required">*</span></label><input type="number" class="form-control" id="editChargeAmount" value="${charge.perUnitAmount || 0}"></div>
+        <div class="form-group"><label>مهلت پرداخت</label><input type="text" class="form-control datepicker" id="editChargeDeadline" value="${charge.deadline || ''}" readonly></div>
         <div class="info-box"><i class="fas fa-info-circle"></i> با تغییر مبلغ، شارژ همه واحدها به‌روز می‌شود.</div>
     `;
     openEditModal('ویرایش شارژ', html, () => {
         const amount = parseFloat(document.getElementById('editChargeAmount').value);
+        const deadline = document.getElementById('editChargeDeadline').value.trim();
         if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
         charge.perUnitAmount = amount;
+        charge.deadline = deadline || null;
         charge.totalAmount = amount * state.units.length;
         charge.results = state.units.map(unit => ({ unitId: unit.id, unitName: unit.name, residentName: getResidentName(unit.residentId), share: amount }));
         saveState();
@@ -3148,7 +3664,7 @@ function editTravelExpense(id) {
     const payerOptions = state.companions.map(c => `<option value="${escapeHtml(c.name)}" ${c.name === exp.payer ? 'selected' : ''}>${escapeHtml(c.name)}</option>`).join('');
     const html = `
         <div class="form-group"><label>عنوان <span class="required">*</span></label><input type="text" class="form-control" id="editTravelTitle" value="${escapeHtml(exp.title)}"></div>
-        <div class="form-group"><label>مبلغ (تومان) <span class="required">*</span></label><input type="number" class="form-control" id="editTravelAmount" value="${exp.amount || 0}"></div>
+        <div class="form-group"><label>مبلغ <span class="required">*</span></label><input type="number" class="form-control" id="editTravelAmount" value="${exp.amount || 0}"></div>
         <div class="form-group"><label>تاریخ</label><input type="text" class="form-control datepicker" id="editTravelDate" value="${exp.date || ''}" readonly></div>
         <div class="form-group"><label>پرداخت‌کننده</label><select class="form-select" id="editTravelPayer">${payerOptions}</select></div>
     `;
@@ -3188,7 +3704,7 @@ if ('serviceWorker' in navigator) {
                     const newWorker = registration.installing;
                     newWorker.addEventListener('statechange', () => {
                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            if (confirm('نسخه جدید اپ آماده‌ست. برای به‌روزرسانی، صفحه رفرش میشه. آپدیت کنیم؟')) {
+                            if (confirm('نسخه جدید اپ آماده‌ست. آپدیت کنیم؟')) {
                                 newWorker.postMessage({ type: 'SKIP_WAITING' });
                             }
                         }
@@ -3196,16 +3712,12 @@ if ('serviceWorker' in navigator) {
                 });
             })
             .catch(err => console.error('[SW] Registration failed:', err));
-        
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
-            if (!refreshing) {
-                refreshing = true;
-                window.location.reload();
-            }
+            if (!refreshing) { refreshing = true; window.location.reload(); }
         });
     });
 }
 </script>
 </body>
-</html>    
+</html>
