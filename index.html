@@ -1519,26 +1519,17 @@ async function renderOwnersList() {
     const container = document.getElementById('ownersList');
     const countEl = document.getElementById('ownersCount');
     if (!container) return;
-    if (currentProfile?.role === 'super_admin') {
-        const { data: owners } = await sb.from('profiles').select('*').eq('role', 'owner');
-        if (countEl) countEl.textContent = toPersianNum((owners || []).length) + ' مالک';
-        if (!owners || owners.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👤</span><p style="font-size:12px;">هنوز مالکی ثبت نشده</p></div>`; return; }
-        container.innerHTML = owners.map(o => {
-            const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
-            return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(o.name)}</div><div class="list-item-subtitle">📱 ${escapeHtml(o.phone)}</div></div></div><div class="btn-group"><button class="btn btn-danger btn-sm btn-icon" onclick="removeOwner('${o.id}')"><i class="fas fa-trash"></i></button></div></div>`;
-        }).join('');
+    
+    // ⭐ از کش Supabase استفاده کن
+    await loadProfilesCache();
+    const users = getBuildingProfiles().filter(p => p.role === 'owner');
+    
+    if (countEl) countEl.textContent = toPersianNum(users.length) + ' مالک';
+    if (users.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👤</span><p style="font-size:12px;">هنوز مالکی اضافه نشده</p><p style="font-size:11px; color:var(--gray-500);">از Super Admin بخواه اضافه کند</p></div>`;
         return;
     }
-    if (!currentProfile || !currentProfile.building_id) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><p style="font-size:12px;">ساختمونی متصل نیست</p></div>`;
-        if (countEl) countEl.textContent = '۰ مالک';
-        return;
-    }
-    const { data: owners, error } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).eq('role', 'owner');
-    if (error) { container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`; return; }
-    if (countEl) countEl.textContent = toPersianNum(owners.length) + ' مالک';
-    if (!owners || owners.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👤</span><p style="font-size:12px;">هنوز مالکی اضافه نشده</p></div>`; return; }
-    container.innerHTML = owners.map(o => {
+    container.innerHTML = users.map(o => {
         const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
         return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(o.name)}</div><div class="list-item-subtitle">📱 ${escapeHtml(o.phone)}</div></div></div><div class="btn-group"><button class="btn btn-danger btn-sm btn-icon" onclick="removeOwner('${o.id}')"><i class="fas fa-trash"></i></button></div></div>`;
     }).join('');
@@ -1547,27 +1538,16 @@ async function renderResidentsList() {
     const container = document.getElementById('residentsList');
     const countEl = document.getElementById('residentsCount');
     if (!container) return;
-    if (currentProfile?.role === 'super_admin') {
-        const { data: residents } = await sb.from('profiles').select('*').in('role', ['resident', 'owner']);
-        if (countEl) countEl.textContent = toPersianNum((residents || []).length) + ' ساکن';
-        if (!residents || residents.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👥</span><p style="font-size:12px;">هنوز ساکنی ثبت نشده</p></div>`; return; }
-        container.innerHTML = residents.map(r => {
-            const prefix = r.gender === 'female' ? 'خانم' : 'آقای';
-            const isOwner = r.role === 'owner';
-            return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div><div class="list-item-subtitle">📱 ${escapeHtml(r.phone)}</div></div></div><div class="btn-group">${!isOwner ? `<button class="btn btn-danger btn-sm btn-icon" onclick="removeResident('${r.id}')"><i class="fas fa-trash"></i></button>` : ''}</div></div>`;
-        }).join('');
+    
+    await loadProfilesCache();
+    const users = getBuildingProfiles().filter(p => p.role === 'resident' || p.role === 'owner');
+    
+    if (countEl) countEl.textContent = toPersianNum(users.length) + ' ساکن';
+    if (users.length === 0) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👥</span><p style="font-size:12px;">هنوز ساکنی اضافه نشده</p></div>`;
         return;
     }
-    if (!currentProfile || !currentProfile.building_id) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><p style="font-size:12px;">ساختمونی متصل نیست</p></div>`;
-        if (countEl) countEl.textContent = '۰ ساکن';
-        return;
-    }
-    const { data: residents, error } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).in('role', ['resident', 'owner']);
-    if (error) { container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`; return; }
-    if (countEl) countEl.textContent = toPersianNum(residents.length) + ' ساکن';
-    if (!residents || residents.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👥</span><p style="font-size:12px;">هنوز ساکنی اضافه نشده</p></div>`; return; }
-    container.innerHTML = residents.map(r => {
+    container.innerHTML = users.map(r => {
         const prefix = r.gender === 'female' ? 'خانم' : 'آقای';
         const isOwner = r.role === 'owner';
         return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div><div class="list-item-subtitle">📱 ${escapeHtml(r.phone)}</div></div></div><div class="btn-group">${!isOwner ? `<button class="btn btn-danger btn-sm btn-icon" onclick="removeResident('${r.id}')"><i class="fas fa-trash"></i></button>` : ''}</div></div>`;
@@ -1595,80 +1575,57 @@ async function removeResident(userId) {
 <script>
 // ==================== DROPDOWNS ====================
 function refreshOwnerDropdowns() {
-    let query = sb.from('profiles').select('*').eq('role', 'owner');
-    if (currentProfile?.role !== 'super_admin' && currentProfile?.building_id) {
-        query = query.eq('building_id', currentProfile.building_id);
-    }
-    
-    query.then(({ data }) => {
-        const users = data || [];
-        ['unitOwnerSelect', 'unitOwnerSelfSelect'].forEach(selId => {
-            const sel = document.getElementById(selId);
-            if (!sel) return;
-            const current = sel.value;
-            if (users.length === 0) {
-                sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» مالک اضافه کنید —</option>';
-                return;
-            }
-            let html = '<option value="">— انتخاب مالک —</option>';
-            users.forEach(o => {
-                const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
-                html += `<option value="${o.id}">${prefix} ${escapeHtml(o.name)}</option>`;
-            });
-            sel.innerHTML = html;
-            if (current) sel.value = current;
-        });
-    });
-}    
-function refreshResidentDropdowns() {
-    const sel = document.getElementById('unitResidentSelect');
-    if (!sel) return;
-    const current = sel.value;
-    
-    let query = sb.from('profiles').select('*').in('role', ['resident', 'owner']);
-    if (currentProfile?.role !== 'super_admin' && currentProfile?.building_id) {
-        query = query.eq('building_id', currentProfile.building_id);
-    }
-    
-    query.then(({ data }) => {
-        const users = data || [];
+    const users = getBuildingProfiles().filter(p => p.role === 'owner');
+    ['unitOwnerSelect', 'unitOwnerSelfSelect'].forEach(selId => {
+        const sel = document.getElementById(selId);
+        if (!sel) return;
+        const current = sel.value;
         if (users.length === 0) {
-            sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» ساکن اضافه کنید —</option>';
+            sel.innerHTML = '<option value="">— مالکی موجود نیست — از Super Admin بخواه اضافه کند —</option>';
             return;
         }
-        let html = '<option value="">— انتخاب ساکن —</option>';
-        users.forEach(u => {
-            const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
-            const roleText = u.role === 'owner' ? ' (مالک)' : '';
-            html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText}</option>`;
+        let html = '<option value="">— انتخاب مالک —</option>';
+        users.forEach(o => {
+            const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
+            html += `<option value="${o.id}">${prefix} ${escapeHtml(o.name)}</option>`;
         });
         sel.innerHTML = html;
         if (current) sel.value = current;
     });
+}    
+function refreshResidentDropdowns() {
+    const users = getBuildingProfiles().filter(p => p.role === 'resident' || p.role === 'owner');
+    const sel = document.getElementById('unitResidentSelect');
+    if (!sel) return;
+    const current = sel.value;
+    if (users.length === 0) {
+        sel.innerHTML = '<option value="">— ساکنی موجود نیست — از Super Admin بخواه اضافه کند —</option>';
+        return;
+    }
+    let html = '<option value="">— انتخاب ساکن —</option>';
+    users.forEach(u => {
+        const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+        const roleText = u.role === 'owner' ? ' (مالک)' : '';
+        html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText}</option>`;
+    });
+    sel.innerHTML = html;
+    if (current) sel.value = current;
 }
 function refreshPaymentPayerDropdown() {
     const sel = document.getElementById('paymentPayer');
     if (!sel) return;
-    
-    let query = sb.from('profiles').select('*').in('role', ['resident', 'owner']);
-    if (currentProfile?.role !== 'super_admin' && currentProfile?.building_id) {
-        query = query.eq('building_id', currentProfile.building_id);
+    const users = getBuildingProfiles().filter(p => p.role === 'resident' || p.role === 'owner');
+    if (users.length === 0) {
+        sel.innerHTML = '<option value="">— کاربری موجود نیست — از Super Admin بخواه اضافه کند —</option>';
+        return;
     }
-    
-    query.then(({ data }) => {
-        const users = data || [];
-        if (users.length === 0) {
-            sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» کاربر اضافه کنید —</option>';
-            return;
-        }
-        let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
-        users.forEach(u => {
-            const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
-            const roleText = u.role === 'owner' ? ' (مالک)' : ' (ساکن)';
-            html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText} — 📱 ${escapeHtml(u.phone)}</option>`;
-        });
-        sel.innerHTML = html;
+    let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
+    users.forEach(u => {
+        const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+        const roleText = u.role === 'owner' ? ' (مالک)' : ' (ساکن)';
+        html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText} — 📱 ${escapeHtml(u.phone)}</option>`;
     });
+    sel.innerHTML = html;
 }
  // ⭐ کش کاربران از Supabase
 let cachedProfiles = {};
@@ -1678,6 +1635,16 @@ function loadProfilesCache() {
         (data || []).forEach(p => cachedProfiles[p.id] = p);
         return cachedProfiles;
     });
+}
+function getBuildingProfiles() {
+    const all = Object.values(cachedProfiles);
+    // Super Admin همه رو می‌بینه
+    if (currentProfile?.role === 'super_admin') return all;
+    // مدیر/ساکن فقط ساختمون خودش
+    if (currentProfile?.building_id) {
+        return all.filter(p => p.building_id === currentProfile.building_id);
+    }
+    return [];
 }
 function getProfileById(id) {
     return cachedProfiles[id] || null;
@@ -1743,40 +1710,19 @@ function deleteUnit(id) {
 }
 function openPaymentModal(unitId) {
     currentPaymentUnitId = unitId;
-    const sel = document.getElementById('paymentPayer');
-    if (sel) sel.innerHTML = '<option value="">— در حال بارگذاری —</option>';
     document.getElementById('paymentAmount').value = '';
     document.getElementById('paymentDate').value = '';
     document.getElementById('paymentNote').value = '';
+    refreshPaymentPayerDropdown();
     
-    // پر کردن دراپ‌داون پرداخت‌کننده
-    let query = sb.from('profiles').select('*').in('role', ['resident', 'owner']);
-    if (currentProfile?.role !== 'super_admin' && currentProfile?.building_id) {
-        query = query.eq('building_id', currentProfile.building_id);
+    // انتخاب خودکار ساکن واحد
+    const unit = state.units.find(u => u.id === unitId);
+    if (unit && unit.residentId) {
+        setTimeout(() => {
+            const sel = document.getElementById('paymentPayer');
+            if (sel) sel.value = unit.residentId;
+        }, 100);
     }
-    
-    query.then(({ data }) => {
-        const users = data || [];
-        if (!sel) return;
-        if (users.length === 0) {
-            sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» کاربر اضافه کنید —</option>';
-            return;
-        }
-        let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
-        users.forEach(u => {
-            const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
-            const roleText = u.role === 'owner' ? ' (مالک)' : ' (ساکن)';
-            html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText} — 📱 ${escapeHtml(u.phone)}</option>`;
-        });
-        sel.innerHTML = html;
-        
-        // ⭐ انتخاب خودکار ساکن واحد
-        const unit = state.units.find(u => u.id === unitId);
-        if (unit && unit.residentId) {
-            sel.value = unit.residentId;
-        }
-    });
-    
     openModal('paymentModal');
 }
 function savePayment() {
