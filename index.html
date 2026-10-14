@@ -1187,7 +1187,7 @@ function navigateTo(page) {
     if (page === 'super-buildings') renderSuperBuildingsList();
     if (page === 'super-users') renderSuperUsersList();
     if (page === 'my-panel') renderMyPanel();
-    if (page === 'units') { refreshOwnerDropdowns(); refreshResidentDropdowns(); }
+    if (page === 'units') { setTimeout(() => { refreshOwnerDropdowns(); refreshResidentDropdowns(); }, 100); }
     if (page === 'dashboard') renderDashboard();
 }
 function openSidebar() { document.getElementById('sidebar').classList.add('active'); document.getElementById('sidebarOverlay').classList.add('active'); }
@@ -1589,22 +1589,56 @@ async function removeResident(userId) {
 </script>
 <script>
 // ==================== DROPDOWNS ====================
-function refreshOwnerDropdowns() {
+async function refreshOwnerDropdowns() {
+    let users = [];
+    if (currentProfile?.role === 'super_admin') {
+        const { data } = await sb.from('profiles').select('*').eq('role', 'owner');
+        users = data || [];
+    } else if (currentProfile?.building_id) {
+        const { data } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).eq('role', 'owner');
+        users = data || [];
+    }
+    
     ['unitOwnerSelect', 'unitOwnerSelfSelect'].forEach(selId => {
         const sel = document.getElementById(selId);
         if (!sel) return;
         const current = sel.value;
-        if (state.owners.length === 0) { sel.innerHTML = '<option value="">— ابتدا مالک اضافه کنید —</option>'; return; }
-        sel.innerHTML = '<option value="">— انتخاب مالک —</option>' + state.owners.map(o => `<option value="${o.id}">${escapeHtml(o.name)}</option>`).join('');
+        if (users.length === 0) { sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» مالک اضافه کنید —</option>'; return; }
+        let html = '<option value="">— انتخاب مالک —</option>';
+        users.forEach(o => {
+            const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
+            html += `<option value="${o.id}">${prefix} ${escapeHtml(o.name)}</option>`;
+        });
+        sel.innerHTML = html;
         if (current) sel.value = current;
     });
-}
-function refreshResidentDropdowns() {
+}    
+async function refreshResidentDropdowns() {
     const sel = document.getElementById('unitResidentSelect');
     if (!sel) return;
     const current = sel.value;
-    if (state.residents.length === 0) { sel.innerHTML = '<option value="">— ابتدا ساکن اضافه کنید —</option>'; return; }
-    sel.innerHTML = '<option value="">— انتخاب ساکن —</option>' + state.residents.map(r => `<option value="${r.id}">${escapeHtml(r.name)}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`).join('');
+    
+    let users = [];
+    if (currentProfile?.role === 'super_admin') {
+        const { data } = await sb.from('profiles').select('*').in('role', ['resident', 'owner']);
+        users = data || [];
+    } else if (currentProfile?.building_id) {
+        const { data } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).in('role', ['resident', 'owner']);
+        users = data || [];
+    }
+    
+    if (users.length === 0) { 
+        sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» ساکن اضافه کنید —</option>'; 
+        return; 
+    }
+    
+    let html = '<option value="">— انتخاب ساکن —</option>';
+    users.forEach(u => {
+        const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+        const roleText = u.role === 'owner' ? ' (مالک)' : '';
+        html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText}</option>`;
+    });
+    sel.innerHTML = html;
     if (current) sel.value = current;
 }
 function refreshPaymentPayerDropdown() {
@@ -1663,6 +1697,7 @@ function addUnit() {
     document.getElementById('unitIsTenant').checked = false;
     toggleTenantFields();
     renderUnits(); renderDashboard(); renderAllJournalViews();
+refreshOwnerDropdowns(); refreshResidentDropdowns();
     showToast('✅ واحد اضافه شد', 'success');
 }
 function deleteUnit(id) {
