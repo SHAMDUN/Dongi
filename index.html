@@ -2754,12 +2754,38 @@ function openEditModal(title, fieldsHTML, onSave) {
     openModal('editModal');
 }
 function saveEdit() { if (typeof window._editSaveCallback === 'function') window._editSaveCallback(); }
-function editUnit(id) {
+async function editUnit(id) {
     const unit = state.units.find(u => u.id === id);
     if (!unit) return;
-    const ownerOptions = state.owners.map(o => `<option value="${o.id}" ${o.id === unit.ownerId ? 'selected' : ''}>${escapeHtml(o.name)}</option>`).join('');
-    const residentOptions = state.residents.map(r => `<option value="${r.id}" ${r.id === unit.residentId ? 'selected' : ''}>${escapeHtml(r.name)}</option>`).join('');
+    
+    // ⭐ خوندن از Supabase
+    let allResidents = [];
+    let allOwners = [];
+    if (currentProfile?.role === 'super_admin') {
+        const { data: res } = await sb.from('profiles').select('*').in('role', ['resident', 'owner']);
+        allResidents = res || [];
+        const { data: own } = await sb.from('profiles').select('*').eq('role', 'owner');
+        allOwners = own || [];
+    } else if (currentProfile?.building_id) {
+        const { data: res } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).in('role', ['resident', 'owner']);
+        allResidents = res || [];
+        const { data: own } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).eq('role', 'owner');
+        allOwners = own || [];
+    }
+    
+    const ownerOptions = allOwners.map(o => {
+        const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
+        return `<option value="${o.id}" ${o.id === unit.ownerId ? 'selected' : ''}>${prefix} ${escapeHtml(o.name)}</option>`;
+    }).join('');
+    
+    const residentOptions = allResidents.map(r => {
+        const prefix = r.gender === 'female' ? 'خانم' : 'آقای';
+        const roleText = r.role === 'owner' ? ' (مالک)' : '';
+        return `<option value="${r.id}" ${r.id === unit.residentId ? 'selected' : ''}>${prefix} ${escapeHtml(r.name)}${roleText}</option>`;
+    }).join('');
+    
     const html = `<div class="form-group"><label>نام واحد</label><input type="text" class="form-control" id="editUnitName" value="${escapeHtml(unit.name)}"></div><div class="form-group"><label>ساکن</label><select class="form-select" id="editUnitResident">${residentOptions}</select></div><div class="form-group"><label class="checkbox-wrap"><input type="checkbox" id="editUnitIsTenant" ${unit.isTenant ? 'checked' : ''}><span>مستاجر است</span></label></div><div class="form-group"><label>مالک</label><select class="form-select" id="editUnitOwner">${ownerOptions}</select></div><div class="form-row"><div class="form-group"><label>متراژ</label><input type="number" class="form-control" id="editUnitArea" value="${unit.area || 0}"></div><div class="form-group"><label>تعداد نفرات</label><input type="number" class="form-control" id="editUnitResidents" value="${unit.residents || 1}"></div></div>`;
+    
     openEditModal('ویرایش واحد', html, () => {
         const name = document.getElementById('editUnitName').value.trim();
         const residentId = document.getElementById('editUnitResident').value;
