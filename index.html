@@ -1015,6 +1015,88 @@ html.dark-mode .login-footer {
     .page-title i { width: 38px; height: 38px; font-size: 17px; }
     .journal-tab { font-size: 11px; padding: 8px; }
 }
+/* ==================== TOGGLE GROUP (انتخاب جنسیت) ==================== */
+.toggle-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 16px;
+    border: 2px solid var(--gray-200);
+    border-radius: 14px;
+    background: var(--white);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gray-500);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.toggle-btn:hover:not(.active) {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.toggle-btn:active {
+    transform: scale(0.97);
+}
+
+.toggle-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    transform: scale(1.02);
+}
+
+.toggle-btn.active::after {
+    content: '✓';
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    font-size: 11px;
+    font-weight: 900;
+    background: rgba(255, 255, 255, 0.3);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-btn.active i,
+.toggle-btn.active span {
+    color: white;
+}
+
+html.dark-mode .toggle-btn {
+    background: #1e293b;
+    border-color: #334155;
+    color: #94a3b8;
+}
+
+html.dark-mode .toggle-btn:hover:not(.active) {
+    background: #312e81;
+    color: #a5b4fc;
+}
+
+html.dark-mode .toggle-btn.active {
+    background: var(--gradient-primary);
+    color: white;
+}    
 </style>
 </head>
 <body>
@@ -1951,13 +2033,13 @@ html.dark-mode .login-footer {
             <div class="form-group">
                 <label>جنسیت <span class="required">*</span></label>
                 <div class="toggle-group">
-                    <button type="button" class="toggle-btn active" id="newUserGenderMale" onclick="setNewUserGender('male')">
-                        <i class="fas fa-male"></i> آقا
-                    </button>
-                    <button type="button" class="toggle-btn" id="newUserGenderFemale" onclick="setNewUserGender('female')">
-                        <i class="fas fa-female"></i> خانم
-                    </button>
-                </div>
+    <button type="button" class="toggle-btn active" id="newUserGenderMale" onclick="setNewUserGender('male')">
+        <span style="font-size:16px;">👨</span> آقا
+    </button>
+    <button type="button" class="toggle-btn" id="newUserGenderFemale" onclick="setNewUserGender('female')">
+        <span style="font-size:16px;">👩</span> خانم
+    </button>
+</div>
             </div>
             <div class="form-group">
                 <label>نقش <span class="required">*</span></label>
