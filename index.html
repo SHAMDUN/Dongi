@@ -1644,21 +1644,26 @@ function refreshResidentDropdowns() {
 function refreshPaymentPayerDropdown() {
     const sel = document.getElementById('paymentPayer');
     if (!sel) return;
-    const current = sel.value;
-    let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
-    if (state.residents.length > 0) {
-        html += '<optgroup label="👥 ساکنین">';
-        state.residents.forEach(r => { html += `<option value="resident:${r.id}">${escapeHtml(r.name)}</option>`; });
-        html += '</optgroup>';
+    
+    let query = sb.from('profiles').select('*').in('role', ['resident', 'owner']);
+    if (currentProfile?.role !== 'super_admin' && currentProfile?.building_id) {
+        query = query.eq('building_id', currentProfile.building_id);
     }
-    const ownerOnly = state.owners.filter(o => !state.residents.find(r => r.linkedOwnerId === o.id));
-    if (ownerOnly.length > 0) {
-        html += '<optgroup label="👔 مالکین">';
-        ownerOnly.forEach(o => { html += `<option value="owner:${o.id}">${escapeHtml(o.name)}</option>`; });
-        html += '</optgroup>';
-    }
-    sel.innerHTML = html;
-    if (current) sel.value = current;
+    
+    query.then(({ data }) => {
+        const users = data || [];
+        if (users.length === 0) {
+            sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» کاربر اضافه کنید —</option>';
+            return;
+        }
+        let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
+        users.forEach(u => {
+            const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+            const roleText = u.role === 'owner' ? ' (مالک)' : ' (ساکن)';
+            html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText} — 📱 ${escapeHtml(u.phone)}</option>`;
+        });
+        sel.innerHTML = html;
+    });
 }
  // ⭐ کش کاربران از Supabase
 let cachedProfiles = {};
@@ -1686,12 +1691,12 @@ function getResidentName(id) {
     const prefix = r.gender === 'female' ? 'خانم' : 'آقای';
     return `${prefix} ${r.name}`;
 }   
-function getPayerName(payerCode) {
-    if (!payerCode) return '—';
-    const [type, id] = payerCode.split(':');
-    if (type === 'resident') return getResidentName(id);
-    if (type === 'owner') return getOwnerName(id);
-    return '—';
+function getPayerName(payerId) {
+    if (!payerId) return '—';
+    const p = cachedProfiles[payerId];
+    if (!p) return '—';
+    const prefix = p.gender === 'female' ? 'خانم' : 'آقای';
+    return `${prefix} ${p.name}`;
 }
 
 // ==================== UNITS ====================
@@ -1733,12 +1738,40 @@ function deleteUnit(id) {
 }
 function openPaymentModal(unitId) {
     currentPaymentUnitId = unitId;
-    refreshPaymentPayerDropdown();
-    const unit = state.units.find(u => u.id === unitId);
-    if (unit && unit.residentId) document.getElementById('paymentPayer').value = 'resident:' + unit.residentId;
+    const sel = document.getElementById('paymentPayer');
+    if (sel) sel.innerHTML = '<option value="">— در حال بارگذاری —</option>';
     document.getElementById('paymentAmount').value = '';
     document.getElementById('paymentDate').value = '';
     document.getElementById('paymentNote').value = '';
+    
+    // پر کردن دراپ‌داون پرداخت‌کننده
+    let query = sb.from('profiles').select('*').in('role', ['resident', 'owner']);
+    if (currentProfile?.role !== 'super_admin' && currentProfile?.building_id) {
+        query = query.eq('building_id', currentProfile.building_id);
+    }
+    
+    query.then(({ data }) => {
+        const users = data || [];
+        if (!sel) return;
+        if (users.length === 0) {
+            sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» کاربر اضافه کنید —</option>';
+            return;
+        }
+        let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
+        users.forEach(u => {
+            const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+            const roleText = u.role === 'owner' ? ' (مالک)' : ' (ساکن)';
+            html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText} — 📱 ${escapeHtml(u.phone)}</option>`;
+        });
+        sel.innerHTML = html;
+        
+        // ⭐ انتخاب خودکار ساکن واحد
+        const unit = state.units.find(u => u.id === unitId);
+        if (unit && unit.residentId) {
+            sel.value = unit.residentId;
+        }
+    });
+    
     openModal('paymentModal');
 }
 function savePayment() {
