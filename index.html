@@ -1638,6 +1638,14 @@ function loadProfilesCache() {
 }
 function getBuildingProfiles() {
     const all = Object.values(cachedProfiles);
+    if (currentProfile?.role === 'super_admin') return all;
+    if (currentProfile?.building_id) {
+        return all.filter(p => p.building_id === currentProfile.building_id);
+    }
+    return [];
+}    
+function getBuildingProfiles() {
+    const all = Object.values(cachedProfiles);
     // Super Admin همه رو می‌بینه
     if (currentProfile?.role === 'super_admin') return all;
     // مدیر/ساکن فقط ساختمون خودش
