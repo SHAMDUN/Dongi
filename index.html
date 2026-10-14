@@ -1637,49 +1637,86 @@ html.dark-mode .toggle-btn.active {
 <section class="page" id="page-building-info">
     <div class="page-title"><i class="fas fa-building-user"></i> اطلاعات ساختمان</div>
     
+    <!-- ============ کارت ۱: مشخصات ساختمان (فقط نمایش) ============ -->
     <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-building icon-primary"></i> مشخصات ساختمان</div></div>
-        <div class="form-group"><label>نام ساختمان</label><input type="text" class="form-control" id="settingsBuildingName" placeholder="مثال: مجتمع مسکونی نور"></div>
-        <div class="form-group"><label>نام مدیر ساختمان</label><input type="text" class="form-control" id="settingsManagerName" placeholder="مثال: علی احمدی"></div>
-        <div class="form-group"><label>تاریخ شروع مدیریت</label><input type="text" class="form-control datepicker" id="settingsStartDate" placeholder="انتخاب تاریخ" readonly></div>
-        <button class="btn btn-primary btn-block" onclick="saveSettings()"><i class="fas fa-save"></i> ذخیره مشخصات</button>
+        <div class="card-header">
+            <div class="card-title"><i class="fas fa-building icon-primary"></i> مشخصات ساختمان</div>
+        </div>
+        <div id="buildingInfoDisplay">
+            <div style="text-align:center; padding:20px; color:var(--gray-500);">
+                <i class="fas fa-spinner fa-spin"></i> در حال بارگذاری...
+            </div>
+        </div>
     </div>
 
-    <div class="card">
-
+    <!-- ============ کارت ۲: مالکین ============ -->
     <div class="card">
         <div class="card-header">
             <div class="card-title"><i class="fas fa-user-tie icon-warning"></i> مالکین</div>
             <span class="badge badge-warning" id="ownersCount">۰ مالک</span>
         </div>
-        <div class="info-box"><i class="fas fa-info-circle"></i> با افزودن هر مالک، خودکار یک ساکن هم برایش ساخته می‌شود.</div>
-        <div class="form-row">
-            <div class="form-group"><label>نام مالک <span class="required">*</span></label><input type="text" class="form-control" id="ownerNameInput" placeholder="نام و نام خانوادگی"></div>
-            <div class="form-group"><label>شماره تماس</label><input type="text" class="form-control" id="ownerPhoneInput" placeholder="۰۹۱۲..."></div>
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            <div>از لیست کاربران انتخاب کن. اگه کاربری تو لیست نیست، اول از تب «کاربران» اضافه‌ش کن.</div>
         </div>
-        <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="ownerNoteInput" placeholder="مثال: مالک واحدهای ۱ و ۲"></div>
-        <button class="btn btn-warning btn-block" onclick="addOwner()"><i class="fas fa-user-plus"></i> افزودن مالک</button>
+        
+        <div class="form-group">
+            <label>انتخاب از کاربران <span class="required">*</span></label>
+            <select class="form-select" id="ownerCandidateSelect" onchange="onOwnerSelect()">
+                <option value="">— انتخاب کن —</option>
+            </select>
+        </div>
+        
+        <div id="ownerPreview" style="display:none;">
+            <div class="info-box">
+                <i class="fas fa-user-check"></i>
+                <div>
+                    <div><strong id="ownerPreviewName">—</strong></div>
+                    <div style="font-size:11px; margin-top:4px;">📱 <span id="ownerPreviewPhone">—</span></div>
+                </div>
+            </div>
+            <button class="btn btn-warning btn-block" onclick="addOwnerFromUser()">
+                <i class="fas fa-user-plus"></i> افزودن به مالکین
+            </button>
+        </div>
+        
         <div id="ownersList" style="margin-top:16px;"></div>
     </div>
 
+    <!-- ============ کارت ۳: ساکنین ============ -->
     <div class="card">
         <div class="card-header">
             <div class="card-title"><i class="fas fa-user-friends icon-info"></i> ساکنین</div>
             <span class="badge badge-info" id="residentsCount">۰ ساکن</span>
         </div>
-        <div class="info-box"><i class="fas fa-info-circle"></i> مالکین خودکار به این لیست اضافه می‌شوند. مستاجرین را دستی اضافه کنید.</div>
-        <div class="form-row">
-            <div class="form-group"><label>نام ساکن <span class="required">*</span></label><input type="text" class="form-control" id="residentNameInput" placeholder="نام و نام خانوادگی"></div>
-            <div class="form-group"><label>شماره تماس</label><input type="text" class="form-control" id="residentPhoneInput" placeholder="۰۹۱۲..."></div>
+        <div class="info-box">
+            <i class="fas fa-info-circle"></i>
+            <div>از لیست کاربران انتخاب کن. اگه کاربری تو لیست نیست، اول از تب «کاربران» اضافه‌ش کن.</div>
         </div>
-        <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="residentNoteInput" placeholder="مثال: مستاجر واحد ۳"></div>
-        <button class="btn btn-info btn-block" onclick="addResident()"><i class="fas fa-user-plus"></i> افزودن ساکن</button>
+        
+        <div class="form-group">
+            <label>انتخاب از کاربران <span class="required">*</span></label>
+            <select class="form-select" id="residentCandidateSelect" onchange="onResidentSelect()">
+                <option value="">— انتخاب کن —</option>
+            </select>
+        </div>
+        
+        <div id="residentPreview" style="display:none;">
+            <div class="info-box">
+                <i class="fas fa-user-check"></i>
+                <div>
+                    <div><strong id="residentPreviewName">—</strong></div>
+                    <div style="font-size:11px; margin-top:4px;">📱 <span id="residentPreviewPhone">—</span></div>
+                </div>
+            </div>
+            <button class="btn btn-info btn-block" onclick="addResidentFromUser()">
+                <i class="fas fa-user-plus"></i> افزودن به ساکنین
+            </button>
+        </div>
+        
         <div id="residentsList" style="margin-top:16px;"></div>
     </div>
-
-    
-    
-    </section>
+</section>    
     <!-- SETTINGS -->
 <section class="page" id="page-settings">
     <div class="page-title"><i class="fas fa-cog"></i> تنظیمات</div>
@@ -2406,7 +2443,7 @@ function navigateTo(page) {
     if (page === 'accounting') renderAllJournalViews();
     if (page === 'charges') renderCharges();
     if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
-    if (page === 'building-info') { loadSettings(); renderOwnersList(); renderResidentsList(); }
+    if (page === 'building-info') { loadBuildingInfo(); populateOwnerCandidates(); populateResidentCandidates(); renderOwnersList(); renderResidentsList(); }
     if (page === 'settings') { loadSettings(); }
     if (page === 'super-admin') renderSuperAdminDashboard();
     if (page === 'super-buildings') renderSuperBuildingsList();
@@ -2904,123 +2941,405 @@ function loadSettings() {
 }
 
 // ==================== OWNERS ====================
-function addOwner() {
-    const name = document.getElementById('ownerNameInput').value.trim();
-    const phone = document.getElementById('ownerPhoneInput').value.trim();
-    const note = document.getElementById('ownerNoteInput').value.trim();
-    if (!name) return showToast('نام مالک را وارد کنید', 'error');
-    if (state.owners.some(o => o.name === name)) return showToast('این مالک قبلاً ثبت شده', 'warning');
-    const ownerId = uid();
-    state.owners.push({ id: ownerId, name, phone, note, createdAt: toPersianDateString() });
-    state.residents.push({ id: uid(), name, phone, nationalId: '', note: 'مالک', linkedOwnerId: ownerId, createdAt: toPersianDateString() });
-    saveState();
-    document.getElementById('ownerNameInput').value = '';
-    document.getElementById('ownerPhoneInput').value = '';
-    document.getElementById('ownerNoteInput').value = '';
-    renderOwnersList(); renderResidentsList(); refreshOwnerDropdowns(); refreshResidentDropdowns();
-    showToast('✅ مالک اضافه شد', 'success');
+// ==================== BUILDING INFO FROM SUPABASE ====================
+async function loadBuildingInfo() {
+    if (!currentProfile || !currentProfile.building_id) {
+        const display = document.getElementById('buildingInfoDisplay');
+        if (display) {
+            display.innerHTML = `
+                <div class="empty-state" style="padding:20px;">
+                    <span class="emoji">🏢</span>
+                    <h3 style="font-size:14px;">هنوز به ساختمونی متصل نیستی</h3>
+                </div>`;
+        }
+        return;
+    }
+    
+    const { data: building, error } = await sb
+        .from('buildings')
+        .select('*')
+        .eq('id', currentProfile.building_id)
+        .single();
+    
+    const display = document.getElementById('buildingInfoDisplay');
+    if (!display) return;
+    
+    if (error || !building) {
+        display.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`;
+        return;
+    }
+    
+    // اسم مدیر رو از profiles بگیر
+    const { data: manager } = await sb
+        .from('profiles')
+        .select('name, phone, gender')
+        .eq('building_id', building.id)
+        .eq('role', 'manager')
+        .maybeSingle();
+    
+    let managerText = '—';
+    if (manager) {
+        const mPrefix = manager.gender === 'female' ? 'خانم' : 'آقای';
+        managerText = `${mPrefix} ${manager.name}`;
+    }
+    
+    display.innerHTML = `
+        <div class="list-item">
+            <div class="list-item-info">
+                <div class="list-item-icon icon-primary"><i class="fas fa-building"></i></div>
+                <div>
+                    <div class="list-item-title">${escapeHtml(building.name || '—')}</div>
+                    <div class="list-item-subtitle">📅 شروع: ${building.start_date || '—'}</div>
+                </div>
+            </div>
+        </div>
+        <div class="list-item">
+            <div class="list-item-info">
+                <div class="list-item-icon icon-info"><i class="fas fa-user-tie"></i></div>
+                <div>
+                    <div class="list-item-title">${managerText}</div>
+                    <div class="list-item-subtitle">مدیر ساختمان</div>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
-function deleteOwner(id) {
-    const owner = state.owners.find(o => o.id === id);
-    if (!owner) return;
-    const usedInUnits = state.units.filter(u => u.ownerId === id);
-    let msg = `حذف «${owner.name}»؟`;
-    if (usedInUnits.length > 0) msg = `این مالک در ${toPersianNum(usedInUnits.length)} واحد استفاده شده. ادامه؟`;
-    if (!confirm(msg)) return;
-    state.owners = state.owners.filter(o => o.id !== id);
-    state.residents.forEach(r => { if (r.linkedOwnerId === id) r.linkedOwnerId = null; });
-    usedInUnits.forEach(u => { u.ownerId = null; });
-    saveState();
-    renderOwnersList(); renderResidentsList(); refreshOwnerDropdowns(); refreshResidentDropdowns();
-    renderUnits(); renderAllJournalViews();
-    showToast('🗑️ مالک حذف شد', 'warning');
+// ==================== CANDIDATES (کاربران برای انتخاب) ====================
+async function loadBuildingUsers() {
+    if (!currentProfile || !currentProfile.building_id) {
+        return [];
+    }
+    
+    const { data, error } = await sb
+        .from('profiles')
+        .select('*')
+        .eq('building_id', currentProfile.building_id)
+        .in('role', ['owner', 'resident', 'manager']);
+    
+    if (error) {
+        console.error('Load building users error:', error);
+        return [];
+    }
+    
+    return data || [];
 }
 
-function renderOwnersList() {
+async function populateOwnerCandidates() {
+    const sel = document.getElementById('ownerCandidateSelect');
+    if (!sel) return;
+    
+    const users = await loadBuildingUsers();
+    // فعلاً همه کاربران این ساختمون (به جز مدیر و Super Admin)
+    const candidates = users.filter(u => u.role !== 'super_admin' && u.role !== 'manager');
+    
+    if (candidates.length === 0) {
+        sel.innerHTML = '<option value="">— کاربری موجود نیست — ابتدا از تب «کاربران» اضافه کن —</option>';
+        return;
+    }
+    
+    let html = '<option value="">— انتخاب کن —</option>';
+    candidates.forEach(u => {
+        const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+        html += `<option value="${u.id}" data-name="${escapeHtml(u.name)}" data-phone="${escapeHtml(u.phone)}" data-gender="${u.gender || 'male'}">${prefix} ${escapeHtml(u.name)} — 📱 ${escapeHtml(u.phone)}</option>`;
+    });
+    sel.innerHTML = html;
+}
+
+async function populateResidentCandidates() {
+    const sel = document.getElementById('residentCandidateSelect');
+    if (!sel) return;
+    
+    const users = await loadBuildingUsers();
+    const candidates = users.filter(u => u.role !== 'super_admin' && u.role !== 'manager');
+    
+    if (candidates.length === 0) {
+        sel.innerHTML = '<option value="">— کاربری موجود نیست — ابتدا از تب «کاربران» اضافه کن —</option>';
+        return;
+    }
+    
+    let html = '<option value="">— انتخاب کن —</option>';
+    candidates.forEach(u => {
+        const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+        html += `<option value="${u.id}" data-name="${escapeHtml(u.name)}" data-phone="${escapeHtml(u.phone)}" data-gender="${u.gender || 'male'}">${prefix} ${escapeHtml(u.name)} — 📱 ${escapeHtml(u.phone)}</option>`;
+    });
+    sel.innerHTML = html;
+}
+
+// ==================== OWNER SELECT & ADD ====================
+let selectedOwnerUserId = null;
+let selectedOwnerData = null;
+
+function onOwnerSelect() {
+    const sel = document.getElementById('ownerCandidateSelect');
+    const preview = document.getElementById('ownerPreview');
+    const userId = sel.value;
+    
+    if (!userId) {
+        preview.style.display = 'none';
+        selectedOwnerUserId = null;
+        selectedOwnerData = null;
+        return;
+    }
+    
+    const opt = sel.options[sel.selectedIndex];
+    const name = opt.dataset.name;
+    const phone = opt.dataset.phone;
+    const gender = opt.dataset.gender;
+    
+    selectedOwnerUserId = userId;
+    selectedOwnerData = { name, phone, gender };
+    
+    const prefix = gender === 'female' ? 'خانم' : 'آقای';
+    document.getElementById('ownerPreviewName').textContent = `${prefix} ${name}`;
+    document.getElementById('ownerPreviewPhone').textContent = phone;
+    preview.style.display = 'block';
+}
+
+async function addOwnerFromUser() {
+    if (!selectedOwnerUserId || !selectedOwnerData) {
+        showToast('اول یه کاربر انتخاب کن', 'error');
+        return;
+    }
+    
+    // آپدیت نقش کاربر به owner
+    const { error } = await sb
+        .from('profiles')
+        .update({ role: 'owner' })
+        .eq('id', selectedOwnerUserId);
+    
+    if (error) {
+        showToast('خطا: ' + error.message, 'error');
+        return;
+    }
+    
+    showToast('✅ به مالکین اضافه شد', 'success');
+    
+    // ریست
+    selectedOwnerUserId = null;
+    selectedOwnerData = null;
+    document.getElementById('ownerCandidateSelect').value = '';
+    document.getElementById('ownerPreview').style.display = 'none';
+    
+    // رفرش
+    await renderOwnersList();
+    await populateOwnerCandidates();
+    await populateResidentCandidates();
+}
+
+// ==================== RESIDENT SELECT & ADD ====================
+let selectedResidentUserId = null;
+let selectedResidentData = null;
+
+function onResidentSelect() {
+    const sel = document.getElementById('residentCandidateSelect');
+    const preview = document.getElementById('residentPreview');
+    const userId = sel.value;
+    
+    if (!userId) {
+        preview.style.display = 'none';
+        selectedResidentUserId = null;
+        selectedResidentData = null;
+        return;
+    }
+    
+    const opt = sel.options[sel.selectedIndex];
+    const name = opt.dataset.name;
+    const phone = opt.dataset.phone;
+    const gender = opt.dataset.gender;
+    
+    selectedResidentUserId = userId;
+    selectedResidentData = { name, phone, gender };
+    
+    const prefix = gender === 'female' ? 'خانم' : 'آقای';
+    document.getElementById('residentPreviewName').textContent = `${prefix} ${name}`;
+    document.getElementById('residentPreviewPhone').textContent = phone;
+    preview.style.display = 'block';
+}
+
+async function addResidentFromUser() {
+    if (!selectedResidentUserId || !selectedResidentData) {
+        showToast('اول یه کاربر انتخاب کن', 'error');
+        return;
+    }
+    
+    // آپدیت نقش کاربر به resident (اگه owner نباشه)
+    const { data: existing } = await sb
+        .from('profiles')
+        .select('role')
+        .eq('id', selectedResidentUserId)
+        .single();
+    
+    if (existing && existing.role !== 'owner') {
+        const { error } = await sb
+            .from('profiles')
+            .update({ role: 'resident' })
+            .eq('id', selectedResidentUserId);
+        
+        if (error) {
+            showToast('خطا: ' + error.message, 'error');
+            return;
+        }
+    }
+    
+    showToast('✅ به ساکنین اضافه شد', 'success');
+    
+    selectedResidentUserId = null;
+    selectedResidentData = null;
+    document.getElementById('residentCandidateSelect').value = '';
+    document.getElementById('residentPreview').style.display = 'none';
+    
+    await renderResidentsList();
+    await populateResidentCandidates();
+    await populateOwnerCandidates();
+}
+
+// ==================== RENDER LISTS (فقط نمایش) ====================
+async function renderOwnersList() {
     const container = document.getElementById('ownersList');
+    const countEl = document.getElementById('ownersCount');
     if (!container) return;
-    document.getElementById('ownersCount').textContent = toPersianNum(state.owners.length) + ' مالک';
-    if (state.owners.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">👤</span><h3>هنوز مالکی ثبت نشده</h3><p>اولین مالک ساختمان رو اضافه کن</p></div>`;
+    
+    if (!currentProfile || !currentProfile.building_id) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><p style="font-size:12px;">ساختمونی متصل نیست</p></div>`;
+        if (countEl) countEl.textContent = '۰ مالک';
         return;
     }
-    container.innerHTML = state.owners.map(o => {
-        const unitsOwned = state.units.filter(u => u.ownerId === o.id).length;
+    
+    const { data: owners, error } = await sb
+        .from('profiles')
+        .select('*')
+        .eq('building_id', currentProfile.building_id)
+        .eq('role', 'owner');
+    
+    if (error) {
+        console.error(error);
+        container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`;
+        return;
+    }
+    
+    if (countEl) countEl.textContent = toPersianNum(owners.length) + ' مالک';
+    
+    if (!owners || owners.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state" style="padding:20px;">
+                <span class="emoji">👤</span>
+                <p style="font-size:12px;">هنوز مالکی اضافه نشده</p>
+            </div>`;
+        return;
+    }
+    
+    container.innerHTML = owners.map(o => {
+        const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
         return `
-        <div class="list-item">
-            <div class="list-item-info">
-                <div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div>
-                <div>
-                    <div class="list-item-title">${escapeHtml(o.name)}</div>
-                    <div class="list-item-subtitle">${escapeHtml(o.phone) || '—'} ${unitsOwned > 0 ? '• ' + toPersianNum(unitsOwned) + ' واحد' : ''}</div>
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <div class="list-item-title">${prefix} ${escapeHtml(o.name)}</div>
+                        <div class="list-item-subtitle">📱 ${escapeHtml(o.phone)}</div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-danger btn-sm btn-icon" onclick="removeOwner('${o.id}')" title="حذف"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
-            <div class="btn-group">
-                <button class="btn btn-primary btn-sm btn-icon" onclick="editOwner('${o.id}')"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteOwner('${o.id}')"><i class="fas fa-trash"></i></button>
-            </div>
-        </div>`;
+        `;
     }).join('');
 }
 
-// ==================== RESIDENTS ====================
-function addResident() {
-    const name = document.getElementById('residentNameInput').value.trim();
-    const phone = document.getElementById('residentPhoneInput').value.trim();
-    const note = document.getElementById('residentNoteInput').value.trim();
-    if (!name) return showToast('نام ساکن را وارد کنید', 'error');
-    state.residents.push({ id: uid(), name, phone, nationalId: '', note, linkedOwnerId: null, createdAt: toPersianDateString() });
-    saveState();
-    document.getElementById('residentNameInput').value = '';
-    document.getElementById('residentPhoneInput').value = '';
-    document.getElementById('residentNoteInput').value = '';
-    renderResidentsList(); refreshResidentDropdowns();
-    showToast('✅ ساکن اضافه شد', 'success');
-}
-
-function deleteResident(id) {
-    const resident = state.residents.find(r => r.id === id);
-    if (!resident) return;
-    const usedInUnits = state.units.filter(u => u.residentId === id);
-    let msg = `حذف «${resident.name}»؟`;
-    if (usedInUnits.length > 0) msg = `این ساکن در ${toPersianNum(usedInUnits.length)} واحد استفاده شده. ادامه؟`;
-    if (!confirm(msg)) return;
-    state.residents = state.residents.filter(r => r.id !== id);
-    usedInUnits.forEach(u => { u.residentId = null; });
-    saveState();
-    renderResidentsList(); renderOwnersList(); refreshResidentDropdowns();
-    renderUnits(); renderAllJournalViews();
-    showToast('🗑️ ساکن حذف شد', 'warning');
-}
-
-function renderResidentsList() {
+async function renderResidentsList() {
     const container = document.getElementById('residentsList');
+    const countEl = document.getElementById('residentsCount');
     if (!container) return;
-    document.getElementById('residentsCount').textContent = toPersianNum(state.residents.length) + ' ساکن';
-    if (state.residents.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز ساکنی ثبت نشده</h3><p>ساکنین ساختمان رو اضافه کن</p></div>`;
+    
+    if (!currentProfile || !currentProfile.building_id) {
+        container.innerHTML = `<div class="empty-state" style="padding:20px;"><p style="font-size:12px;">ساختمونی متصل نیست</p></div>`;
+        if (countEl) countEl.textContent = '۰ ساکن';
         return;
     }
-    container.innerHTML = state.residents.map(r => {
-        const isOwner = !!r.linkedOwnerId;
+    
+    const { data: residents, error } = await sb
+        .from('profiles')
+        .select('*')
+        .eq('building_id', currentProfile.building_id)
+        .in('role', ['resident', 'owner']);
+    
+    if (error) {
+        console.error(error);
+        container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`;
+        return;
+    }
+    
+    if (countEl) countEl.textContent = toPersianNum(residents.length) + ' ساکن';
+    
+    if (!residents || residents.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state" style="padding:20px;">
+                <span class="emoji">👥</span>
+                <p style="font-size:12px;">هنوز ساکنی اضافه نشده</p>
+            </div>`;
+        return;
+    }
+    
+    container.innerHTML = residents.map(r => {
+        const prefix = r.gender === 'female' ? 'خانم' : 'آقای';
+        const isOwner = r.role === 'owner';
         return `
-        <div class="list-item">
-            <div class="list-item-info">
-                <div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div>
-                <div>
-                    <div class="list-item-title">${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div>
-                    <div class="list-item-subtitle">${escapeHtml(r.phone) || '—'}</div>
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div>
+                    <div>
+                        <div class="list-item-title">${prefix} ${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div>
+                        <div class="list-item-subtitle">📱 ${escapeHtml(r.phone)}</div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    ${!isOwner ? `<button class="btn btn-danger btn-sm btn-icon" onclick="removeResident('${r.id}')" title="حذف"><i class="fas fa-trash"></i></button>` : ''}
                 </div>
             </div>
-            <div class="btn-group">
-                <button class="btn btn-primary btn-sm btn-icon" onclick="editResident('${r.id}')"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm btn-icon" onclick="deleteResident('${r.id}')"><i class="fas fa-trash"></i></button>
-            </div>
-        </div>`;
+        `;
     }).join('');
 }
 
+// ==================== REMOVE ====================
+async function removeOwner(userId) {
+    if (!confirm('این کاربر از لیست مالکین حذف بشه؟\n\n(کاربر از Supabase حذف نمیشه، فقط نقشش از «مالک» برداشته میشه)')) return;
+    
+    const { error } = await sb
+        .from('profiles')
+        .update({ role: 'resident' })  // تبدیل به ساکن (چون ممکنه ساکن باشه)
+        .eq('id', userId);
+    
+    if (error) {
+        showToast('خطا: ' + error.message, 'error');
+        return;
+    }
+    
+    showToast('🗑️ از مالکین حذف شد', 'warning');
+    await renderOwnersList();
+    await populateOwnerCandidates();
+    await populateResidentCandidates();
+}
+
+async function removeResident(userId) {
+    if (!confirm('این کاربر از لیست ساکنین این ساختمون حذف بشه؟')) return;
+    
+    const { error } = await sb
+        .from('profiles')
+        .update({ building_id: null })
+        .eq('id', userId);
+    
+    if (error) {
+        showToast('خطا: ' + error.message, 'error');
+        return;
+    }
+    
+    showToast('🗑️ از ساکنین حذف شد', 'warning');
+    await renderResidentsList();
+    await populateResidentCandidates();
+    await populateOwnerCandidates();
+}
 // ==================== DROPDOWNS ====================
 function refreshOwnerDropdowns() {
     const selects = ['unitOwnerSelect', 'unitOwnerSelfSelect'];
