@@ -4055,10 +4055,18 @@ async function renderSuperAdminDashboard() {
 
 // ==================== BUILDINGS ====================
 async function renderSuperBuildingsList() {
+    console.log('🔄 Starting render buildings...');
+    
     await loadBuildingsFromSupabase();
+    console.log('📦 Buildings loaded:', allBuildings.length);
     
     const container = document.getElementById('superBuildingsList');
-    if (allBuildings.length === 0) {
+    if (!container) {
+        console.error('❌ Container not found');
+        return;
+    }
+    
+    if (!allBuildings || allBuildings.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
                 <span class="emoji">🏢</span>
@@ -4071,27 +4079,33 @@ async function renderSuperBuildingsList() {
         return;
     }
     
-    container.innerHTML = allBuildings.map(b => {
-        const manager = allUsers.find(u => u.building_id === b.id && u.role === 'manager');
-        return `
+    let html = '';
+    allBuildings.forEach(b => {
+        html += `
             <div class="list-item">
                 <div class="list-item-info">
                     <div class="list-item-icon icon-primary"><i class="fas fa-city"></i></div>
                     <div>
-                        <div class="list-item-title">${escapeHtml(b.name)}</div>
+                        <div class="list-item-title">${escapeHtml(b.name || 'بدون نام')}</div>
                         <div class="list-item-subtitle">
-                            ${manager ? '👤 مدیر: ' + escapeHtml(manager.name) + ' — ' + escapeHtml(manager.phone) : '⚠️ بدون مدیر'}
-                            ${b.start_date ? ' • شروع: ' + b.start_date : ''}
+                            ${b.start_date ? '📅 شروع: ' + b.start_date : 'بدون تاریخ'}
                         </div>
                     </div>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-primary btn-sm btn-icon" onclick="openEditBuildingModal('${b.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-danger btn-sm btn-icon" onclick="deleteBuilding('${b.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                    <button class="btn btn-primary btn-sm btn-icon" onclick="openEditBuildingModal('${b.id}')" title="ویرایش">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm btn-icon" onclick="deleteBuilding('${b.id}')" title="حذف">
+                        <i class="fas fa-trash"></i>
+                    </button>
                 </div>
             </div>
         `;
-    }).join('');
+    });
+    
+    container.innerHTML = html;
+    console.log('✅ Rendered', allBuildings.length, 'buildings');
 }
 
 function openAddBuildingModal() {
@@ -4255,14 +4269,27 @@ function setEditUserGender(gender) {
 }
 
 async function populateBuildingDropdown() {
+    console.log('🔄 Populating dropdown...');
     await loadBuildingsFromSupabase();
+    
     const sel = document.getElementById('newUserBuilding');
-    if (!sel) return;
-    if (allBuildings.length === 0) {
+    if (!sel) {
+        console.error('❌ newUserBuilding not found');
+        return;
+    }
+    
+    if (!allBuildings || allBuildings.length === 0) {
         sel.innerHTML = '<option value="">— ابتدا ساختمون بساز —</option>';
         return;
     }
-    sel.innerHTML = allBuildings.map(b => `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join('');
+    
+    let html = '';
+    allBuildings.forEach(b => {
+        html += `<option value="${b.id}">${escapeHtml(b.name || 'بدون نام')}</option>`;
+    });
+    
+    sel.innerHTML = html;
+    console.log('✅ Dropdown populated with', allBuildings.length, 'buildings');
 }
 
 async function saveNewUser() {
