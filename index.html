@@ -2704,68 +2704,6 @@ function showLoginPage() {
     document.querySelector('.mobile-header')?.classList.add('hidden-when-logged-out');
 }
 
-// ==================== UPDATE HEADER FROM PROFILE ====================
-async function updateHeaderFromProfile() {
-    if (!currentProfile) return;
-    
-    const prefix = currentProfile.gender === 'female' ? 'خانم' : 'آقای';
-    const fullName = `${prefix} ${currentProfile.name}`;
-    
-    let buildingName = 'حساب‌یار';
-    let managerName = fullName;
-    let startDate = '—';
-    
-    if (currentProfile.role === 'super_admin') {
-        // Super Admin: پنل مدیریت کل
-        buildingName = 'پنل مدیریت کل';
-        managerName = fullName + ' (مدیر کل)';
-    } else if (currentProfile.building_id) {
-        // از Supabase بخون
-        const { data: building } = await sb
-            .from('buildings')
-            .select('*')
-            .eq('id', currentProfile.building_id)
-            .single();
-        
-        if (building) {
-            buildingName = building.name || buildingName;
-            startDate = building.start_date || '—';
-            
-            // اگه خودش مدیر ساختمون باشه
-            if (currentProfile.role === 'manager') {
-                managerName = fullName;
-            } else {
-                // اگه ساکن/مالک باشه، اسم مدیر رو از Supabase بگیر
-                const { data: manager } = await sb
-                    .from('profiles')
-                    .select('name, gender')
-                    .eq('building_id', currentProfile.building_id)
-                    .eq('role', 'manager')
-                    .single();
-                
-                if (manager) {
-                    const mPrefix = manager.gender === 'female' ? 'خانم' : 'آقای';
-                    managerName = `${mPrefix} ${manager.name}`;
-                }
-            }
-        }
-    }
-    
-    // آپدیت همه Elementها
-    const setText = (id, text) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-    };
-    
-    setText('sidebarBuildingName', buildingName);
-    setText('sidebarManagerName', currentProfile.role === 'super_admin' ? 'مدیریت کل سیستم' : 'مدیریت هوشمند هزینه‌ها');
-    setText('sidebarManagerInfo', managerName);
-    setText('sidebarStartDate', startDate);
-    setText('mobileBuildingName', buildingName);
-    setText('mobileManagerName', managerName);
-    
-    document.title = buildingName + ' | حساب‌یار';
-}
 // ==================== SPLASH ====================
 function hideSplashScreen() {
     const splash = document.getElementById('splashScreen');
