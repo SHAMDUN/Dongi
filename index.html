@@ -1589,57 +1589,57 @@ async function removeResident(userId) {
 </script>
 <script>
 // ==================== DROPDOWNS ====================
-async function refreshOwnerDropdowns() {
-    let users = [];
-    if (currentProfile?.role === 'super_admin') {
-        const { data } = await sb.from('profiles').select('*').eq('role', 'owner');
-        users = data || [];
-    } else if (currentProfile?.building_id) {
-        const { data } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).eq('role', 'owner');
-        users = data || [];
+function refreshOwnerDropdowns() {
+    let query = sb.from('profiles').select('*').eq('role', 'owner');
+    if (currentProfile?.role !== 'super_admin' && currentProfile?.building_id) {
+        query = query.eq('building_id', currentProfile.building_id);
     }
     
-    ['unitOwnerSelect', 'unitOwnerSelfSelect'].forEach(selId => {
-        const sel = document.getElementById(selId);
-        if (!sel) return;
-        const current = sel.value;
-        if (users.length === 0) { sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» مالک اضافه کنید —</option>'; return; }
-        let html = '<option value="">— انتخاب مالک —</option>';
-        users.forEach(o => {
-            const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
-            html += `<option value="${o.id}">${prefix} ${escapeHtml(o.name)}</option>`;
+    query.then(({ data }) => {
+        const users = data || [];
+        ['unitOwnerSelect', 'unitOwnerSelfSelect'].forEach(selId => {
+            const sel = document.getElementById(selId);
+            if (!sel) return;
+            const current = sel.value;
+            if (users.length === 0) {
+                sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» مالک اضافه کنید —</option>';
+                return;
+            }
+            let html = '<option value="">— انتخاب مالک —</option>';
+            users.forEach(o => {
+                const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
+                html += `<option value="${o.id}">${prefix} ${escapeHtml(o.name)}</option>`;
+            });
+            sel.innerHTML = html;
+            if (current) sel.value = current;
         });
-        sel.innerHTML = html;
-        if (current) sel.value = current;
     });
 }    
-async function refreshResidentDropdowns() {
+function refreshResidentDropdowns() {
     const sel = document.getElementById('unitResidentSelect');
     if (!sel) return;
     const current = sel.value;
     
-    let users = [];
-    if (currentProfile?.role === 'super_admin') {
-        const { data } = await sb.from('profiles').select('*').in('role', ['resident', 'owner']);
-        users = data || [];
-    } else if (currentProfile?.building_id) {
-        const { data } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).in('role', ['resident', 'owner']);
-        users = data || [];
+    let query = sb.from('profiles').select('*').in('role', ['resident', 'owner']);
+    if (currentProfile?.role !== 'super_admin' && currentProfile?.building_id) {
+        query = query.eq('building_id', currentProfile.building_id);
     }
     
-    if (users.length === 0) { 
-        sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» ساکن اضافه کنید —</option>'; 
-        return; 
-    }
-    
-    let html = '<option value="">— انتخاب ساکن —</option>';
-    users.forEach(u => {
-        const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
-        const roleText = u.role === 'owner' ? ' (مالک)' : '';
-        html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText}</option>`;
+    query.then(({ data }) => {
+        const users = data || [];
+        if (users.length === 0) {
+            sel.innerHTML = '<option value="">— ابتدا از تب «کاربران» ساکن اضافه کنید —</option>';
+            return;
+        }
+        let html = '<option value="">— انتخاب ساکن —</option>';
+        users.forEach(u => {
+            const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+            const roleText = u.role === 'owner' ? ' (مالک)' : '';
+            html += `<option value="${u.id}">${prefix} ${escapeHtml(u.name)}${roleText}</option>`;
+        });
+        sel.innerHTML = html;
+        if (current) sel.value = current;
     });
-    sel.innerHTML = html;
-    if (current) sel.value = current;
 }
 function refreshPaymentPayerDropdown() {
     const sel = document.getElementById('paymentPayer');
@@ -1662,11 +1662,12 @@ function refreshPaymentPayerDropdown() {
 }
  // ⭐ کش کاربران از Supabase
 let cachedProfiles = {};
-async function loadProfilesCache() {
-    const { data } = await sb.from('profiles').select('id, name, phone, role, gender, building_id');
-    cachedProfiles = {};
-    (data || []).forEach(p => cachedProfiles[p.id] = p);
-    return cachedProfiles;
+function loadProfilesCache() {
+    return sb.from('profiles').select('id, name, phone, role, gender, building_id').then(({ data }) => {
+        cachedProfiles = {};
+        (data || []).forEach(p => cachedProfiles[p.id] = p);
+        return cachedProfiles;
+    });
 }
 function getProfileById(id) {
     return cachedProfiles[id] || null;
@@ -2506,26 +2507,27 @@ async function checkAutoLogin() {
 }
 
 // ==================== INIT ====================
-async function initPart1() {
+function initPart1() {
     loadState();
-    await loadProfilesCache();
     loadSettings();
     applyTheme(getThemeMode());
     handleChargePeriodChange();
     updateSplitMethodHelp();
     setTimeout(initDatePickers, 500);
-    refreshOwnerDropdowns();
-    refreshResidentDropdowns();
-    renderOwnersList();
-    renderResidentsList();
-    renderUnits();
-    renderExpenses();
-    renderCharges();
-    renderCompanions();
-    renderTravelExpenses();
-    renderTravelSettlement();
-    updateTravelPayerOptions();
-    renderDashboard();
+    loadProfilesCache().then(() => {
+        refreshOwnerDropdowns();
+        refreshResidentDropdowns();
+        renderOwnersList();
+        renderResidentsList();
+        renderUnits();
+        renderExpenses();
+        renderCharges();
+        renderCompanions();
+        renderTravelExpenses();
+        renderTravelSettlement();
+        updateTravelPayerOptions();
+        renderDashboard();
+    });
     updateOnlineStatus();
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
