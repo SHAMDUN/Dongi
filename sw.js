@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v14.0.0';
+const CACHE_VERSION = 'v15.0.0';
 const CACHE_NAME = 'hesabyar-' + CACHE_VERSION;
 const RUNTIME_CACHE = 'hesabyar-runtime-' + CACHE_VERSION;
 const CDN_CACHE = 'hesabyar-cdn-' + CACHE_VERSION;
