@@ -1712,7 +1712,6 @@ function addUnit() {
     if (!ownerId) return showToast('مالک را انتخاب کنید', 'error');
     state.units.push({ id: uid(), name, residentId, isTenant, ownerId, area, residents, payments: [], createdAt: toPersianDateString() });
     saveState();
-    await loadProfilesCache();
     ['unitName','unitArea'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('unitResidents').value = '1';
     ['unitResidentSelect','unitOwnerSelect','unitOwnerSelfSelect'].forEach(id => document.getElementById(id).value = '');
