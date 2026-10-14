@@ -491,42 +491,21 @@ html.dark-mode .toggle-btn.active { background: var(--gradient-primary); color: 
     <div class="login-container">
         <div class="login-logo">🏢</div>
         <div class="login-title">ورود به حساب کاربری</div>
-        <div class="login-subtitle">
-            برای ورود به اپ حساب‌یار،<br>
-            شماره موبایل خود را وارد کنید
-        </div>
-        
+        <div class="login-subtitle">برای ورود به اپ حساب‌یار،<br>شماره موبایل خود را وارد کنید</div>
         <div class="login-error" id="loginError">
             <i class="fas fa-exclamation-circle"></i>
             <span id="loginErrorText">خطا در ورود</span>
         </div>
-        
         <div class="login-input-wrap">
             <i class="fas fa-mobile-alt login-input-icon"></i>
-            <input 
-                type="tel" 
-                class="login-input" 
-                id="loginPhoneInput" 
-                placeholder="09123456789"
-                maxlength="11"
-                inputmode="numeric"
-                onkeypress="if(event.key==='Enter') doLogin()"
-            >
+            <input type="tel" class="login-input" id="loginPhoneInput" placeholder="09123456789" maxlength="11" inputmode="numeric" onkeypress="if(event.key==='Enter') doLogin()">
         </div>
-        
         <button class="login-btn" id="loginBtn" onclick="doLogin()">
             <i class="fas fa-sign-in-alt"></i>
             ورود به اپ
         </button>
-        
-        <div class="login-hint">
-            اگه حساب کاربری نداری،<br>
-            با <strong>مدیر ساختمان</strong> تماس بگیر
-        </div>
-        
-        <div class="login-footer">
-            حساب‌یار — نسخه ۱۰.۰.۰
-        </div>
+        <div class="login-hint">اگه حساب کاربری نداری،<br>با <strong>مدیر ساختمان</strong> تماس بگیر</div>
+        <div class="login-footer">حساب‌یار — نسخه ۱۰.۰.۰</div>
     </div>
 </section>
     
@@ -548,40 +527,25 @@ html.dark-mode .toggle-btn.active { background: var(--gradient-primary); color: 
             <div class="onboarding-slide active" data-slide="0">
                 <div class="onboarding-icon-wrap slide-bg-purple">🏢</div>
                 <div class="onboarding-title">به حساب‌یار خوش اومدی!</div>
-                <div class="onboarding-text">
-                    مدیریت هوشمند <strong>ساختمان</strong> و <strong>سفر</strong>، همه در یه اپ<br><br>
-                    هزینه‌های ساختمون، شارژ همسایه‌ها، و حساب کتاب سفر — بدون کاغذ و دفتر
-                </div>
+                <div class="onboarding-text">مدیریت هوشمند <strong>ساختمان</strong> و <strong>سفر</strong>، همه در یه اپ<br><br>هزینه‌های ساختمون، شارژ همسایه‌ها، و حساب کتاب سفر — بدون کاغذ و دفتر</div>
                 <div class="onboarding-hint"><i class="fas fa-clock"></i> یه راهنمای سریع ۳۰ ثانیه‌ای</div>
             </div>
             <div class="onboarding-slide" data-slide="1">
                 <div class="onboarding-icon-wrap slide-bg-blue">🏘️</div>
                 <div class="onboarding-title">مدیریت ساختمان</div>
-                <div class="onboarding-text">
-                    واحدها، ساکنین و مالکین ساختمون رو ثبت کن<br><br>
-                    هزینه‌های مشترک رو با <strong>۵ روش هوشمند</strong> تقسیم کن<br><br>
-                    شارژ از ساکن، هزینه‌ها طبق قانون — همه دقیق و شفاف
-                </div>
+                <div class="onboarding-text">واحدها، ساکنین و مالکین ساختمون رو ثبت کن<br><br>هزینه‌های مشترک رو با <strong>۵ روش هوشمند</strong> تقسیم کن<br><br>شارژ از ساکن، هزینه‌ها طبق قانون — همه دقیق و شفاف</div>
                 <div class="onboarding-hint"><i class="fas fa-hand-holding-usd"></i> گزارش بدهی و طلب هر همسایه</div>
             </div>
             <div class="onboarding-slide" data-slide="2">
                 <div class="onboarding-icon-wrap slide-bg-orange">✈️</div>
                 <div class="onboarding-title">مدیریت سفر</div>
-                <div class="onboarding-text">
-                    همسفرها رو اضافه کن، هزینه‌های سفر رو ثبت کن<br><br>
-                    بنزین، اقامت، غذا، بلیط — همه یه جا<br><br>
-                    <strong>تسویه خودکار</strong> بین همسفرها، بدون بحث و جدل
-                </div>
+                <div class="onboarding-text">همسفرها رو اضافه کن، هزینه‌های سفر رو ثبت کن<br><br>بنزین، اقامت، غذا، بلیط — همه یه جا<br><br><strong>تسویه خودکار</strong> بین همسفرها، بدون بحث و جدل</div>
                 <div class="onboarding-hint"><i class="fas fa-balance-scale"></i> می‌دونی کی چقدر باید بده یا طلبکاره</div>
             </div>
             <div class="onboarding-slide" data-slide="3">
                 <div class="onboarding-icon-wrap slide-bg-green">📊</div>
                 <div class="onboarding-title">گزارش‌های حرفه‌ای</div>
-                <div class="onboarding-text">
-                    دفتر ماتریسی، خلاصه واحدها و <strong>حساب همسایگان</strong> رو ببین<br><br>
-                    هر کس چقدر باید بده، چقدر داده، چقدر طلبکار یا بدهکاره<br><br>
-                    خروجی <strong>PDF</strong> و <strong>Excel</strong> با یه کلیک
-                </div>
+                <div class="onboarding-text">دفتر ماتریسی، خلاصه واحدها و <strong>حساب همسایگان</strong> رو ببین<br><br>هر کس چقدر باید بده، چقدر داده، چقدر طلبکار یا بدهکاره<br><br>خروجی <strong>PDF</strong> و <strong>Excel</strong> با یه کلیک</div>
                 <div class="onboarding-hint"><i class="fas fa-file-export"></i> گزارش‌ها با تاریخ شمسی و فونت فارسی</div>
             </div>
         </div>
@@ -695,115 +659,47 @@ html.dark-mode .toggle-btn.active { background: var(--gradient-primary); color: 
 
 <main class="main-content">
 
-<!-- DASHBOARD -->
 <section class="page active" id="page-dashboard">
     <div class="page-title"><i class="fas fa-chart-pie"></i> داشبورد</div>
-    
     <div id="deadlineBannerContainer"></div>
-    
     <div class="summary-grid">
         <div class="summary-card primary"><div class="icon-wrap"><i class="fas fa-building"></i></div><div class="value" id="statUnits">۰</div><div class="label">تعداد واحدها</div></div>
         <div class="summary-card success"><div class="icon-wrap"><i class="fas fa-users"></i></div><div class="value" id="statResidents">۰</div><div class="label">کل ساکنان</div></div>
         <div class="summary-card danger"><div class="icon-wrap"><i class="fas fa-money-bill-wave"></i></div><div class="value" id="statExpenses">۰</div><div class="label">کل هزینه‌ها</div></div>
         <div class="summary-card warning"><div class="icon-wrap"><i class="fas fa-hand-holding-usd"></i></div><div class="value" id="statDebt">۰</div><div class="label">کل بدهی شارژ</div></div>
     </div>
-    
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-chart-pie icon-primary"></i> خلاصه وضعیت همسایگان</div></div>
-        <div class="status-summary" id="statusSummary"></div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-chart-pie icon-warning"></i> توزیع هزینه‌ها بر اساس نوع</div></div>
-        <div class="chart-container"><canvas id="expensesChart"></canvas></div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-chart-bar icon-success"></i> روند هزینه‌های ماهانه</div></div>
-        <div class="chart-container"><canvas id="monthlyChart"></canvas></div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-hand-holding-usd icon-info"></i> وضعیت پرداخت شارژ</div></div>
-        <div id="chargeProgressContainer"></div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-clock-rotate-left icon-warning"></i> آخرین فعالیت‌ها</div></div>
-        <div id="recentActivities"></div>
-    </div>
-    
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-list-check icon-primary"></i> وضعیت واحدها</div></div>
-        <div id="dashboardUnitsList"></div>
-    </div>
-    
-    <div class="law-box">
-        <h4><i class="fas fa-gavel"></i> ماده ۴ قانون تملک آپارتمان‌ها</h4>
-        <p>هزینه‌های مرتبط با زیربنا (برق، گاز، آب) متناسب با مساحت هر واحد تقسیم می‌شوند.</p>
-        <p>هزینه‌های غیرمرتبط با زیربنا (نظافت، سرایدار) به‌طور مساوی بین واحدها تقسیم می‌شوند.</p>
-    </div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-chart-pie icon-primary"></i> خلاصه وضعیت همسایگان</div></div><div class="status-summary" id="statusSummary"></div></div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-chart-pie icon-warning"></i> توزیع هزینه‌ها بر اساس نوع</div></div><div class="chart-container"><canvas id="expensesChart"></canvas></div></div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-chart-bar icon-success"></i> روند هزینه‌های ماهانه</div></div><div class="chart-container"><canvas id="monthlyChart"></canvas></div></div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-hand-holding-usd icon-info"></i> وضعیت پرداخت شارژ</div></div><div id="chargeProgressContainer"></div></div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-clock-rotate-left icon-warning"></i> آخرین فعالیت‌ها</div></div><div id="recentActivities"></div></div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-list-check icon-primary"></i> وضعیت واحدها</div></div><div id="dashboardUnitsList"></div></div>
+    <div class="law-box"><h4><i class="fas fa-gavel"></i> ماده ۴ قانون تملک آپارتمان‌ها</h4><p>هزینه‌های مرتبط با زیربنا (برق، گاز، آب) متناسب با مساحت هر واحد تقسیم می‌شوند.</p><p>هزینه‌های غیرمرتبط با زیربنا (نظافت، سرایدار) به‌طور مساوی بین واحدها تقسیم می‌شوند.</p></div>
 </section>
 
-<!-- UNITS -->
 <section class="page" id="page-units">
     <div class="page-title"><i class="fas fa-building"></i> واحدها و ساکنین</div>
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-plus-circle icon-primary"></i> افزودن واحد جدید</div></div>
-        <div class="form-group">
-            <label>نام / شماره واحد <span class="required">*</span></label>
-            <input type="text" class="form-control" id="unitName" placeholder="مثال: واحد ۱">
-        </div>
-        <div class="form-group">
-            <label>نام ساکن <span class="required">*</span></label>
-            <select class="form-select" id="unitResidentSelect">
-                <option value="">— ابتدا از اطلاعات ساختمان ساکن اضافه کنید —</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="checkbox-wrap" for="unitIsTenant">
-                <input type="checkbox" id="unitIsTenant" onchange="toggleTenantFields()">
-                <span><i class="fas fa-key"></i> این واحد اجاره داده شده (ساکن مستاجر است)</span>
-            </label>
-        </div>
+        <div class="form-group"><label>نام / شماره واحد <span class="required">*</span></label><input type="text" class="form-control" id="unitName" placeholder="مثال: واحد ۱"></div>
+        <div class="form-group"><label>نام ساکن <span class="required">*</span></label><select class="form-select" id="unitResidentSelect"><option value="">— ابتدا از اطلاعات ساختمان ساکن اضافه کنید —</option></select></div>
+        <div class="form-group"><label class="checkbox-wrap" for="unitIsTenant"><input type="checkbox" id="unitIsTenant" onchange="toggleTenantFields()"><span><i class="fas fa-key"></i> این واحد اجاره داده شده (ساکن مستاجر است)</span></label></div>
         <div id="tenantFields" style="display:none;">
-            <div class="form-group">
-                <label>نام مالک <span class="required">*</span></label>
-                <select class="form-select" id="unitOwnerSelect"><option value="">— انتخاب مالک —</option></select>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>تاریخ شروع اجاره</label><input type="text" class="form-control datepicker" id="unitRentStart" placeholder="انتخاب تاریخ" readonly></div>
-                <div class="form-group"><label>تاریخ پایان اجاره (اختیاری)</label><input type="text" class="form-control datepicker" id="unitRentEnd" placeholder="انتخاب تاریخ" readonly></div>
-            </div>
+            <div class="form-group"><label>نام مالک <span class="required">*</span></label><select class="form-select" id="unitOwnerSelect"><option value="">— انتخاب مالک —</option></select></div>
+            <div class="form-row"><div class="form-group"><label>تاریخ شروع اجاره</label><input type="text" class="form-control datepicker" id="unitRentStart" placeholder="انتخاب تاریخ" readonly></div><div class="form-group"><label>تاریخ پایان اجاره (اختیاری)</label><input type="text" class="form-control datepicker" id="unitRentEnd" placeholder="انتخاب تاریخ" readonly></div></div>
         </div>
-        <div id="ownerSelfFields">
-            <div class="form-group">
-                <label>نام مالک (خود ساکن) <span class="required">*</span></label>
-                <select class="form-select" id="unitOwnerSelfSelect"><option value="">— انتخاب مالک —</option></select>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group"><label>متراژ (متر مربع) <span class="required">*</span></label><input type="number" class="form-control" id="unitArea" placeholder="۱۰۰"></div>
-            <div class="form-group"><label>تعداد نفرات ساکن</label><input type="number" class="form-control" id="unitResidents" value="1" min="1"></div>
-        </div>
+        <div id="ownerSelfFields"><div class="form-group"><label>نام مالک (خود ساکن) <span class="required">*</span></label><select class="form-select" id="unitOwnerSelfSelect"><option value="">— انتخاب مالک —</option></select></div></div>
+        <div class="form-row"><div class="form-group"><label>متراژ (متر مربع) <span class="required">*</span></label><input type="number" class="form-control" id="unitArea" placeholder="۱۰۰"></div><div class="form-group"><label>تعداد نفرات ساکن</label><input type="number" class="form-control" id="unitResidents" value="1" min="1"></div></div>
         <button class="btn btn-primary btn-block" onclick="addUnit()"><i class="fas fa-plus"></i> افزودن واحد</button>
     </div>
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-list icon-info"></i> لیست واحدها</div>
-            <span class="badge badge-info" id="unitsCount">۰ واحد</span>
-        </div>
-        <div id="unitsList"></div>
-    </div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-list icon-info"></i> لیست واحدها</div><span class="badge badge-info" id="unitsCount">۰ واحد</span></div><div id="unitsList"></div></div>
 </section>
 
-<!-- EXPENSES -->
 <section class="page" id="page-expenses">
     <div class="page-title"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</div>
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-plus-circle icon-danger"></i> ثبت هزینه جدید</div></div>
-        <div class="form-group">
-            <label>نوع هزینه <span class="required">*</span></label>
+        <div class="form-group"><label>نوع هزینه <span class="required">*</span></label>
             <select class="form-select" id="expenseType" onchange="onExpenseTypeChange()">
                 <option value="electricity">⚡ برق ساختمان</option>
                 <option value="gas">🔥 گاز ساختمان</option>
@@ -817,12 +713,8 @@ html.dark-mode .toggle-btn.active { background: var(--gradient-primary); color: 
                 <option value="other">📦 سایر</option>
             </select>
         </div>
-        <div class="form-group" id="customTitleGroup" style="display:none;">
-            <label>عنوان هزینه (سایر) <span class="required">*</span></label>
-            <input type="text" class="form-control" id="expenseCustomTitle" placeholder="مثال: تعمیر پمپ آب">
-        </div>
-        <div class="form-group">
-            <label>روش تقسیم هزینه <span class="required">*</span></label>
+        <div class="form-group" id="customTitleGroup" style="display:none;"><label>عنوان هزینه (سایر) <span class="required">*</span></label><input type="text" class="form-control" id="expenseCustomTitle" placeholder="مثال: تعمیر پمپ آب"></div>
+        <div class="form-group"><label>روش تقسیم هزینه <span class="required">*</span></label>
             <select class="form-select" id="expenseSplitMethod" onchange="updateSplitMethodHelp()">
                 <option value="per_unit">⚖️ به تعداد واحدها (مساوی) — ساکنین</option>
                 <option value="per_person">👥 به تعداد نفرات — ساکنین</option>
@@ -833,126 +725,43 @@ html.dark-mode .toggle-btn.active { background: var(--gradient-primary); color: 
             <div style="font-size:11px; color:var(--gray-500); margin-top:6px;" id="splitMethodHelp"></div>
         </div>
         <div class="form-group"><label>مبلغ کل <span class="required">*</span></label><input type="number" class="form-control" id="expenseAmount" placeholder="۲۵۰۰۰۰۰"></div>
-        <div class="form-row">
-            <div class="form-group"><label>تاریخ هزینه (قبض/خدمت)</label><input type="text" class="form-control datepicker" id="expenseDate" placeholder="انتخاب تاریخ" readonly></div>
-            <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="expensePayDate" placeholder="انتخاب تاریخ" readonly></div>
-        </div>
+        <div class="form-row"><div class="form-group"><label>تاریخ هزینه</label><input type="text" class="form-control datepicker" id="expenseDate" placeholder="انتخاب تاریخ" readonly></div><div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="expensePayDate" placeholder="انتخاب تاریخ" readonly></div></div>
         <div class="form-group"><label>پرداخت‌کننده (پیش‌فرض: مدیر)</label><input type="text" class="form-control" id="expensePayer" placeholder="از تنظیمات می‌آید"></div>
-        <div class="form-group">
-            <label>آپلود سند (اختیاری)</label>
-            <div class="upload-zone" onclick="document.getElementById('expenseFile').click()">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>برای انتخاب فایل کلیک کنید</p>
-                <span>عکس، PDF یا هر فرمتی — حداکثر ۲ مگابایت</span>
-                <input type="file" id="expenseFile" accept="*/*" onchange="handleExpenseFile(event)">
-            </div>
-            <div id="expenseFilePreview"></div>
-        </div>
+        <div class="form-group"><label>آپلود سند (اختیاری)</label><div class="upload-zone" onclick="document.getElementById('expenseFile').click()"><i class="fas fa-cloud-upload-alt"></i><p>برای انتخاب فایل کلیک کنید</p><span>عکس، PDF یا هر فرمتی — حداکثر ۲ مگابایت</span><input type="file" id="expenseFile" accept="*/*" onchange="handleExpenseFile(event)"></div><div id="expenseFilePreview"></div></div>
         <button class="btn btn-danger btn-block" onclick="addExpense()" style="margin-top:12px;"><i class="fas fa-plus"></i> ثبت هزینه</button>
     </div>
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-list icon-warning"></i> هزینه‌های ثبت شده</div>
-            <div class="btn-group">
-                <button class="btn btn-success btn-sm" onclick="exportExpensesExcel()"><i class="fas fa-file-excel"></i> اکسل</button>
-                <button class="btn btn-danger btn-sm" onclick="exportExpensesPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-            </div>
-        </div>
-        <div id="expensesList"></div>
-    </div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-list icon-warning"></i> هزینه‌های ثبت شده</div><div class="btn-group"><button class="btn btn-success btn-sm" onclick="exportExpensesExcel()"><i class="fas fa-file-excel"></i> اکسل</button><button class="btn btn-danger btn-sm" onclick="exportExpensesPDF()"><i class="fas fa-file-pdf"></i> PDF</button></div></div><div id="expensesList"></div></div>
 </section>
 
-<!-- CHARGES -->
 <section class="page" id="page-charges">
     <div class="page-title"><i class="fas fa-coins"></i> شارژها</div>
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-calculator icon-primary"></i> تعیین شارژ</div></div>
         <div class="info-box"><i class="fas fa-info-circle"></i> شارژ مبلغ ثابتی است که هر واحد موظف است پرداخت کند.</div>
-        <div class="form-row">
-            <div class="form-group">
-                <label>دوره</label>
-                <select class="form-select" id="chargePeriod" onchange="handleChargePeriodChange()">
-                    <option value="monthly">ماهیانه</option>
-                    <option value="quarterly">سه ماهه</option>
-                    <option value="seasonal">فصلی</option>
-                    <option value="halfyear">شش ماهه</option>
-                    <option value="yearly">سالیانه</option>
-                </select>
-            </div>
-            <div class="form-group" id="chargeSubPeriodGroup">
-                <label>انتخاب</label>
-                <select class="form-select" id="chargeSubPeriod"></select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>مبلغ شارژ هر واحد</label>
-            <input type="number" class="form-control" id="chargeTotal" placeholder="۴۰۰۰۰۰۰">
-        </div>
-        <div class="form-group">
-            <label><i class="fas fa-calendar-times" style="color:var(--warning);"></i> مهلت پرداخت (اختیاری)</label>
-            <input type="text" class="form-control datepicker" id="chargeDeadline" placeholder="انتخاب تاریخ" readonly>
-            <div style="font-size:11px; color:var(--gray-500); margin-top:4px;">اگه تعیین کنی، وضعیت پرداخت هر ساکن با رنگ‌بندی مشخص میشه.</div>
-        </div>
+        <div class="form-row"><div class="form-group"><label>دوره</label><select class="form-select" id="chargePeriod" onchange="handleChargePeriodChange()"><option value="monthly">ماهیانه</option><option value="quarterly">سه ماهه</option><option value="seasonal">فصلی</option><option value="halfyear">شش ماهه</option><option value="yearly">سالیانه</option></select></div><div class="form-group" id="chargeSubPeriodGroup"><label>انتخاب</label><select class="form-select" id="chargeSubPeriod"></select></div></div>
+        <div class="form-group"><label>مبلغ شارژ هر واحد</label><input type="number" class="form-control" id="chargeTotal" placeholder="۴۰۰۰۰۰۰"></div>
+        <div class="form-group"><label><i class="fas fa-calendar-times" style="color:var(--warning);"></i> مهلت پرداخت (اختیاری)</label><input type="text" class="form-control datepicker" id="chargeDeadline" placeholder="انتخاب تاریخ" readonly><div style="font-size:11px; color:var(--gray-500); margin-top:4px;">اگه تعیین کنی، وضعیت پرداخت هر ساکن با رنگ‌بندی مشخص میشه.</div></div>
         <button class="btn btn-primary btn-block" onclick="calculateCharges()"><i class="fas fa-calculator"></i> تعیین شارژ</button>
     </div>
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-chart-bar icon-success"></i> وضعیت پرداخت شارژ</div></div>
-        <div id="chargesList"></div>
-    </div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-chart-bar icon-success"></i> وضعیت پرداخت شارژ</div></div><div id="chargesList"></div></div>
 </section>
 
-<!-- TRAVEL -->
 <section class="page" id="page-travel">
     <div class="page-title"><i class="fas fa-plane-departure"></i> مدیریت سفر</div>
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-users icon-info"></i> همسفران</div>
-            <button class="btn btn-primary btn-sm" onclick="openCompanionModal()"><i class="fas fa-plus"></i> افزودن</button>
-        </div>
-        <div id="companionsList"></div>
-    </div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-users icon-info"></i> همسفران</div><button class="btn btn-primary btn-sm" onclick="openCompanionModal()"><i class="fas fa-plus"></i> افزودن</button></div><div id="companionsList"></div></div>
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-plus-circle icon-warning"></i> ثبت هزینه سفر</div></div>
         <div class="form-group"><label>عنوان سفر</label><input type="text" class="form-control" id="travelTitle" placeholder="مثال: سفر شمال"></div>
-        <div class="form-group">
-            <label>دسته‌بندی</label>
-            <select class="form-select" id="travelCategory" onchange="toggleTravelCustomTitle()">
-                <option value="transport">🚗 حمل و نقل</option>
-                <option value="food">🍽️ خورد و خوراک</option>
-                <option value="accommodation">🏨 اقامت</option>
-                <option value="tickets">🎫 بلیط و ورودی</option>
-                <option value="shopping">🛍️ خرید</option>
-                <option value="other">📦 سایر</option>
-            </select>
-        </div>
-        <div class="form-group" id="travelCustomTitleGroup" style="display:none;">
-            <label>عنوان هزینه (سایر) <span class="required">*</span></label>
-            <input type="text" class="form-control" id="travelCustomTitle" placeholder="مثال: بنزین">
-        </div>
-        <div class="form-row">
-            <div class="form-group"><label>مبلغ</label><input type="number" class="form-control" id="travelAmount" placeholder="۵۰۰۰۰۰"></div>
-            <div class="form-group"><label>تاریخ</label><input type="text" class="form-control datepicker" id="travelDate" placeholder="انتخاب تاریخ" readonly></div>
-        </div>
+        <div class="form-group"><label>دسته‌بندی</label><select class="form-select" id="travelCategory" onchange="toggleTravelCustomTitle()"><option value="transport">🚗 حمل و نقل</option><option value="food">🍽️ خورد و خوراک</option><option value="accommodation">🏨 اقامت</option><option value="tickets">🎫 بلیط و ورودی</option><option value="shopping">🛍️ خرید</option><option value="other">📦 سایر</option></select></div>
+        <div class="form-group" id="travelCustomTitleGroup" style="display:none;"><label>عنوان هزینه (سایر) <span class="required">*</span></label><input type="text" class="form-control" id="travelCustomTitle" placeholder="مثال: بنزین"></div>
+        <div class="form-row"><div class="form-group"><label>مبلغ</label><input type="number" class="form-control" id="travelAmount" placeholder="۵۰۰۰۰۰"></div><div class="form-group"><label>تاریخ</label><input type="text" class="form-control datepicker" id="travelDate" placeholder="انتخاب تاریخ" readonly></div></div>
         <div class="form-group"><label>پرداخت‌کننده</label><select class="form-select" id="travelPayer"></select></div>
         <button class="btn btn-warning btn-block" onclick="addTravelExpense()"><i class="fas fa-plus"></i> ثبت هزینه سفر</button>
     </div>
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-list icon-info"></i> هزینه‌های سفر</div>
-            <div class="btn-group">
-                <button class="btn btn-success btn-sm" onclick="exportTravelExcel()"><i class="fas fa-file-excel"></i> اکسل</button>
-                <button class="btn btn-danger btn-sm" onclick="exportTravelPDF()"><i class="fas fa-file-pdf"></i> PDF</button>
-            </div>
-        </div>
-        <div id="travelList"></div>
-    </div>
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-handshake icon-success"></i> تسویه حساب سفر</div></div>
-        <div id="travelSettle"></div>
-    </div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-list icon-info"></i> هزینه‌های سفر</div><div class="btn-group"><button class="btn btn-success btn-sm" onclick="exportTravelExcel()"><i class="fas fa-file-excel"></i> اکسل</button><button class="btn btn-danger btn-sm" onclick="exportTravelPDF()"><i class="fas fa-file-pdf"></i> PDF</button></div></div><div id="travelList"></div></div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-handshake icon-success"></i> تسویه حساب سفر</div></div><div id="travelSettle"></div></div>
 </section>
 
-<!-- ACCOUNTING -->
 <section class="page" id="page-accounting">
     <div class="page-title"><i class="fas fa-book"></i> دفتر حسابداری</div>
     <div class="journal-tabs">
@@ -961,555 +770,221 @@ html.dark-mode .toggle-btn.active { background: var(--gradient-primary); color: 
         <button class="journal-tab" id="tabPersons" onclick="switchTab('persons')"><i class="fas fa-handshake"></i> حساب همسایگان</button>
         <button class="journal-tab" id="tabTravel" onclick="switchTab('travel')"><i class="fas fa-plane-departure"></i> دفتر سفر</button>
     </div>
-    <div id="viewMatrix">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title"><i class="fas fa-table icon-primary"></i> دفتر روزنامه ماتریسی</div>
-                <div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="exportJournalExcel('matrix')"><i class="fas fa-file-excel"></i> اکسل</button>
-                    <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('matrix')"><i class="fas fa-file-pdf"></i> PDF</button>
-                </div>
-            </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> سهم هر واحد از هر هزینه.</div>
-            <div id="matrixTable"></div>
-        </div>
-    </div>
-    <div id="viewSummary" style="display:none;">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title"><i class="fas fa-chart-pie icon-success"></i> خلاصه واحدها</div>
-                <div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="exportJournalExcel('summary')"><i class="fas fa-file-excel"></i> اکسل</button>
-                    <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('summary')"><i class="fas fa-file-pdf"></i> PDF</button>
-                </div>
-            </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> سهم هر واحد به دو بخش ساکن و مالک تفکیک شده است.</div>
-            <div id="summaryTable"></div>
-        </div>
-    </div>
-    <div id="viewPersons" style="display:none;">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title"><i class="fas fa-handshake icon-info"></i> حساب همسایگان</div>
-                <div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="exportJournalExcel('persons')"><i class="fas fa-file-excel"></i> اکسل</button>
-                    <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('persons')"><i class="fas fa-file-pdf"></i> PDF</button>
-                </div>
-            </div>
-            <div class="info-box"><i class="fas fa-info-circle"></i> گزارش نهایی بدهی/طلب هر همسایه.</div>
-            <div id="personsTable"></div>
-        </div>
-    </div>
-    <div id="viewTravel" style="display:none;">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title"><i class="fas fa-plane-departure icon-info"></i> دفتر سفر</div>
-                <div class="btn-group">
-                    <button class="btn btn-success btn-sm" onclick="exportJournalExcel('travel')"><i class="fas fa-file-excel"></i> اکسل</button>
-                    <button class="btn btn-danger btn-sm" onclick="exportJournalPDF('travel')"><i class="fas fa-file-pdf"></i> PDF</button>
-                </div>
-            </div>
-            <div id="travelJournalTable"></div>
-        </div>
-    </div>
+    <div id="viewMatrix"><div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-table icon-primary"></i> دفتر روزنامه ماتریسی</div><div class="btn-group"><button class="btn btn-success btn-sm" onclick="exportJournalExcel('matrix')"><i class="fas fa-file-excel"></i> اکسل</button><button class="btn btn-danger btn-sm" onclick="exportJournalPDF('matrix')"><i class="fas fa-file-pdf"></i> PDF</button></div></div><div class="info-box"><i class="fas fa-info-circle"></i> سهم هر واحد از هر هزینه.</div><div id="matrixTable"></div></div></div>
+    <div id="viewSummary" style="display:none;"><div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-chart-pie icon-success"></i> خلاصه واحدها</div><div class="btn-group"><button class="btn btn-success btn-sm" onclick="exportJournalExcel('summary')"><i class="fas fa-file-excel"></i> اکسل</button><button class="btn btn-danger btn-sm" onclick="exportJournalPDF('summary')"><i class="fas fa-file-pdf"></i> PDF</button></div></div><div class="info-box"><i class="fas fa-info-circle"></i> سهم هر واحد به دو بخش ساکن و مالک تفکیک شده است.</div><div id="summaryTable"></div></div></div>
+    <div id="viewPersons" style="display:none;"><div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-handshake icon-info"></i> حساب همسایگان</div><div class="btn-group"><button class="btn btn-success btn-sm" onclick="exportJournalExcel('persons')"><i class="fas fa-file-excel"></i> اکسل</button><button class="btn btn-danger btn-sm" onclick="exportJournalPDF('persons')"><i class="fas fa-file-pdf"></i> PDF</button></div></div><div class="info-box"><i class="fas fa-info-circle"></i> گزارش نهایی بدهی/طلب هر همسایه.</div><div id="personsTable"></div></div></div>
+    <div id="viewTravel" style="display:none;"><div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-plane-departure icon-info"></i> دفتر سفر</div><div class="btn-group"><button class="btn btn-success btn-sm" onclick="exportJournalExcel('travel')"><i class="fas fa-file-excel"></i> اکسل</button><button class="btn btn-danger btn-sm" onclick="exportJournalPDF('travel')"><i class="fas fa-file-pdf"></i> PDF</button></div></div><div id="travelJournalTable"></div></div></div>
 </section>
 
-<!-- BUILDING INFO -->
 <section class="page" id="page-building-info">
     <div class="page-title"><i class="fas fa-building-user"></i> اطلاعات ساختمان</div>
-    
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-building icon-primary"></i> مشخصات ساختمان</div></div><div id="buildingInfoDisplay"><div style="text-align:center; padding:20px; color:var(--gray-500);"><i class="fas fa-spinner fa-spin"></i> در حال بارگذاری...</div></div></div>
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-building icon-primary"></i> مشخصات ساختمان</div>
-        </div>
-        <div id="buildingInfoDisplay">
-            <div style="text-align:center; padding:20px; color:var(--gray-500);">
-                <i class="fas fa-spinner fa-spin"></i> در حال بارگذاری...
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-user-tie icon-warning"></i> مالکین</div>
-            <span class="badge badge-warning" id="ownersCount">۰ مالک</span>
-        </div>
-        <div class="info-box">
-            <i class="fas fa-info-circle"></i>
-            <div>از لیست کاربران انتخاب کن. اگه کاربری تو لیست نیست، اول از تب «کاربران» اضافه‌ش کن.</div>
-        </div>
-        
-        <div class="form-group">
-            <label>انتخاب از کاربران <span class="required">*</span></label>
-            <select class="form-select" id="ownerCandidateSelect" onchange="onOwnerSelect()">
-                <option value="">— انتخاب کن —</option>
-            </select>
-        </div>
-        
-        <div id="ownerPreview" style="display:none;">
-            <div class="info-box">
-                <i class="fas fa-user-check"></i>
-                <div>
-                    <div><strong id="ownerPreviewName">—</strong></div>
-                    <div style="font-size:11px; margin-top:4px;">📱 <span id="ownerPreviewPhone">—</span></div>
-                </div>
-            </div>
-            <button class="btn btn-warning btn-block" onclick="addOwnerFromUser()">
-                <i class="fas fa-user-plus"></i> افزودن به مالکین
-            </button>
-        </div>
-        
+        <div class="card-header"><div class="card-title"><i class="fas fa-user-tie icon-warning"></i> مالکین</div><span class="badge badge-warning" id="ownersCount">۰ مالک</span></div>
+        <div class="info-box"><i class="fas fa-info-circle"></i><div>از لیست کاربران انتخاب کن. اگه کاربری تو لیست نیست، اول از تب «کاربران» اضافه‌ش کن.</div></div>
+        <div class="form-group"><label>انتخاب از کاربران <span class="required">*</span></label><select class="form-select" id="ownerCandidateSelect" onchange="onOwnerSelect()"><option value="">— انتخاب کن —</option></select></div>
+        <div id="ownerPreview" style="display:none;"><div class="info-box"><i class="fas fa-user-check"></i><div><div><strong id="ownerPreviewName">—</strong></div><div style="font-size:11px; margin-top:4px;">📱 <span id="ownerPreviewPhone">—</span></div></div></div><button class="btn btn-warning btn-block" onclick="addOwnerFromUser()"><i class="fas fa-user-plus"></i> افزودن به مالکین</button></div>
         <div id="ownersList" style="margin-top:16px;"></div>
     </div>
-
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-user-friends icon-info"></i> ساکنین</div>
-            <span class="badge badge-info" id="residentsCount">۰ ساکن</span>
-        </div>
-        <div class="info-box">
-            <i class="fas fa-info-circle"></i>
-            <div>از لیست کاربران انتخاب کن. اگه کاربری تو لیست نیست، اول از تب «کاربران» اضافه‌ش کن.</div>
-        </div>
-        
-        <div class="form-group">
-            <label>انتخاب از کاربران <span class="required">*</span></label>
-            <select class="form-select" id="residentCandidateSelect" onchange="onResidentSelect()">
-                <option value="">— انتخاب کن —</option>
-            </select>
-        </div>
-        
-        <div id="residentPreview" style="display:none;">
-            <div class="info-box">
-                <i class="fas fa-user-check"></i>
-                <div>
-                    <div><strong id="residentPreviewName">—</strong></div>
-                    <div style="font-size:11px; margin-top:4px;">📱 <span id="residentPreviewPhone">—</span></div>
-                </div>
-            </div>
-            <button class="btn btn-info btn-block" onclick="addResidentFromUser()">
-                <i class="fas fa-user-plus"></i> افزودن به ساکنین
-            </button>
-        </div>
-        
+        <div class="card-header"><div class="card-title"><i class="fas fa-user-friends icon-info"></i> ساکنین</div><span class="badge badge-info" id="residentsCount">۰ ساکن</span></div>
+        <div class="info-box"><i class="fas fa-info-circle"></i><div>از لیست کاربران انتخاب کن. اگه کاربری تو لیست نیست، اول از تب «کاربران» اضافه‌ش کن.</div></div>
+        <div class="form-group"><label>انتخاب از کاربران <span class="required">*</span></label><select class="form-select" id="residentCandidateSelect" onchange="onResidentSelect()"><option value="">— انتخاب کن —</option></select></div>
+        <div id="residentPreview" style="display:none;"><div class="info-box"><i class="fas fa-user-check"></i><div><div><strong id="residentPreviewName">—</strong></div><div style="font-size:11px; margin-top:4px;">📱 <span id="residentPreviewPhone">—</span></div></div></div><button class="btn btn-info btn-block" onclick="addResidentFromUser()"><i class="fas fa-user-plus"></i> افزودن به ساکنین</button></div>
         <div id="residentsList" style="margin-top:16px;"></div>
     </div>
 </section>
 
-<!-- SETTINGS -->
 <section class="page" id="page-settings">
     <div class="page-title"><i class="fas fa-cog"></i> تنظیمات</div>
-    
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-cog icon-info"></i> تنظیمات پیشرفته</div></div>
-        <div class="form-group">
-            <label>واحد پول</label>
-            <select class="form-select" id="settingsCurrency" onchange="saveCurrency()">
-                <option value="toman">تومان</option>
-                <option value="rial">ریال</option>
-                <option value="dirham">درهم امارات</option>
-                <option value="dollar">دلار</option>
-                <option value="euro">یورو</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>فرمت تاریخ</label>
-            <select class="form-select" id="settingsDateFormat" onchange="saveDateFormat()">
-                <option value="persian">شمسی (۱۴۰۵/۰۶/۱۵)</option>
-                <option value="gregorian">میلادی (2026/09/06)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="checkbox-wrap">
-                <input type="checkbox" id="settingsAutoBackup" onchange="saveAutoBackup()">
-                <span><i class="fas fa-save"></i> پشتیبان‌گیری خودکار (۳ نسخه آخر)</span>
-            </label>
-        </div>
+        <div class="form-group"><label>واحد پول</label><select class="form-select" id="settingsCurrency" onchange="saveCurrency()"><option value="toman">تومان</option><option value="rial">ریال</option><option value="dirham">درهم امارات</option><option value="dollar">دلار</option><option value="euro">یورو</option></select></div>
+        <div class="form-group"><label>فرمت تاریخ</label><select class="form-select" id="settingsDateFormat" onchange="saveDateFormat()"><option value="persian">شمسی (۱۴۰۵/۰۶/۱۵)</option><option value="gregorian">میلادی (2026/09/06)</option></select></div>
+        <div class="form-group"><label class="checkbox-wrap"><input type="checkbox" id="settingsAutoBackup" onchange="saveAutoBackup()"><span><i class="fas fa-save"></i> پشتیبان‌گیری خودکار (۳ نسخه آخر)</span></label></div>
         <div id="autoBackupInfo" style="font-size:11px; color:var(--gray-500); margin-top:8px;"></div>
     </div>
-
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div>
-        <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
-        <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
-    </div>
-
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-question-circle icon-info"></i> راهنما</div></div>
-        <button class="btn btn-primary btn-block" onclick="showOnboarding()" style="margin-bottom:10px;">
-            <i class="fas fa-graduation-cap"></i> راهنمای اپ رو دوباره ببین
-        </button>
-    </div>
-
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-download icon-primary"></i> نصب اپلیکیشن</div></div>
-        <button class="btn btn-primary btn-block" onclick="manualInstall()" id="manualInstallBtn" style="margin-bottom:10px;">
-            <i class="fas fa-mobile-alt"></i> نصب روی گوشی
-        </button>
-        <div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div>
-    </div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div><button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button><button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button></div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-question-circle icon-info"></i> راهنما</div></div><button class="btn btn-primary btn-block" onclick="showOnboarding()" style="margin-bottom:10px;"><i class="fas fa-graduation-cap"></i> راهنمای اپ رو دوباره ببین</button></div>
+    <div class="card"><div class="card-header"><div class="card-title"><i class="fas fa-download icon-primary"></i> نصب اپلیکیشن</div></div><button class="btn btn-primary btn-block" onclick="manualInstall()" id="manualInstallBtn" style="margin-bottom:10px;"><i class="fas fa-mobile-alt"></i> نصب روی گوشی</button><div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div></div>
 </section>
-    <!-- ==================== SUPER ADMIN DASHBOARD ==================== -->
 <section class="page" id="page-super-admin">
     <div class="page-title"><i class="fas fa-crown"></i> پنل مدیریت کل</div>
-    
     <div class="summary-grid">
         <div class="summary-card primary"><div class="icon-wrap"><i class="fas fa-city"></i></div><div class="value" id="statTotalBuildings">۰</div><div class="label">کل ساختمان‌ها</div></div>
         <div class="summary-card success"><div class="icon-wrap"><i class="fas fa-users"></i></div><div class="value" id="statTotalUsers">۰</div><div class="label">کل کاربران</div></div>
         <div class="summary-card warning"><div class="icon-wrap"><i class="fas fa-user-tie"></i></div><div class="value" id="statTotalManagers">۰</div><div class="label">مدیران ساختمان</div></div>
         <div class="summary-card danger"><div class="icon-wrap"><i class="fas fa-building"></i></div><div class="value" id="statTotalUnits">۰</div><div class="label">کل واحدها</div></div>
     </div>
-    
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-bolt icon-warning"></i> دسترسی سریع</div>
-        </div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-bolt icon-warning"></i> دسترسی سریع</div></div>
         <div class="btn-group" style="width:100%;">
-            <button class="btn btn-primary" style="flex:1;" onclick="openAddBuildingModal()">
-                <i class="fas fa-plus"></i> افزودن ساختمان
-            </button>
-            <button class="btn btn-success" style="flex:1;" onclick="openAddUserModal()">
-                <i class="fas fa-user-plus"></i> افزودن کاربر
-            </button>
+            <button class="btn btn-primary" style="flex:1;" onclick="openAddBuildingModal()"><i class="fas fa-plus"></i> افزودن ساختمان</button>
+            <button class="btn btn-success" style="flex:1;" onclick="openAddUserModal()"><i class="fas fa-user-plus"></i> افزودن کاربر</button>
         </div>
     </div>
 </section>
 
-<!-- ==================== SUPER ADMIN - BUILDINGS ==================== -->
 <section class="page" id="page-super-buildings">
     <div class="page-title"><i class="fas fa-city"></i> مدیریت ساختمان‌ها</div>
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-list icon-primary"></i> لیست ساختمان‌ها</div>
-            <button class="btn btn-primary btn-sm" onclick="openAddBuildingModal()">
-                <i class="fas fa-plus"></i> افزودن
-            </button>
-        </div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-list icon-primary"></i> لیست ساختمان‌ها</div><button class="btn btn-primary btn-sm" onclick="openAddBuildingModal()"><i class="fas fa-plus"></i> افزودن</button></div>
         <div id="superBuildingsList"></div>
     </div>
 </section>
 
-<!-- ==================== SUPER ADMIN - USERS ==================== -->
 <section class="page" id="page-super-users">
     <div class="page-title"><i class="fas fa-users-cog"></i> مدیریت کاربران</div>
     <div class="card">
-        <div class="card-header">
-            <div class="card-title"><i class="fas fa-list icon-success"></i> لیست کاربران</div>
-            <button class="btn btn-success btn-sm" onclick="openAddUserModal()">
-                <i class="fas fa-user-plus"></i> افزودن
-            </button>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="userSearchInput" placeholder="🔍 جستجو بر اساس نام یا شماره..." oninput="renderSuperUsersList()">
-        </div>
+        <div class="card-header"><div class="card-title"><i class="fas fa-list icon-success"></i> لیست کاربران</div><button class="btn btn-success btn-sm" onclick="openAddUserModal()"><i class="fas fa-user-plus"></i> افزودن</button></div>
+        <div class="form-group"><input type="text" class="form-control" id="userSearchInput" placeholder="🔍 جستجو بر اساس نام یا شماره..." oninput="renderSuperUsersList()"></div>
         <div id="superUsersList"></div>
     </div>
 </section>
 
-<!-- ==================== RESIDENT PANEL (MY PANEL) ==================== -->
 <section class="page" id="page-my-panel">
     <div class="page-title"><i class="fas fa-home"></i> پنل من</div>
     <div class="card" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; border: none;">
         <div style="display: flex; align-items: center; gap: 16px;">
-            <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.2); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 32px;">
-                <i class="fas fa-user-circle"></i>
-            </div>
-            <div style="flex: 1;">
-                <div id="myPanelGreeting" style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">سلام!</div>
-                <div id="myPanelRole" style="font-size: 12px; opacity: 0.9;">—</div>
-            </div>
+            <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.2); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 32px;"><i class="fas fa-user-circle"></i></div>
+            <div style="flex: 1;"><div id="myPanelGreeting" style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">سلام!</div><div id="myPanelRole" style="font-size: 12px; opacity: 0.9;">—</div></div>
         </div>
     </div>
     <div id="myPanelContent"></div>
 </section>
     
+</main>
+</div>
+</div>
+
 <!-- MODALS -->
 <div class="modal-overlay" id="paymentModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-money-bill-wave"></i> ثبت پرداخت شارژ</div>
-            <button class="modal-close" onclick="closeModal('paymentModal')"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-money-bill-wave"></i> ثبت پرداخت شارژ</div><button class="modal-close" onclick="closeModal('paymentModal')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body">
-            <div class="form-group">
-                <label>پرداخت‌کننده <span class="required">*</span></label>
-                <select class="form-select" id="paymentPayer"><option value="">— انتخاب —</option></select>
-            </div>
+            <div class="form-group"><label>پرداخت‌کننده <span class="required">*</span></label><select class="form-select" id="paymentPayer"><option value="">— انتخاب —</option></select></div>
             <div class="form-group"><label>مبلغ پرداخت</label><input type="number" class="form-control" id="paymentAmount" placeholder="۲۰۰۰۰۰۰"></div>
             <div class="form-group"><label>تاریخ پرداخت</label><input type="text" class="form-control datepicker" id="paymentDate" placeholder="انتخاب تاریخ" readonly></div>
             <div class="form-group"><label>توضیحات (اختیاری)</label><input type="text" class="form-control" id="paymentNote" placeholder="پرداخت نقدی"></div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeModal('paymentModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-success" onclick="savePayment()" style="flex:2;"><i class="fas fa-check"></i> ثبت پرداخت</button>
-        </div>
+        <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('paymentModal')" style="flex:1;">انصراف</button><button class="btn btn-success" onclick="savePayment()" style="flex:2;"><i class="fas fa-check"></i> ثبت پرداخت</button></div>
     </div>
 </div>
 
 <div class="modal-overlay" id="companionModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-user-plus"></i> <span id="companionModalTitle">افزودن همسفر</span></div>
-            <button class="modal-close" onclick="closeModal('companionModal')"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-user-plus"></i> <span id="companionModalTitle">افزودن همسفر</span></div><button class="modal-close" onclick="closeModal('companionModal')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body">
             <div class="form-group"><label>نام همسفر</label><input type="text" class="form-control" id="companionName" placeholder="نام و نام خانوادگی"></div>
             <div class="form-group"><label>تعداد نفرات</label><input type="number" class="form-control" id="companionCount" value="1" min="1"></div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeModal('companionModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-primary" onclick="saveCompanion()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button>
-        </div>
+        <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('companionModal')" style="flex:1;">انصراف</button><button class="btn btn-primary" onclick="saveCompanion()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button></div>
     </div>
 </div>
 
 <div class="modal-overlay" id="editModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-edit"></i> <span id="editModalTitle">ویرایش</span></div>
-            <button class="modal-close" onclick="closeModal('editModal')"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-edit"></i> <span id="editModalTitle">ویرایش</span></div><button class="modal-close" onclick="closeModal('editModal')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body" id="editModalBody"></div>
-        <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeModal('editModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-primary" onclick="saveEdit()" style="flex:2;"><i class="fas fa-check"></i> ذخیره تغییرات</button>
-        </div>
+        <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('editModal')" style="flex:1;">انصراف</button><button class="btn btn-primary" onclick="saveEdit()" style="flex:2;"><i class="fas fa-check"></i> ذخیره تغییرات</button></div>
     </div>
 </div>
 
 <div class="modal-overlay" id="notificationsModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-bell"></i> اعلان‌ها</div>
-            <button class="modal-close" onclick="closeModal('notificationsModal')"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-body">
-            <div id="notificationsList"></div>
-            <div class="notif-actions-bar" id="notifActionsBar" style="display:none;">
-                <button class="btn-mark-read" onclick="markAllNotificationsRead()">
-                    <i class="fas fa-check-double"></i> همه رو خونده کن
-                </button>
-                <button class="btn-clear-all" onclick="clearAllNotifications()">
-                    <i class="fas fa-trash"></i> حذف همه
-                </button>
-            </div>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-bell"></i> اعلان‌ها</div><button class="modal-close" onclick="closeModal('notificationsModal')"><i class="fas fa-times"></i></button></div>
+        <div class="modal-body"><div id="notificationsList"></div><div class="notif-actions-bar" id="notifActionsBar" style="display:none;"><button class="btn-mark-read" onclick="markAllNotificationsRead()"><i class="fas fa-check-double"></i> همه رو خونده کن</button><button class="btn-clear-all" onclick="clearAllNotifications()"><i class="fas fa-trash"></i> حذف همه</button></div></div>
     </div>
 </div>
 
 <div class="modal-overlay" id="shareModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-share-alt"></i> اشتراک‌گذاری گزارش</div>
-            <button class="modal-close" onclick="closeModal('shareModal')"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-share-alt"></i> اشتراک‌گذاری گزارش</div><button class="modal-close" onclick="closeModal('shareModal')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body">
-            <div class="share-info-box">
-                <i class="fas fa-info-circle"></i>
-                <div>گزارش کامل «حساب همسایگان» رو با همسایه‌ها به اشتراک بگذار. می‌تونی متن خلاصه یا فایل PDF بفرستی.</div>
-            </div>
-            
-            <div class="form-group" style="margin-bottom:10px;">
-                <label style="font-size:12px; font-weight:700;">چه چیزی رو بفرستم؟</label>
-            </div>
+            <div class="share-info-box"><i class="fas fa-info-circle"></i><div>گزارش کامل «حساب همسایگان» رو با همسایه‌ها به اشتراک بگذار.</div></div>
+            <div class="form-group" style="margin-bottom:10px;"><label style="font-size:12px; font-weight:700;">چه چیزی رو بفرستم؟</label></div>
             <div class="share-options">
-                <div class="share-option selected" id="shareOptText" onclick="selectShareType('text')">
-                    <div class="share-option-icon text"><i class="fas fa-file-alt"></i></div>
-                    <div>
-                        <div class="share-option-label">متن خلاصه</div>
-                        <div class="share-option-desc">سریع و سبک</div>
-                    </div>
-                </div>
-                <div class="share-option" id="shareOptPdf" onclick="selectShareType('pdf')">
-                    <div class="share-option-icon pdf"><i class="fas fa-file-pdf"></i></div>
-                    <div>
-                        <div class="share-option-label">فایل PDF</div>
-                        <div class="share-option-desc">کامل و رسمی</div>
-                    </div>
-                </div>
+                <div class="share-option selected" id="shareOptText" onclick="selectShareType('text')"><div class="share-option-icon text"><i class="fas fa-file-alt"></i></div><div><div class="share-option-label">متن خلاصه</div><div class="share-option-desc">سریع و سبک</div></div></div>
+                <div class="share-option" id="shareOptPdf" onclick="selectShareType('pdf')"><div class="share-option-icon pdf"><i class="fas fa-file-pdf"></i></div><div><div class="share-option-label">فایل PDF</div><div class="share-option-desc">کامل و رسمی</div></div></div>
             </div>
-            
             <div class="share-divider">از طریق</div>
-            
             <div class="share-apps">
-                <div class="share-app" onclick="shareTo('whatsapp')">
-                    <div class="share-app-icon whatsapp">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    </div>
-                    <div class="share-app-label">واتساپ</div>
-                </div>
-                
-                <div class="share-app" onclick="shareTo('telegram')">
-                    <div class="share-app-icon telegram">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                    </div>
-                    <div class="share-app-label">تلگرام</div>
-                </div>
-                
-                <div class="share-app" onclick="shareTo('eitaa')">
-                    <div class="share-app-icon eitaa">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18.5c-4.687 0-8.5-3.813-8.5-8.5S7.313 3.5 12 3.5s8.5 3.813 8.5 8.5-3.813 8.5-8.5 8.5zm-.9-4.35c-.35-.15-.66-.47-.78-.83-.12-.36-.05-.76.19-1.05.37-.45 1.4-1.63 1.86-2.16.23-.26.06-.36-.13-.3-.87.28-3.55 1.16-4.9 1.6-.2.06-.32.18-.37.32-.05.14-.02.3.1.4.34.3 1.16 1.01 1.6 1.39.13.11.24.22.36.32.86.74 1.4 1.19 1.6 1.32.14.09.31.06.42-.06.06-.07.86-1.02 1.44-1.7.26-.31.06-.6-.16-.63-.27-.04-.68-.06-.85-.13-.17-.07-.18-.24-.13-.39z"/></svg>
-                    </div>
-                    <div class="share-app-label">ایتا</div>
-                </div>
-                
-                <div class="share-app" onclick="shareTo('copy')">
-                    <div class="share-app-icon copy">
-                        <i class="fas fa-copy"></i>
-                    </div>
-                    <div class="share-app-label">کپی</div>
-                </div>
+                <div class="share-app" onclick="shareTo('whatsapp')"><div class="share-app-icon whatsapp"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><div class="share-app-label">واتساپ</div></div>
+                <div class="share-app" onclick="shareTo('telegram')"><div class="share-app-icon telegram"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div><div class="share-app-label">تلگرام</div></div>
+                <div class="share-app" onclick="shareTo('eitaa')"><div class="share-app-icon eitaa"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18.5c-4.687 0-8.5-3.813-8.5-8.5S7.313 3.5 12 3.5s8.5 3.813 8.5 8.5-3.813 8.5-8.5 8.5zm-.9-4.35c-.35-.15-.66-.47-.78-.83-.12-.36-.05-.76.19-1.05.37-.45 1.4-1.63 1.86-2.16.23-.26.06-.36-.13-.3-.87.28-3.55 1.16-4.9 1.6-.2.06-.32.18-.37.32-.05.14-.02.3.1.4.34.3 1.16 1.01 1.6 1.39.13.11.24.22.36.32.86.74 1.4 1.19 1.6 1.32.14.09.31.06.42-.06.06-.07.86-1.02 1.44-1.7.26-.31.06-.6-.16-.63-.27-.04-.68-.06-.85-.13-.17-.07-.18-.24-.13-.39z"/></svg></div><div class="share-app-label">ایتا</div></div>
+                <div class="share-app" onclick="shareTo('copy')"><div class="share-app-icon copy"><i class="fas fa-copy"></i></div><div class="share-app-label">کپی</div></div>
             </div>
-            
-            <div class="push-permission-box" id="pushPermissionBox" style="display:none;">
-                <i class="fas fa-bell"></i>
-                <div style="flex:1;">می‌خوای اعلان‌های مهم رو تو گوشی هم ببینی؟</div>
-                <button onclick="requestNotificationPermission()">فعال‌سازی</button>
-            </div>
+            <div class="push-permission-box" id="pushPermissionBox" style="display:none;"><i class="fas fa-bell"></i><div style="flex:1;">می‌خوای اعلان‌های مهم رو تو گوشی هم ببینی؟</div><button onclick="requestNotificationPermission()">فعال‌سازی</button></div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeModal('shareModal')" style="flex:1;">انصراف</button>
-        </div>
+        <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('shareModal')" style="flex:1;">انصراف</button></div>
     </div>
 </div>    
 
-<!-- MODAL: افزودن ساختمان -->
 <div class="modal-overlay" id="addBuildingModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-city"></i> افزودن ساختمان جدید</div>
-            <button class="modal-close" onclick="closeModal('addBuildingModal')"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-city"></i> افزودن ساختمان جدید</div><button class="modal-close" onclick="closeModal('addBuildingModal')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body">
-            <div class="form-group">
-                <label>نام ساختمان <span class="required">*</span></label>
-                <input type="text" class="form-control" id="newBuildingName" placeholder="مثال: مجتمع مسکونی نور">
-            </div>
-            <div class="form-group">
-                <label>تاریخ شروع</label>
-                <input type="text" class="form-control datepicker" id="newBuildingStartDate" placeholder="انتخاب تاریخ" readonly>
-            </div>
-            <div class="info-box">
-                <i class="fas fa-info-circle"></i>
-                <div>بعد از ساخت ساختمان، می‌تونی از پنل کاربران، یه مدیر برای این ساختمان انتخاب کنی.</div>
-            </div>
+            <div class="form-group"><label>نام ساختمان <span class="required">*</span></label><input type="text" class="form-control" id="newBuildingName" placeholder="مثال: مجتمع مسکونی نور"></div>
+            <div class="form-group"><label>تاریخ شروع</label><input type="text" class="form-control datepicker" id="newBuildingStartDate" placeholder="انتخاب تاریخ" readonly></div>
+            <div class="info-box"><i class="fas fa-info-circle"></i><div>بعد از ساخت ساختمان، از پنل کاربران، یه مدیر برای این ساختمان انتخاب کن.</div></div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeModal('addBuildingModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-primary" onclick="saveNewBuilding()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button>
-        </div>
+        <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('addBuildingModal')" style="flex:1;">انصراف</button><button class="btn btn-primary" onclick="saveNewBuilding()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button></div>
     </div>
 </div>
 
-<!-- MODAL: ویرایش ساختمان -->
 <div class="modal-overlay" id="editBuildingModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-edit"></i> ویرایش ساختمان</div>
-            <button class="modal-close" onclick="closeModal('editBuildingModal')"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-edit"></i> ویرایش ساختمان</div><button class="modal-close" onclick="closeModal('editBuildingModal')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body">
             <input type="hidden" id="editBuildingId">
-            <div class="form-group">
-                <label>نام ساختمان <span class="required">*</span></label>
-                <input type="text" class="form-control" id="editBuildingName">
-            </div>
-            <div class="form-group">
-                <label>تاریخ شروع</label>
-                <input type="text" class="form-control datepicker" id="editBuildingStartDate" placeholder="انتخاب تاریخ" readonly>
-            </div>
+            <div class="form-group"><label>نام ساختمان <span class="required">*</span></label><input type="text" class="form-control" id="editBuildingName"></div>
+            <div class="form-group"><label>تاریخ شروع</label><input type="text" class="form-control datepicker" id="editBuildingStartDate" placeholder="انتخاب تاریخ" readonly></div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeModal('editBuildingModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-primary" onclick="saveEditBuilding()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button>
-        </div>
+        <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('editBuildingModal')" style="flex:1;">انصراف</button><button class="btn btn-primary" onclick="saveEditBuilding()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button></div>
     </div>
 </div>
 
-<!-- MODAL: افزودن کاربر -->
 <div class="modal-overlay" id="addUserModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-user-plus"></i> افزودن کاربر جدید</div>
-            <button class="modal-close" onclick="closeModal('addUserModal')"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-user-plus"></i> افزودن کاربر جدید</div><button class="modal-close" onclick="closeModal('addUserModal')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body">
-            <div class="form-group">
-                <label>نام کامل <span class="required">*</span></label>
-                <input type="text" class="form-control" id="newUserName" placeholder="مثال: علی احمدی" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label>شماره موبایل <span class="required">*</span></label>
-                <input type="tel" class="form-control" id="newUserPhone" placeholder="09123456789" maxlength="11" inputmode="numeric" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label>جنسیت <span class="required">*</span></label>
+            <div class="form-group"><label>نام کامل <span class="required">*</span></label><input type="text" class="form-control" id="newUserName" placeholder="مثال: علی احمدی" autocomplete="off"></div>
+            <div class="form-group"><label>شماره موبایل <span class="required">*</span></label><input type="tel" class="form-control" id="newUserPhone" placeholder="09123456789" maxlength="11" inputmode="numeric" autocomplete="off"></div>
+            <div class="form-group"><label>جنسیت <span class="required">*</span></label>
                 <div class="toggle-group">
-                    <button type="button" class="toggle-btn active" id="newUserGenderMale" onclick="setNewUserGender('male')">
-                        <span style="font-size:16px;">👨</span> آقا
-                    </button>
-                    <button type="button" class="toggle-btn" id="newUserGenderFemale" onclick="setNewUserGender('female')">
-                        <span style="font-size:16px;">👩</span> خانم
-                    </button>
+                    <button type="button" class="toggle-btn active" id="newUserGenderMale" onclick="setNewUserGender('male')"><span style="font-size:16px;">👨</span> آقا</button>
+                    <button type="button" class="toggle-btn" id="newUserGenderFemale" onclick="setNewUserGender('female')"><span style="font-size:16px;">👩</span> خانم</button>
                 </div>
             </div>
-            <div class="form-group">
-                <label>نقش <span class="required">*</span></label>
+            <div class="form-group"><label>نقش <span class="required">*</span></label>
                 <select class="form-select" id="newUserRole">
                     <option value="manager">مدیر ساختمان</option>
                     <option value="owner">مالک</option>
                     <option value="resident">ساکن</option>
                 </select>
             </div>
-            <div class="form-group" id="newUserBuildingGroup">
-                <label>ساختمان <span class="required">*</span></label>
-                <select class="form-select" id="newUserBuilding"></select>
-            </div>
+            <div class="form-group" id="newUserBuildingGroup"><label>ساختمان <span class="required">*</span></label><select class="form-select" id="newUserBuilding"></select></div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeModal('addUserModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-success" onclick="saveNewUser()" style="flex:2;"><i class="fas fa-check"></i> ایجاد کاربر</button>
-        </div>
+        <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('addUserModal')" style="flex:1;">انصراف</button><button class="btn btn-success" onclick="saveNewUser()" style="flex:2;"><i class="fas fa-check"></i> ایجاد کاربر</button></div>
     </div>
 </div>
 
-<!-- MODAL: ویرایش کاربر -->
 <div class="modal-overlay" id="editUserModal">
     <div class="modal">
-        <div class="modal-header">
-            <div class="modal-title"><i class="fas fa-user-edit"></i> ویرایش کاربر</div>
-            <button class="modal-close" onclick="closeModal('editUserModal')"><i class="fas fa-times"></i></button>
-        </div>
+        <div class="modal-header"><div class="modal-title"><i class="fas fa-user-edit"></i> ویرایش کاربر</div><button class="modal-close" onclick="closeModal('editUserModal')"><i class="fas fa-times"></i></button></div>
         <div class="modal-body">
             <input type="hidden" id="editUserId">
-            <div class="form-group">
-                <label>نام کامل <span class="required">*</span></label>
-                <input type="text" class="form-control" id="editUserName" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label>شماره موبایل <span class="required">*</span></label>
-                <input type="tel" class="form-control" id="editUserPhone" maxlength="11" inputmode="numeric" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label>جنسیت <span class="required">*</span></label>
+            <div class="form-group"><label>نام کامل <span class="required">*</span></label><input type="text" class="form-control" id="editUserName" autocomplete="off"></div>
+            <div class="form-group"><label>شماره موبایل <span class="required">*</span></label><input type="tel" class="form-control" id="editUserPhone" maxlength="11" inputmode="numeric" autocomplete="off"></div>
+            <div class="form-group"><label>جنسیت <span class="required">*</span></label>
                 <div class="toggle-group">
-                    <button type="button" class="toggle-btn" id="editUserGenderMale" onclick="setEditUserGender('male')">
-                        <span style="font-size:16px;">👨</span> آقا
-                    </button>
-                    <button type="button" class="toggle-btn" id="editUserGenderFemale" onclick="setEditUserGender('female')">
-                        <span style="font-size:16px;">👩</span> خانم
-                    </button>
+                    <button type="button" class="toggle-btn" id="editUserGenderMale" onclick="setEditUserGender('male')"><span style="font-size:16px;">👨</span> آقا</button>
+                    <button type="button" class="toggle-btn" id="editUserGenderFemale" onclick="setEditUserGender('female')"><span style="font-size:16px;">👩</span> خانم</button>
                 </div>
             </div>
-            <div class="info-box">
-                <i class="fas fa-info-circle"></i>
-                <div>تغییر نقش کاربر در نسخه بعدی اضافه میشه.</div>
-            </div>
+            <div class="info-box"><i class="fas fa-info-circle"></i><div>تغییر نقش کاربر در نسخه بعدی اضافه میشه.</div></div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeModal('editUserModal')" style="flex:1;">انصراف</button>
-            <button class="btn btn-primary" onclick="saveEditUser()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button>
-        </div>
+        <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('editUserModal')" style="flex:1;">انصراف</button><button class="btn btn-primary" onclick="saveEditUser()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button></div>
     </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -1527,12 +1002,8 @@ const STORAGE_KEY = 'hesabyar_v9';
 let state = {
     owners: [], residents: [], units: [], expenses: [], travelExpenses: [],
     companions: [], charges: {}, notifications: [],
-    settings: {
-        buildingName: 'حساب‌یار', managerName: 'مدیریت هوشمند هزینه‌ها',
-        startDate: '', currency: 'toman', dateFormat: 'persian', autoBackup: true
-    }
+    settings: { buildingName: 'حساب‌یار', managerName: 'مدیریت هوشمند هزینه‌ها', startDate: '', currency: 'toman', dateFormat: 'persian', autoBackup: true }
 };
-
 let currentPaymentUnitId = null;
 let tempExpenseFile = null;
 let editContext = { type: null, id: null };
@@ -1540,13 +1011,7 @@ let deferredInstallPrompt = null;
 let expensesChartInstance = null;
 let monthlyChartInstance = null;
 
-const CURRENCIES = {
-    toman: { symbol: 'تومان', name: 'تومان' },
-    rial: { symbol: 'ریال', name: 'ریال' },
-    dirham: { symbol: 'درهم', name: 'درهم امارات' },
-    dollar: { symbol: 'دلار', name: 'دلار' },
-    euro: { symbol: 'یورو', name: 'یورو' }
-};
+const CURRENCIES = { toman: { symbol: 'تومان', name: 'تومان' }, rial: { symbol: 'ریال', name: 'ریال' }, dirham: { symbol: 'درهم', name: 'درهم امارات' }, dollar: { symbol: 'دلار', name: 'دلار' }, euro: { symbol: 'یورو', name: 'یورو' } };
 function getCurrencySymbol() { return CURRENCIES[state.settings.currency]?.symbol || 'تومان'; }
 
 // ==================== THEME ====================
@@ -1577,18 +1042,13 @@ function toggleTheme() {
     const next = current === 'light' ? 'dark' : 'light';
     localStorage.setItem('themeMode', next);
     applyTheme(next);
-    const labels = { light: '☀️ تم روشن', dark: '🌙 تم تاریک' };
-    showToast(labels[next], 'success');
+    showToast({ light: '☀️ تم روشن', dark: '🌙 تم تاریک' }[next], 'success');
 }
 
 // ==================== ONBOARDING ====================
 let currentOnboardingSlide = 0;
 const ONBOARDING_KEY = 'onboardingSeen_v2';
-function showOnboarding() {
-    currentOnboardingSlide = 0;
-    updateOnboardingSlide();
-    document.getElementById('onboardingOverlay').classList.add('active');
-}
+function showOnboarding() { currentOnboardingSlide = 0; updateOnboardingSlide(); document.getElementById('onboardingOverlay').classList.add('active'); }
 function closeOnboarding() {
     document.getElementById('onboardingOverlay').classList.remove('active');
     localStorage.setItem(ONBOARDING_KEY, '1');
@@ -1620,7 +1080,7 @@ function saveState() {
             localStorage.setItem('hesabyar_backups', JSON.stringify(backups));
         }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    } catch(e) { console.error(e); showToast('خطا در ذخیره‌سازی', 'error'); }
+    } catch(e) { console.error(e); }
 }
 function loadState() {
     try {
@@ -1629,14 +1089,8 @@ function loadState() {
             const parsed = JSON.parse(saved);
             state = { ...state, ...parsed };
             state.settings = { ...state.settings, ...(parsed.settings || {}) };
-            state.owners = parsed.owners || [];
-            state.residents = parsed.residents || [];
-            state.units = parsed.units || [];
-            state.expenses = parsed.expenses || [];
-            state.travelExpenses = parsed.travelExpenses || [];
-            state.companions = parsed.companions || [];
+            ['owners','residents','units','expenses','travelExpenses','companions','notifications'].forEach(k => state[k] = parsed[k] || []);
             state.charges = parsed.charges || {};
-            state.notifications = parsed.notifications || [];
         }
     } catch(e) { console.error(e); }
 }
@@ -1645,7 +1099,6 @@ function loadState() {
 const SUPABASE_URL = 'https://iwkwwulnvbmrgilnfvfd.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5AlCDCG5lMA2F9PsjxYENA_3tjy39tD';
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
 let currentUser = null;
 let currentProfile = null;
 const USER_KEY = 'hesabyar_current_user';
@@ -1703,18 +1156,18 @@ function getPaymentStatus(unit, charge) {
     const lastPayment = payments.length > 0 ? payments[payments.length - 1] : null;
     const lastPaymentDate = lastPayment ? lastPayment.date : null;
     if (balance >= 0) {
-        if (!deadline) return { status: 'on-time', color: 'green', text: 'پرداخت شد', amount: 0 };
-        if (lastPaymentDate && comparePersianDates(lastPaymentDate, deadline) <= 0) return { status: 'on-time', color: 'green', text: 'به موقع پرداخت شد', amount: 0 };
-        return { status: 'late', color: 'yellow', text: 'با تأخیر پرداخت شد', amount: 0 };
+        if (!deadline) return { status: 'on-time', text: 'پرداخت شد', amount: 0 };
+        if (lastPaymentDate && comparePersianDates(lastPaymentDate, deadline) <= 0) return { status: 'on-time', text: 'به موقع پرداخت شد', amount: 0 };
+        return { status: 'late', text: 'با تأخیر پرداخت شد', amount: 0 };
     }
-    if (paid > 0) return { status: 'partial', color: 'yellow-dark', text: `ناقص — بدهی ${formatMoney(Math.abs(balance))}`, amount: Math.abs(balance) };
+    if (paid > 0) return { status: 'partial', text: `ناقص — بدهی ${formatMoney(Math.abs(balance))}`, amount: Math.abs(balance) };
     const today = toPersianDateString();
-    if (deadline && comparePersianDates(today, deadline) > 0) return { status: 'unpaid', color: 'red', text: `پرداخت نشده — بدهی ${formatMoney(share)}`, amount: share };
+    if (deadline && comparePersianDates(today, deadline) > 0) return { status: 'unpaid', text: `پرداخت نشده — بدهی ${formatMoney(share)}`, amount: share };
     if (deadline) {
         const daysLeft = daysBetweenPersian(today, deadline);
-        if (daysLeft >= 0) return { status: 'pending', color: 'gray', text: `در انتظار — ${toPersianNum(daysLeft)} روز مهلت`, amount: share };
+        if (daysLeft >= 0) return { status: 'pending', text: `در انتظار — ${toPersianNum(daysLeft)} روز مهلت`, amount: share };
     }
-    return { status: 'unpaid', color: 'red', text: `پرداخت نشده — بدهی ${formatMoney(share)}`, amount: share };
+    return { status: 'unpaid', text: `پرداخت نشده — بدهی ${formatMoney(share)}`, amount: share };
 }
 
 // ==================== NAVIGATION ====================
@@ -1729,7 +1182,7 @@ function navigateTo(page) {
     if (page === 'charges') renderCharges();
     if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
     if (page === 'building-info') { loadBuildingInfo(); populateOwnerCandidates(); populateResidentCandidates(); renderOwnersList(); renderResidentsList(); }
-    if (page === 'settings') { loadSettings(); }
+    if (page === 'settings') loadSettings();
     if (page === 'super-admin') renderSuperAdminDashboard();
     if (page === 'super-buildings') renderSuperBuildingsList();
     if (page === 'super-users') renderSuperUsersList();
@@ -1737,14 +1190,8 @@ function navigateTo(page) {
     if (page === 'units') { refreshOwnerDropdowns(); refreshResidentDropdowns(); }
     if (page === 'dashboard') renderDashboard();
 }
-function openSidebar() {
-    document.getElementById('sidebar').classList.add('active');
-    document.getElementById('sidebarOverlay').classList.add('active');
-}
-function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('active');
-    document.getElementById('sidebarOverlay').classList.remove('active');
-}
+function openSidebar() { document.getElementById('sidebar').classList.add('active'); document.getElementById('sidebarOverlay').classList.add('active'); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('active'); document.getElementById('sidebarOverlay').classList.remove('active'); }
 function openModal(id) { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 document.querySelectorAll('.modal-overlay').forEach(m => {
@@ -1752,16 +1199,6 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
 });
 
 // ==================== AUTH ====================
-function getFullName(profile) {
-    if (!profile) return 'کاربر';
-    const prefix = profile.gender === 'female' ? 'خانم' : 'آقای';
-    return prefix + ' ' + profile.name;
-}
-function getRoleName(role) {
-    const names = { 'super_admin': 'مدیر کل سیستم', 'manager': 'مدیر ساختمان', 'owner': 'مالک', 'resident': 'ساکن' };
-    return names[role] || 'کاربر';
-}
-
 async function doLogin() {
     const input = document.getElementById('loginPhoneInput');
     const errorBox = document.getElementById('loginError');
@@ -1793,7 +1230,6 @@ async function doLogin() {
         btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> ورود به اپ';
     }
 }
-
 async function loginWithPhone(phone) {
     phone = String(phone).trim().replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/\s/g, '').replace(/^\+98/, '0').replace(/^0098/, '0');
     if (!phone || phone.length < 10) { showToast('شماره معتبر وارد کنید', 'error'); return false; }
@@ -1810,7 +1246,6 @@ async function loginWithPhone(phone) {
         return true;
     } catch (e) { showToast('خطا در ورود: ' + e.message, 'error'); return false; }
 }
-
 async function logout() {
     if (!confirm('از حساب کاربری خارج می‌شوید؟')) return;
     try { await sb.auth.signOut(); } catch(e) { console.error(e); }
@@ -1839,7 +1274,6 @@ function showAppAfterLogin() {
         renderMyPanel();
     }
 }
-
 async function updateHeaderFromProfile() {
     if (!currentProfile) return;
     const prefix = currentProfile.gender === 'female' ? 'خانم' : 'آقای';
@@ -1874,7 +1308,6 @@ async function updateHeaderFromProfile() {
     setText('mobileManagerName', managerName);
     document.title = buildingName + ' | حساب‌یار';
 }
-
 function showLoginPage() {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const loginPage = document.getElementById('page-login');
@@ -1882,8 +1315,6 @@ function showLoginPage() {
     document.getElementById('sidebar')?.classList.add('hidden-when-logged-out');
     document.querySelector('.mobile-header')?.classList.add('hidden-when-logged-out');
 }
-
-// ==================== SPLASH ====================
 function hideSplashScreen() {
     const splash = document.getElementById('splashScreen');
     if (!splash) return;
@@ -1892,79 +1323,12 @@ function hideSplashScreen() {
         setTimeout(() => { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 700);
     }, 1200);
 }
-
-// ==================== OFFLINE ====================
-let offlineToastTimer = null;
 function updateOnlineStatus() {
     const bar = document.getElementById('offlineBar');
     if (!bar) return;
-    if (navigator.onLine) {
-        bar.classList.remove('show');
-        if (offlineToastTimer) { clearTimeout(offlineToastTimer); offlineToastTimer = null; }
-    } else {
-        bar.classList.add('show');
-        if (offlineToastTimer) clearTimeout(offlineToastTimer);
-        offlineToastTimer = setTimeout(() => { bar.classList.remove('show'); offlineToastTimer = null; }, 3500);
-    }
+    if (navigator.onLine) bar.classList.remove('show');
+    else bar.classList.add('show');
 }
-
-// ==================== INSTALL ====================
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredInstallPrompt = e;
-    const statusEl = document.getElementById('installStatus');
-    if (statusEl) statusEl.textContent = '✅ آماده نصب — دکمه بالا رو بزن.';
-    const dismissedAt = localStorage.getItem('installPromptDismissed');
-    if (dismissedAt) {
-        const daysSince = (Date.now() - parseInt(dismissedAt)) / (1000 * 60 * 60 * 24);
-        if (daysSince < 7) return;
-    }
-    setTimeout(() => {
-        const prompt = document.getElementById('installPrompt');
-        if (prompt) prompt.classList.add('show');
-    }, 10000);
-});
-function installApp() {
-    if (!deferredInstallPrompt) return;
-    deferredInstallPrompt.prompt();
-    deferredInstallPrompt.userChoice.then(() => {
-        deferredInstallPrompt = null;
-        document.getElementById('installPrompt').classList.remove('show');
-    });
-}
-function dismissInstall() {
-    localStorage.setItem('installPromptDismissed', Date.now().toString());
-    document.getElementById('installPrompt').classList.remove('show');
-}
-function manualInstall() {
-    const statusEl = document.getElementById('installStatus');
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-    if (isStandalone) { if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ قبلاً نصب شده.</span>'; return; }
-    if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        deferredInstallPrompt.userChoice.then((result) => {
-            if (result.outcome === 'accepted') { if (statusEl) statusEl.innerHTML = '<span style="color:var(--primary);">⏳ در حال نصب...</span>'; }
-            else { if (statusEl) statusEl.textContent = 'نصب لغو شد.'; }
-            deferredInstallPrompt = null;
-        });
-    } else {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        const isAndroid = /Android/.test(navigator.userAgent);
-        if (isIOS) statusEl.innerHTML = '📱 <strong>iPhone:</strong> دکمه اشتراک‌گذاری (□↑) در Safari → «Add to Home Screen».';
-        else if (isAndroid) statusEl.innerHTML = '📱 <strong>Android:</strong> منوی مرورگر (⋮) → «Install App».';
-        else statusEl.innerHTML = '💻 <strong>دسکتاپ:</strong> آیکون نصب در نوار آدرس.';
-    }
-}
-window.addEventListener('appinstalled', () => {
-    document.getElementById('installPrompt').classList.remove('show');
-    deferredInstallPrompt = null;
-    const statusEl = document.getElementById('installStatus');
-    if (statusEl) statusEl.innerHTML = '<span style="color:var(--success); font-weight:700;">✅ اپ با موفقیت نصب شد</span>';
-    const btn = document.getElementById('manualInstallBtn');
-    if (btn) { btn.disabled = true; btn.style.opacity = '0.5'; btn.innerHTML = '<i class="fas fa-check"></i> نصب شده'; }
-});
-
-// ==================== DATE PICKER ====================
 function initDatePickers() {
     if (typeof jQuery === 'undefined' || !jQuery.fn.pDatepicker) return;
     jQuery('.datepicker:not(.has-picker)').addClass('has-picker').pDatepicker({
@@ -1978,7 +1342,6 @@ function initDatePickers() {
 }
 
 // ==================== SETTINGS ====================
-function saveSettings() { showToast('مشخصات از پنل مدیریت کل تنظیم میشه', 'warning'); }
 function saveCurrency() {
     state.settings.currency = document.getElementById('settingsCurrency').value;
     saveState();
@@ -1990,13 +1353,13 @@ function saveCurrency() {
 function saveDateFormat() {
     state.settings.dateFormat = document.getElementById('settingsDateFormat').value;
     saveState();
-    showToast('✅ فرمت تاریخ ذخیره شد', 'success');
+    showToast('✅ ذخیره شد', 'success');
 }
 function saveAutoBackup() {
     state.settings.autoBackup = document.getElementById('settingsAutoBackup').checked;
     saveState();
     updateAutoBackupInfo();
-    showToast('✅ تنظیم ذخیره شد', 'success');
+    showToast('✅ ذخیره شد', 'success');
 }
 function updateAutoBackupInfo() {
     const infoEl = document.getElementById('autoBackupInfo');
@@ -2004,46 +1367,23 @@ function updateAutoBackupInfo() {
     try {
         const backups = JSON.parse(localStorage.getItem('hesabyar_backups') || '[]');
         if (backups.length === 0) infoEl.textContent = 'هنوز پشتیبانی ذخیره نشده';
-        else infoEl.innerHTML = `آخرین پشتیبان: ${backups.length} نسخه — ${toPersianNum(backups.length)} عدد`;
+        else infoEl.innerHTML = `آخرین پشتیبان: ${toPersianNum(backups.length)} نسخه`;
     } catch(e) { infoEl.textContent = '—'; }
 }
-function updateHeader() {
-    const bn = state.settings.buildingName;
-    const mn = state.settings.managerName;
-    const sd = state.settings.startDate || '—';
-    document.getElementById('sidebarBuildingName').textContent = bn;
-    document.getElementById('sidebarManagerName').textContent = mn;
-    document.getElementById('sidebarManagerInfo').textContent = mn || '—';
-    document.getElementById('sidebarStartDate').textContent = sd;
-    document.getElementById('mobileBuildingName').textContent = bn;
-    document.getElementById('mobileManagerName').textContent = mn;
-    document.title = bn + ' | حساب‌یار';
-    const payerField = document.getElementById('expensePayer');
-    if (payerField) payerField.placeholder = mn;
-}
 function loadSettings() {
-    const sbEl = document.getElementById('settingsBuildingName');
-    const sm = document.getElementById('settingsManagerName');
-    const ss = document.getElementById('settingsStartDate');
-    if (sbEl) sbEl.value = state.settings.buildingName || '';
-    if (sm) sm.value = state.settings.managerName || '';
-    if (ss) ss.value = state.settings.startDate || '';
     const cur = document.getElementById('settingsCurrency');
     const df = document.getElementById('settingsDateFormat');
     const ab = document.getElementById('settingsAutoBackup');
     if (cur) cur.value = state.settings.currency || 'toman';
     if (df) df.value = state.settings.dateFormat || 'persian';
     if (ab) ab.checked = state.settings.autoBackup !== false;
-    updateHeader();
     updateAutoBackupInfo();
 }
 
-// ==================== BUILDING INFO (با اصلاح Super Admin) ====================
+// ==================== BUILDING INFO ====================
 async function loadBuildingInfo() {
     const display = document.getElementById('buildingInfoDisplay');
     if (!display) return;
-    
-    // ⭐ Super Admin: نمایش همه ساختمون‌ها
     if (currentProfile?.role === 'super_admin') {
         const { data: allBuildings } = await sb.from('buildings').select('*').order('created_at', { ascending: false });
         if (!allBuildings || allBuildings.length === 0) {
@@ -2058,42 +1398,22 @@ async function loadBuildingInfo() {
         display.innerHTML = html;
         return;
     }
-    
     if (!currentProfile || !currentProfile.building_id) {
         display.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">🏢</span><h3 style="font-size:14px;">هنوز به ساختمونی متصل نیستی</h3></div>`;
         return;
     }
     const { data: building, error } = await sb.from('buildings').select('*').eq('id', currentProfile.building_id).single();
     if (error || !building) { display.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`; return; }
-    const { data: manager } = await sb.from('profiles').select('name, phone, gender').eq('building_id', building.id).eq('role', 'manager').maybeSingle();
+    const { data: manager } = await sb.from('profiles').select('name, gender').eq('building_id', building.id).eq('role', 'manager').maybeSingle();
     let managerText = '—';
     if (manager) {
         const mPrefix = manager.gender === 'female' ? 'خانم' : 'آقای';
         managerText = `${mPrefix} ${manager.name}`;
     }
-    display.innerHTML = `
-        <div class="list-item">
-            <div class="list-item-info">
-                <div class="list-item-icon icon-primary"><i class="fas fa-building"></i></div>
-                <div>
-                    <div class="list-item-title">${escapeHtml(building.name || '—')}</div>
-                    <div class="list-item-subtitle">📅 شروع: ${building.start_date || '—'}</div>
-                </div>
-            </div>
-        </div>
-        <div class="list-item">
-            <div class="list-item-info">
-                <div class="list-item-icon icon-info"><i class="fas fa-user-tie"></i></div>
-                <div>
-                    <div class="list-item-title">${managerText}</div>
-                    <div class="list-item-subtitle">مدیر ساختمان</div>
-                </div>
-            </div>
-        </div>
-    `;
+    display.innerHTML = `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-primary"><i class="fas fa-building"></i></div><div><div class="list-item-title">${escapeHtml(building.name || '—')}</div><div class="list-item-subtitle">📅 شروع: ${building.start_date || '—'}</div></div></div></div><div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-info"><i class="fas fa-user-tie"></i></div><div><div class="list-item-title">${managerText}</div><div class="list-item-subtitle">مدیر ساختمان</div></div></div></div>`;
 }
 
-// ==================== CANDIDATES (با اصلاح Super Admin) ====================
+// ==================== CANDIDATES ====================
 async function loadBuildingUsers() {
     if (currentProfile?.role === 'super_admin') {
         const { data, error } = await sb.from('profiles').select('*').in('role', ['owner', 'resident', 'manager']);
@@ -2105,16 +1425,12 @@ async function loadBuildingUsers() {
     if (error) { console.error(error); return []; }
     return data || [];
 }
-
 async function populateOwnerCandidates() {
     const sel = document.getElementById('ownerCandidateSelect');
     if (!sel) return;
     const users = await loadBuildingUsers();
     const candidates = users.filter(u => u.role !== 'super_admin' && u.role !== 'manager');
-    if (candidates.length === 0) {
-        sel.innerHTML = '<option value="">— کاربری موجود نیست — ابتدا از تب «کاربران» اضافه کن —</option>';
-        return;
-    }
+    if (candidates.length === 0) { sel.innerHTML = '<option value="">— کاربری موجود نیست — ابتدا از تب «کاربران» اضافه کن —</option>'; return; }
     let html = '<option value="">— انتخاب کن —</option>';
     candidates.forEach(u => {
         const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
@@ -2122,16 +1438,12 @@ async function populateOwnerCandidates() {
     });
     sel.innerHTML = html;
 }
-
 async function populateResidentCandidates() {
     const sel = document.getElementById('residentCandidateSelect');
     if (!sel) return;
     const users = await loadBuildingUsers();
     const candidates = users.filter(u => u.role !== 'super_admin' && u.role !== 'manager');
-    if (candidates.length === 0) {
-        sel.innerHTML = '<option value="">— کاربری موجود نیست — ابتدا از تب «کاربران» اضافه کن —</option>';
-        return;
-    }
+    if (candidates.length === 0) { sel.innerHTML = '<option value="">— کاربری موجود نیست — ابتدا از تب «کاربران» اضافه کن —</option>'; return; }
     let html = '<option value="">— انتخاب کن —</option>';
     candidates.forEach(u => {
         const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
@@ -2139,8 +1451,6 @@ async function populateResidentCandidates() {
     });
     sel.innerHTML = html;
 }
-
-// ==================== OWNER SELECT & ADD ====================
 let selectedOwnerUserId = null;
 let selectedOwnerData = null;
 function onOwnerSelect() {
@@ -2157,7 +1467,7 @@ function onOwnerSelect() {
     preview.style.display = 'block';
 }
 async function addOwnerFromUser() {
-    if (!selectedOwnerUserId || !selectedOwnerData) { showToast('اول یه کاربر انتخاب کن', 'error'); return; }
+    if (!selectedOwnerUserId) { showToast('اول یه کاربر انتخاب کن', 'error'); return; }
     const { error } = await sb.from('profiles').update({ role: 'owner' }).eq('id', selectedOwnerUserId);
     if (error) { showToast('خطا: ' + error.message, 'error'); return; }
     showToast('✅ به مالکین اضافه شد', 'success');
@@ -2168,8 +1478,6 @@ async function addOwnerFromUser() {
     await populateOwnerCandidates();
     await populateResidentCandidates();
 }
-
-// ==================== RESIDENT SELECT & ADD ====================
 let selectedResidentUserId = null;
 let selectedResidentData = null;
 function onResidentSelect() {
@@ -2186,7 +1494,7 @@ function onResidentSelect() {
     preview.style.display = 'block';
 }
 async function addResidentFromUser() {
-    if (!selectedResidentUserId || !selectedResidentData) { showToast('اول یه کاربر انتخاب کن', 'error'); return; }
+    if (!selectedResidentUserId) { showToast('اول یه کاربر انتخاب کن', 'error'); return; }
     const { data: existing } = await sb.from('profiles').select('role').eq('id', selectedResidentUserId).single();
     if (existing && existing.role !== 'owner') {
         const { error } = await sb.from('profiles').update({ role: 'resident' }).eq('id', selectedResidentUserId);
@@ -2201,109 +1509,88 @@ async function addResidentFromUser() {
     await populateOwnerCandidates();
 }
 
-// ==================== RENDER LISTS (با اصلاح Super Admin) ====================
+// ==================== RENDER LISTS ====================
 async function renderOwnersList() {
     const container = document.getElementById('ownersList');
     const countEl = document.getElementById('ownersCount');
     if (!container) return;
-    
-    // ⭐ Super Admin: همه مالکین
     if (currentProfile?.role === 'super_admin') {
         const { data: owners } = await sb.from('profiles').select('*').eq('role', 'owner');
         if (countEl) countEl.textContent = toPersianNum((owners || []).length) + ' مالک';
-        if (!owners || owners.length === 0) {
-            container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👤</span><p style="font-size:12px;">هنوز مالکی ثبت نشده</p></div>`;
-            return;
-        }
+        if (!owners || owners.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👤</span><p style="font-size:12px;">هنوز مالکی ثبت نشده</p></div>`; return; }
         container.innerHTML = owners.map(o => {
             const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
-            return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(o.name)}</div><div class="list-item-subtitle">📱 ${escapeHtml(o.phone)}</div></div></div><div class="btn-group"><button class="btn btn-danger btn-sm btn-icon" onclick="removeOwner('${o.id}')" title="حذف"><i class="fas fa-trash"></i></button></div></div>`;
+            return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(o.name)}</div><div class="list-item-subtitle">📱 ${escapeHtml(o.phone)}</div></div></div><div class="btn-group"><button class="btn btn-danger btn-sm btn-icon" onclick="removeOwner('${o.id}')"><i class="fas fa-trash"></i></button></div></div>`;
         }).join('');
         return;
     }
-    
     if (!currentProfile || !currentProfile.building_id) {
         container.innerHTML = `<div class="empty-state" style="padding:20px;"><p style="font-size:12px;">ساختمونی متصل نیست</p></div>`;
         if (countEl) countEl.textContent = '۰ مالک';
         return;
     }
     const { data: owners, error } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).eq('role', 'owner');
-    if (error) { console.error(error); container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`; return; }
+    if (error) { container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`; return; }
     if (countEl) countEl.textContent = toPersianNum(owners.length) + ' مالک';
-    if (!owners || owners.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👤</span><p style="font-size:12px;">هنوز مالکی اضافه نشده</p></div>`;
-        return;
-    }
+    if (!owners || owners.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👤</span><p style="font-size:12px;">هنوز مالکی اضافه نشده</p></div>`; return; }
     container.innerHTML = owners.map(o => {
         const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
-        return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(o.name)}</div><div class="list-item-subtitle">📱 ${escapeHtml(o.phone)}</div></div></div><div class="btn-group"><button class="btn btn-danger btn-sm btn-icon" onclick="removeOwner('${o.id}')" title="حذف"><i class="fas fa-trash"></i></button></div></div>`;
+        return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-warning"><i class="fas fa-user-tie"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(o.name)}</div><div class="list-item-subtitle">📱 ${escapeHtml(o.phone)}</div></div></div><div class="btn-group"><button class="btn btn-danger btn-sm btn-icon" onclick="removeOwner('${o.id}')"><i class="fas fa-trash"></i></button></div></div>`;
     }).join('');
 }
-
 async function renderResidentsList() {
     const container = document.getElementById('residentsList');
     const countEl = document.getElementById('residentsCount');
     if (!container) return;
-    
-    // ⭐ Super Admin: همه ساکنین
     if (currentProfile?.role === 'super_admin') {
         const { data: residents } = await sb.from('profiles').select('*').in('role', ['resident', 'owner']);
         if (countEl) countEl.textContent = toPersianNum((residents || []).length) + ' ساکن';
-        if (!residents || residents.length === 0) {
-            container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👥</span><p style="font-size:12px;">هنوز ساکنی ثبت نشده</p></div>`;
-            return;
-        }
+        if (!residents || residents.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👥</span><p style="font-size:12px;">هنوز ساکنی ثبت نشده</p></div>`; return; }
         container.innerHTML = residents.map(r => {
             const prefix = r.gender === 'female' ? 'خانم' : 'آقای';
             const isOwner = r.role === 'owner';
-            return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div><div class="list-item-subtitle">📱 ${escapeHtml(r.phone)}</div></div></div><div class="btn-group">${!isOwner ? `<button class="btn btn-danger btn-sm btn-icon" onclick="removeResident('${r.id}')" title="حذف"><i class="fas fa-trash"></i></button>` : ''}</div></div>`;
+            return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div><div class="list-item-subtitle">📱 ${escapeHtml(r.phone)}</div></div></div><div class="btn-group">${!isOwner ? `<button class="btn btn-danger btn-sm btn-icon" onclick="removeResident('${r.id}')"><i class="fas fa-trash"></i></button>` : ''}</div></div>`;
         }).join('');
         return;
     }
-    
     if (!currentProfile || !currentProfile.building_id) {
         container.innerHTML = `<div class="empty-state" style="padding:20px;"><p style="font-size:12px;">ساختمونی متصل نیست</p></div>`;
         if (countEl) countEl.textContent = '۰ ساکن';
         return;
     }
     const { data: residents, error } = await sb.from('profiles').select('*').eq('building_id', currentProfile.building_id).in('role', ['resident', 'owner']);
-    if (error) { console.error(error); container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`; return; }
+    if (error) { container.innerHTML = `<div style="text-align:center; padding:20px; color:var(--danger);">خطا در بارگذاری</div>`; return; }
     if (countEl) countEl.textContent = toPersianNum(residents.length) + ' ساکن';
-    if (!residents || residents.length === 0) {
-        container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👥</span><p style="font-size:12px;">هنوز ساکنی اضافه نشده</p></div>`;
-        return;
-    }
+    if (!residents || residents.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">👥</span><p style="font-size:12px;">هنوز ساکنی اضافه نشده</p></div>`; return; }
     container.innerHTML = residents.map(r => {
         const prefix = r.gender === 'female' ? 'خانم' : 'آقای';
         const isOwner = r.role === 'owner';
-        return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div><div class="list-item-subtitle">📱 ${escapeHtml(r.phone)}</div></div></div><div class="btn-group">${!isOwner ? `<button class="btn btn-danger btn-sm btn-icon" onclick="removeResident('${r.id}')" title="حذف"><i class="fas fa-trash"></i></button>` : ''}</div></div>`;
+        return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon ${isOwner ? 'icon-warning' : 'icon-info'}"><i class="fas ${isOwner ? 'fa-user-tie' : 'fa-user'}"></i></div><div><div class="list-item-title">${prefix} ${escapeHtml(r.name)} ${isOwner ? '<span class="badge badge-warning" style="margin-right:6px;">مالک</span>' : ''}</div><div class="list-item-subtitle">📱 ${escapeHtml(r.phone)}</div></div></div><div class="btn-group">${!isOwner ? `<button class="btn btn-danger btn-sm btn-icon" onclick="removeResident('${r.id}')"><i class="fas fa-trash"></i></button>` : ''}</div></div>`;
     }).join('');
 }
-
-// ==================== REMOVE ====================
 async function removeOwner(userId) {
     if (!confirm('از لیست مالکین حذف بشه؟')) return;
     const { error } = await sb.from('profiles').update({ role: 'resident' }).eq('id', userId);
     if (error) { showToast('خطا: ' + error.message, 'error'); return; }
-    showToast('🗑️ از مالکین حذف شد', 'warning');
+    showToast('🗑️ حذف شد', 'warning');
     await renderOwnersList();
     await populateOwnerCandidates();
     await populateResidentCandidates();
 }
 async function removeResident(userId) {
-    if (!confirm('از لیست ساکنین این ساختمون حذف بشه؟')) return;
+    if (!confirm('از لیست ساکنین حذف بشه؟')) return;
     const { error } = await sb.from('profiles').update({ building_id: null }).eq('id', userId);
     if (error) { showToast('خطا: ' + error.message, 'error'); return; }
-    showToast('🗑️ از ساکنین حذف شد', 'warning');
+    showToast('🗑️ حذف شد', 'warning');
     await renderResidentsList();
     await populateResidentCandidates();
     await populateOwnerCandidates();
 }
 </script>
-    // ==================== DROPDOWNS ====================
+    <script>
+// ==================== DROPDOWNS ====================
 function refreshOwnerDropdowns() {
-    const selects = ['unitOwnerSelect', 'unitOwnerSelfSelect'];
-    selects.forEach(selId => {
+    ['unitOwnerSelect', 'unitOwnerSelfSelect'].forEach(selId => {
         const sel = document.getElementById(selId);
         if (!sel) return;
         const current = sel.value;
@@ -2327,7 +1614,7 @@ function refreshPaymentPayerDropdown() {
     let html = '<option value="">— انتخاب پرداخت‌کننده —</option>';
     if (state.residents.length > 0) {
         html += '<optgroup label="👥 ساکنین">';
-        state.residents.forEach(r => { html += `<option value="resident:${r.id}">${escapeHtml(r.name)}${r.linkedOwnerId ? ' (مالک)' : ''}</option>`; });
+        state.residents.forEach(r => { html += `<option value="resident:${r.id}">${escapeHtml(r.name)}</option>`; });
         html += '</optgroup>';
     }
     const ownerOnly = state.owners.filter(o => !state.residents.find(r => r.linkedOwnerId === o.id));
@@ -2364,22 +1651,15 @@ function addUnit() {
     const residents = parseInt(document.getElementById('unitResidents').value) || 1;
     const isTenant = document.getElementById('unitIsTenant').checked;
     const ownerId = isTenant ? document.getElementById('unitOwnerSelect').value : document.getElementById('unitOwnerSelfSelect').value;
-    const rentStart = document.getElementById('unitRentStart').value.trim();
-    const rentEnd = document.getElementById('unitRentEnd').value.trim();
     if (!name) return showToast('نام واحد را وارد کنید', 'error');
     if (!residentId) return showToast('ساکن را انتخاب کنید', 'error');
     if (!area || area <= 0) return showToast('متراژ معتبر وارد کنید', 'error');
     if (!ownerId) return showToast('مالک را انتخاب کنید', 'error');
-    state.units.push({ id: uid(), name, residentId, isTenant, ownerId, rentStart: isTenant ? rentStart : '', rentEnd: isTenant ? rentEnd : '', area, residents, payments: [], createdAt: toPersianDateString() });
+    state.units.push({ id: uid(), name, residentId, isTenant, ownerId, area, residents, payments: [], createdAt: toPersianDateString() });
     saveState();
-    document.getElementById('unitName').value = '';
-    document.getElementById('unitResidentSelect').value = '';
-    document.getElementById('unitArea').value = '';
+    ['unitName','unitArea'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('unitResidents').value = '1';
-    document.getElementById('unitOwnerSelect').value = '';
-    document.getElementById('unitOwnerSelfSelect').value = '';
-    document.getElementById('unitRentStart').value = '';
-    document.getElementById('unitRentEnd').value = '';
+    ['unitResidentSelect','unitOwnerSelect','unitOwnerSelfSelect'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('unitIsTenant').checked = false;
     toggleTenantFields();
     renderUnits(); renderDashboard(); renderAllJournalViews();
@@ -2392,7 +1672,7 @@ function deleteUnit(id) {
     state.units = state.units.filter(u => u.id !== id);
     saveState();
     renderUnits(); renderDashboard(); renderAllJournalViews();
-    showToast('🗑️ واحد حذف شد', 'warning');
+    showToast('🗑️ حذف شد', 'warning');
 }
 function openPaymentModal(unitId) {
     currentPaymentUnitId = unitId;
@@ -2427,7 +1707,7 @@ function deletePayment(unitId, paymentId) {
     unit.payments = unit.payments.filter(p => p.id !== paymentId);
     saveState();
     renderUnits(); renderDashboard(); renderCharges(); renderAllJournalViews();
-    showToast('🗑️ پرداخت حذف شد', 'warning');
+    showToast('🗑️ حذف شد', 'warning');
 }
 function getUnitTotalPaid(unit) { return (unit.payments || []).reduce((s, p) => s + (p.amount || 0), 0); }
 function getPayerTotalPaid(payerCode) {
@@ -2447,11 +1727,9 @@ function getUnitTotalCharge(unit) {
 }
 function renderUnits() {
     const container = document.getElementById('unitsList');
+    if (!container) return;
     document.getElementById('unitsCount').textContent = toPersianNum(state.units.length) + ' واحد';
-    if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">🏘️</span><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد ساختمون رو اضافه کن</p></div>`;
-        return;
-    }
+    if (state.units.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">🏘️</span><h3>هنوز واحدی ثبت نشده</h3><p>اولین واحد ساختمون رو اضافه کن</p></div>`; return; }
     let html = '';
     state.units.forEach((unit, idx) => {
         const totalPaid = getUnitTotalPaid(unit);
@@ -2460,13 +1738,7 @@ function renderUnits() {
         const payments = unit.payments || [];
         const ownerName = getOwnerName(unit.ownerId);
         const residentName = getResidentName(unit.residentId);
-        let typeBadge = unit.isTenant
-            ? `<span class="badge badge-warning"><i class="fas fa-key"></i> مستاجر — مالک: ${escapeHtml(ownerName)}</span>`
-            : `<span class="badge badge-info"><i class="fas fa-home"></i> مالک ساکن: ${escapeHtml(ownerName)}</span>`;
-        let rentInfo = '';
-        if (unit.isTenant && (unit.rentStart || unit.rentEnd)) {
-            rentInfo = `<div style="font-size:10px; color:var(--gray-500); margin-top:4px;"><i class="far fa-calendar"></i> اجاره: ${unit.rentStart || '—'} تا ${unit.rentEnd || '—'}</div>`;
-        }
+        let typeBadge = unit.isTenant ? `<span class="badge badge-warning"><i class="fas fa-key"></i> مستاجر — مالک: ${escapeHtml(ownerName)}</span>` : `<span class="badge badge-info"><i class="fas fa-home"></i> مالک ساکن: ${escapeHtml(ownerName)}</span>`;
         let statusBadge = '';
         if (totalCharge === 0) statusBadge = `<span class="badge badge-gray">شارژ تعیین نشده</span>`;
         else if (balance === 0) statusBadge = `<span class="badge badge-success">✓ شارژ پرداخت شده</span>`;
@@ -2478,7 +1750,7 @@ function renderUnits() {
         } else {
             paymentsHtml = `<div style="font-size:11px; color:var(--gray-500); margin-top:8px; text-align:center; padding:8px;">هنوز پرداختی ثبت نشده</div>`;
         }
-        html += `<div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;"><div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;"><div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;"><div class="list-item-icon icon-primary">${toPersianNum(idx + 1)}</div><div style="min-width:0;"><div class="list-item-title">${escapeHtml(unit.name)}</div><div class="list-item-subtitle">ساکن: ${escapeHtml(residentName)} • ${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div>${rentInfo}</div></div><div class="btn-group"><button class="btn btn-primary btn-icon btn-sm" onclick="editUnit('${unit.id}')"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')"><i class="fas fa-trash"></i></button></div></div><div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;">${typeBadge}${statusBadge}</div><button class="btn btn-success btn-sm" style="width:100%;" onclick="openPaymentModal('${unit.id}')"><i class="fas fa-plus"></i> افزودن پرداخت شارژ</button>${paymentsHtml}</div>`;
+        html += `<div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;"><div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;"><div style="display:flex; align-items:center; gap:10px; flex:1; min-width:0;"><div class="list-item-icon icon-primary">${toPersianNum(idx + 1)}</div><div style="min-width:0;"><div class="list-item-title">${escapeHtml(unit.name)}</div><div class="list-item-subtitle">ساکن: ${escapeHtml(residentName)} • ${toPersianNum(unit.area)} متر • ${toPersianNum(unit.residents)} نفر</div></div></div><div class="btn-group"><button class="btn btn-primary btn-icon btn-sm" onclick="editUnit('${unit.id}')"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-icon btn-sm" onclick="deleteUnit('${unit.id}')"><i class="fas fa-trash"></i></button></div></div><div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;">${typeBadge}${statusBadge}</div><button class="btn btn-success btn-sm" style="width:100%;" onclick="openPaymentModal('${unit.id}')"><i class="fas fa-plus"></i> افزودن پرداخت شارژ</button>${paymentsHtml}</div>`;
     });
     container.innerHTML = html;
 }
@@ -2497,13 +1769,7 @@ function onExpenseTypeChange() {
 function updateSplitMethodHelp() {
     const method = document.getElementById('expenseSplitMethod').value;
     const help = document.getElementById('splitMethodHelp');
-    const helps = {
-        per_unit: '⚖️ مبلغ بین همه واحدها مساوی (سهم ساکن).',
-        per_person: '👥 به نسبت تعداد نفرات (سهم ساکن).',
-        per_area: '📏 به نسبت متراژ (سهم ساکن).',
-        per_person_area: '🧮 بر اساس ضریب نفر×متراژ (سهم ساکن).',
-        per_owners: '👔 بین مالکین بر اساس تعداد واحد مالکیت (سهم مالک).'
-    };
+    const helps = { per_unit: '⚖️ مبلغ بین همه واحدها مساوی (سهم ساکن).', per_person: '👥 به نسبت تعداد نفرات (سهم ساکن).', per_area: '📏 به نسبت متراژ (سهم ساکن).', per_person_area: '🧮 بر اساس ضریب نفر×متراژ (سهم ساکن).', per_owners: '👔 بین مالکین بر اساس تعداد واحد مالکیت (سهم مالک).' };
     help.textContent = helps[method] || '';
 }
 function handleExpenseFile(event) {
@@ -2560,19 +1826,11 @@ function addExpense() {
     if (!amount || amount <= 0) return showToast('مبلغ معتبر وارد کنید', 'error');
     if (type === 'other' && !customTitle) return showToast('عنوان هزینه را وارد کنید', 'error');
     if (state.units.length === 0) return showToast('اول واحد اضافه کنید', 'error');
-    const typeNames = {
-        electricity: '⚡ برق ساختمان', gas: '🔥 گاز ساختمان', water: '💧 آب ساختمان',
-        elevator: '🛗 آسانسور', cleaning: '🧹 نظافت', repair: '🔧 تعمیرات',
-        maintenance: '🛠️ سرویس و نگهداری', insurance: '📋 بیمه ساختمان',
-        tax: '💼 مالیات و عوارض', other: '📦 ' + customTitle
-    };
+    const typeNames = { electricity: '⚡ برق ساختمان', gas: '🔥 گاز ساختمان', water: '💧 آب ساختمان', elevator: '🛗 آسانسور', cleaning: '🧹 نظافت', repair: '🔧 تعمیرات', maintenance: '🛠️ سرویس و نگهداری', insurance: '📋 بیمه ساختمان', tax: '💼 مالیات و عوارض', other: '📦 ' + customTitle };
     const shares = computeShares(amount, splitMethod);
     state.expenses.push({ id: uid(), type, typeName: typeNames[type], amount, date: date || '—', payDate: payDate || '—', payer, splitMethod, shares, file: tempExpenseFile, createdAt: toPersianDateString() });
     saveState();
-    document.getElementById('expenseAmount').value = '';
-    document.getElementById('expenseDate').value = '';
-    document.getElementById('expensePayDate').value = '';
-    document.getElementById('expenseCustomTitle').value = '';
+    ['expenseAmount','expenseDate','expensePayDate','expenseCustomTitle'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('expenseType').value = 'electricity';
     document.getElementById('expenseSplitMethod').value = 'per_area';
     document.getElementById('customTitleGroup').style.display = 'none';
@@ -2586,7 +1844,7 @@ function deleteExpense(id) {
     state.expenses = state.expenses.filter(e => e.id !== id);
     saveState();
     renderExpenses(); renderDashboard(); renderAllJournalViews();
-    showToast('🗑️ هزینه حذف شد', 'warning');
+    showToast('🗑️ حذف شد', 'warning');
 }
 function downloadFile(expenseId) {
     const exp = state.expenses.find(e => e.id === expenseId);
@@ -2606,10 +1864,8 @@ function getMethodClass(method) {
 }
 function renderExpenses() {
     const container = document.getElementById('expensesList');
-    if (state.expenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">📝</span><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمون رو اینجا ثبت کن</p></div>`;
-        return;
-    }
+    if (!container) return;
+    if (state.expenses.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">📝</span><h3>هنوز هزینه‌ای ثبت نشده</h3><p>هزینه‌های ساختمون رو اینجا ثبت کن</p></div>`; return; }
     const icons = { electricity: '⚡', gas: '🔥', water: '💧', elevator: '🛗', cleaning: '🧹', repair: '🔧', maintenance: '🛠️', insurance: '📋', tax: '💼', other: '📦' };
     let html = '';
     state.expenses.slice().reverse().forEach(exp => {
@@ -2654,11 +1910,9 @@ function calculateCharges() {
 }
 function renderCharges() {
     const container = document.getElementById('chargesList');
+    if (!container) return;
     const keys = Object.keys(state.charges);
-    if (keys.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">💰</span><h3>هنوز شارژی تعیین نشده</h3><p>مبلغ شارژ هر واحد رو تعیین کن</p></div>`;
-        return;
-    }
+    if (keys.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">💰</span><h3>هنوز شارژی تعیین نشده</h3><p>مبلغ شارژ هر واحد رو تعیین کن</p></div>`; return; }
     let html = '';
     keys.slice().reverse().forEach(key => {
         const charge = state.charges[key];
@@ -2675,12 +1929,10 @@ function renderCharges() {
             else if (status.status === 'late') lateCount++;
             else if (status.status === 'pending') pendingCount++;
             if (status.amount > 0) totalDebt += status.amount;
-            const balance = paid - charge.perUnitAmount;
-            if (balance > 0) totalCredit += balance;
+            if (paid - charge.perUnitAmount > 0) totalCredit += paid - charge.perUnitAmount;
             const payments = unit.payments || [];
             const lastPayment = payments.length > 0 ? payments[payments.length - 1] : null;
-            const lastPaymentDate = lastPayment ? lastPayment.date : '—';
-            return `<tr><td style="font-weight:700;">${escapeHtml(unit.name)}<br><small style="color:var(--gray-500); font-weight:400;">${escapeHtml(getResidentName(unit.residentId))}</small></td><td style="font-size:11px;">${lastPaymentDate}</td><td style="font-weight:700; color:var(--success);">${formatNumber(paid)}</td><td><span class="pay-status ${status.status}">${status.text}</span></td></tr>`;
+            return `<tr><td style="font-weight:700;">${escapeHtml(unit.name)}<br><small style="color:var(--gray-500); font-weight:400;">${escapeHtml(getResidentName(unit.residentId))}</small></td><td style="font-size:11px;">${lastPayment ? lastPayment.date : '—'}</td><td style="font-weight:700; color:var(--success);">${formatNumber(paid)}</td><td><span class="pay-status ${status.status}">${status.text}</span></td></tr>`;
         }).join('');
         let deadlineBanner = '';
         if (charge.deadline) {
@@ -2688,10 +1940,10 @@ function renderCharges() {
             const daysLeft = daysBetweenPersian(today, charge.deadline);
             const isPast = comparePersianDates(today, charge.deadline) > 0;
             if (isPast && (unpaidCount + partialCount) > 0) deadlineBanner = `<div class="deadline-banner danger"><i class="fas fa-exclamation-triangle"></i> مهلت پرداخت گذشته — ${toPersianNum(unpaidCount + partialCount)} ساکن پرداخت نکرده</div>`;
-            else if (!isPast && daysLeft <= 3 && daysLeft >= 0) deadlineBanner = `<div class="deadline-banner warning"><i class="fas fa-clock"></i> ${toPersianNum(daysLeft)} روز تا مهلت پرداخت (${charge.deadline})</div>`;
-            else deadlineBanner = `<div class="deadline-banner success"><i class="fas fa-check-circle"></i> مهلت پرداخت: ${charge.deadline}</div>`;
+            else if (!isPast && daysLeft <= 3 && daysLeft >= 0) deadlineBanner = `<div class="deadline-banner warning"><i class="fas fa-clock"></i> ${toPersianNum(daysLeft)} روز تا مهلت (${charge.deadline})</div>`;
+            else deadlineBanner = `<div class="deadline-banner success"><i class="fas fa-check-circle"></i> مهلت: ${charge.deadline}</div>`;
         }
-        html += `<div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;"><div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--gray-100);"><div><div style="font-weight:800; font-size:14px;">${charge.subPeriod}</div><div style="font-size:11px; color:var(--gray-500);">هر واحد: ${formatMoney(charge.perUnitAmount)} — کل: ${formatMoney(charge.totalAmount)}</div></div><div class="btn-group"><button class="btn btn-primary btn-sm btn-icon" onclick="editCharge('${key}')"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')"><i class="fas fa-trash"></i></button></div></div>${deadlineBanner}${(unpaidCount + partialCount + totalCredit) > 0 ? `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; font-size:11px;">${unpaidCount > 0 ? `<span class="badge badge-danger">🔴 ${toPersianNum(unpaidCount)} پرداخت نشده</span>` : ''}${partialCount > 0 ? `<span class="badge badge-warning">🟡 ${toPersianNum(partialCount)} ناقص</span>` : ''}${onTimeCount > 0 ? `<span class="badge badge-success">🟢 ${toPersianNum(onTimeCount)} به موقع</span>` : ''}${lateCount > 0 ? `<span class="badge badge-warning">🟡 ${toPersianNum(lateCount)} با تأخیر</span>` : ''}${pendingCount > 0 ? `<span class="badge badge-gray">⚪ ${toPersianNum(pendingCount)} در انتظار</span>` : ''}</div>` : ''}<div class="table-scroll"><table class="data-table" style="margin:0;"><thead><tr><th>ساکن</th><th>تاریخ پرداخت</th><th>مبلغ پرداختی</th><th>وضعیت</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>${(totalDebt > 0 || totalCredit > 0) ? `<div style="display:flex; justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px dashed var(--gray-200); font-size:12px; font-weight:700;">${totalDebt > 0 ? `<span style="color:var(--danger);">💸 جمع بدهی: ${formatMoney(totalDebt)}</span>` : '<span></span>'}${totalCredit > 0 ? `<span style="color:var(--success);">✅ جمع طلب: ${formatMoney(totalCredit)}</span>` : ''}</div>` : ''}</div>`;
+        html += `<div style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 14px; padding: 14px; margin-bottom: 12px;"><div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--gray-100);"><div><div style="font-weight:800; font-size:14px;">${charge.subPeriod}</div><div style="font-size:11px; color:var(--gray-500);">هر واحد: ${formatMoney(charge.perUnitAmount)} — کل: ${formatMoney(charge.totalAmount)}</div></div><div class="btn-group"><button class="btn btn-primary btn-sm btn-icon" onclick="editCharge('${key}')"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm btn-icon" onclick="deleteCharge('${key}')"><i class="fas fa-trash"></i></button></div></div>${deadlineBanner}<div class="table-scroll"><table class="data-table" style="margin:0;"><thead><tr><th>ساکن</th><th>تاریخ پرداخت</th><th>مبلغ پرداختی</th><th>وضعیت</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>${(totalDebt > 0 || totalCredit > 0) ? `<div style="display:flex; justify-content:space-between; margin-top:12px; padding-top:12px; border-top:1px dashed var(--gray-200); font-size:12px; font-weight:700;">${totalDebt > 0 ? `<span style="color:var(--danger);">💸 جمع بدهی: ${formatMoney(totalDebt)}</span>` : '<span></span>'}${totalCredit > 0 ? `<span style="color:var(--success);">✅ جمع طلب: ${formatMoney(totalCredit)}</span>` : ''}</div>` : ''}</div>`;
     });
     container.innerHTML = html;
 }
@@ -2700,7 +1952,7 @@ function deleteCharge(key) {
     delete state.charges[key];
     saveState();
     renderCharges(); renderDashboard(); renderUnits();
-    showToast('🗑️ شارژ حذف شد', 'warning');
+    showToast('🗑️ حذف شد', 'warning');
 }
 
 // ==================== TRAVEL ====================
@@ -2727,10 +1979,10 @@ function saveCompanion() {
     if (editContext.type === 'edit-companion' && editContext.id) {
         const c = state.companions.find(x => x.id === editContext.id);
         if (c) { c.name = name; c.count = count; }
-        showToast('✅ همسفر ویرایش شد', 'success');
+        showToast('✅ ویرایش شد', 'success');
     } else {
         state.companions.push({ id: uid(), name, count });
-        showToast('✅ همسفر اضافه شد', 'success');
+        showToast('✅ اضافه شد', 'success');
     }
     saveState();
     closeModal('companionModal');
@@ -2742,14 +1994,12 @@ function deleteCompanion(id) {
     state.companions = state.companions.filter(c => c.id !== id);
     saveState();
     renderCompanions(); updateTravelPayerOptions(); renderTravelSettlement();
-    showToast('🗑️ همسفر حذف شد', 'warning');
+    showToast('🗑️ حذف شد', 'warning');
 }
 function renderCompanions() {
     const container = document.getElementById('companionsList');
-    if (state.companions.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز همسفری اضافه نشده</h3><p>افرادی که تو سفر همراهتن رو اضافه کن</p></div>`;
-        return;
-    }
+    if (!container) return;
+    if (state.companions.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">👥</span><h3>هنوز همسفری اضافه نشده</h3><p>افرادی که تو سفر همراهتن رو اضافه کن</p></div>`; return; }
     container.innerHTML = state.companions.map(c => `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-info"><i class="fas fa-user"></i></div><div><div class="list-item-title">${escapeHtml(c.name)}</div><div class="list-item-subtitle">${toPersianNum(c.count)} نفر</div></div></div><div class="btn-group"><button class="btn btn-primary btn-sm btn-icon" onclick="openCompanionModal('${c.id}')"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm btn-icon" onclick="deleteCompanion('${c.id}')"><i class="fas fa-times"></i></button></div></div>`).join('');
 }
 function updateTravelPayerOptions() {
@@ -2778,14 +2028,11 @@ function addTravelExpense() {
     const catNames = { transport: '🚗 حمل و نقل', food: '🍽️ خورد و خوراک', accommodation: '🏨 اقامت', tickets: '🎫 بلیط و ورودی', shopping: '🛍️ خرید', other: '📦 ' + customTitle };
     state.travelExpenses.push({ id: uid(), title, category, categoryName: catNames[category], amount, date, payer, createdAt: toPersianDateString() });
     saveState();
-    document.getElementById('travelTitle').value = '';
-    document.getElementById('travelAmount').value = '';
-    document.getElementById('travelDate').value = '';
-    document.getElementById('travelCustomTitle').value = '';
+    ['travelTitle','travelAmount','travelDate','travelCustomTitle'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('travelCategory').value = 'transport';
     toggleTravelCustomTitle();
     renderTravelExpenses(); renderTravelSettlement(); renderAllJournalViews();
-    showToast('✅ هزینه سفر ثبت شد', 'success');
+    showToast('✅ ثبت شد', 'success');
 }
 function deleteTravelExpense(id) {
     if (!confirm('حذف شود؟')) return;
@@ -2796,20 +2043,15 @@ function deleteTravelExpense(id) {
 }
 function renderTravelExpenses() {
     const container = document.getElementById('travelList');
-    if (state.travelExpenses.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">🧳</span><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر رو اینجا ثبت کن</p></div>`;
-        return;
-    }
+    if (!container) return;
+    if (state.travelExpenses.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">🧳</span><h3>هنوز هزینه سفری ثبت نشده</h3><p>هزینه‌های سفر رو اینجا ثبت کن</p></div>`; return; }
     const icons = { transport: '🚗', food: '🍽️', accommodation: '🏨', tickets: '🎫', shopping: '🛍️', other: '📦' };
     container.innerHTML = state.travelExpenses.slice().reverse().map(exp => `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-warning">${icons[exp.category] || '📦'}</div><div><div class="list-item-title">${escapeHtml(exp.title)}</div><div class="list-item-subtitle">${exp.categoryName} • ${exp.date} • ${escapeHtml(exp.payer)}</div></div></div><div style="display:flex; align-items:center; gap:6px;"><div class="list-item-amount amount-negative">${formatMoney(exp.amount)}</div><button class="btn btn-primary btn-sm btn-icon" onclick="editTravelExpense('${exp.id}')"><i class="fas fa-edit"></i></button><button class="btn btn-danger btn-sm btn-icon" onclick="deleteTravelExpense('${exp.id}')"><i class="fas fa-times"></i></button></div></div>`).join('');
 }
 function renderTravelSettlement() {
     const container = document.getElementById('travelSettle');
     if (!container) return;
-    if (state.travelExpenses.length === 0 || state.companions.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">💱</span><h3>برای تسویه، اطلاعات لازمه</h3><p>همسفران و هزینه‌ها رو اضافه کن</p></div>`;
-        return;
-    }
+    if (state.travelExpenses.length === 0 || state.companions.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">💱</span><h3>برای تسویه، اطلاعات لازمه</h3><p>همسفران و هزینه‌ها رو اضافه کن</p></div>`; return; }
     const total = state.travelExpenses.reduce((s, e) => s + e.amount, 0);
     const totalPeople = state.companions.reduce((s, c) => s + c.count, 0);
     const sharePerPerson = totalPeople > 0 ? Math.round(total / totalPeople) : 0;
@@ -2833,17 +2075,13 @@ function renderTravelSettlement() {
 function renderDashboard() {
     document.getElementById('statUnits').textContent = toPersianNum(state.units.length);
     document.getElementById('statResidents').textContent = toPersianNum(state.units.reduce((s, u) => s + (u.residents || 0), 0));
-    const totalExp = state.expenses.reduce((s, e) => s + e.amount, 0);
-    document.getElementById('statExpenses').textContent = formatNumber(totalExp);
+    document.getElementById('statExpenses').textContent = formatNumber(state.expenses.reduce((s, e) => s + e.amount, 0));
     let totalDebt = 0;
     state.units.forEach(u => { const balance = getUnitTotalPaid(u) - getUnitTotalCharge(u); if (balance < 0) totalDebt += Math.abs(balance); });
     document.getElementById('statDebt').textContent = formatNumber(totalDebt);
     renderDeadlineBanner(); renderStatusSummary(); renderExpensesChart(); renderMonthlyChart(); renderChargeProgress(); renderRecentActivities();
     const container = document.getElementById('dashboardUnitsList');
-    if (state.units.length === 0) {
-        container.innerHTML = `<div class="empty-state"><span class="emoji">🏠</span><h3>هنوز واحدی ثبت نشده</h3><p>برای شروع، اولین واحد رو اضافه کن</p><div class="empty-hint" onclick="navigateTo('units')" style="cursor:pointer;"><i class="fas fa-plus"></i> افزودن واحد</div></div>`;
-        return;
-    }
+    if (state.units.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">🏠</span><h3>هنوز واحدی ثبت نشده</h3><p>برای شروع، اولین واحد رو اضافه کن</p></div>`; return; }
     container.innerHTML = state.units.map((u, i) => {
         const paid = getUnitTotalPaid(u);
         const charge = getUnitTotalCharge(u);
@@ -2853,9 +2091,7 @@ function renderDashboard() {
         else if (balance === 0) badge = `<span class="badge badge-success">✓ تسویه</span>`;
         else if (balance > 0) badge = `<span class="badge badge-info">اضافه پرداخت</span>`;
         else badge = `<span class="badge badge-danger">بدهی شارژ</span>`;
-        const ownerName = getOwnerName(u.ownerId);
-        const residentName = getResidentName(u.residentId);
-        return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-primary">${toPersianNum(i + 1)}</div><div><div class="list-item-title">${escapeHtml(u.name)}</div><div class="list-item-subtitle">ساکن: ${escapeHtml(residentName)} • ${u.isTenant ? '🔑 مستاجر' : '👤 مالک'} • مالک: ${escapeHtml(ownerName)}</div></div></div>${badge}</div>`;
+        return `<div class="list-item"><div class="list-item-info"><div class="list-item-icon icon-primary">${toPersianNum(i + 1)}</div><div><div class="list-item-title">${escapeHtml(u.name)}</div><div class="list-item-subtitle">ساکن: ${escapeHtml(getResidentName(u.residentId))} • ${u.isTenant ? '🔑 مستاجر' : '👤 مالک'} • مالک: ${escapeHtml(getOwnerName(u.ownerId))}</div></div></div>${badge}</div>`;
     }).join('');
 }
 function renderDeadlineBanner() {
@@ -2863,8 +2099,7 @@ function renderDeadlineBanner() {
     if (!container) return;
     const keys = Object.keys(state.charges);
     if (keys.length === 0) { container.innerHTML = ''; return; }
-    const lastKey = keys[keys.length - 1];
-    const charge = state.charges[lastKey];
+    const charge = state.charges[keys[keys.length - 1]];
     if (!charge.deadline) { container.innerHTML = ''; return; }
     const today = toPersianDateString();
     const isPast = comparePersianDates(today, charge.deadline) > 0;
@@ -2890,8 +2125,7 @@ function renderStatusSummary() {
     let totalDebt = 0, totalCredit = 0;
     state.units.forEach(u => {
         const paid = getUnitTotalPaid(u);
-        const share = unitShares[u.id];
-        const balance = paid - share;
+        const balance = paid - unitShares[u.id];
         if (balance < 0) { debtors++; totalDebt += Math.abs(balance); }
         else if (balance > 0) { creditors++; totalCredit += balance; }
         else { settled++; }
@@ -2921,13 +2155,7 @@ function renderMonthlyChart() {
     if (monthlyChartInstance) monthlyChartInstance.destroy();
     if (state.expenses.length === 0) { canvas.parentElement.innerHTML = '<div class="empty-state" style="padding:30px;"><span class="emoji">📈</span><p style="font-size:12px;">هنوز هزینه‌ای ثبت نشده</p></div>'; return; }
     const monthGroups = {};
-    state.expenses.forEach(e => {
-        if (!e.date || e.date === '—') return;
-        const parts = e.date.split('/');
-        if (parts.length < 2) return;
-        const monthKey = parts[0] + '/' + parts[1];
-        monthGroups[monthKey] = (monthGroups[monthKey] || 0) + e.amount;
-    });
+    state.expenses.forEach(e => { if (!e.date || e.date === '—') return; const parts = e.date.split('/'); if (parts.length < 2) return; const monthKey = parts[0] + '/' + parts[1]; monthGroups[monthKey] = (monthGroups[monthKey] || 0) + e.amount; });
     const sortedKeys = Object.keys(monthGroups).sort();
     const labels = sortedKeys.slice(-6);
     const data = labels.map(k => monthGroups[k]);
@@ -2947,10 +2175,9 @@ function renderChargeProgress() {
     keys.slice().reverse().slice(0, 3).forEach(key => {
         const charge = state.charges[key];
         let totalPaid = 0;
-        let totalExpected = charge.totalAmount;
         charge.results.forEach(r => { const unit = state.units.find(u => u.id === r.unitId); if (unit) totalPaid += getUnitTotalPaid(unit); });
-        const percentage = totalExpected > 0 ? Math.round((totalPaid / totalExpected) * 100) : 0;
-        const remaining = totalExpected - totalPaid;
+        const percentage = charge.totalAmount > 0 ? Math.round((totalPaid / charge.totalAmount) * 100) : 0;
+        const remaining = charge.totalAmount - totalPaid;
         html += `<div style="margin-bottom:20px;"><div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; margin-bottom:8px;"><span>${charge.subPeriod}${charge.deadline ? ' — مهلت: ' + charge.deadline : ''}</span><span style="color:${percentage >= 100 ? 'var(--success)' : 'var(--primary)'};">${toPersianNum(percentage)}٪</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${Math.min(100, percentage)}%;${percentage >= 100 ? 'background:var(--gradient-success);' : percentage >= 50 ? 'background:var(--gradient-primary);' : 'background:var(--gradient-warning);'}"></div></div><div class="progress-info"><span style="color:var(--success);">✅ پرداخت‌شده: ${formatNumber(totalPaid)}</span><span style="color:${remaining > 0 ? 'var(--danger)' : 'var(--success)'};">${remaining > 0 ? '💸 باقی‌مانده: ' + formatNumber(remaining) : '🎉 تسویه کامل'}</span></div></div>`;
     });
     container.innerHTML = html;
@@ -2966,8 +2193,6 @@ function renderRecentActivities() {
     if (recent.length === 0) { container.innerHTML = `<div class="empty-state" style="padding:20px;"><span class="emoji">📋</span><p style="font-size:12px;">هنوز فعالیتی ثبت نشده</p></div>`; return; }
     container.innerHTML = `<div class="timeline">${recent.map(a => { let dotClass = 'timeline-dot'; let amountColor = 'var(--gray-500)'; if (a.type === 'payment') { dotClass += ' success'; amountColor = 'var(--success)'; } else if (a.type === 'expense') { dotClass += ' danger'; amountColor = 'var(--danger)'; } return `<div class="timeline-item"><div class="${dotClass}"></div><div style="display:flex; justify-content:space-between; gap:8px;"><span style="font-weight:600;">${a.icon} ${a.title}</span><span style="color:${amountColor}; font-weight:700; white-space:nowrap;">${formatMoney(a.amount)}</span></div><div class="timeline-time">${a.date}</div></div>`; }).join('')}</div>`;
 }
-
-// ==================== BACKUP ====================
 function exportData() {
     const dataStr = JSON.stringify(state, null, 2);
     const blob = new Blob([dataStr], { type: 'application/json' });
@@ -2977,7 +2202,7 @@ function exportData() {
     a.download = 'hesabyar-backup-' + toPersianDateString().replace(/\//g, '-') + '.json';
     a.click();
     URL.revokeObjectURL(url);
-    showToast('✅ فایل پشتیبان دانلود شد', 'success');
+    showToast('✅ دانلود شد', 'success');
 }
 function clearAllData() {
     if (!confirm('همه داده‌ها پاک شود؟')) return;
@@ -2986,8 +2211,8 @@ function clearAllData() {
     localStorage.removeItem('hesabyar_backups');
     location.reload();
 }
-
-// ==================== SUPER ADMIN ====================
+</script>
+    // ==================== SUPER ADMIN ====================
 let newUserGenderValue = 'male';
 let editUserGenderValue = 'male';
 let allBuildings = [];
@@ -2997,9 +2222,14 @@ function applyRoleBasedUI(role) {
     document.getElementById('menuSuperAdmin').style.display = 'none';
     document.getElementById('menuFull').style.display = 'none';
     document.getElementById('menuResident').style.display = 'none';
-    if (role === 'super_admin') { document.getElementById('menuSuperAdmin').style.display = 'block'; document.getElementById('menuFull').style.display = 'block'; }
-    else if (role === 'manager') { document.getElementById('menuFull').style.display = 'block'; }
-    else { document.getElementById('menuResident').style.display = 'block'; }
+    if (role === 'super_admin') {
+        document.getElementById('menuSuperAdmin').style.display = 'block';
+        document.getElementById('menuFull').style.display = 'block';
+    } else if (role === 'manager') {
+        document.getElementById('menuFull').style.display = 'block';
+    } else {
+        document.getElementById('menuResident').style.display = 'block';
+    }
 }
 async function loadBuildingsFromSupabase() {
     const { data, error } = await sb.from('buildings').select('*').order('created_at', { ascending: false });
@@ -3077,12 +2307,12 @@ async function deleteBuilding(id) {
     const b = allBuildings.find(x => x.id === id);
     if (!b) return;
     if (!confirm(`حذف «${b.name}»؟\n\nهشدار: همه واحدها، ساکنین، هزینه‌ها و شارژهای این ساختمون هم حذف میشن!`)) return;
-    if (!confirm('مطمئنی؟ این عمل برگشت‌پذیر نیست!')) return;
+    if (!confirm('مطمئنی؟')) return;
     const { error } = await sb.from('buildings').delete().eq('id', id);
     if (error) { showToast('خطا: ' + error.message, 'error'); return; }
     await renderSuperBuildingsList();
     await renderSuperAdminDashboard();
-    showToast('🗑️ ساختمون حذف شد', 'warning');
+    showToast('🗑️ حذف شد', 'warning');
 }
 async function renderSuperUsersList() {
     const container = document.getElementById('superUsersList');
@@ -3157,7 +2387,7 @@ async function saveNewUser() {
         closeModal('addUserModal');
         await renderSuperUsersList();
         await renderSuperAdminDashboard();
-        showToast('✅ کاربر با موفقیت ساخته شد', 'success');
+        showToast('✅ کاربر ساخته شد', 'success');
     } catch (e) { console.error(e); showToast('خطا در ارتباط با سرور', 'error'); }
     finally { btn.disabled = false; btn.innerHTML = '<i class="fas fa-check"></i> ایجاد کاربر'; }
 }
@@ -3291,11 +2521,10 @@ function buildPersonsMap() {
             const key = 'owner:' + r.linkedOwnerId;
             if (persons[key]) persons[key].residentId = r.id;
             else persons['resident:' + r.id] = { name: r.name, ownerId: null, residentId: r.id };
-        } else { persons['resident:' + r.id] = { name: r.name, ownerId: null, residentId: r.id }; }
+        } else persons['resident:' + r.id] = { name: r.name, ownerId: null, residentId: r.id };
     });
     return persons;
 }
-
 function renderMatrixTable() {
     const container = document.getElementById('matrixTable');
     if (!container) return;
@@ -3314,10 +2543,8 @@ function renderMatrixTable() {
     html += `<tr class="total-row"><td colspan="4">جمع کل</td><td>${formatNumber(totalAll)}</td>`;
     state.units.forEach(u => { html += `<td>${formatNumber(totals[u.id])}</td>`; });
     html += `</tr></tbody></table></div>`;
-    html += `<div class="law-box" style="margin-top:16px;"><h4><i class="fas fa-gavel"></i> راهنمای روش‌های تقسیم</h4><p>• <strong>⚖️ مساوی:</strong> سهم ساکن، بین واحدها مساوی.</p><p>• <strong>👥 نفرات:</strong> سهم ساکن، به نسبت تعداد نفرات.</p><p>• <strong>📏 متراژ:</strong> سهم ساکن، به نسبت متراژ.</p><p>• <strong>🧮 نفر×متراژ:</strong> سهم ساکن، بر اساس ضریب ترکیبی.</p><p>• <strong>👔 مالکین:</strong> سهم مالک، بین مالکین بر اساس تعداد واحد مالکیت.</p></div>`;
     container.innerHTML = html;
 }
-
 function renderSummaryTable() {
     const container = document.getElementById('summaryTable');
     if (!container) return;
@@ -3339,7 +2566,6 @@ function renderSummaryTable() {
     html += `<tr class="total-row"><td colspan="6">جمع کل</td><td style="color:#9d174d;">${formatNumber(totalResidentShare)}</td><td style="color:#92400e;">${formatNumber(totalOwnerShare)}</td><td>${formatNumber(totalAll)}</td><td>${formatNumber(totalPaid)}</td><td colspan="2">—</td></tr></tbody></table></div>`;
     container.innerHTML = html;
 }
-
 function renderPersonsTable() {
     const container = document.getElementById('personsTable');
     if (!container) return;
@@ -3370,7 +2596,6 @@ function renderPersonsTable() {
     html += `<tr class="total-row"><td colspan="2">جمع کل</td><td style="color:#92400e;">${formatNumber(totalOwnerShareAll)}</td><td style="color:#9d174d;">${formatNumber(totalResidentShareAll)}</td><td>${formatNumber(totalAll)}</td><td>${formatNumber(totalPaidAll)}</td><td colspan="2">—</td></tr></tbody></table></div>`;
     container.innerHTML = html;
 }
-
 function renderTravelJournalTable() {
     const container = document.getElementById('travelJournalTable');
     if (!container) return;
@@ -3381,8 +2606,6 @@ function renderTravelJournalTable() {
     html += `<tr class="total-row"><td colspan="5">جمع کل</td><td>${formatNumber(total)}</td></tr></tbody></table></div>`;
     container.innerHTML = html;
 }
-
-// ==================== EXCEL ====================
 function exportExpensesExcel() {
     if (state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const data = state.expenses.map((e, i) => ({ 'ردیف': i + 1, 'عنوان هزینه': e.typeName, 'مبلغ': e.amount, 'تاریخ هزینه': e.date, 'تاریخ پرداخت': e.payDate, 'پرداخت‌کننده': e.payer, 'روش تقسیم': getMethodLabel(e.splitMethod).replace(/[^\u0600-\u06FF\s]/g, '').trim() }));
@@ -3391,7 +2614,7 @@ function exportExpensesExcel() {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'هزینه‌ها');
     XLSX.writeFile(wb, 'هزینه‌های-ساختمان.xlsx');
-    showToast('✅ فایل اکسل دانلود شد', 'success');
+    showToast('✅ دانلود شد', 'success');
 }
 function exportTravelExcel() {
     if (state.travelExpenses.length === 0) return showToast('داده‌ای نیست', 'warning');
@@ -3400,7 +2623,7 @@ function exportTravelExcel() {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'سفر');
     XLSX.writeFile(wb, 'هزینه‌های-سفر.xlsx');
-    showToast('✅ فایل اکسل دانلود شد', 'success');
+    showToast('✅ دانلود شد', 'success');
 }
 function exportJournalExcel(type) {
     if (type === 'travel') return exportTravelJournalExcel();
@@ -3418,7 +2641,7 @@ function exportJournalExcel(type) {
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(unitData), 'خلاصه واحدها');
     }
     XLSX.writeFile(wb, 'دفتر-حسابداری.xlsx');
-    showToast('✅ فایل اکسل دانلود شد', 'success');
+    showToast('✅ دانلود شد', 'success');
 }
 function exportTravelJournalExcel() { exportTravelExcel(); }
 
@@ -3430,7 +2653,6 @@ function tableStyle() { return `width:100%; border-collapse:collapse; font-size:
 function thStyle() { return `background:#eef2ff; padding:8px 6px; border:1px solid #c7d2fe; color:#3730a3; font-weight:700; text-align:center;`; }
 function tdStyle() { return `padding:6px; border:1px solid #e2e8f0; text-align:center;`; }
 function totalTdStyle() { return `padding:8px 6px; border:1px solid #c7d2fe; text-align:center; background:#eef2ff; font-weight:800; color:#3730a3;`; }
-
 async function htmlToPDF(html, filename) {
     showToast('⏳ در حال ساخت PDF...', 'default');
     if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch(e) {} }
@@ -3498,7 +2720,6 @@ function openEditModal(title, fieldsHTML, onSave) {
     openModal('editModal');
 }
 function saveEdit() { if (typeof window._editSaveCallback === 'function') window._editSaveCallback(); }
-
 function editUnit(id) {
     const unit = state.units.find(u => u.id === id);
     if (!unit) return;
@@ -3517,7 +2738,7 @@ function editUnit(id) {
         saveState();
         closeModal('editModal');
         renderUnits(); renderDashboard(); renderAllJournalViews();
-        showToast('✅ واحد ویرایش شد', 'success');
+        showToast('✅ ویرایش شد', 'success');
     });
 }
 function editExpense(id) {
@@ -3536,7 +2757,7 @@ function editExpense(id) {
         saveState();
         closeModal('editModal');
         renderExpenses(); renderDashboard(); renderUnits(); renderAllJournalViews();
-        showToast('✅ هزینه ویرایش شد', 'success');
+        showToast('✅ ویرایش شد', 'success');
     });
 }
 function editCharge(key) {
@@ -3552,7 +2773,7 @@ function editCharge(key) {
         saveState();
         closeModal('editModal');
         renderCharges(); renderDashboard(); renderUnits();
-        showToast('✅ شارژ ویرایش شد', 'success');
+        showToast('✅ ویرایش شد', 'success');
     });
 }
 function editTravelExpense(id) {
@@ -3567,7 +2788,7 @@ function editTravelExpense(id) {
         saveState();
         closeModal('editModal');
         renderTravelExpenses(); renderTravelSettlement();
-        showToast('✅ هزینه سفر ویرایش شد', 'success');
+        showToast('✅ ویرایش شد', 'success');
     });
 }
 
@@ -3610,7 +2831,6 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
-
 // ==================== NOTIFICATIONS ====================
 function addNotification(type, title, text, linkPage) {
     state.notifications = state.notifications || [];
@@ -3628,11 +2848,7 @@ function updateNotificationBadge() {
 }
 function openNotifications() {
     renderNotificationsList();
-    setTimeout(() => {
-        (state.notifications || []).forEach(n => n.read = true);
-        saveState();
-        updateNotificationBadge();
-    }, 2000);
+    setTimeout(() => { (state.notifications || []).forEach(n => n.read = true); saveState(); updateNotificationBadge(); }, 2000);
     openModal('notificationsModal');
 }
 function renderNotificationsList() {
@@ -3646,10 +2862,8 @@ function renderNotificationsList() {
         return;
     }
     if (actionsBar) actionsBar.style.display = 'flex';
-    container.innerHTML = notifications.map(n => {
-        const icons = { danger: 'fa-exclamation-triangle', warning: 'fa-clock', success: 'fa-check-circle', info: 'fa-info-circle' };
-        return `<div class="notif-item ${n.read ? '' : 'unread'}" onclick="openNotificationLink('${n.id}', '${n.linkPage || ''}')" style="cursor:pointer;"><div class="notif-item-icon ${n.type}"><i class="fas ${icons[n.type] || 'fa-bell'}"></i></div><div class="notif-item-content"><div class="notif-item-title">${escapeHtml(n.title)}</div><div class="notif-item-text">${escapeHtml(n.text)}</div><div class="notif-item-time"><i class="far fa-clock"></i> ${n.createdAt}</div></div><span class="notif-item-close" onclick="event.stopPropagation(); deleteNotification('${n.id}')"><i class="fas fa-times"></i></span></div>`;
-    }).join('');
+    const icons = { danger: 'fa-exclamation-triangle', warning: 'fa-clock', success: 'fa-check-circle', info: 'fa-info-circle' };
+    container.innerHTML = notifications.map(n => `<div class="notif-item ${n.read ? '' : 'unread'}" onclick="openNotificationLink('${n.id}', '${n.linkPage || ''}')" style="cursor:pointer;"><div class="notif-item-icon ${n.type}"><i class="fas ${icons[n.type] || 'fa-bell'}"></i></div><div class="notif-item-content"><div class="notif-item-title">${escapeHtml(n.title)}</div><div class="notif-item-text">${escapeHtml(n.text)}</div><div class="notif-item-time"><i class="far fa-clock"></i> ${n.createdAt}</div></div><span class="notif-item-close" onclick="event.stopPropagation(); deleteNotification('${n.id}')"><i class="fas fa-times"></i></span></div>`).join('');
 }
 function openNotificationLink(id, page) {
     const notif = (state.notifications || []).find(n => n.id === id);
@@ -3657,7 +2871,7 @@ function openNotificationLink(id, page) {
     if (page) { closeModal('notificationsModal'); navigateTo(page); }
 }
 function deleteNotification(id) { state.notifications = (state.notifications || []).filter(n => n.id !== id); saveState(); updateNotificationBadge(); renderNotificationsList(); }
-function markAllNotificationsRead() { (state.notifications || []).forEach(n => n.read = true); saveState(); updateNotificationBadge(); renderNotificationsList(); showToast('✅ همه خونده شد', 'success'); }
+function markAllNotificationsRead() { (state.notifications || []).forEach(n => n.read = true); saveState(); updateNotificationBadge(); renderNotificationsList(); showToast('✅ خونده شد', 'success'); }
 function clearAllNotifications() {
     if (!confirm('همه اعلان‌ها پاک شود؟')) return;
     state.notifications = [];
@@ -3666,8 +2880,6 @@ function clearAllNotifications() {
     renderNotificationsList();
     showToast('🗑️ پاک شد', 'warning');
 }
-
-// ==================== AUTO NOTIFICATIONS ====================
 function generateAutoNotifications() {
     const notifications = state.notifications || [];
     const existingKeys = new Set(notifications.map(n => n.key).filter(k => k));
@@ -3686,16 +2898,10 @@ function generateAutoNotifications() {
         });
         if (isPast && unpaidList.length > 0) {
             const notifKey = 'deadline_past_' + key;
-            if (!existingKeys.has(notifKey)) {
-                addNotification('danger', '⚠️ مهلت پرداخت گذشته', `${toPersianNum(unpaidList.length)} ساکن هنوز شارژ رو پرداخت نکردن`, 'charges');
-                notifications[0].key = notifKey;
-            }
+            if (!existingKeys.has(notifKey)) { addNotification('danger', '⚠️ مهلت پرداخت گذشته', `${toPersianNum(unpaidList.length)} ساکن هنوز شارژ رو پرداخت نکردن`, 'charges'); notifications[0].key = notifKey; }
         } else if (!isPast && daysLeft >= 0 && daysLeft <= 3 && unpaidList.length > 0) {
             const notifKey = 'deadline_near_' + key;
-            if (!existingKeys.has(notifKey)) {
-                addNotification('warning', '⏰ مهلت پرداخت نزدیکه', `${toPersianNum(daysLeft)} روز مونده`, 'charges');
-                notifications[0].key = notifKey;
-            }
+            if (!existingKeys.has(notifKey)) { addNotification('warning', '⏰ مهلت پرداخت نزدیکه', `${toPersianNum(daysLeft)} روز مونده`, 'charges'); notifications[0].key = notifKey; }
         }
     });
     saveState();
@@ -3727,14 +2933,8 @@ function generateShareText() {
     Object.keys(persons).forEach(key => {
         const person = persons[key];
         let paid = 0, totalShare = 0;
-        if (person.ownerId) {
-            state.units.forEach(u => { if (u.ownerId === person.ownerId) totalShare += breakdown[u.id].owner; });
-            paid += getOwnerTotalPaid(person.ownerId);
-        }
-        if (person.residentId) {
-            state.units.forEach(u => { if (u.residentId === person.residentId) totalShare += breakdown[u.id].resident; });
-            paid += getResidentTotalPaid(person.residentId);
-        }
+        if (person.ownerId) { state.units.forEach(u => { if (u.ownerId === person.ownerId) totalShare += breakdown[u.id].owner; }); paid += getOwnerTotalPaid(person.ownerId); }
+        if (person.residentId) { state.units.forEach(u => { if (u.residentId === person.residentId) totalShare += breakdown[u.id].resident; }); paid += getResidentTotalPaid(person.residentId); }
         const balance = paid - totalShare;
         if (balance < 0) totalDebt += Math.abs(balance);
         else if (balance > 0) totalCredit += balance;
@@ -3769,8 +2969,6 @@ function fallbackCopy(text) {
     try { document.execCommand('copy'); showToast('✅ کپی شد', 'success'); } catch(e) { showToast('❌ نشد', 'error'); }
     document.body.removeChild(t);
 }
-
-// ==================== PUSH NOTIFICATION ====================
 async function requestNotificationPermission() {
     if (!('Notification' in window)) { showToast('مرورگر پشتیبانی نمی‌کنه', 'warning'); return; }
     try {
@@ -3782,8 +2980,6 @@ async function requestNotificationPermission() {
         } else if (permission === 'denied') showToast('❌ رد شد', 'warning');
     } catch(e) { console.error(e); }
 }
-
-// ==================== INIT NOTIFICATIONS ====================
 window.addEventListener('load', () => {
     setTimeout(() => {
         generateAutoNotifications();
@@ -3794,4 +2990,4 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
-                                              
+        
