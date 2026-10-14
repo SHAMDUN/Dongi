@@ -2869,14 +2869,9 @@ function initDatePickers() {
 
 // ==================== SETTINGS ====================
 function saveSettings() {
-    state.settings.buildingName = document.getElementById('settingsBuildingName').value.trim() || 'حساب‌یار';
-    state.settings.managerName = document.getElementById('settingsManagerName').value.trim() || 'مدیریت هوشمند هزینه‌ها';
-    state.settings.startDate = document.getElementById('settingsStartDate').value.trim();
-    saveState();
-    updateHeader();
-    showToast('✅ مشخصات ذخیره شد', 'success');
+    // این تابع دیگه استفاده نمیشه — مشخصات از Supabase میاد
+    showToast('مشخصات از پنل مدیریت کل تنظیم میشه', 'warning');
 }
-
 function saveCurrency() {
     state.settings.currency = document.getElementById('settingsCurrency').value;
     saveState();
@@ -2930,12 +2925,22 @@ function updateHeader() {
 }
 
 function loadSettings() {
-    document.getElementById('settingsBuildingName').value = state.settings.buildingName || '';
-    document.getElementById('settingsManagerName').value = state.settings.managerName || '';
-    document.getElementById('settingsStartDate').value = state.settings.startDate || '';
-    document.getElementById('settingsCurrency').value = state.settings.currency || 'toman';
-    document.getElementById('settingsDateFormat').value = state.settings.dateFormat || 'persian';
-    document.getElementById('settingsAutoBackup').checked = state.settings.autoBackup !== false;
+    // فیلدهای مشخصات ساختمان دیگه تو HTML نیستن (به «اطلاعات ساختمان» منتقل شدن)
+    const sb = document.getElementById('settingsBuildingName');
+    const sm = document.getElementById('settingsManagerName');
+    const ss = document.getElementById('settingsStartDate');
+    if (sb) sb.value = state.settings.buildingName || '';
+    if (sm) sm.value = state.settings.managerName || '';
+    if (ss) ss.value = state.settings.startDate || '';
+    
+    // فیلدهای تنظیمات
+    const cur = document.getElementById('settingsCurrency');
+    const df = document.getElementById('settingsDateFormat');
+    const ab = document.getElementById('settingsAutoBackup');
+    if (cur) cur.value = state.settings.currency || 'toman';
+    if (df) df.value = state.settings.dateFormat || 'persian';
+    if (ab) ab.checked = state.settings.autoBackup !== false;
+    
     updateHeader();
     updateAutoBackupInfo();
 }
