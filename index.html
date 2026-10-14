@@ -4407,6 +4407,17 @@ async function deleteBuilding(id) {
 
 // ==================== USERS ====================
 async function renderSuperUsersList() {
+    const container = document.getElementById('superUsersList');
+    if (!container) return;
+    
+    // ⭐ نمایش فوری loading
+    container.innerHTML = `
+        <div style="text-align:center; padding:40px 20px; color:var(--gray-500);">
+            <i class="fas fa-spinner fa-spin" style="font-size:32px; color:var(--primary); margin-bottom:12px;"></i>
+            <div style="font-size:13px; font-weight:600;">در حال بارگذاری کاربران...</div>
+        </div>
+    `;
+    
     await loadUsersFromSupabase();
     await loadBuildingsFromSupabase();
     
@@ -4419,7 +4430,6 @@ async function renderSuperUsersList() {
         );
     }
     
-    const container = document.getElementById('superUsersList');
     if (filtered.length === 0) {
         container.innerHTML = `
             <div class="empty-state">
