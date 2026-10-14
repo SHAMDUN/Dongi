@@ -892,6 +892,8 @@ html.dark-mode .share-info-box {
         <div class="nav-divider"></div>
         <div class="nav-section-title">مدیریت سفر</div>
         <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
+        <button class="nav-link" data-page="settings" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> تنظیمات</button>
+    </nav>
     </nav>
     <div class="sidebar-footer">حساب‌یار — نسخه ۹.۰.۰</div>
 </aside>
@@ -913,8 +915,8 @@ html.dark-mode .share-info-box {
                 <i class="fas fa-bell"></i>
                 <span class="notif-bell-count" id="notifBellCount">۰</span>
             </button>
-            <button class="theme-toggle-btn auto" id="themeToggleBtn" onclick="cycleTheme()" title="تغییر تم">
-                <i class="fas fa-adjust" id="themeIcon"></i>
+            <button class="theme-toggle-btn light" id="themeToggleBtn" onclick="toggleTheme()" title="تغییر تم">
+                <i class="fas fa-sun" id="themeIcon"></i>
             </button>
             <button class="mobile-menu-btn" onclick="openSidebar()"><i class="fas fa-bars"></i></button>
         </div> 
@@ -1255,32 +1257,6 @@ html.dark-mode .share-info-box {
     </div>
 
     <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-cog icon-info"></i> تنظیمات پیشرفته</div></div>
-        <div class="form-group">
-            <label>واحد پول</label>
-            <select class="form-select" id="settingsCurrency" onchange="saveCurrency()">
-                <option value="toman">تومان</option>
-                <option value="rial">ریال</option>
-                <option value="dirham">درهم امارات</option>
-                <option value="dollar">دلار</option>
-                <option value="euro">یورو</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>فرمت تاریخ</label>
-            <select class="form-select" id="settingsDateFormat" onchange="saveDateFormat()">
-                <option value="persian">شمسی (۱۴۰۵/۰۶/۱۵)</option>
-                <option value="gregorian">میلادی (2026/09/06)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="checkbox-wrap">
-                <input type="checkbox" id="settingsAutoBackup" onchange="saveAutoBackup()">
-                <span><i class="fas fa-save"></i> پشتیبان‌گیری خودکار (۳ نسخه آخر)</span>
-            </label>
-        </div>
-        <div id="autoBackupInfo" style="font-size:11px; color:var(--gray-500); margin-top:8px;"></div>
-    </div>
 
     <div class="card">
         <div class="card-header">
@@ -1325,6 +1301,44 @@ html.dark-mode .share-info-box {
             <i class="fas fa-mobile-alt"></i> نصب روی گوشی
         </button>
         <div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div>
+        <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
+        <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
+    </div>
+</section>
+    <!-- SETTINGS -->
+<section class="page" id="page-settings">
+    <div class="page-title"><i class="fas fa-cog"></i> تنظیمات</div>
+    
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-cog icon-info"></i> تنظیمات پیشرفته</div></div>
+        <div class="form-group">
+            <label>واحد پول</label>
+            <select class="form-select" id="settingsCurrency" onchange="saveCurrency()">
+                <option value="toman">تومان</option>
+                <option value="rial">ریال</option>
+                <option value="dirham">درهم امارات</option>
+                <option value="dollar">دلار</option>
+                <option value="euro">یورو</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>فرمت تاریخ</label>
+            <select class="form-select" id="settingsDateFormat" onchange="saveDateFormat()">
+                <option value="persian">شمسی (۱۴۰۵/۰۶/۱۵)</option>
+                <option value="gregorian">میلادی (2026/09/06)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="checkbox-wrap">
+                <input type="checkbox" id="settingsAutoBackup" onchange="saveAutoBackup()">
+                <span><i class="fas fa-save"></i> پشتیبان‌گیری خودکار (۳ نسخه آخر)</span>
+            </label>
+        </div>
+        <div id="autoBackupInfo" style="font-size:11px; color:var(--gray-500); margin-top:8px;"></div>
     </div>
 
     <div class="card">
@@ -1540,14 +1554,16 @@ function getCurrencySymbol() {
 }
 
 // ==================== THEME ====================
-function getThemeMode() { return localStorage.getItem('themeMode') || 'auto'; }
+function getThemeMode() {
+    const saved = localStorage.getItem('themeMode');
+    // اگه قبلاً auto بوده، تبدیلش کن به light
+    if (saved === 'auto' || !saved) return 'light';
+    return saved;
+}
 
 function applyTheme(mode) {
     const html = document.documentElement;
-    let isDark = false;
-    if (mode === 'dark') isDark = true;
-    else if (mode === 'light') isDark = false;
-    else isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = mode === 'dark';
     
     if (isDark) html.classList.add('dark-mode');
     else html.classList.remove('dark-mode');
@@ -1557,8 +1573,7 @@ function applyTheme(mode) {
     if (btn && icon) {
         btn.classList.remove('auto', 'light', 'dark');
         btn.classList.add(mode);
-        if (mode === 'auto') icon.className = 'fas fa-adjust';
-        else if (mode === 'light') icon.className = 'fas fa-sun';
+        if (mode === 'light') icon.className = 'fas fa-sun';
         else icon.className = 'fas fa-moon';
     }
     
@@ -1571,24 +1586,14 @@ function applyTheme(mode) {
     }
 }
 
-function cycleTheme() {
+function toggleTheme() {
     const current = getThemeMode();
-    let next;
-    if (current === 'auto') next = 'light';
-    else if (current === 'light') next = 'dark';
-    else next = 'auto';
+    const next = current === 'light' ? 'dark' : 'light';
     localStorage.setItem('themeMode', next);
     applyTheme(next);
-    const labels = { auto: '🌗 تم خودکار', light: '☀️ تم روشن', dark: '🌙 تم تاریک' };
+    const labels = { light: '☀️ تم روشن', dark: '🌙 تم تاریک' };
     showToast(labels[next], 'success');
 }
-
-if (window.matchMedia) {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        if (getThemeMode() === 'auto') applyTheme('auto');
-    });
-}
-
 // ==================== ONBOARDING ====================
 let currentOnboardingSlide = 0;
 const ONBOARDING_KEY = 'onboardingSeen_v2';
@@ -1787,6 +1792,7 @@ function navigateTo(page) {
     if (page === 'charges') renderCharges();
     if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
     if (page === 'building-info') { loadSettings(); renderOwnersList(); renderResidentsList(); }
+    if (page === 'settings') { loadSettings(); }
     if (page === 'units') { refreshOwnerDropdowns(); refreshResidentDropdowns(); }
     if (page === 'dashboard') renderDashboard();
 }
