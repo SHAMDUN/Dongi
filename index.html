@@ -1165,16 +1165,35 @@ html.dark-mode .login-footer {
         </div>
     </div>
     <nav class="sidebar-nav">
-        <button class="nav-link" data-page="building-info" onclick="navigateTo('building-info')"><i class="fas fa-building-user"></i> اطلاعات ساختمان</button>
-        <button class="nav-link" data-page="units" onclick="navigateTo('units')"><i class="fas fa-building"></i> واحدها و ساکنین</button>
-        <button class="nav-link" data-page="charges" onclick="navigateTo('charges')"><i class="fas fa-coins"></i> شارژها</button>
-        <button class="nav-link" data-page="expenses" onclick="navigateTo('expenses')"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</button>
-        <button class="nav-link" data-page="accounting" onclick="navigateTo('accounting')"><i class="fas fa-book"></i> دفتر حسابداری</button>
-        <button class="nav-link active" data-page="dashboard" onclick="navigateTo('dashboard')"><i class="fas fa-chart-pie"></i> داشبورد</button>
-        <div class="nav-divider"></div>
-        <div class="nav-section-title">مدیریت سفر</div>
-        <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
-        <button class="nav-link" data-page="settings" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> تنظیمات</button>
+        <!-- منوی Super Admin (فقط خودش می‌بینه) -->
+        <div id="menuSuperAdmin" style="display:none;">
+            <div class="nav-section-title">مدیریت کل سیستم</div>
+            <button class="nav-link active" data-page="super-admin" onclick="navigateTo('super-admin')"><i class="fas fa-crown"></i> پنل مدیریت کل</button>
+            <button class="nav-link" data-page="super-buildings" onclick="navigateTo('super-buildings')"><i class="fas fa-city"></i> ساختمان‌ها</button>
+            <button class="nav-link" data-page="super-users" onclick="navigateTo('super-users')"><i class="fas fa-users-cog"></i> کاربران</button>
+            <div class="nav-divider"></div>
+            <button class="nav-link" data-page="settings" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> تنظیمات</button>
+        </div>
+
+        <!-- منوی مدیر ساختمون -->
+        <div id="menuManager" style="display:none;">
+            <button class="nav-link active" data-page="dashboard" onclick="navigateTo('dashboard')"><i class="fas fa-chart-pie"></i> داشبورد</button>
+            <button class="nav-link" data-page="building-info" onclick="navigateTo('building-info')"><i class="fas fa-building-user"></i> اطلاعات ساختمان</button>
+            <button class="nav-link" data-page="units" onclick="navigateTo('units')"><i class="fas fa-building"></i> واحدها و ساکنین</button>
+            <button class="nav-link" data-page="charges" onclick="navigateTo('charges')"><i class="fas fa-coins"></i> شارژها</button>
+            <button class="nav-link" data-page="expenses" onclick="navigateTo('expenses')"><i class="fas fa-receipt"></i> هزینه‌های ساختمان</button>
+            <button class="nav-link" data-page="accounting" onclick="navigateTo('accounting')"><i class="fas fa-book"></i> دفتر حسابداری</button>
+            <div class="nav-divider"></div>
+            <div class="nav-section-title">مدیریت سفر</div>
+            <button class="nav-link" data-page="travel" onclick="navigateTo('travel')"><i class="fas fa-plane-departure"></i> سفر</button>
+            <button class="nav-link" data-page="settings" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> تنظیمات</button>
+        </div>
+
+        <!-- منوی ساکن / مالک -->
+        <div id="menuResident" style="display:none;">
+            <button class="nav-link active" data-page="my-panel" onclick="navigateTo('my-panel')"><i class="fas fa-home"></i> پنل من</button>
+            <button class="nav-link" data-page="settings" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> تنظیمات</button>
+        </div>
     </nav>
     </nav>
     <div class="sidebar-footer">حساب‌یار — نسخه ۹.۰.۰</div>
@@ -1626,7 +1645,84 @@ html.dark-mode .login-footer {
         <div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div>
     </div>
 </section>
+<!-- ==================== SUPER ADMIN DASHBOARD ==================== -->
+<section class="page" id="page-super-admin">
+    <div class="page-title"><i class="fas fa-crown"></i> پنل مدیریت کل</div>
+    
+    <div class="summary-grid">
+        <div class="summary-card primary"><div class="icon-wrap"><i class="fas fa-city"></i></div><div class="value" id="statTotalBuildings">۰</div><div class="label">کل ساختمان‌ها</div></div>
+        <div class="summary-card success"><div class="icon-wrap"><i class="fas fa-users"></i></div><div class="value" id="statTotalUsers">۰</div><div class="label">کل کاربران</div></div>
+        <div class="summary-card warning"><div class="icon-wrap"><i class="fas fa-user-tie"></i></div><div class="value" id="statTotalManagers">۰</div><div class="label">مدیران ساختمان</div></div>
+        <div class="summary-card danger"><div class="icon-wrap"><i class="fas fa-building"></i></div><div class="value" id="statTotalUnits">۰</div><div class="label">کل واحدها</div></div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title"><i class="fas fa-bolt icon-warning"></i> دسترسی سریع</div>
+        </div>
+        <div class="btn-group" style="width:100%;">
+            <button class="btn btn-primary" style="flex:1;" onclick="openAddBuildingModal()">
+                <i class="fas fa-plus"></i> افزودن ساختمان
+            </button>
+            <button class="btn btn-success" style="flex:1;" onclick="openAddUserModal()">
+                <i class="fas fa-user-plus"></i> افزودن کاربر
+            </button>
+        </div>
+    </div>
+</section>
 
+<!-- ==================== SUPER ADMIN - BUILDINGS ==================== -->
+<section class="page" id="page-super-buildings">
+    <div class="page-title"><i class="fas fa-city"></i> مدیریت ساختمان‌ها</div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title"><i class="fas fa-list icon-primary"></i> لیست ساختمان‌ها</div>
+            <button class="btn btn-primary btn-sm" onclick="openAddBuildingModal()">
+                <i class="fas fa-plus"></i> افزودن
+            </button>
+        </div>
+        <div id="superBuildingsList"></div>
+    </div>
+</section>
+
+<!-- ==================== SUPER ADMIN - USERS ==================== -->
+<section class="page" id="page-super-users">
+    <div class="page-title"><i class="fas fa-users-cog"></i> مدیریت کاربران</div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title"><i class="fas fa-list icon-success"></i> لیست کاربران</div>
+            <button class="btn btn-success btn-sm" onclick="openAddUserModal()">
+                <i class="fas fa-user-plus"></i> افزودن
+            </button>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="userSearchInput" placeholder="🔍 جستجو بر اساس نام یا شماره..." oninput="renderSuperUsersList()">
+        </div>
+        <div id="superUsersList"></div>
+    </div>
+</section>
+
+<!-- ==================== RESIDENT PANEL (MY PANEL) ==================== -->
+<section class="page" id="page-my-panel">
+    <div class="page-title"><i class="fas fa-home"></i> پنل من</div>
+    
+    <div class="card" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; border: none;">
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.2); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 32px;">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div style="flex: 1;">
+                <div id="myPanelGreeting" style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">سلام!</div>
+                <div id="myPanelRole" style="font-size: 12px; opacity: 0.9;">—</div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="myPanelContent"></div>
+</section>
+    
 <!-- MODALS -->
 <div class="modal-overlay" id="paymentModal">
     <div class="modal">
@@ -1777,7 +1873,145 @@ html.dark-mode .login-footer {
         </div>
     </div>
 </div>    
+<!-- MODAL: افزودن ساختمان -->
+<div class="modal-overlay" id="addBuildingModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><i class="fas fa-city"></i> افزودن ساختمان جدید</div>
+            <button class="modal-close" onclick="closeModal('addBuildingModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>نام ساختمان <span class="required">*</span></label>
+                <input type="text" class="form-control" id="newBuildingName" placeholder="مثال: مجتمع مسکونی نور">
+            </div>
+            <div class="form-group">
+                <label>تاریخ شروع</label>
+                <input type="text" class="form-control datepicker" id="newBuildingStartDate" placeholder="انتخاب تاریخ" readonly>
+            </div>
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <div>بعد از ساخت ساختمان، می‌تونی از پنل کاربران، یه مدیر برای این ساختمان انتخاب کنی.</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('addBuildingModal')" style="flex:1;">انصراف</button>
+            <button class="btn btn-primary" onclick="saveNewBuilding()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button>
+        </div>
+    </div>
+</div>
 
+<!-- MODAL: ویرایش ساختمان -->
+<div class="modal-overlay" id="editBuildingModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><i class="fas fa-edit"></i> ویرایش ساختمان</div>
+            <button class="modal-close" onclick="closeModal('editBuildingModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="editBuildingId">
+            <div class="form-group">
+                <label>نام ساختمان <span class="required">*</span></label>
+                <input type="text" class="form-control" id="editBuildingName">
+            </div>
+            <div class="form-group">
+                <label>تاریخ شروع</label>
+                <input type="text" class="form-control datepicker" id="editBuildingStartDate" placeholder="انتخاب تاریخ" readonly>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('editBuildingModal')" style="flex:1;">انصراف</button>
+            <button class="btn btn-primary" onclick="saveEditBuilding()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: افزودن کاربر -->
+<div class="modal-overlay" id="addUserModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><i class="fas fa-user-plus"></i> افزودن کاربر جدید</div>
+            <button class="modal-close" onclick="closeModal('addUserModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>نام کامل <span class="required">*</span></label>
+                <input type="text" class="form-control" id="newUserName" placeholder="مثال: علی احمدی">
+            </div>
+            <div class="form-group">
+                <label>شماره موبایل <span class="required">*</span></label>
+                <input type="tel" class="form-control" id="newUserPhone" placeholder="09123456789" maxlength="11" inputmode="numeric">
+            </div>
+            <div class="form-group">
+                <label>جنسیت <span class="required">*</span></label>
+                <div class="toggle-group">
+                    <button type="button" class="toggle-btn active" id="newUserGenderMale" onclick="setNewUserGender('male')">
+                        <i class="fas fa-male"></i> آقا
+                    </button>
+                    <button type="button" class="toggle-btn" id="newUserGenderFemale" onclick="setNewUserGender('female')">
+                        <i class="fas fa-female"></i> خانم
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>نقش <span class="required">*</span></label>
+                <select class="form-select" id="newUserRole" onchange="onNewUserRoleChange()">
+                    <option value="manager">مدیر ساختمان</option>
+                    <option value="owner">مالک</option>
+                    <option value="resident">ساکن</option>
+                </select>
+            </div>
+            <div class="form-group" id="newUserBuildingGroup">
+                <label>ساختمان <span class="required">*</span></label>
+                <select class="form-select" id="newUserBuilding"></select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('addUserModal')" style="flex:1;">انصراف</button>
+            <button class="btn btn-success" onclick="saveNewUser()" style="flex:2;"><i class="fas fa-check"></i> ایجاد کاربر</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: ویرایش کاربر -->
+<div class="modal-overlay" id="editUserModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title"><i class="fas fa-user-edit"></i> ویرایش کاربر</div>
+            <button class="modal-close" onclick="closeModal('editUserModal')"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="editUserId">
+            <div class="form-group">
+                <label>نام کامل <span class="required">*</span></label>
+                <input type="text" class="form-control" id="editUserName">
+            </div>
+            <div class="form-group">
+                <label>شماره موبایل <span class="required">*</span></label>
+                <input type="tel" class="form-control" id="editUserPhone" maxlength="11" inputmode="numeric">
+            </div>
+            <div class="form-group">
+                <label>جنسیت <span class="required">*</span></label>
+                <div class="toggle-group">
+                    <button type="button" class="toggle-btn" id="editUserGenderMale" onclick="setEditUserGender('male')">
+                        <i class="fas fa-male"></i> آقا
+                    </button>
+                    <button type="button" class="toggle-btn" id="editUserGenderFemale" onclick="setEditUserGender('female')">
+                        <i class="fas fa-female"></i> خانم
+                    </button>
+                </div>
+            </div>
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <div>تغییر نقش کاربر نیاز به دسترسی ویژه داره و در نسخه بعدی اضافه میشه.</div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('editUserModal')" style="flex:1;">انصراف</button>
+            <button class="btn btn-primary" onclick="saveEditUser()" style="flex:2;"><i class="fas fa-check"></i> ذخیره</button>
+        </div>
+    </div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -2086,6 +2320,10 @@ function navigateTo(page) {
     if (page === 'travel') { renderCompanions(); renderTravelExpenses(); renderTravelSettlement(); updateTravelPayerOptions(); }
     if (page === 'building-info') { loadSettings(); renderOwnersList(); renderResidentsList(); }
     if (page === 'settings') { loadSettings(); }
+    if (page === 'super-admin') renderSuperAdminDashboard();
+    if (page === 'super-buildings') renderSuperBuildingsList();
+    if (page === 'super-users') renderSuperUsersList();
+    if (page === 'my-panel') renderMyPanel();
     if (page === 'units') { refreshOwnerDropdowns(); refreshResidentDropdowns(); }
     if (page === 'dashboard') renderDashboard();
 }
@@ -2257,12 +2495,23 @@ function showAppAfterLogin() {
     document.getElementById('sidebar')?.classList.remove('hidden-when-logged-out');
     document.querySelector('.mobile-header')?.classList.remove('hidden-when-logged-out');
     
+    // اعمال منوی مناسب بر اساس نقش
+    applyRoleBasedUI(currentProfile.role);
+    
     // نمایش پیام خوش‌آمد
     const prefix = currentProfile.gender === 'female' ? 'خانم' : 'آقای';
     showToast(`سلام ${prefix} ${currentProfile.name}! خوش آمدید 👋`, 'success');
     
-    // رفتن به داشبورد
-    navigateTo('dashboard');
+    // رفتن به صفحه مناسب بر اساس نقش
+    if (currentProfile.role === 'super_admin') {
+        navigateTo('super-admin');
+        renderSuperAdminDashboard();
+    } else if (currentProfile.role === 'manager') {
+        navigateTo('dashboard');
+    } else {
+        navigateTo('my-panel');
+        renderMyPanel();
+    }
 }
 // ==================== SPLASH ====================
 function hideSplashScreen() {
@@ -3739,6 +3988,430 @@ function clearAllData() {
     localStorage.removeItem('hesabyar_backups');
     location.reload();
 }
+// ==================== SUPER ADMIN FUNCTIONS ====================
+let newUserGenderValue = 'male';
+let editUserGenderValue = 'male';
+let allBuildings = [];
+let allUsers = [];
+
+// تنظیم منوی سایدبار بر اساس نقش
+function applyRoleBasedUI(role) {
+    document.getElementById('menuSuperAdmin').style.display = 'none';
+    document.getElementById('menuManager').style.display = 'none';
+    document.getElementById('menuResident').style.display = 'none';
+    
+    if (role === 'super_admin') {
+        document.getElementById('menuSuperAdmin').style.display = 'block';
+    } else if (role === 'manager') {
+        document.getElementById('menuManager').style.display = 'block';
+    } else {
+        // owner یا resident
+        document.getElementById('menuResident').style.display = 'block';
+    }
+}
+
+// ==================== LOAD DATA FROM SUPABASE ====================
+async function loadBuildingsFromSupabase() {
+    const { data, error } = await sb
+        .from('buildings')
+        .select('*')
+        .order('created_at', { ascending: false });
+    
+    if (error) {
+        console.error('Load buildings error:', error);
+        return [];
+    }
+    allBuildings = data || [];
+    return allBuildings;
+}
+
+async function loadUsersFromSupabase() {
+    const { data, error } = await sb
+        .from('profiles')
+        .select('*')
+        .order('created_at', { ascending: false });
+    
+    if (error) {
+        console.error('Load users error:', error);
+        return [];
+    }
+    allUsers = data || [];
+    return allUsers;
+}
+
+// ==================== SUPER ADMIN DASHBOARD ====================
+async function renderSuperAdminDashboard() {
+    await loadBuildingsFromSupabase();
+    await loadUsersFromSupabase();
+    
+    document.getElementById('statTotalBuildings').textContent = toPersianNum(allBuildings.length);
+    document.getElementById('statTotalUsers').textContent = toPersianNum(allUsers.length);
+    document.getElementById('statTotalManagers').textContent = toPersianNum(allUsers.filter(u => u.role === 'manager').length);
+    
+    // شمارش کل واحدها
+    const { count } = await sb.from('units').select('*', { count: 'exact', head: true });
+    document.getElementById('statTotalUnits').textContent = toPersianNum(count || 0);
+}
+
+// ==================== BUILDINGS ====================
+async function renderSuperBuildingsList() {
+    await loadBuildingsFromSupabase();
+    
+    const container = document.getElementById('superBuildingsList');
+    if (allBuildings.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">🏢</span>
+                <h3>هنوز ساختمونی ثبت نشده</h3>
+                <p>اولین ساختمون رو اضافه کن</p>
+                <div class="empty-hint" onclick="openAddBuildingModal()" style="cursor:pointer;">
+                    <i class="fas fa-plus"></i> افزودن ساختمون
+                </div>
+            </div>`;
+        return;
+    }
+    
+    container.innerHTML = allBuildings.map(b => {
+        const manager = allUsers.find(u => u.building_id === b.id && u.role === 'manager');
+        return `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon icon-primary"><i class="fas fa-city"></i></div>
+                    <div>
+                        <div class="list-item-title">${escapeHtml(b.name)}</div>
+                        <div class="list-item-subtitle">
+                            ${manager ? '👤 مدیر: ' + escapeHtml(manager.name) + ' — ' + escapeHtml(manager.phone) : '⚠️ بدون مدیر'}
+                            ${b.start_date ? ' • شروع: ' + b.start_date : ''}
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm btn-icon" onclick="openEditBuildingModal('${b.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm btn-icon" onclick="deleteBuilding('${b.id}')" title="حذف"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function openAddBuildingModal() {
+    document.getElementById('newBuildingName').value = '';
+    document.getElementById('newBuildingStartDate').value = '';
+    setTimeout(initDatePickers, 200);
+    openModal('addBuildingModal');
+}
+
+async function saveNewBuilding() {
+    const name = document.getElementById('newBuildingName').value.trim();
+    const startDate = document.getElementById('newBuildingStartDate').value.trim();
+    
+    if (!name) return showToast('نام ساختمون رو وارد کن', 'error');
+    
+    const { error } = await sb.from('buildings').insert({
+        name: name,
+        start_date: startDate || null,
+        created_by: currentProfile.id
+    });
+    
+    if (error) {
+        showToast('خطا در ذخیره: ' + error.message, 'error');
+        return;
+    }
+    
+    closeModal('addBuildingModal');
+    await renderSuperBuildingsList();
+    await renderSuperAdminDashboard();
+    showToast('✅ ساختمون اضافه شد', 'success');
+}
+
+function openEditBuildingModal(id) {
+    const b = allBuildings.find(x => x.id === id);
+    if (!b) return;
+    document.getElementById('editBuildingId').value = id;
+    document.getElementById('editBuildingName').value = b.name || '';
+    document.getElementById('editBuildingStartDate').value = b.start_date || '';
+    setTimeout(initDatePickers, 200);
+    openModal('editBuildingModal');
+}
+
+async function saveEditBuilding() {
+    const id = document.getElementById('editBuildingId').value;
+    const name = document.getElementById('editBuildingName').value.trim();
+    const startDate = document.getElementById('editBuildingStartDate').value.trim();
+    
+    if (!name) return showToast('نام ساختمون رو وارد کن', 'error');
+    
+    const { error } = await sb.from('buildings').update({
+        name: name,
+        start_date: startDate || null
+    }).eq('id', id);
+    
+    if (error) {
+        showToast('خطا: ' + error.message, 'error');
+        return;
+    }
+    
+    closeModal('editBuildingModal');
+    await renderSuperBuildingsList();
+    showToast('✅ ساختمون ویرایش شد', 'success');
+}
+
+async function deleteBuilding(id) {
+    const b = allBuildings.find(x => x.id === id);
+    if (!b) return;
+    
+    if (!confirm(`حذف «${b.name}»؟\n\nهشدار: همه واحدها، ساکنین، هزینه‌ها و شارژهای این ساختمون هم حذف میشن!`)) return;
+    if (!confirm('مطمئنی؟ این عمل برگشت‌پذیر نیست!')) return;
+    
+    const { error } = await sb.from('buildings').delete().eq('id', id);
+    
+    if (error) {
+        showToast('خطا: ' + error.message, 'error');
+        return;
+    }
+    
+    await renderSuperBuildingsList();
+    await renderSuperAdminDashboard();
+    showToast('🗑️ ساختمون حذف شد', 'warning');
+}
+
+// ==================== USERS ====================
+async function renderSuperUsersList() {
+    await loadUsersFromSupabase();
+    await loadBuildingsFromSupabase();
+    
+    const search = (document.getElementById('userSearchInput')?.value || '').trim().toLowerCase();
+    let filtered = allUsers;
+    if (search) {
+        filtered = allUsers.filter(u => 
+            (u.name && u.name.toLowerCase().includes(search)) ||
+            (u.phone && u.phone.includes(search))
+        );
+    }
+    
+    const container = document.getElementById('superUsersList');
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">👥</span>
+                <h3>${search ? 'کاربری پیدا نشد' : 'هنوز کاربری ثبت نشده'}</h3>
+            </div>`;
+        return;
+    }
+    
+    const roleNames = { 'super_admin': '👑 مدیر کل', 'manager': '👔 مدیر ساختمون', 'owner': '🏠 مالک', 'resident': '👤 ساکن' };
+    const roleColors = { 'super_admin': 'badge-warning', 'manager': 'badge-info', 'owner': 'badge-success', 'resident': 'badge-gray' };
+    
+    container.innerHTML = filtered.map(u => {
+        const building = allBuildings.find(b => b.id === u.building_id);
+        const prefix = u.gender === 'female' ? 'خانم' : 'آقای';
+        return `
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon ${u.role === 'super_admin' ? 'icon-warning' : u.role === 'manager' ? 'icon-info' : 'icon-success'}">
+                        <i class="fas ${u.role === 'super_admin' ? 'fa-crown' : u.role === 'manager' ? 'fa-user-tie' : 'fa-user'}"></i>
+                    </div>
+                    <div>
+                        <div class="list-item-title">${prefix} ${escapeHtml(u.name)}</div>
+                        <div class="list-item-subtitle">
+                            📱 ${escapeHtml(u.phone)}
+                            ${building ? ' • 🏢 ' + escapeHtml(building.name) : ''}
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+                    <span class="badge ${roleColors[u.role] || 'badge-gray'}">${roleNames[u.role] || u.role}</span>
+                    <div class="btn-group">
+                        <button class="btn btn-primary btn-sm btn-icon" onclick="openEditUserModal('${u.id}')" title="ویرایش"><i class="fas fa-edit"></i></button>
+                        ${u.role !== 'super_admin' ? `<button class="btn btn-danger btn-sm btn-icon" onclick="deleteUser('${u.id}')" title="حذف"><i class="fas fa-trash"></i></button>` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function openAddUserModal() {
+    document.getElementById('newUserName').value = '';
+    document.getElementById('newUserPhone').value = '';
+    document.getElementById('newUserRole').value = 'manager';
+    newUserGenderValue = 'male';
+    setNewUserGender('male');
+    setTimeout(initDatePickers, 200);
+    populateBuildingDropdown();
+    openModal('addUserModal');
+}
+
+function setNewUserGender(gender) {
+    newUserGenderValue = gender;
+    document.getElementById('newUserGenderMale').classList.toggle('active', gender === 'male');
+    document.getElementById('newUserGenderFemale').classList.toggle('active', gender === 'female');
+}
+
+function setEditUserGender(gender) {
+    editUserGenderValue = gender;
+    document.getElementById('editUserGenderMale').classList.toggle('active', gender === 'male');
+    document.getElementById('editUserGenderFemale').classList.toggle('active', gender === 'female');
+}
+
+async function populateBuildingDropdown() {
+    await loadBuildingsFromSupabase();
+    const sel = document.getElementById('newUserBuilding');
+    if (!sel) return;
+    if (allBuildings.length === 0) {
+        sel.innerHTML = '<option value="">— ابتدا ساختمون بساز —</option>';
+        return;
+    }
+    sel.innerHTML = allBuildings.map(b => `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join('');
+}
+
+async function saveNewUser() {
+    const name = document.getElementById('newUserName').value.trim();
+    const phone = document.getElementById('newUserPhone').value.trim();
+    const role = document.getElementById('newUserRole').value;
+    const buildingId = document.getElementById('newUserBuilding').value;
+    
+    if (!name) return showToast('نام رو وارد کن', 'error');
+    if (!phone || phone.length < 10) return showToast('شماره موبایل معتبر وارد کن', 'error');
+    if (!buildingId && role !== 'super_admin') return showToast('ساختمون رو انتخاب کن', 'error');
+    
+    const btn = event.target;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال ساخت...';
+    
+    try {
+        // صدا زدن Edge Function
+        const { data: { session } } = await sb.auth.getSession();
+        
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/create-user`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({
+                name: name,
+                phone: phone,
+                gender: newUserGenderValue,
+                role: role,
+                building_id: buildingId || null
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (!response.ok) {
+            showToast('خطا: ' + (result.error || 'خطای نامشخص'), 'error');
+            return;
+        }
+        
+        closeModal('addUserModal');
+        await renderSuperUsersList();
+        await renderSuperAdminDashboard();
+        showToast('✅ کاربر با موفقیت ساخته شد', 'success');
+        
+    } catch (e) {
+        console.error(e);
+        showToast('خطا در ارتباط با سرور', 'error');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-check"></i> ایجاد کاربر';
+    }
+}
+
+function openEditUserModal(id) {
+    const u = allUsers.find(x => x.id === id);
+    if (!u) return;
+    document.getElementById('editUserId').value = id;
+    document.getElementById('editUserName').value = u.name || '';
+    document.getElementById('editUserPhone').value = u.phone || '';
+    editUserGenderValue = u.gender || 'male';
+    setEditUserGender(editUserGenderValue);
+    openModal('editUserModal');
+}
+
+async function saveEditUser() {
+    const id = document.getElementById('editUserId').value;
+    const name = document.getElementById('editUserName').value.trim();
+    const phone = document.getElementById('editUserPhone').value.trim();
+    
+    if (!name) return showToast('نام رو وارد کن', 'error');
+    if (!phone || phone.length < 10) return showToast('شماره معتبر وارد کن', 'error');
+    
+    const { error } = await sb.from('profiles').update({
+        name: name,
+        phone: phone,
+        gender: editUserGenderValue
+    }).eq('id', id);
+    
+    if (error) {
+        showToast('خطا: ' + error.message, 'error');
+        return;
+    }
+    
+    closeModal('editUserModal');
+    await renderSuperUsersList();
+    showToast('✅ کاربر ویرایش شد', 'success');
+}
+
+async function deleteUser(id) {
+    const u = allUsers.find(x => x.id === id);
+    if (!u) return;
+    if (!confirm(`حذف «${u.name}»؟`)) return;
+    
+    // فقط از profiles حذف می‌کنیم (auth.users بمونه)
+    const { error } = await sb.from('profiles').delete().eq('id', id);
+    
+    if (error) {
+        showToast('خطا: ' + error.message, 'error');
+        return;
+    }
+    
+    await renderSuperUsersList();
+    await renderSuperAdminDashboard();
+    showToast('🗑️ کاربر حذف شد', 'warning');
+}
+
+// ==================== RESIDENT PANEL ====================
+async function renderMyPanel() {
+    const prefix = currentProfile.gender === 'female' ? 'خانم' : 'آقای';
+    const roleNames = { 'manager': 'مدیر ساختمون', 'owner': 'مالک', 'resident': 'ساکن' };
+    
+    document.getElementById('myPanelGreeting').textContent = `سلام ${prefix} ${currentProfile.name}!`;
+    document.getElementById('myPanelRole').textContent = `${roleNames[currentProfile.role] || 'کاربر'} — 📱 ${currentProfile.phone}`;
+    
+    const container = document.getElementById('myPanelContent');
+    
+    if (!currentProfile.building_id) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <span class="emoji">🏢</span>
+                <h3>هنوز به ساختمونی متصل نیستی</h3>
+                <p>با مدیر ساختمون تماس بگیر</p>
+            </div>`;
+        return;
+    }
+    
+    const { data: building } = await sb.from('buildings').select('*').eq('id', currentProfile.building_id).single();
+    
+    let html = `
+        <div class="card">
+            <div class="card-header"><div class="card-title"><i class="fas fa-city icon-primary"></i> ساختمون</div></div>
+            <div class="list-item">
+                <div class="list-item-info">
+                    <div class="list-item-icon icon-primary"><i class="fas fa-building"></i></div>
+                    <div>
+                        <div class="list-item-title">${escapeHtml(building?.name || '—')}</div>
+                        <div class="list-item-subtitle">مدیر: ${escapeHtml(building?.manager_name || '—')}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
+    
 // ==================== AUTO LOGIN ====================
 async function checkAutoLogin() {
     const saved = localStorage.getItem(USER_KEY);
