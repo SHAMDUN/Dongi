@@ -1944,8 +1944,8 @@ function loadState() {
 // ==================== SUPABASE ====================
 const SUPABASE_URL = 'https://iwkwwulnvbmrgilnfvfd.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5AlCDCG5lMA2F9PsjxYENA_3tjy39tD';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    
 // کاربر فعلی
 let currentUser = null;
 let currentProfile = null;
@@ -2183,7 +2183,7 @@ async function loginWithPhone(phone) {
         const password = 'Hesabyar@2026';  // رمز پیش‌فرض برای همه
         
         // تلاش برای ورود
-        const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+        const { data: authData, error: authError } = await sb.auth.signInWithPassword({
             email: email,
             password: password
         });
@@ -2195,15 +2195,11 @@ async function loginWithPhone(phone) {
         }
         
         // گرفتن پروفایل از جدول profiles
-        const { data: profileData, error: profileError } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', authData.user.id)
-            .single();
+        const { data: profileData, error: profileError } = await sb.from('profiles').select('*').eq('id', authData.user.id).single();
         
         if (profileError || !profileData) {
             showToast('اطلاعات کاربر پیدا نشد', 'error');
-            await supabase.auth.signOut();
+            await sb.auth.signOut();
             return false;
         }
         
@@ -3752,15 +3748,11 @@ async function checkAutoLogin() {
         const userData = JSON.parse(saved);
         
         // چک کن سشن فعلی Supabase هست یا نه
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await sb.auth.getSession();
         
         if (session && session.user) {
             // سشن موجوده — اطلاعات پروفایل رو دوباره بگیر
-            const { data: profileData } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', session.user.id)
-                .single();
+            const { data: profileData } = await sb.from('profiles').select('*').eq('id', session.user.id).single();
             
             if (profileData) {
                 currentUser = session.user;
