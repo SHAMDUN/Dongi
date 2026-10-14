@@ -1288,27 +1288,9 @@ html.dark-mode .share-info-box {
         <div id="residentsList" style="margin-top:16px;"></div>
     </div>
 
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-question-circle icon-info"></i> راهنما</div></div>
-        <button class="btn btn-primary btn-block" onclick="showOnboarding()" style="margin-bottom:10px;">
-            <i class="fas fa-graduation-cap"></i> راهنمای اپ رو دوباره ببین
-        </button>
-    </div>
-
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-download icon-primary"></i> نصب اپلیکیشن</div></div>
-        <button class="btn btn-primary btn-block" onclick="manualInstall()" id="manualInstallBtn" style="margin-bottom:10px;">
-            <i class="fas fa-mobile-alt"></i> نصب روی گوشی
-        </button>
-        <div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div>
-    </div>
-
-    <div class="card">
-        <div class="card-header"><div class="card-title"><i class="fas fa-database icon-warning"></i> داده‌ها</div></div>
-        <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
-        <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
-    </div>
-</section>
+    
+    
+    </section>
     <!-- SETTINGS -->
 <section class="page" id="page-settings">
     <div class="page-title"><i class="fas fa-cog"></i> تنظیمات</div>
@@ -1346,11 +1328,22 @@ html.dark-mode .share-info-box {
         <button class="btn btn-outline btn-block" onclick="exportData()" style="margin-bottom:10px;"><i class="fas fa-download"></i> پشتیبان‌گیری (JSON)</button>
         <button class="btn btn-danger btn-block" onclick="clearAllData()"><i class="fas fa-trash"></i> پاک کردن همه داده‌ها</button>
     </div>
-</section>
 
-</main>
-</div>
-</div>
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-question-circle icon-info"></i> راهنما</div></div>
+        <button class="btn btn-primary btn-block" onclick="showOnboarding()" style="margin-bottom:10px;">
+            <i class="fas fa-graduation-cap"></i> راهنمای اپ رو دوباره ببین
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><div class="card-title"><i class="fas fa-download icon-primary"></i> نصب اپلیکیشن</div></div>
+        <button class="btn btn-primary btn-block" onclick="manualInstall()" id="manualInstallBtn" style="margin-bottom:10px;">
+            <i class="fas fa-mobile-alt"></i> نصب روی گوشی
+        </button>
+        <div id="installStatus" style="font-size:11px; color:var(--gray-500); text-align:center; margin-top:8px;"></div>
+    </div>
+</section>
 
 <!-- MODALS -->
 <div class="modal-overlay" id="paymentModal">
