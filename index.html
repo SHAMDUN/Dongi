@@ -1129,17 +1129,22 @@ function toPersianDateString() {
 // ==================== DATE UTILS ====================
 function comparePersianDates(date1, date2) {
     if (!date1 || !date2) return 0;
-    const d1 = String(date1).split('/').map(Number);
-    const d2 = String(date2).split('/').map(Number);
+    // ⭐ تبدیل اعداد فارسی به انگلیسی
+    const toEn = (s) => String(s).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+    const d1 = toEn(date1).split('/').map(Number);
+    const d2 = toEn(date2).split('/').map(Number);
     if (d1.length !== 3 || d2.length !== 3) return 0;
+    if (d1.some(isNaN) || d2.some(isNaN)) return 0;
     for (let i = 0; i < 3; i++) { if (d1[i] !== d2[i]) return d1[i] - d2[i]; }
     return 0;
 }
 function daysBetweenPersian(date1, date2) {
     if (!date1 || !date2) return 0;
     try {
-        const d1 = String(date1).split('/').map(Number);
-        const d2 = String(date2).split('/').map(Number);
+        const toEn = (s) => String(s).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+        const d1 = toEn(date1).split('/').map(Number);
+        const d2 = toEn(date2).split('/').map(Number);
+        if (d1.some(isNaN) || d2.some(isNaN)) return 0;
         const p1 = new persianDate([d1[0], d1[1], d1[2]]);
         const p2 = new persianDate([d2[0], d2[1], d2[2]]);
         return Math.round((p2.valueOf() - p1.valueOf()) / (1000 * 60 * 60 * 24));
