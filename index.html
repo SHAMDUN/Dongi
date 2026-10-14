@@ -2552,7 +2552,14 @@ function initPart1() {
     handleChargePeriodChange();
     updateSplitMethodHelp();
     setTimeout(initDatePickers, 500);
+    
     loadProfilesCache().then(() => {
+        // ⭐ ست کردن state از Supabase
+        const allProfiles = Object.values(cachedProfiles);
+        state.owners = allProfiles.filter(p => p.role === 'owner');
+        state.residents = allProfiles.filter(p => p.role === 'resident' || p.role === 'owner');
+        saveState();
+        
         refreshOwnerDropdowns();
         refreshResidentDropdowns();
         renderOwnersList();
@@ -2565,12 +2572,14 @@ function initPart1() {
         renderTravelSettlement();
         updateTravelPayerOptions();
         renderDashboard();
+        renderAllJournalViews();
     });
+    
     updateOnlineStatus();
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
 }
-</script>
+</script>    
     <script>
 // ==================== JOURNAL TABS ====================
 let currentTab = 'matrix';
@@ -2585,7 +2594,16 @@ function switchTab(tab) {
     if (tab === 'travel') { tabs.travel.classList.add('active-danger'); views.travel.style.display = 'block'; }
 }
 function renderAllJournalViews() {
-    renderMatrixTable(); renderSummaryTable(); renderPersonsTable(); renderTravelJournalTable();
+    // ⭐ قبل از رندر، state رو از Supabase پر کن
+    loadProfilesCache().then(() => {
+        const allProfiles = Object.values(cachedProfiles);
+        state.owners = allProfiles.filter(p => p.role === 'owner');
+        state.residents = allProfiles.filter(p => p.role === 'resident' || p.role === 'owner');
+        renderMatrixTable();
+        renderSummaryTable();
+        renderPersonsTable();
+        renderTravelJournalTable();
+    });
 }
 function computeUnitTotalShares() {
     const shares = {};
@@ -2726,16 +2744,69 @@ function exportJournalExcel(type) {
     if (state.units.length === 0 && state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const wb = XLSX.utils.book_new();
     const breakdown = computeUnitSharesBreakdown();
-    const summaryData = [{ 'عنوان': 'گزارش مالی ساختمان' }, { 'عنوان': 'نام ساختمان', 'مقدار': state.settings.buildingName }, { 'عنوان': 'تاریخ گزارش', 'مقدار': toPersianDateString() }];
+    const persons = buildPersonsMap();
+    
+    // شیت ۱: خلاصه کل
+    const summaryData = [
+        { 'عنوان': 'گزارش مالی ساختمان', 'مقدار': '' },
+        { 'عنوان': 'نام ساختمان', 'مقدار': state.settings.buildingName },
+        { 'عنوان': 'تاریخ گزارش', 'مقدار': toPersianDateString() },
+        {},
+        { 'عنوان': 'تعداد واحدها', 'مقدار': state.units.length },
+        { 'عنوان': 'جمع کل هزینه‌ها', 'مقدار': state.expenses.reduce((s, e) => s + e.amount, 0) },
+        { 'عنوان': 'جمع کل پرداختی شارژ', 'مقدار': state.units.reduce((s, u) => s + getUnitTotalPaid(u), 0) }
+    ];
     XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(summaryData), 'خلاصه کل');
+    
+    // شیت ۲: دفتر ماتریسی
+    if (state.expenses.length > 0) {
+        const matrixData = state.expenses.map((exp, i) => {
+            const row = { 'ردیف': i + 1, 'عنوان هزینه': exp.typeName, 'تاریخ هزینه': exp.date, 'روش تقسیم': getMethodLabel(exp.splitMethod).replace(/[^\u0600-\u06FF\s]/g, '').trim(), 'مبلغ کل': exp.amount };
+            state.units.forEach(u => { row['سهم ' + u.name] = exp.shares && exp.shares[u.id] ? Math.round(exp.shares[u.id]) : 0; });
+            return row;
+        });
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(matrixData), 'دفتر ماتریسی');
+    }
+    
+    // شیت ۳: خلاصه واحدها
     if (state.units.length > 0) {
         const unitData = state.units.map((u, i) => {
             const paid = getUnitTotalPaid(u);
             const totalShare = breakdown[u.id].total;
-            return { 'ردیف': i + 1, 'واحد': u.name, 'ساکن': getResidentName(u.residentId), 'مالک': getOwnerName(u.ownerId), 'متراژ': u.area, 'جمع سهم': Math.round(totalShare), 'پرداختی': paid, 'مانده': Math.round(paid - totalShare) };
+            return {
+                'ردیف': i + 1, 'واحد': u.name, 'ساکن': getResidentName(u.residentId), 'مالک': getOwnerName(u.ownerId),
+                'متراژ': u.area, 'نفرات': u.residents,
+                'سهم ساکن': Math.round(breakdown[u.id].resident), 'سهم مالک': Math.round(breakdown[u.id].owner),
+                'جمع سهم': Math.round(totalShare), 'پرداختی': paid, 'مانده': Math.round(paid - totalShare),
+                'وضعیت': (paid - totalShare) >= 0 ? 'طلبکار/تسویه' : 'بدهکار'
+            };
         });
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(unitData), 'خلاصه واحدها');
+        
+        // شیت ۴: حساب همسایگان
+        const personsData = Object.keys(persons).map((key, i) => {
+            const person = persons[key];
+            let ownerShare = 0, residentShare = 0, paid = 0;
+            if (person.ownerId) {
+                state.units.forEach(u => { if (u.ownerId === person.ownerId) ownerShare += breakdown[u.id].owner; });
+                paid += getOwnerTotalPaid(person.ownerId);
+            }
+            if (person.residentId) {
+                state.units.forEach(u => { if (u.residentId === person.residentId) residentShare += breakdown[u.id].resident; });
+                paid += getResidentTotalPaid(person.residentId);
+            }
+            const totalShare = ownerShare + residentShare;
+            const balance = paid - totalShare;
+            return {
+                'ردیف': i + 1, 'نام همسایه': person.name,
+                'سهم مالکانه': Math.round(ownerShare), 'سهم ساکنانه': Math.round(residentShare),
+                'جمع سهم': Math.round(totalShare), 'پرداختی': paid,
+                'مانده': Math.round(balance), 'وضعیت': balance >= 0 ? 'طلبکار' : 'بدهکار'
+            };
+        });
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(personsData), 'حساب همسایگان');
     }
+    
     XLSX.writeFile(wb, 'دفتر-حسابداری.xlsx');
     showToast('✅ دانلود شد', 'success');
 }
@@ -2805,7 +2876,70 @@ function exportExpensesPDF() {
     htmlToPDF(generateReportHTML('گزارش هزینه‌ها', `${state.settings.buildingName}`, content), 'گزارش-هزینه‌ها.pdf');
 }
 function exportTravelPDF() { exportExpensesPDF(); }
-function exportJournalPDF(type) { if (type === 'travel') return exportTravelPDF(); exportExpensesPDF(); }
+function exportJournalPDF(type) {
+    if (type === 'travel') return exportTravelPDF();
+    if (state.units.length === 0 && state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
+    const breakdown = computeUnitSharesBreakdown();
+    const persons = buildPersonsMap();
+    const totalExp = state.expenses.reduce((s, e) => s + e.amount, 0);
+    const totalPaid = state.units.reduce((s, u) => s + getUnitTotalPaid(u), 0);
+    
+    let content = `<div style="background:linear-gradient(135deg,#eef2ff,#e0e7ff); padding:15px; border-radius:10px; margin-bottom:20px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div><strong>تعداد واحدها:</strong> ${toPersianNum(state.units.length)}</div>
+            <div><strong>تعداد ساکنان:</strong> ${toPersianNum(state.units.reduce((s,u)=>s+(u.residents||0),0))}</div>
+            <div><strong>جمع کل هزینه‌ها:</strong> ${formatMoney(totalExp)}</div>
+            <div><strong>جمع پرداختی شارژ:</strong> ${formatMoney(totalPaid)}</div>
+        </div>
+    </div>`;
+    
+    // دفتر ماتریسی
+    content += `<h2 style="font-size:14px; margin:15px 0 10px 0;">📊 دفتر ماتریسی — سهم هر واحد</h2>`;
+    content += `<table style="${tableStyle()} font-size:9px;"><thead><tr><th style="${thStyle()}">#</th><th style="${thStyle()}">هزینه</th><th style="${thStyle()}">تاریخ</th><th style="${thStyle()}">مبلغ کل</th>`;
+    state.units.forEach(u => { content += `<th style="${thStyle()}">${escapeHtml(u.name)}</th>`; });
+    content += `</tr></thead><tbody>`;
+    state.expenses.forEach((exp, i) => {
+        content += `<tr><td style="${tdStyle()}">${toPersianNum(i + 1)}</td><td style="${tdStyle()}; font-weight:700; font-size:10px;">${escapeHtml(exp.typeName)}</td><td style="${tdStyle()}; font-size:9px;">${exp.date}</td><td style="${tdStyle()}; color:#dc2626; font-weight:700;">${formatNumber(exp.amount)}</td>`;
+        state.units.forEach(u => { const share = exp.shares && exp.shares[u.id] ? exp.shares[u.id] : 0; content += `<td style="${tdStyle()}; color:#6366f1;">${formatNumber(share)}</td>`; });
+        content += `</tr>`;
+    });
+    content += `<tr><td colspan="3" style="${totalTdStyle()}">جمع کل</td><td style="${totalTdStyle()}; color:#dc2626;">${formatNumber(totalExp)}</td>`;
+    state.units.forEach(u => { content += `<td style="${totalTdStyle()}">${formatNumber(breakdown[u.id].total)}</td>`; });
+    content += `</tr></tbody></table>`;
+    
+    // خلاصه واحدها
+    content += `<h2 style="font-size:14px; margin:20px 0 10px 0;">🏠 خلاصه وضعیت واحدها</h2>`;
+    content += `<table style="${tableStyle()}"><thead><tr><th style="${thStyle()}">واحد</th><th style="${thStyle()}">ساکن</th><th style="${thStyle()}">مالک</th><th style="${thStyle()}">سهم ساکن</th><th style="${thStyle()}">سهم مالک</th><th style="${thStyle()}">جمع</th><th style="${thStyle()}">پرداختی</th><th style="${thStyle()}">مانده</th></tr></thead><tbody>`;
+    state.units.forEach(u => {
+        const paid = getUnitTotalPaid(u);
+        const totalShare = breakdown[u.id].total;
+        const balance = paid - totalShare;
+        content += `<tr><td style="${tdStyle()}; font-weight:700;">${escapeHtml(u.name)}</td><td style="${tdStyle()}">${escapeHtml(getResidentName(u.residentId))}</td><td style="${tdStyle()}">${escapeHtml(getOwnerName(u.ownerId))}</td><td style="${tdStyle()}; color:#9d174d;">${formatNumber(breakdown[u.id].resident)}</td><td style="${tdStyle()}; color:#92400e;">${formatNumber(breakdown[u.id].owner)}</td><td style="${tdStyle()}; color:#6366f1; font-weight:700;">${formatNumber(totalShare)}</td><td style="${tdStyle()}; color:#059669;">${formatNumber(paid)}</td><td style="${tdStyle()}; font-weight:800; color:${balance >= 0 ? '#059669' : '#dc2626'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td></tr>`;
+    });
+    content += `</tbody></table>`;
+    
+    // حساب همسایگان
+    content += `<h2 style="font-size:14px; margin:20px 0 10px 0;">🤝 حساب همسایگان</h2>`;
+    content += `<table style="${tableStyle()}"><thead><tr><th style="${thStyle()}">نام</th><th style="${thStyle()}">مالکانه</th><th style="${thStyle()}">ساکنانه</th><th style="${thStyle()}">جمع</th><th style="${thStyle()}">پرداختی</th><th style="${thStyle()}">مانده</th></tr></thead><tbody>`;
+    Object.keys(persons).forEach(key => {
+        const person = persons[key];
+        let ownerShare = 0, residentShare = 0, paid = 0;
+        if (person.ownerId) {
+            state.units.forEach(u => { if (u.ownerId === person.ownerId) ownerShare += breakdown[u.id].owner; });
+            paid += getOwnerTotalPaid(person.ownerId);
+        }
+        if (person.residentId) {
+            state.units.forEach(u => { if (u.residentId === person.residentId) residentShare += breakdown[u.id].resident; });
+            paid += getResidentTotalPaid(person.residentId);
+        }
+        const totalShare = ownerShare + residentShare;
+        const balance = paid - totalShare;
+        content += `<tr><td style="${tdStyle()}; font-weight:700;">${escapeHtml(person.name)}</td><td style="${tdStyle()}; color:#92400e;">${formatNumber(ownerShare)}</td><td style="${tdStyle()}; color:#9d174d;">${formatNumber(residentShare)}</td><td style="${tdStyle()}; color:#6366f1; font-weight:700;">${formatNumber(totalShare)}</td><td style="${tdStyle()}; color:#059669;">${formatNumber(paid)}</td><td style="${tdStyle()}; font-weight:800; color:${balance >= 0 ? '#059669' : '#dc2626'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td></tr>`;
+    });
+    content += `</tbody></table>`;
+    
+    htmlToPDF(generateReportHTML('گزارش مالی ساختمان', `${state.settings.buildingName} — ${toPersianDateString()}`, content), 'گزارش-مالی-ساختمان.pdf');
+}
 
 // ==================== EDIT FUNCTIONS ====================
 function openEditModal(title, fieldsHTML, onSave) {
