@@ -1660,10 +1660,31 @@ function refreshPaymentPayerDropdown() {
     sel.innerHTML = html;
     if (current) sel.value = current;
 }
-function getOwnerById(id) { return state.owners.find(o => o.id === id); }
-function getResidentById(id) { return state.residents.find(r => r.id === id); }
-function getOwnerName(id) { const o = getOwnerById(id); return o ? o.name : 'نامشخص'; }
-function getResidentName(id) { const r = getResidentById(id); return r ? r.name : 'نامشخص'; }
+ // ⭐ کش کاربران از Supabase
+let cachedProfiles = {};
+async function loadProfilesCache() {
+    const { data } = await sb.from('profiles').select('id, name, phone, role, gender, building_id');
+    cachedProfiles = {};
+    (data || []).forEach(p => cachedProfiles[p.id] = p);
+    return cachedProfiles;
+}
+function getProfileById(id) {
+    return cachedProfiles[id] || null;
+}
+function getOwnerById(id) { return getProfileById(id); }
+function getResidentById(id) { return getProfileById(id); }
+function getOwnerName(id) {
+    const o = getProfileById(id);
+    if (!o) return 'نامشخص';
+    const prefix = o.gender === 'female' ? 'خانم' : 'آقای';
+    return `${prefix} ${o.name}`;
+}
+function getResidentName(id) {
+    const r = getProfileById(id);
+    if (!r) return 'نامشخص';
+    const prefix = r.gender === 'female' ? 'خانم' : 'آقای';
+    return `${prefix} ${r.name}`;
+}   
 function getPayerName(payerCode) {
     if (!payerCode) return '—';
     const [type, id] = payerCode.split(':');
@@ -1691,6 +1712,7 @@ function addUnit() {
     if (!ownerId) return showToast('مالک را انتخاب کنید', 'error');
     state.units.push({ id: uid(), name, residentId, isTenant, ownerId, area, residents, payments: [], createdAt: toPersianDateString() });
     saveState();
+    await loadProfilesCache();
     ['unitName','unitArea'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('unitResidents').value = '1';
     ['unitResidentSelect','unitOwnerSelect','unitOwnerSelfSelect'].forEach(id => document.getElementById(id).value = '');
@@ -2487,6 +2509,7 @@ async function checkAutoLogin() {
 // ==================== INIT ====================
 function initPart1() {
     loadState();
+    await loadProfilesCache();
     loadSettings();
     applyTheme(getThemeMode());
     handleChargePeriodChange();
