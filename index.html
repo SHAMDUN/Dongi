@@ -2822,15 +2822,12 @@ function exportJournalExcel(type) {
         // شیت ۴: حساب همسایگان
         const personsData = Object.keys(persons).map((key, i) => {
             const person = persons[key];
-            let ownerShare = 0, residentShare = 0, paid = 0;
-            if (person.ownerId) {
-                state.units.forEach(u => { if (u.ownerId === person.ownerId) ownerShare += breakdown[u.id].owner; });
-                paid += getOwnerTotalPaid(person.ownerId);
-            }
-            if (person.residentId) {
-                state.units.forEach(u => { if (u.residentId === person.residentId) residentShare += breakdown[u.id].resident; });
-                paid += getResidentTotalPaid(person.residentId);
-            }
+            let ownerShare = 0, residentShare = 0;
+            state.units.forEach(u => {
+                if (u.ownerId === person.id) ownerShare += breakdown[u.id].owner;
+                if (u.residentId === person.id) residentShare += breakdown[u.id].resident;
+            });
+            const paid = getPayerTotalPaid(person.id);
             const totalShare = ownerShare + residentShare;
             const balance = paid - totalShare;
             return {
@@ -2959,15 +2956,12 @@ function exportJournalPDF(type) {
     content += `<table style="${tableStyle()}"><thead><tr><th style="${thStyle()}">نام</th><th style="${thStyle()}">مالکانه</th><th style="${thStyle()}">ساکنانه</th><th style="${thStyle()}">جمع</th><th style="${thStyle()}">پرداختی</th><th style="${thStyle()}">مانده</th></tr></thead><tbody>`;
     Object.keys(persons).forEach(key => {
         const person = persons[key];
-        let ownerShare = 0, residentShare = 0, paid = 0;
-        if (person.ownerId) {
-            state.units.forEach(u => { if (u.ownerId === person.ownerId) ownerShare += breakdown[u.id].owner; });
-            paid += getOwnerTotalPaid(person.ownerId);
-        }
-        if (person.residentId) {
-            state.units.forEach(u => { if (u.residentId === person.residentId) residentShare += breakdown[u.id].resident; });
-            paid += getResidentTotalPaid(person.residentId);
-        }
+        let ownerShare = 0, residentShare = 0;
+        state.units.forEach(u => {
+            if (u.ownerId === person.id) ownerShare += breakdown[u.id].owner;
+            if (u.residentId === person.id) residentShare += breakdown[u.id].resident;
+        });
+        const paid = getPayerTotalPaid(person.id);
         const totalShare = ownerShare + residentShare;
         const balance = paid - totalShare;
         content += `<tr><td style="${tdStyle()}; font-weight:700;">${escapeHtml(person.name)}</td><td style="${tdStyle()}; color:#92400e;">${formatNumber(ownerShare)}</td><td style="${tdStyle()}; color:#9d174d;">${formatNumber(residentShare)}</td><td style="${tdStyle()}; color:#6366f1; font-weight:700;">${formatNumber(totalShare)}</td><td style="${tdStyle()}; color:#059669;">${formatNumber(paid)}</td><td style="${tdStyle()}; font-weight:800; color:${balance >= 0 ? '#059669' : '#dc2626'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td></tr>`;
