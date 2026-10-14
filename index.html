@@ -2756,26 +2756,28 @@ function renderTravelJournalTable() {
     html += `<tr class="total-row"><td colspan="5">جمع کل</td><td>${formatNumber(total)}</td></tr></tbody></table></div>`;
     container.innerHTML = html;
 }
-function exportExpensesExcel() {
+async function exportExpensesExcel() {
     if (state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const data = state.expenses.map((e, i) => ({ 'ردیف': i + 1, 'عنوان هزینه': e.typeName, 'مبلغ': e.amount, 'تاریخ هزینه': e.date, 'تاریخ پرداخت': e.payDate, 'پرداخت‌کننده': e.payer, 'روش تقسیم': getMethodLabel(e.splitMethod).replace(/[^\u0600-\u06FF\s]/g, '').trim() }));
     data.push({}); data.push({ 'ردیف': 'جمع کل', 'مبلغ': state.expenses.reduce((s, e) => s + e.amount, 0) });
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'هزینه‌ها');
-    XLSX.writeFile(wb, 'هزینه‌های-ساختمان.xlsx');
-    showToast('✅ دانلود شد', 'success');
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    await downloadFileUniversal(blob, 'هزینه‌های-ساختمان.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 }
-function exportTravelExcel() {
+async function exportTravelExcel() {
     if (state.travelExpenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const data = state.travelExpenses.map((e, i) => ({ 'ردیف': i + 1, 'عنوان': e.title, 'دسته': e.categoryName, 'مبلغ': e.amount, 'تاریخ': e.date, 'پرداخت‌کننده': e.payer }));
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'سفر');
-    XLSX.writeFile(wb, 'هزینه‌های-سفر.xlsx');
-    showToast('✅ دانلود شد', 'success');
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    await downloadFileUniversal(blob, 'هزینه‌های-سفر.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 }
-function exportJournalExcel(type) {
+async function exportJournalExcel(type) {
     if (type === 'travel') return exportTravelJournalExcel();
     if (state.units.length === 0 && state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
     const wb = XLSX.utils.book_new();
@@ -2839,11 +2841,11 @@ function exportJournalExcel(type) {
         });
         XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(personsData), 'حساب همسایگان');
     }
-    
-    XLSX.writeFile(wb, 'دفتر-حسابداری.xlsx');
-    showToast('✅ دانلود شد', 'success');
+    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    await downloadFileUniversal(blob, 'دفتر-حسابداری.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 }
-function exportTravelJournalExcel() { exportTravelExcel(); }
+async function exportTravelJournalExcel() { exportTravelExcel(); }
 
 // ==================== PDF ====================
 function generateReportHTML(title, subtitle, contentHTML) {
@@ -2853,6 +2855,29 @@ function tableStyle() { return `width:100%; border-collapse:collapse; font-size:
 function thStyle() { return `background:#eef2ff; padding:8px 6px; border:1px solid #c7d2fe; color:#3730a3; font-weight:700; text-align:center;`; }
 function tdStyle() { return `padding:6px; border:1px solid #e2e8f0; text-align:center;`; }
 function totalTdStyle() { return `padding:8px 6px; border:1px solid #c7d2fe; text-align:center; background:#eef2ff; font-weight:800; color:#3730a3;`; }
+async function downloadFileUniversal(blob, filename, mimeType) {
+    if (navigator.canShare) {
+        try {
+            const file = new File([blob], filename, { type: mimeType });
+            if (navigator.canShare({ files: [file] })) {
+                await navigator.share({ files: [file], title: filename });
+                showToast('✅ فایل آماده شد', 'success');
+                return;
+            }
+        } catch(e) {
+            if (e.name === 'AbortError') return;
+        }
+    }
+    // fallback
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+    showToast('✅ دانلود شد', 'success');
+}        
 async function htmlToPDF(html, filename) {
     showToast('⏳ در حال ساخت PDF...', 'default');
     if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch(e) {} }
@@ -2891,8 +2916,8 @@ async function htmlToPDF(html, filename) {
             position += sliceHeight;
             pageNum++;
         }
-        pdf.save(filename);
-        showToast('✅ PDF دانلود شد', 'success');
+        const pdfBlob = pdf.output('blob');
+        await downloadFileUniversal(pdfBlob, filename, 'application/pdf');
     } catch(e) {
         console.error(e);
         showToast('خطا در ساخت PDF', 'error');
