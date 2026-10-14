@@ -1805,13 +1805,13 @@ function deletePayment(unitId, paymentId) {
     showToast('🗑️ حذف شد', 'warning');
 }
 function getUnitTotalPaid(unit) { return (unit.payments || []).reduce((s, p) => s + (p.amount || 0), 0); }
-function getPayerTotalPaid(payerCode) {
+function getPayerTotalPaid(userId) {
     let total = 0;
-    state.units.forEach(u => { (u.payments || []).forEach(p => { if (p.payer === payerCode) total += p.amount || 0; }); });
+    state.units.forEach(u => { (u.payments || []).forEach(p => { if (p.payer === userId) total += p.amount || 0; }); });
     return total;
 }
-function getResidentTotalPaid(residentId) { return getPayerTotalPaid('resident:' + residentId); }
-function getOwnerTotalPaid(ownerId) { return getPayerTotalPaid('owner:' + ownerId); }
+function getResidentTotalPaid(userId) { return getPayerTotalPaid(userId); }
+function getOwnerTotalPaid(userId) { return getPayerTotalPaid(userId); }
 function getUnitTotalCharge(unit) {
     let total = 0;
     Object.values(state.charges).forEach(charge => {
@@ -2629,13 +2629,15 @@ function computeUnitSharesBreakdown() {
 }
 function buildPersonsMap() {
     const persons = {};
-    state.owners.forEach(o => { persons['owner:' + o.id] = { name: o.name, ownerId: o.id, residentId: null }; });
-    state.residents.forEach(r => {
-        if (r.linkedOwnerId) {
-            const key = 'owner:' + r.linkedOwnerId;
-            if (persons[key]) persons[key].residentId = r.id;
-            else persons['resident:' + r.id] = { name: r.name, ownerId: null, residentId: r.id };
-        } else persons['resident:' + r.id] = { name: r.name, ownerId: null, residentId: r.id };
+    Object.values(cachedProfiles).forEach(p => {
+        if (p.role === 'super_admin' || p.role === 'manager') return;
+        persons[p.id] = {
+            id: p.id,
+            name: p.name,
+            gender: p.gender,
+            ownerId: p.role === 'owner' ? p.id : null,
+            residentId: p.id
+        };
     });
     return persons;
 }
@@ -2683,31 +2685,65 @@ function renderSummaryTable() {
 function renderPersonsTable() {
     const container = document.getElementById('personsTable');
     if (!container) return;
-    if (state.units.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">🤝</span><h3>هنوز واحدی ثبت نشده</h3></div>`; return; }
+    if (state.units.length === 0) {
+        container.innerHTML = `<div class="empty-state"><span class="emoji">🤝</span><h3>هنوز واحدی ثبت نشده</h3></div>`;
+        return;
+    }
     const breakdown = computeUnitSharesBreakdown();
     const persons = buildPersonsMap();
-    let html = `<div class="table-scroll"><table class="data-table"><thead><tr><th>#</th><th>نام همسایه</th><th>سهم مالکانه</th><th>سهم ساکنانه</th><th>جمع سهم</th><th>پرداختی واقعی</th><th>مانده</th><th>وضعیت</th></tr></thead><tbody>`;
+    
+    let html = `<div class="table-scroll"><table class="data-table"><thead><tr>
+        <th>#</th><th>نام همسایه</th><th>سهم مالکانه</th><th>سهم ساکنانه</th><th>جمع سهم</th>
+        <th>پرداختی واقعی</th><th>مانده</th><th>وضعیت</th>
+    </tr></thead><tbody>`;
+    
     let idx = 1;
     let totalOwnerShareAll = 0, totalResidentShareAll = 0, totalPaidAll = 0;
-    Object.keys(persons).forEach(key => {
-        const person = persons[key];
-        let ownerShare = 0, residentShare = 0, paid = 0;
-        if (person.ownerId) {
-            state.units.forEach(u => { if (u.ownerId === person.ownerId) ownerShare += breakdown[u.id].owner; });
-            paid += getOwnerTotalPaid(person.ownerId);
-        }
-        if (person.residentId) {
-            state.units.forEach(u => { if (u.residentId === person.residentId) residentShare += breakdown[u.id].resident; });
-            paid += getResidentTotalPaid(person.residentId);
-        }
+    
+    Object.keys(persons).forEach(userId => {
+        const person = persons[userId];
+        let ownerShare = 0, residentShare = 0;
+        
+        state.units.forEach(u => {
+            if (u.ownerId === userId) ownerShare += breakdown[u.id].owner;
+            if (u.residentId === userId) residentShare += breakdown[u.id].resident;
+        });
+        
+        const paid = getPayerTotalPaid(userId);
         const totalShare = ownerShare + residentShare;
         const balance = paid - totalShare;
-        totalOwnerShareAll += ownerShare; totalResidentShareAll += residentShare; totalPaidAll += paid;
-        const statusBadge = balance >= 0 ? `<span class="badge badge-success">✓ طلبکار</span>` : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
-        html += `<tr><td>${toPersianNum(idx++)}</td><td style="font-weight:700;">${escapeHtml(person.name)}</td><td style="color:#92400e; font-weight:700;">${formatNumber(ownerShare)}</td><td style="color:#9d174d; font-weight:700;">${formatNumber(residentShare)}</td><td style="color:var(--primary); font-weight:800;">${formatNumber(totalShare)}</td><td style="color:var(--success); font-weight:700;">${formatNumber(paid)}</td><td style="font-weight:800; color:${balance >= 0 ? 'var(--success)' : 'var(--danger)'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td><td>${statusBadge}</td></tr>`;
+        
+        if (totalShare === 0 && paid === 0) return;
+        
+        totalOwnerShareAll += ownerShare;
+        totalResidentShareAll += residentShare;
+        totalPaidAll += paid;
+        
+        const prefix = person.gender === 'female' ? 'خانم' : 'آقای';
+        const statusBadge = balance >= 0 
+            ? `<span class="badge badge-success">✓ طلبکار ${balance > 0 ? formatNumber(balance) : ''}</span>` 
+            : `<span class="badge badge-danger">بدهکار ${formatNumber(Math.abs(balance))}</span>`;
+        
+        html += `<tr>
+            <td>${toPersianNum(idx++)}</td>
+            <td style="font-weight:700;">${prefix} ${escapeHtml(person.name)}</td>
+            <td style="color:#92400e; font-weight:700;">${formatNumber(ownerShare)}</td>
+            <td style="color:#9d174d; font-weight:700;">${formatNumber(residentShare)}</td>
+            <td style="color:var(--primary); font-weight:800;">${formatNumber(totalShare)}</td>
+            <td style="color:var(--success); font-weight:700;">${formatNumber(paid)}</td>
+            <td style="font-weight:800; color:${balance >= 0 ? 'var(--success)' : 'var(--danger)'};">${balance >= 0 ? '+' : ''}${formatNumber(balance)}</td>
+            <td>${statusBadge}</td>
+        </tr>`;
     });
+    
     const totalAll = totalOwnerShareAll + totalResidentShareAll;
-    html += `<tr class="total-row"><td colspan="2">جمع کل</td><td style="color:#92400e;">${formatNumber(totalOwnerShareAll)}</td><td style="color:#9d174d;">${formatNumber(totalResidentShareAll)}</td><td>${formatNumber(totalAll)}</td><td>${formatNumber(totalPaidAll)}</td><td colspan="2">—</td></tr></tbody></table></div>`;
+    html += `<tr class="total-row"><td colspan="2">جمع کل</td>
+        <td style="color:#92400e;">${formatNumber(totalOwnerShareAll)}</td>
+        <td style="color:#9d174d;">${formatNumber(totalResidentShareAll)}</td>
+        <td>${formatNumber(totalAll)}</td>
+        <td>${formatNumber(totalPaidAll)}</td>
+        <td colspan="2">—</td></tr></tbody></table></div>`;
+    
     container.innerHTML = html;
 }
 function renderTravelJournalTable() {
