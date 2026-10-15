@@ -856,20 +856,20 @@ async function navigateTo(page) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (page === 'dashboard') renderDashboard();
     if (page === 'units') {
-    await loadUnits();
-    renderUnits();
-    await refreshUnitDropdowns();
-    // ⭐ اگه Super Admin هست، دراپ‌داون ساختمون رو نشون بده
-    if (currentProfile?.role === 'super_admin') {
-        const grp = document.getElementById('unitBuildingGroup');
-        const sel = document.getElementById('unitBuildingSelect');
-        if (grp) grp.style.display = 'block';
-        if (sel) {
-            const { data: buildings } = await sb.from('buildings').select('*');
-            sel.innerHTML = (buildings || []).map(b => `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join('');
+        await loadProfilesCache();      // ⭐ اضافه شد
+        await loadUnits();
+        renderUnits();
+        await refreshUnitDropdowns();   // ⭐ الان بعد از cache
+        if (currentProfile?.role === 'super_admin') {
+            const grp = document.getElementById('unitBuildingGroup');
+            const sel = document.getElementById('unitBuildingSelect');
+            if (grp) grp.style.display = 'block';
+            if (sel) {
+                const { data: buildings } = await sb.from('buildings').select('*');
+                sel.innerHTML = (buildings || []).map(b => `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join('');
+            }
         }
     }
-}
     if (page === 'expenses') { loadExpenses().then(() => renderExpenses()); }
     if (page === 'charges') { loadCharges().then(() => renderCharges()); }
     if (page === 'travel') { loadCompanions().then(() => { renderCompanions(); updateTravelPayerOptions(); }); loadTravelExpenses().then(() => { renderTravelExpenses(); renderTravelSettlement(); }); }
