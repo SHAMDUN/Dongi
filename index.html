@@ -2141,21 +2141,38 @@ async function htmlToPDF(html, filename) {
         const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
         const pdfWidth = 210, pdfHeight = 297;
         const pxPerMm = canvas.width / pdfWidth;
-        const pageHeightPx = Math.floor(pdfHeight * pxPerMm);
+        const maxPageHeightPx = Math.floor(pdfHeight * pxPerMm);
+        
+        // ⭐ پیدا کردن مرزهای ردیف‌های جدول (با pixel scanning)
+        const ctx = canvas.getContext('2d');
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const rowBreaks = findBlankRows(imgData, canvas.width, canvas.height, maxPageHeightPx);
+        
         let pos = 0, pageNum = 0;
         while (pos < canvas.height) {
             if (pageNum > 0) pdf.addPage();
-            const sliceH = Math.min(pageHeightPx, canvas.height - pos);
+            
+            // ⭐ پیدا کردن پایان صفحه - نزدیک‌ترین مرز ردیف
+            let endPos = Math.min(pos + maxPageHeightPx, canvas.height);
+            if (endPos < canvas.height) {
+                // یه مرز ردیف نزدیک endPos پیدا کن
+                const nearestBreak = rowBreaks.filter(b => b > pos + maxPageHeightPx * 0.7 && b <= pos + maxPageHeightPx);
+                if (nearestBreak.length > 0) {
+                    endPos = nearestBreak[nearestBreak.length - 1];
+                }
+            }
+            
+            const sliceH = endPos - pos;
             const pc = document.createElement('canvas');
             pc.width = canvas.width;
             pc.height = sliceH;
-            const ctx = pc.getContext('2d');
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, pc.width, pc.height);
-            ctx.drawImage(canvas, 0, pos, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+            const pctx = pc.getContext('2d');
+            pctx.fillStyle = '#ffffff';
+            pctx.fillRect(0, 0, pc.width, pc.height);
+            pctx.drawImage(canvas, 0, pos, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
             const pd = pc.toDataURL('image/jpeg', 0.95);
             pdf.addImage(pd, 'JPEG', 0, 0, pdfWidth, sliceH / pxPerMm);
-            pos += sliceH;
+            pos = endPos;
             pageNum++;
         }
         const pdfBlob = pdf.output('blob');
@@ -2166,6 +2183,29 @@ async function htmlToPDF(html, filename) {
     } finally {
         document.body.removeChild(wrapper);
     }
+}
+
+// ⭐ پیدا کردن ردیف‌های سفید (فاصله بین ردیف‌ها)
+function findBlankRows(imgData, width, height, maxPageHeight) {
+    const breaks = [];
+    const data = imgData.data;
+    // هر ردیف رو چک کن
+    for (let y = 50; y < height - 50; y++) {
+        let isBlank = true;
+        // به صورت نمونه، هر ۲۰ پیکسل عرض چک کن
+        for (let x = 10; x < width - 10; x += 20) {
+            const idx = (y * width + x) * 4;
+            // اگه رنگش سفید نبود
+            if (data[idx] < 250 || data[idx+1] < 250 || data[idx+2] < 250) {
+                isBlank = false;
+                break;
+            }
+        }
+        if (isBlank) {
+            breaks.push(y);
+        }
+    }
+    return breaks;
 }
 async function exportExpensesPDF() {
     if (state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
