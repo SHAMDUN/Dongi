@@ -2019,15 +2019,14 @@ function renderTravelJournalTable() {
 
 // ==================== UNIVERSAL DOWNLOAD (WEB SHARE API) ====================
 async function downloadFileUniversal(blob, filename, mimeType) {
-    // ⭐ اول از Share API استفاده کن (برای موبایل عالیه)
-    if (navigator.share) {
+    // ⭐ تشخیص موبایل یا دسکتاپ
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    
+    // ⭐ فقط تو موبایل از Share API استفاده کن
+    if (isMobile && navigator.share) {
         try {
             const file = new File([blob], filename, { type: mimeType });
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({ files: [file], title: filename });
-                showToast('✅ فایل آماده شد', 'success');
-                return true;
-            } else {
                 await navigator.share({ files: [file], title: filename });
                 showToast('✅ فایل آماده شد', 'success');
                 return true;
@@ -2038,7 +2037,7 @@ async function downloadFileUniversal(blob, filename, mimeType) {
         }
     }
     
-    // ⭐ اگه Share کار نکرد (دسکتاپ)، دانلود معمولی
+    // ⭐ دسکتاپ یا اگه Share کار نکرد → دانلود مستقیم
     try {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
