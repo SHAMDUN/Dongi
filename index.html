@@ -452,6 +452,7 @@ html.dark-mode .toggle-btn { background: #1e293b; border-color: #334155; color: 
     <div class="card">
         <div class="card-header"><div class="card-title"><i class="fas fa-plus-circle icon-primary"></i> افزودن واحد جدید</div></div>
         <div class="form-group"><label>نام / شماره واحد <span class="required">*</span></label><input type="text" class="form-control" id="unitName" placeholder="مثال: واحد ۱"></div>
+        <div class="form-group" id="unitBuildingGroup" style="display:none;"><label>ساختمان <span class="required">*</span></label><select class="form-select" id="unitBuildingSelect"></select></div>
         <div class="form-group"><label>نام ساکن <span class="required">*</span></label><select class="form-select" id="unitResidentSelect"><option value="">— ابتدا از «کاربران» ساکن اضافه کن —</option></select></div>
         <div class="form-group"><label class="checkbox-wrap" for="unitIsTenant"><input type="checkbox" id="unitIsTenant" onchange="toggleTenantFields()"><span><i class="fas fa-key"></i> این واحد اجاره داده شده (ساکن مستاجر است)</span></label></div>
         <div id="tenantFields" style="display:none;">
@@ -854,7 +855,21 @@ function navigateTo(page) {
     closeSidebar();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (page === 'dashboard') renderDashboard();
-    if (page === 'units') { loadUnits().then(() => renderUnits()); refreshUnitDropdowns(); }
+    if (page === 'units') {
+    await loadUnits();
+    renderUnits();
+    await refreshUnitDropdowns();
+    // ⭐ اگه Super Admin هست، دراپ‌داون ساختمون رو نشون بده
+    if (currentProfile?.role === 'super_admin') {
+        const grp = document.getElementById('unitBuildingGroup');
+        const sel = document.getElementById('unitBuildingSelect');
+        if (grp) grp.style.display = 'block';
+        if (sel) {
+            const { data: buildings } = await sb.from('buildings').select('*');
+            sel.innerHTML = (buildings || []).map(b => `<option value="${b.id}">${escapeHtml(b.name)}</option>`).join('');
+        }
+    }
+}
     if (page === 'expenses') { loadExpenses().then(() => renderExpenses()); }
     if (page === 'charges') { loadCharges().then(() => renderCharges()); }
     if (page === 'travel') { loadCompanions().then(() => { renderCompanions(); updateTravelPayerOptions(); }); loadTravelExpenses().then(() => { renderTravelExpenses(); renderTravelSettlement(); }); }
@@ -1143,8 +1158,15 @@ async function addUnit() {
     if (!residentId) return showToast('ساکن را انتخاب کنید', 'error');
     if (!area || area <= 0) return showToast('متراژ معتبر وارد کنید', 'error');
     if (!ownerId) return showToast('مالک را انتخاب کنید', 'error');
+    // ⭐ تعیین building_id
+let buildingId = currentProfile.building_id;
+if (currentProfile?.role === 'super_admin') {
+    buildingId = document.getElementById('unitBuildingSelect')?.value;
+    if (!buildingId) return showToast('ساختمون رو انتخاب کن', 'error');
+}
+if (!buildingId) return showToast('ساختمون مشخص نیست', 'error');
     const { error } = await sb.from('units').insert({
-        building_id: currentProfile.building_id || currentProfile.id,
+        building_id: buildingId,
         name, resident_id: residentId, is_tenant: isTenant, owner_id: ownerId,
         rent_start: isTenant ? rentStart : null, rent_end: isTenant ? rentEnd : null,
         area, residents_count: residents
