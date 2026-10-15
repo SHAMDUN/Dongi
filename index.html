@@ -2200,26 +2200,42 @@ async function htmlToPDF(html, filename) {
     }
 }
 // ⭐ پیدا کردن ردیف‌های سفید (فاصله بین ردیف‌ها)
+// ⭐ پیدا کردن وسط گروه‌های خطوط سفید
 function findBlankRows(imgData, width, height, maxPageHeight) {
-    const breaks = [];
     const data = imgData.data;
-    // هر ردیف رو چک کن
-    for (let y = 50; y < height - 50; y++) {
+    const blankRows = [];
+    
+    for (let y = 5; y < height - 5; y++) {
         let isBlank = true;
-        // به صورت نمونه، هر ۲۰ پیکسل عرض چک کن
-        for (let x = 10; x < width - 10; x += 20) {
+        for (let x = 10; x < width - 10; x += 15) {
             const idx = (y * width + x) * 4;
-            // اگه رنگش سفید نبود
+            // ⭐️ آستانه بالاتر: هر چیزی که تقریباً سفیده
             if (data[idx] < 250 || data[idx+1] < 250 || data[idx+2] < 250) {
                 isBlank = false;
                 break;
             }
         }
-        if (isBlank) {
-            breaks.push(y);
+        if (isBlank) blankRows.push(y);
+    }
+    
+    // ⭐️ گروه‌بندی خطوط سفید پیوسته
+    const groups = [];
+    let start = null;
+    for (let i = 0; i < blankRows.length; i++) {
+        if (start === null) {
+            start = blankRows[i];
+        } else if (blankRows[i] - blankRows[i-1] > 1) {
+            // گروه جدید
+            groups.push(Math.floor((start + blankRows[i-1]) / 2));  // وسط گروه
+            start = blankRows[i];
         }
     }
-    return breaks;
+    if (start !== null) {
+        groups.push(Math.floor((start + blankRows[blankRows.length-1]) / 2));
+    }
+    
+    console.log('📄 تعداد گروه‌های سفید:', groups.length);
+    return groups;
 }
 async function exportExpensesPDF() {
     if (state.expenses.length === 0) return showToast('داده‌ای نیست', 'warning');
