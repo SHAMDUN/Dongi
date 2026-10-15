@@ -1985,7 +1985,7 @@ function renderPersonsTable() {
     if (state.units.length === 0) { container.innerHTML = `<div class="empty-state"><span class="emoji">🤝</span><h3>هنوز واحدی ثبت نشده</h3></div>`; return; }
     const bd = computeUnitSharesBreakdown();
     const persons = Object.values(cachedProfiles).filter(p => p.role !== 'super_admin' && p.role !== 'manager' && p.building_id === (currentProfile.role === 'super_admin' ? p.building_id : currentProfile.building_id));
-    let html = `<div class="table-scroll"><table class="data-table"><thead><tr><th>#</th><th>نام</th><th>سهم مالکانه</th><th>سهم ساکنانه</th><th>جمع</th><th>پرداختی</th><th>مانده</th><th>وضعیت</th></tr></thead><tbody>`;
+    let html = `<div class="table-scroll"><table class="data-table"><thead><tr><th>#</th><th>نام</th><th>سهم مالک</th><th>سهم ساکن</th><th>جمع</th><th>پرداختی</th><th>مانده</th><th>وضعیت</th></tr></thead><tbody>`;
     let idx = 1, totOwnAll = 0, totResAll = 0, totPaidAll = 0;
     persons.forEach(p => {
         let ownerShare = 0, residentShare = 0;
@@ -2105,7 +2105,7 @@ async function exportJournalExcel(type) {
         let os = 0, rs = 0;
         state.units.forEach(u => { if (u.owner_id === p.id) os += bd[u.id].owner; if (u.resident_id === p.id) rs += bd[u.id].resident; });
         const paid = getPayerTotalPaid(p.id);
-        return { 'ردیف': i + 1, 'نام': p.name, 'سهم مالکانه': Math.round(os), 'سهم ساکنانه': Math.round(rs), 'جمع': Math.round(os + rs), 'پرداختی': paid, 'مانده': Math.round(paid - os - rs) };
+        return { 'ردیف': i + 1, 'نام': p.name, 'سهم مالک': Math.round(os), 'سهم ساکن': Math.round(rs), 'جمع': Math.round(os + rs), 'پرداختی': paid, 'مانده': Math.round(paid - os - rs) };
     }).filter(x => x['جمع'] > 0 || x['پرداختی'] > 0);
     if (personsData.length > 0) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(personsData), 'حساب همسایگان');
     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
@@ -2243,7 +2243,7 @@ async function exportJournalPDF(type) {
         content += `<tr><td style="${tdStyle()};font-weight:700;">${escapeHtml(u.name)}</td><td style="${tdStyle()}">${escapeHtml(getFullName(u.resident_id))}</td><td style="${tdStyle()}">${escapeHtml(getFullName(u.owner_id))}</td><td style="${tdStyle()};color:#9d174d;">${formatNumber(bd[u.id].resident)}</td><td style="${tdStyle()};color:#92400e;">${formatNumber(bd[u.id].owner)}</td><td style="${tdStyle()};color:#6366f1;font-weight:700;">${formatNumber(ts)}</td><td style="${tdStyle()};color:#059669;">${formatNumber(paid)}</td><td style="${tdStyle()};font-weight:800;color:${bal >= 0 ? '#059669' : '#dc2626'};">${bal >= 0 ? '+' : ''}${formatNumber(bal)}</td></tr>`;
     });
     content += `</tbody></table>`;
-    content += `<h2 style="font-size:14px;margin:20px 0 10px 0;">🤝 حساب همسایگان</h2><table style="${tableStyle()}"><thead><tr><th style="${thStyle()}">نام</th><th style="${thStyle()}">مالکانه</th><th style="${thStyle()}">ساکنانه</th><th style="${thStyle()}">جمع</th><th style="${thStyle()}">پرداختی</th><th style="${thStyle()}">مانده</th></tr></thead><tbody>`;
+    content += `<h2 style="font-size:14px;margin:20px 0 10px 0;">🤝 حساب همسایگان</h2><table style="${tableStyle()}"><thead><tr><th style="${thStyle()}">نام</th><th style="${thStyle()}">مالک</th><th style="${thStyle()}">ساکن</th><th style="${thStyle()}">جمع</th><th style="${thStyle()}">پرداختی</th><th style="${thStyle()}">مانده</th></tr></thead><tbody>`;
     Object.values(cachedProfiles).filter(p => p.role !== 'super_admin' && p.role !== 'manager').forEach(p => {
         let os = 0, rs = 0;
         state.units.forEach(u => { if (u.owner_id === p.id) os += bd[u.id].owner; if (u.resident_id === p.id) rs += bd[u.id].resident; });
